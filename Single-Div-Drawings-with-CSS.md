@@ -1,6 +1,6 @@
 # Single Div Drawings with CSS
 
-# 基于单个Div的CSS绘图
+# 基于单个 Div 的 CSS 绘图
 
 ## Why A Single Div?
 
@@ -8,7 +8,7 @@
 
 In May of 2013 I attended CSSConf and saw Lea Verou speak about the humble border-radius. It was an eye-opening talk and I realized there was much about CSS behavior I did not fully understand. This reminded me of my time as a fine arts student where I was constantly pushed to become a master of my chosen medium. As a web designer, CSS is my medium and so I challenged myself to learn all I could about it and to explore and experiment with its limits.
 
-2013年5月，我参加了 CSSConf，看到了Lea Verou 关于 border-radius 的演讲，你可能会认为这个属性很不起眼。但是这个演讲让我大开眼界，认识到 CSS 还有很多行为我是不了解的。回忆起我还是艺术生的那段时光，不断地推动着我成为所选媒介的专家。作为一个 Web 设计师，CSS 是我的媒介，因此我尽我所能地学习，探索它的极限。
+2013年5月，我参加了 CSSConf，看到了[Lea Verou 关于 border-radius 的演讲](http://2013.cssconf.com/talk-verou.html)，你可能会认为这个属性很不起眼。但是这个演讲让我大开眼界，认识到 CSS 还有很多行为我是不了解的。回忆起我还是艺术生的那段时光，不断地推动着我成为所选媒介的专家。作为一个 Web 设计师，CSS 是我的媒介，因此我尽我所能地学习，探索它的极限。
 
 ### But why a single div?
 
@@ -20,7 +20,7 @@ When I was learning to paint, my class did these color mixing exercises where we
 
 I decided to start a CSS drawing project, every few days illustrating something new with only CSS. To further challenge and explore what CSS is capable of, I gave myself the constraint of using only a single div in the markup. Instead of buying green paint (or adding another div), I’d need to stretch and combine CSS properties to achieve my goals.
 
-我决定开始一个使用 CSS 绘画的项目，过段时间我就会给出一个只用 CSS 绘制的新东西。为了得到更大的挑战，探索 CSS 的潜力，我给自己定了这个限制，只是用一个 Div。不能直接买一只绿色的笔（添加更多的 Div），我要做的就是尽其所能地结合 CSS 属性来实现我的目的。
+我决定开始一个使用 [CSS 绘画的项目](http://a.singlediv.com/)，过段时间我就会给出一个只用 CSS 绘制的新东西。为了得到更大的挑战，探索 CSS 的潜力，我给自己定了这个限制，只是用一个 Div。不能直接买一只绿色的笔（添加更多的 Div），我要做的就是尽其所能地结合 CSS 属性来实现我的目的。
 
 ## The Toolkit
 
@@ -295,13 +295,23 @@ And that’s it!
 
 ### Let’s take a look at another one
 
-### 让我们看看另外一个实例
+### 另外一个实例
 
 The crayon is a good example of using background-image and gradients to produce realistic results. Here’s an example that shows the power of multiple box-shadows: a single div camera.
 
+蜡笔作为一个不错的例子，很好地展示了如何使用 background-image 和 gradient 来产生真实的效果。下面这个例子将展示多个 box-shadow 的强大之处：单 div 的照相机。
+
 Here’s the body of the camera, created with background-image and border-image.
 
+这是照相机的主体部分，使用 background-image 和 border-image 制作的。
+
+![camera body](https://hacks.mozilla.org/wp-content/uploads/2014/09/asinglediv-14.png)
+
 Here’s a gif illustrating the :before pseudo element (the black rectangle) and the many details created with its box-shadows.
+
+下面是一张 gif，展示 :before 伪类元素（黑色的那个矩形），以及使用它的 box-shadow 创建出来的很多照相机的细节部分。
+
+![camera rectangle](https://hacks.mozilla.org/wp-content/uploads/2014/09/asinglediv-15.gif)
 
     div:before {
         background: #333;
@@ -325,6 +335,10 @@ Here’s a gif illustrating the :before pseudo element (the black rectangle) and
     }
 
 Similarly, here’s the :after (the grey circle) and its several box-shadow details.
+
+类似的，下面是 :after（灰色的圆）以及使用它的 box-shadow 制作的几个细节部分。
+
+![camera circle](https://hacks.mozilla.org/wp-content/uploads/2014/09/asinglediv-16.gif)
 
     div:after {
         background: linear-gradient(45deg, #ccc 40%, #ddd 100%);
@@ -365,17 +379,25 @@ Similarly, here’s the :after (the grey circle) and its several box-shadow deta
     
 A little crazy, but as you can see, multiple box-shadows can add a lot of detail to a single div drawing.
 
+有点疯狂？不过你看到了吧， 多个 box-shadow 确实可以给使用单个 div 绘图添加很多细节部分。
+
 ## Biggest challenges
 
 ## 最大的挑战
 
 Two of the biggest obstacles I came across were limitations around triangle shapes and the natural behavior of gradients.
 
+我碰到了两个最大的挑战，三角形的限制和 gradient 独特的行为。
+
 ### The trouble with triangles
 
 ### 三角形的问题
 
 Because triangles are created using borders, it limits how much I can do with them. Adding gradients with border-image apply to all the borders, not just one side. Box-shadows apply to the shape of the box, not the triangle shape the border creates, so creating multiple triangle shapes can be difficult. Here’s an example of what that looks like:
+
+因为三角形是使用 border 创建的，这极大地限制了我对它的利用。使用 border-image 给 border 添加 gradient，不能单独添加其中一边。无法给 border 创建出来的三角形添加 box-shadow，因为 box-shadow 是添加在盒模型上的。因此要创建多个三角形就会很困难。看起来就是下面这样：
+
+![trouble with triangles](https://hacks.mozilla.org/wp-content/uploads/2014/09/asinglediv-17.png)
 
     div {
         border-left: 80px solid transparent;
@@ -403,18 +425,35 @@ Because triangles are created using borders, it limits how much I can do with th
 
 With gradients, their natural behavior is to fill the entire background. This can get a little tricky when layering multiple gradients on top of each other. It takes some extra time to think through transparency, z-index, and understanding what will and won’t be visible. By using this technique effectively, our drawings can have surprising detail.
 
+渐变的行为就是会填满整个 background。在堆叠多个 gradient 的时候就显得很讲技巧。需要花费额外的时间思考透明度、z-index这些事，还要搞清楚什么要可见，什么不要。不过若能有效地使用 gradient，我的绘图可以包含很多令人惊叹的细节。
+
 The Tardis is a good example of showing and hiding gradients to create a detailed picture. Here’s the drawing mid-process that shows some of the top-to-bottom gradients that span the entire width of the container.
+
+Tardis 就是一个很好的例子，显示或影藏渐变，创建了一张细节极强的图片。下图显示的是绘制的中间过程，可以看到数个从顶部到底部的渐变，宽度填满整个容器。
+
+![single div tardis in-process](https://hacks.mozilla.org/wp-content/uploads/2014/09/asinglediv-18.png)
 
 Using left-to-right and right-to-left gradients, I was able to cover parts of the gradient and leave some parts exposed.
 
+使用从左到右和从右到左的 gradient，我可以遮住一部分渐变，同时把其他部分渐变显示出来。
+
+![single div tardis in-process](https://hacks.mozilla.org/wp-content/uploads/2014/09/asinglediv-19.png)
+
 The resulting drawing appears to have many shapes making up the front facade of the Tardis, but it’s strategically layered linear-gradients. Sometimes you have to fake it.
+
+最终的结果看上去包含了很多图形来构成 Tardis 的前面，但实际上它就是层叠的 linear-gradient。很多时候不得不伪造呀。
+
 
 ## See them in action
 
-## 动手试试
+## 动态地查看它们
 
 One awesome thing that popped up because of this project is a really cool and useful Chrome browser extension by Rafael Carício called CSS Gradient Inspector. It extends the developer tools to inspect and toggle on/off each element’s gradients as if they were layers. (It’s very helpful with everyday projects, too.)
 
+源于这个项目，有一个非常酷非常有用的好东西突然出现，那就是 [Rafael Carício](https://twitter.com/rafaelcaricio) 开发的名为 [CSS Gradient Inspector](https://chrome.google.com/webstore/detail/css-gradient-inspector/blklpjonlhpakchaahdnkcjkfmccmdik) 的 Chrome 浏览器插件。这个开发工具可以探测且可以开关元素上的每一个 gradient，看起来就像开关一个个层。（它在日常项目中也非常有用。）
+
 I’m super excited to see designers and developers experimenting and riffing on these drawings with animations and JavaScript functionality. Check out the site and play around with the CSS yourself at a.singlediv.com or on GitHub!
+
+我希望设计师和开发者使用动画或者 JavaScript 的功能来做类似的尝试，或者对这些绘画做一些变形。你可以到 [a.singlediv.com](http://a.singlediv.com/) 或者 [GitHub](https://github.com/lynnandtonic/a-single-div) 上把玩一下这些 CSS。
 
 原文：[Single Div Drawings with CSS](https://hacks.mozilla.org/2014/09/single-div-drawings-with-css/﻿)
