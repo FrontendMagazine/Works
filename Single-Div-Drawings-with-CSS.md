@@ -8,13 +8,19 @@
 
 In May of 2013 I attended CSSConf and saw Lea Verou speak about the humble border-radius. It was an eye-opening talk and I realized there was much about CSS behavior I did not fully understand. This reminded me of my time as a fine arts student where I was constantly pushed to become a master of my chosen medium. As a web designer, CSS is my medium and so I challenged myself to learn all I could about it and to explore and experiment with its limits.
 
+2013年5月，我参加了 CSSConf，看到了Lea Verou 关于 border-radius 的演讲，你可能会认为这个属性很不起眼。但是这个演讲让我大开眼界，认识到 CSS 还有很多行为我是不了解的。回忆起我还是艺术生的那段时光，不断地推动着我成为所选媒介的专家。作为一个 Web 设计师，CSS 是我的媒介，因此我尽我所能地学习，探索它的极限。
+
 ### But why a single div?
 
 ### 为什么只有一个 Div？
 
 When I was learning to paint, my class did these color mixing exercises where we created the many colors of the spectrum from only the three primary colors: red, yellow, and blue. The purpose of the exercise is to learn the behavior of the medium and the constraints show us the power of combination. You can certainly buy green paint, but you can also create green from blue and yellow. Restricting your available options forces you to re-evaluate the tools you already have.
 
+回忆我以前学画的时候，课堂上还做了混合颜色的实验，我们就使用三原色，红、黄、蓝，创造出了其他颜色的光谱。这个实验的目的是让我们了解颜色的特性，同时这种限制也让我们明白了混合的力量。你当然可以买一只绿色的笔，但是你也可以使用蓝色和黄色把绿色做出来。限制你的可选项，会让你重新评估手头上已有的工具。
+
 I decided to start a CSS drawing project, every few days illustrating something new with only CSS. To further challenge and explore what CSS is capable of, I gave myself the constraint of using only a single div in the markup. Instead of buying green paint (or adding another div), I’d need to stretch and combine CSS properties to achieve my goals.
+
+我决定开始一个使用 CSS 绘画的项目，过段时间我就会给出一个只用 CSS 绘制的新东西。为了得到更大的挑战，探索 CSS 的潜力，我给自己定了这个限制，只是用一个 Div。不能直接买一只绿色的笔（添加更多的 Div），我要做的就是尽其所能地结合 CSS 属性来实现我的目的。
 
 ## The Toolkit
 
@@ -22,11 +28,17 @@ I decided to start a CSS drawing project, every few days illustrating something 
 
 With only a single div and browser-supported CSS properties, it may seem like the tools are too limited. I found it’s not always what you have to work with, but how you look at them.
 
+一个 Div 加上浏览器支持的那些 CSS 属性，看起来可用的工具太少了。但是我发现问题不在于你在使用多少东西，而在于你如何看待你在使用的东西。
+
 ### Pseudo elements
 
 ## 伪元素
 
 With one div in the HTML, I actually have three elements to work with because of CSS pseudo classes. So with div, div:before, and div:after, we can get something like this:
+
+因为 CSS 有伪类，所以虽然只有一个 Div，但实际上我可以使用三个元素。因此，使用 `div`，`div:before`，`div:after`，我们可以这样：
+
+![pseudo elements](https://hacks.mozilla.org/wp-content/uploads/2014/09/asinglediv-1.png)
 
     div { background: red; }
     div:before { background: yellow; }
@@ -34,19 +46,33 @@ With one div in the HTML, I actually have three elements to work with because of
 
 It helps to think about these three elements as things that can come in sequence and as three stackable layers. So in my mind, it would usually look more like this:
 
+容易想到，这三个元素可以并排成为三个叠在一起的层。因此，在我的脑海中，它看起来是下面这样的：
+
+![pseudo elements as layers](https://hacks.mozilla.org/wp-content/uploads/2014/09/asinglediv-2.png)
+
 ### Shapes
 
 ### 形状
 
 With CSS and one element, we are afforded three basic shape types. We can use width and height properties to create squares/rectangles, border-radius to create circles/ellipses, and border to create triangles/trapezoids.
 
+使用 CSS 和单个元素，我们可以制作三种基础图形。使用 width 和 height 属性制作正方形/矩形，使用 border-radius 制作圆/椭圆，使用 border 制作三角形/梯形。
+
+![css shapes](https://hacks.mozilla.org/wp-content/uploads/2014/09/asinglediv-3.png)
+
 There are others we can create with CSS, but most things can be simplified to some combination of these shapes. And these are the easiest to create and manipulate.
+
+我们还可以使用 CSS 创建其他图形，不过大部分都可以简单组合这些基础图形来实现，这些简单的图形最容易制作，也最容易修改。
 
 ### Multiples of the same shape
 
 ### 多个相同的形状
 
 With multiple box-shadows, we can create many versions of the same shape in varying size, color, and blur. Offsetting them on the x- and y-axes gives us almost endless multiples.
+
+使用叠加的 box-shadow，我们可以创建多个相同的形状，这些形状可以拥有不一样的大小、颜色和模糊效果。我们可以在x或者y轴上移动这些图形，因此几乎可以绘制无限的图形。
+
+![multiple box-shadows](https://hacks.mozilla.org/wp-content/uploads/2014/09/asinglediv-4.png)
 
     div {
         box-shadow: 170px 0 10px yellow,
@@ -56,11 +82,17 @@ With multiple box-shadows, we can create many versions of the same shape in vary
 
 We can even give our box-shadows box-shadows. Pay attention to the order they are declared. Again, It’s helpful to think of them as layers.
 
+我们甚至可以给 box-shadow 添加 box-shadow。注意它们申明顺序。再者，把它们当做层更容易理解。
+
 ### Gradients
 
 ### 渐变
 
 Gradients can be used to add shading and depth by implying a light source. This makes the simple, flat shapes feel more realistic. Combining multiple background-images allows us to use many, layered gradients to achieve more complex shading and even more shapes.
+
+渐变通过给定一个光源，可以被用来制造明暗和深浅效果，可以让简单扁平的图形看起来更真实。结合多个 background-image，我们可以使用很多层的渐变来实现更加复杂光影，甚至是更多的图形。
+
+![gradients](https://hacks.mozilla.org/wp-content/uploads/2014/09/asinglediv-5.png)
 
     div {
         background-image: linear-gradient(to right, gray, white, gray, black);
@@ -73,9 +105,11 @@ Gradients can be used to add shading and depth by implying a light source. This 
 
 ### Visualizing
 
-### 呈现
+### 视觉
 
 The most difficult part is visualizing how to piece these parts into a whole recognizable drawing. As much as I focus on the technical aspects of the drawings, this part of the process is critical. To help with this, I’ll often look at a photograph of the subject and break it up visually into pieces. Everything is a shape and everything is a color. I simplify the overall picture into smaller shapes or blocks of color I know can (or suspect can) be achieved with CSS.
+
+最困难的部分视觉，即如何拼凑这些形状成为可被感知的绘图。随着我越来越注重绘图的技巧，发现视觉这一步很重要。为了做到这一点，我常常凝视这主题相关的图片，将其切割为多个可视的部分。都是一个个形状，都是一个个颜色。我把整张图片简化为一些小的带颜色形状或者区块，我知道（大体上）如何使用 CSS 来实现它们。
 
 ## Demos
 
@@ -83,7 +117,13 @@ The most difficult part is visualizing how to piece these parts into a whole rec
 
 Let’s take a closer look at two drawings and break down some of the pieces that make up the larger pictures. First up is the green crayon.
 
+我们一起实际看看两个绘图，并学习如何分解成不同的区块，合成一个大的图形。第一个就是一直绿色的蜡笔。
+
 A crayon is made up of two primary shapes: the rectangular body and the triangular drawing tip.
+
+蜡笔由两个基础图形构成：矩形的笔身和三角形的笔尖。
+
+![crayon shapes](https://hacks.mozilla.org/wp-content/uploads/2014/09/asinglediv-6.png)
 
 I had to guarantee the following things to capture a realistic image:
 
@@ -92,9 +132,19 @@ I had to guarantee the following things to capture a realistic image:
 	•	the shading that shows the roundness of the crayon
 	•	the glossiness that shows roundness and a light source
 
+我必须实现下面这些点来捕获真实蜡笔的感觉：
+
+- 纸质包装上不同的颜色
+- 印刷在包装上的形状和文字
+- 条纹暗示蜡笔是圆的
+- 明暗效果，暗示圆形的蜡笔和光源
+
+
 So first, I created the main body of the crayon with the div and a background color, top-to-bottom gradient, and box-shadow to show some dimension:
 
-(Note, I’m using a mixin of black(a) and white(a) here in place of rgba)
+首先，我使用 Div 和 background 颜色制作蜡笔的身体部分，从顶部到底部渐变，并使用 box-shadow 暗示立体感：
+
+![crayon body](https://hacks.mozilla.org/wp-content/uploads/2014/09/asinglediv-7.png)
 
     div {
         background: #237449;
@@ -106,6 +156,10 @@ So first, I created the main body of the crayon with the div and a background co
 
 Then I added a left-to-right linear-gradient to create the wrapper. It has an alpha value of .6 so some of that previous gradient shows through.
 
+然后，我使用一个从左到右的 linear-gradient 制作纸包装。alpha 值为.6，这样的之前的渐变可以透出来。
+
+![crayon wrapper](https://hacks.mozilla.org/wp-content/uploads/2014/09/asinglediv-8.png)
+
     div {
         background-image: linear-gradient(to right,
                                       transparent 12px,
@@ -115,6 +169,10 @@ Then I added a left-to-right linear-gradient to create the wrapper. It has an al
     }
 
 Next I used the same left-to-right gradient technique to create the printed stripes on the crayon.
+
+接下来，我继续使用同样的方式，从左到右渐变，制作蜡笔上的条纹。
+
+![crayon printing](https://hacks.mozilla.org/wp-content/uploads/2014/09/asinglediv-9.png)
 
     div {
         background-image: linear-gradient(to right,
@@ -138,6 +196,10 @@ Next I used the same left-to-right gradient technique to create the printed stri
 
 And for the printed ellipse, a radial-gradient works great!
 
+纸包装上印刷的椭圆，使用一个 radial-gradient 轻松搞定！
+
+![crayon printing](https://hacks.mozilla.org/wp-content/uploads/2014/09/asinglediv-10.png)
+
     div {
         background-image: radial-gradient(ellipse at top,
                                       black(.6) 50px,
@@ -145,6 +207,8 @@ And for the printed ellipse, a radial-gradient works great!
     }
 
 I have it broken up to demonstrate each piece, but keep in mind the background-image would actually look like this:
+
+我刚才单独展示了各个部分，不过别忘了 background-image 看起来是这样的：
 
     div {
                           // ellipse printed on wrapper
@@ -183,6 +247,10 @@ I have it broken up to demonstrate each piece, but keep in mind the background-i
 
 So after completing the div, I moved on to the :before pseudo element to create the crayon’s triangular tip. Using solid and transparent borders, I made a triangle and positioned it next to the div I just drew.
 
+完成了 div，我们把注意力转移到 :before 伪类元素上，创建蜡笔的笔头。使用实心和透明的边框，我制作了一个三角形，把它和我之前绘制 的 div 放到一起。
+
+![triangle crayon tip](https://hacks.mozilla.org/wp-content/uploads/2014/09/asinglediv-11.png)
+
     div:before {
         height: 10px;
         border-right: 48px solid #237449;
@@ -191,6 +259,10 @@ So after completing the div, I moved on to the :before pseudo element to create 
     }
 
 It looks a little flat next to the crayon’s body, but it will be fixed with the :after pseudo element. With this, I added a top-to-bottom linear-gradient to create a reflective gloss effect that spans the width of the crayon.
+
+比起蜡笔笔杆，笔头看起来有点平，我们可以使用 :after 伪类元素来修复这个问题。我添加一个从顶部到底部的 linear-gradient，制作了一个反光效果，贯穿整只蜡笔。
+
+![crayon gloss](https://hacks.mozilla.org/wp-content/uploads/2014/09/asinglediv-12.png)
 
     div:after {
         background-image: linear-gradient(to bottom,
@@ -201,6 +273,10 @@ It looks a little flat next to the crayon’s body, but it will be fixed with th
     }
 
 This adds even more dimension and realism and helps with that flat triangle. As a finishing touch, I added some text content to the :after and positioned it as another printed element on the crayon’s wrapper.
+
+这给那个扁平的三角形添加更多的层次感，更加真实。制作接近尾声，我给 :after 添加一些文字，定位，使得看起来像是印刷在蜡笔包装上的一样。
+
+![crayon color label](https://hacks.mozilla.org/wp-content/uploads/2014/09/asinglediv-13.png)
 
     div:after {
         content: 'green';
@@ -215,11 +291,14 @@ This adds even more dimension and realism and helps with that flat triangle. As 
 
 And that’s it!
 
+大功告成！
+
 ### Let’s take a look at another one
 
 ### 让我们看看另外一个实例
 
 The crayon is a good example of using background-image and gradients to produce realistic results. Here’s an example that shows the power of multiple box-shadows: a single div camera.
+
 Here’s the body of the camera, created with background-image and border-image.
 
 Here’s a gif illustrating the :before pseudo element (the black rectangle) and the many details created with its box-shadows.
@@ -337,3 +416,5 @@ The resulting drawing appears to have many shapes making up the front facade of 
 One awesome thing that popped up because of this project is a really cool and useful Chrome browser extension by Rafael Carício called CSS Gradient Inspector. It extends the developer tools to inspect and toggle on/off each element’s gradients as if they were layers. (It’s very helpful with everyday projects, too.)
 
 I’m super excited to see designers and developers experimenting and riffing on these drawings with animations and JavaScript functionality. Check out the site and play around with the CSS yourself at a.singlediv.com or on GitHub!
+
+原文：[Single Div Drawings with CSS](https://hacks.mozilla.org/2014/09/single-div-drawings-with-css/﻿)
