@@ -425,11 +425,11 @@ Because triangles are created using borders, it limits how much I can do with th
 
 With gradients, their natural behavior is to fill the entire background. This can get a little tricky when layering multiple gradients on top of each other. It takes some extra time to think through transparency, z-index, and understanding what will and won’t be visible. By using this technique effectively, our drawings can have surprising detail.
 
-渐变的行为就是会填满整个 background。在堆叠多个 gradient 的时候就显得很讲技巧。需要花费额外的时间思考透明度、z-index这些事，还要搞清楚什么要可见，什么不要。不过若能有效地使用 gradient，我的绘图可以包含很多令人惊叹的细节。
+渐变的行为就是会填满整个 background。在堆叠多个 gradient 的时候就显得很讲技巧。需要花费额外的时间思考透明度、z-index这些事，还要搞清楚什么要可见，什么不要。不过若能有效地使用 gradient，我们的绘图可以包含很多令人惊叹的细节。
 
 The Tardis is a good example of showing and hiding gradients to create a detailed picture. Here’s the drawing mid-process that shows some of the top-to-bottom gradients that span the entire width of the container.
 
-Tardis 就是一个很好的例子，显示或影藏渐变，创建了一张细节极强的图片。下图显示的是绘制的中间过程，可以看到数个从顶部到底部的渐变，宽度填满整个容器。
+Tardis 就是一个很好的例子，显示或隐藏渐变，创建了一张细节极强的图片。下图显示的是绘制的中间过程，可以看到数个从顶部到底部的渐变，宽度填满整个容器。
 
 ![single div tardis in-process](https://hacks.mozilla.org/wp-content/uploads/2014/09/asinglediv-18.png)
 
