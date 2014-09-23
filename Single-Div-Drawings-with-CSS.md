@@ -117,7 +117,7 @@ The most difficult part is visualizing how to piece these parts into a whole rec
 
 Let’s take a closer look at two drawings and break down some of the pieces that make up the larger pictures. First up is the green crayon.
 
-我们一起实际看看两个绘图，并学习如何分解成不同的区块，合成一个大的图形。第一个就是一直绿色的蜡笔。
+我们一起仔细看看两个绘图，并学习如何分解成不同的区块，合成一个大的图形。第一个就是一支绿色的蜡笔。
 
 A crayon is made up of two primary shapes: the rectangular body and the triangular drawing tip.
 
