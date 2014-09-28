@@ -1,7 +1,7 @@
 # Built-in Browser Support for Responsive Images
 # 浏览器内建支持的响应式图像
 ## Introducing the <picture> element
-## <picture>元素介绍
+## `<picture>`元素介绍
 The <picture> element offers a declarative approach towards image resource loading. Web developers will no longer need CSS or JavaScript hacks to handle images in responsive designs. And users benefit from natively-optimized image resource loading—especially important for users on slower mobile internet connections.
 
 对于图像资源加载，<picture>元素提供了一种声明的方式。在响应式设计中，Web开发者将不再需要CSS或者JavaScript写hack去控制图片。用户也将受益于这种原生优化过的图片资源加载方式——对那些速度更慢的移动网络连接用户来说更为重要。
