@@ -204,19 +204,25 @@ For example, the viewport on the left is approx. 800px wide. The browser will lo
 With the addition of picture, the sizes attribute can be applied to both imgand source elements:
 
 通过添加picture元素，sizes属性将被应用于img和source两个元素：
+
     <picture>
-        <source media="(min-width: 800px)"
-                sizes="80vw"
-                srcset="lighthouse-landscape-640.jpg 6400w,
-                        lighthouse-landscape-1280.jpg 1280w,
-                        lighthouse-landscape-2560.jpg 2560w">
-        <img src="lighthouse-160.jpg" alt="lighthouse"
-           sizes="80vw"
-           srcset="lighthouse-160.jpg 160w,
-                   lighthouse-320.jpg 320w,
-                   lighthouse-640.jpg 640w,
-                   lighthouse-1280.jpg 1280w">
+        <source 
+          media="(min-width: 650px)" 
+          srcset="images/kitten-stretching.png,
+                  images/kitten-stretching@1.5x.png 1.5x,  
+                  images/kitten-stretching@2x.png 2x">
+        <source 
+          media="(min-width: 465px)" 
+          srcset="images/kitten-sitting.png,
+                  images/kitten-sitting@1.5x.png 1.5x
+                  images/kitten-sitting@2x.png 2x">
+        <img 
+          src="images/kitten-curled.png" 
+          srcset="images/kitten-curled@1.5x.png 1.5x,
+                  images/kitten-curled@2x.png 2x"
+          alt="a cute kitten">
     </picture>
+
 Building on the previous example, when the viewport is at 800px and above, the browser will serve up a landscape version of the lighthouse version instead:
 
 建立在上一个例子上，当视口在800px或者超过800px，浏览器将会提供landscape版本代替lighthouse:
@@ -231,6 +237,7 @@ The type attribute of source can be used to load alternative image file formats 
 
 ## 加载可供选择的图像文件格式
 source元素的type属性可被用于去加载一个可选择的图像文件格式，这可能不会被所有的浏览器支持。比如，对于支持Webp的浏览器可以提供一张Webp格式图片，在其他浏览器上再回到JPEG:
+
     <picture>
         <source type="image/webp" srcset="images/butterfly.webp">
         <img src="images/butterfly.jpg" alt="a butterfly">
