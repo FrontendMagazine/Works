@@ -40,7 +40,7 @@ Can the browser support additional image file types that offer performance boost
 
 ## Use for art direction
 The most common use of the picture element will be for "art direction" in responsive designs. Instead of having one image that is scaled up or down based on the viewport width, multiple images can be designed to more appropriately fill the browser viewport.
-## 醉了。。。
+## 用艺术的方向
 在响应式设计中，picture元素最普遍的使用是“art direction”。不再是通过将一张图片基于视口宽度来放大或缩小，取而代之的是，设计了多幅图像来恰如其分地填充浏览器视口。
 ![响应式图片](http://img.china.alibaba.com/cms/upload/2014/672/160/2061276_975966031.png)
 
