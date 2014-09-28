@@ -64,9 +64,9 @@ As a starting point, this demo only shows off the bare minimum of features that<
 使用Chrome 38+打开一个新标签页[打开这个demo](http://googlechrome.github.io/samples/picture-element/)。调整视口的大小然后去观察这只猫的行为。
 作为一个起始点，这个实例仅仅能展示<picture>元素提供的最差的表现。现在我们钻研一下语法。
 
-  <style>
+  ``<style>
   	img {display: block; margin: 0 auto;}
-  </style>
+  </style>``
 
   <picture>
     <source 
