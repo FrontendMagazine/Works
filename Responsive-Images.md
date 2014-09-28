@@ -64,9 +64,9 @@ As a starting point, this demo only shows off the bare minimum of features that<
 使用Chrome 38+打开一个新标签页[打开这个demo](http://googlechrome.github.io/samples/picture-element/)。调整视口的大小然后去观察这只猫的行为。
 作为一个起始点，这个实例仅仅能展示<picture>元素提供的最差的表现。现在我们钻研一下语法。
 
-  ``<style>
-  	img {display: block; margin: 0 auto;}
-  </style>``
+    <style>
+    	img {display: block; margin: 0 auto;}
+    </style>
 
     <picture>
         <source 
@@ -151,23 +151,23 @@ The example below supports 1x, 1.5x, and 2x resolution screens:
 为高分辨率的显示器添加了支持，这种显示器使用了像1x，1.5x，2x和3x的像素密度描述符。新的srcset属性被应用于<img>和<source>元素。
 下面的例子是支持1x，1.5x和2x分辨率的屏幕：
 
-  <picture>
-    <source 
-      media="(min-width: 650px)" 
-      srcset="images/kitten-stretching.png,
-              images/kitten-stretching@1.5x.png 1.5x,  
-              images/kitten-stretching@2x.png 2x">
-    <source 
-      media="(min-width: 465px)" 
-      srcset="images/kitten-sitting.png,
-              images/kitten-sitting@1.5x.png 1.5x
-              images/kitten-sitting@2x.png 2x">
-    <img 
-      src="images/kitten-curled.png" 
-      srcset="images/kitten-curled@1.5x.png 1.5x,
-              images/kitten-curled@2x.png 2x"
-      alt="a cute kitten">
-  </picture>
+    <picture>
+        <source 
+          media="(min-width: 650px)" 
+          srcset="images/kitten-stretching.png,
+                  images/kitten-stretching@1.5x.png 1.5x,  
+                  images/kitten-stretching@2x.png 2x">
+        <source 
+          media="(min-width: 465px)" 
+          srcset="images/kitten-sitting.png,
+                  images/kitten-sitting@1.5x.png 1.5x
+                  images/kitten-sitting@2x.png 2x">
+        <img 
+          src="images/kitten-curled.png" 
+          srcset="images/kitten-curled@1.5x.png 1.5x,
+                  images/kitten-curled@2x.png 2x"
+          alt="a cute kitten">
+    </picture>
 
 ## Combine with width descriptors
 ## 结合width描述符
@@ -185,12 +185,12 @@ Here's an example of using the sizes attribute to set the proportion of an image
 
 下面这个例子通过使用sizes属性使得图片的比例总能填满视口的80%。把它与srcset属性结合起来将会提供同一张灯塔图像的四种版本，包括了160px, 320px, 640px和 1280px 宽：
 
-  <img src="lighthouse-160.jpg" alt="lighthouse"
-       sizes="80vw"
-       srcset="lighthouse-160.jpg 160w, 
-               lighthouse-320.jpg 320w,        
-               lighthouse-640.jpg 640w,
-               lighthouse-1280.jpg 1280w">
+    <img src="lighthouse-160.jpg" alt="lighthouse"
+         sizes="80vw"
+         srcset="lighthouse-160.jpg 160w, 
+                 lighthouse-320.jpg 320w,        
+                 lighthouse-640.jpg 640w,
+                 lighthouse-1280.jpg 1280w">
 
 The browser will use these hints to choose the most appropriate image resource to serve up based on the viewport width and hardware display resolution:
 
@@ -204,19 +204,19 @@ For example, the viewport on the left is approx. 800px wide. The browser will lo
 With the addition of <picture>, the sizes attribute can be applied to both <img>and <source> elements:
 
 通过添加<picture>元素，sizes属性将被应用于<img>和<source>两个元素：
-  <picture>
-    <source media="(min-width: 800px)"
-            sizes="80vw"
-            srcset="lighthouse-landscape-640.jpg 6400w,
-                    lighthouse-landscape-1280.jpg 1280w,
-                    lighthouse-landscape-2560.jpg 2560w">
-    <img src="lighthouse-160.jpg" alt="lighthouse"
-         sizes="80vw"
-         srcset="lighthouse-160.jpg 160w,
-                 lighthouse-320.jpg 320w,
-                 lighthouse-640.jpg 640w,
-                 lighthouse-1280.jpg 1280w">
-  </picture>
+    <picture>
+        <source media="(min-width: 800px)"
+                sizes="80vw"
+                srcset="lighthouse-landscape-640.jpg 6400w,
+                        lighthouse-landscape-1280.jpg 1280w,
+                        lighthouse-landscape-2560.jpg 2560w">
+        <img src="lighthouse-160.jpg" alt="lighthouse"
+             sizes="80vw"
+             srcset="lighthouse-160.jpg 160w,
+                     lighthouse-320.jpg 320w,
+                     lighthouse-640.jpg 640w,
+                     lighthouse-1280.jpg 1280w">
+    </picture>
 Building on the previous example, when the viewport is at 800px and above, the browser will serve up a landscape version of the lighthouse version instead:
 
 建立在上一个例子上，当视口在800px或者超过800px，浏览器将会提供landscape版本代替lighthouse:
@@ -231,10 +231,10 @@ The type attribute of <source> can be used to load alternative image file format
 
 ## 加载可供选择的图像文件格式
 <source>元素的type属性可被用于去加载一个可选择的图像文件格式，这可能不会被所有的浏览器支持。比如，对于支持Webp的浏览器可以提供一张Webp格式图片，在其他浏览器上再回到JPEG:
-  <picture>
-    <source type="image/webp" srcset="images/butterfly.webp">
-    <img src="images/butterfly.jpg" alt="a butterfly">
-  </picture>
+    <picture>
+        <source type="image/webp" srcset="images/butterfly.webp">
+        <img src="images/butterfly.jpg" alt="a butterfly">
+    </picture>
 
 ## Additional code examples
 Refer to [Responsive Images: Use Cases and Documented Code Snippets to Get You Started](http://dev.opera.com/articles/responsive-images/) on the Dev.Opera blog for an exhaustive list of examples combining<picture> and <img> with the srcset, media, sizes, and type attributes.
