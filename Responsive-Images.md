@@ -42,7 +42,7 @@ Can the browser support additional image file types that offer performance boost
 The most common use of the <picture> element will be for "art direction" in responsive designs. Instead of having one image that is scaled up or down based on the viewport width, multiple images can be designed to more appropriately fill the browser viewport.
 ## 醉了。。。
 在响应式设计中，<picture>元素最普遍的使用是“art direction”。不再是通过将一张图片基于视口宽度来放大或缩小，取而代之的是，设计了多幅图像来恰如其分地填充浏览器视口。
-[!响应式图片](http://img.china.alibaba.com/cms/upload/2014/672/160/2061276_975966031.png)
+![响应式图片](http://img.china.alibaba.com/cms/upload/2014/672/160/2061276_975966031.png)
 
 ## Improve resource loading performance
 When using <picture>, or <img> with the srcset and sizes attribute, the browser will only download the image explicitly stated for the matching scenario. This native implementation is compatible with HTML parsers and can take advantage of the browser's image caching and preloading abilities.
@@ -55,7 +55,7 @@ It's a fact that the Internet was created to host cat images. Using <picture> we
 
 ## 看一个在线实例
 网络连接被建立去承载了猫的图像。使用<picture>我们可以模拟出令人惊讶的表现，这只猫适应了给定的空间无论是多小或者大。
-[!喵星人](http://www.html5rocks.com/en/tutorials/responsive/picture-element/cat-stretching@2X.png)
+![喵星人](http://www.html5rocks.com/en/tutorials/responsive/picture-element/cat-stretching@2X.png)
 Cat illustrations by @itsJonQ
 
 Open the demo in a new tab with Chrome 38 or higher. Resize the viewport to see the cat in action.
