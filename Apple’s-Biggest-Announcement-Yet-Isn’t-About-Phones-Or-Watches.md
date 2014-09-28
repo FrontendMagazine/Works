@@ -1,11 +1,20 @@
 # Apple’s Biggest Announcement Yet Isn’t About Phones Or Watches
+# 直到现在苹果最大的发布不是手机或者手表
+
 In case you happen to have missed it, an Apple announcement has claimed the [number one spot on Hacker News](https://news.ycombinator.com/item?id=8328760) this morning. As tired as we all are of Apple and the endless speculating and PR barrage, this one is different from most all of the others.
+
+或许你错过了，就在今天早晨的苹果发布会上
 
 It’s different because it’s not really an announcement at all. It’s just the documentation for an API that allows developers to use JavaScript for OS X Automation, and it has serious implications for developers everywhere.
 ![pseudo elements](http://developer.telerik.com/wp-content/uploads/2014/09/542027463_8ede265d3f_o.png)
+不同的是这不仅仅是一场发布会。而是一个API文档，允许开发者使用在OS X Automation上使用JavaScript，并且为开发者提供了完备的接口。
 
+![osx interface](http://developer.telerik.com/wp-content/uploads/2014/09/542027463_8ede265d3f_o.png)
 ## What Is Task Automation?
+## 任务自动化是什么？
 For those that aren’t familiar, the OS X operating system has long supported the ability to script and automate tasks using something called AppleScript. Why would you want to do this? Because it allows the user to automate repetitive tasks that otherwise require user interaction.
+
+对于那些不熟悉的，OS X操作系统很早就支持
 
 As a simple example, assume that you frequently email files to the same group of people. You may click to compose a new email, click the “attach” icon, browse for the document, select it and then click send. You could write an AppleScript to automate that task so all you have to do is right-click on the file you want to send, and select “send to group”. Virtually any interaction you can have with OS X can be automated, which means you can get really advanced. [One user](http://computers.tutsplus.com/tutorials/the-ultimate-beginners-guide-to-applescript--mac-3436) has a script which reads his calendar for hours he’s billed, creates an invoice in Excel and sends that invoice to the client.
 
