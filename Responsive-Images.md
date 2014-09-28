@@ -68,17 +68,17 @@ As a starting point, this demo only shows off the bare minimum of features that<
   	img {display: block; margin: 0 auto;}
   </style>``
 
-  <picture>
-    <source 
-      media="(min-width: 650px)"
-      srcset="images/kitten-stretching.png">
-    <source 
-      media="(min-width: 465px)"
-      srcset="images/kitten-sitting.png">
-    <img 
-      src="images/kitten-curled.png" 
-      alt="a cute kitten">
-  </picture>
+    <picture>
+        <source 
+          media="(min-width: 650px)"
+          srcset="images/kitten-stretching.png">
+        <source 
+          media="(min-width: 465px)"
+          srcset="images/kitten-sitting.png">
+        <img 
+          src="images/kitten-curled.png" 
+          alt="a cute kitten">
+    </picture>
 
 Note how there is no JavaScript involved and no-third party libraries. The CSS<style> block is used only to style the image element and does not contain media queries. The native implementation of the <picture> element means that you can declare your responsive images using only HTML.
 
