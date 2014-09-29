@@ -53,10 +53,10 @@ As a starting point, this demo only shows off the bare minimum of features thatp
 使用 Chrome 38+ 打开一个新标签页[打开这个 demo](http://googlechrome.github.io/samples/picture-element/)。调整视口的大小然后去观察这只猫的行为。
 作为一个开始，这个实例仅仅能展示 picture 元素提供的最基本的功能。现在我们钻研一下语法。
 
-### The <picture> syntax
+### The picture syntax
 The following HTML and CSS snippet is everything that was used to implement the demo:
 
-### <picture> 的语法
+### picture 的语法
 下面的 HTML 和 CSS 代码段就是实现 demo 完整的代码：
 
     <style>
@@ -79,11 +79,11 @@ Note how there is no JavaScript involved and no-third party libraries. The CSS s
 
 注意没有 JavaScript，也没有第三方的类库。CSS 样式块仅仅为 image 元素添加样式，并没有包含 Media Queris。picture 元素原生实现让你可以仅使用 HTML来声明响应式图像。
 
-### Use with <source> elements
+### Use with source elements
 The picture element has no unique attributes of its own. The magic happens when picture is used as a container for source.
 The source element, which is used for loading media such as video and audio, has been updated for image loading and these new attributes have been added:
 
-### 使用<source>元素
+### 使用 source 元素
 picture 元素没有它自己特有的属性。当 picture 被用于 source 的外层容器时，奇妙的事情就发生了。
 source 元素通常用来载入像 video 和 audio 这样的媒体资源，现在也可以用来载入图片，并且加入了下面的一些新属性：
 
@@ -165,7 +165,7 @@ The example below supports 1x, 1.5x, and 2x resolution screens:
     </picture>
 
 ## Combine with width descriptors
-## 结合width描述符
+## 结合 width 描述符
 Web Fundamentals covers the the new sizes attribute for the img element indepth:
 
 *Web Fundamentals* 更深层次地介绍了 img 元素全新的[sizes 属性](https://developers.google.com/web/fundamentals/media/images/images-in-markup#relative-sized-images)
@@ -173,8 +173,8 @@ Web Fundamentals covers the the new sizes attribute for the img element indepth:
 "When the final size of the image isn't known, it can be difficult to specify a density descriptor for the image sources. This is especially true for images that span a proportional width of the browser and are fluid, depending on the size of the browser.
 Instead of supplying fixed image sizes and densities, the size of each supplied image can be specified by adding a width descriptor along with the size of the image element, allowing the browser to automatically calculate the effective pixel density and choose the best image to download."
 
-> “当图片最终尺寸未知时，为图片资源指定密度描述符会变得很困难。尤其对于图片占据了浏览器特定比例的宽度并且是不固定，依赖于浏览器的尺寸的时候。
-> 取代了提供固定图片尺寸和密度的方式，给定图片的尺寸可以通过添加一个带有图片元素尺寸的 width 描述符来指定，允许浏览器自动的计算有效的像素密度然后选择最佳的图片进行加载。”
+“当图片最终尺寸未知时，为图片资源指定密度描述符会变得很困难。尤其对于图片占据了浏览器特定比例的宽度并且是不固定，依赖于浏览器的尺寸的时候。
+取代了提供固定图片尺寸和密度的方式，给定图片的尺寸可以通过添加一个带有图片元素尺寸的 width 描述符来指定，允许浏览器自动的计算有效的像素密度然后选择最佳的图片进行加载。”
 
 Here's an example of using the sizes attribute to set the proportion of an image to always fill 80% of the viewport. It is combined with the srcset attribute to supply four versions of the same lighthouse photo in widths of 160px, 320px, 640px, and 1280px wide:
 
@@ -198,7 +198,7 @@ For example, the viewport on the left is approx. 800px wide. The browser will lo
 
 With the addition of picture, the sizes attribute can be applied to both imgand source elements:
 
-通过添加 picture 元素，sizes 属性可以应用于img 和 source 元素：
+通过添加 picture 元素，sizes 属性可以应用于 img 和 source 元素：
 
     <picture>
         <source 
