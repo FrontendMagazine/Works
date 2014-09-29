@@ -53,37 +53,37 @@ As a starting point, this demo only shows off the bare minimum of features thatp
 使用 Chrome 38+ 打开一个新标签页[打开这个 demo](http://googlechrome.github.io/samples/picture-element/)。调整视口的大小然后去观察这只猫的行为。
 作为一个开始，这个实例仅仅能展示 picture 元素提供的最基本的功能。现在我们钻研一下语法。
 
-### The <picture> syntax
+### The &lt;picture&gt; syntax
 The following HTML and CSS snippet is everything that was used to implement the demo:
 
-### <picture> 的语法
+### &lt;picture&gt; 的语法
 下面的 HTML 和 CSS 代码段就是实现 demo 完整的代码：
 
-    <style>
+    &lt;style&gt;
       img {display: block; margin: 0 auto;}
-    </style>
+    &lt;/style&gt;
 
-    <picture>
-        <source 
+    &lt;picture&gt;
+        &lt;source 
           media="(min-width: 650px)"
-          srcset="images/kitten-stretching.png">
-        <source 
+          srcset="images/kitten-stretching.png"&gt;
+        &lt;source 
           media="(min-width: 465px)"
-          srcset="images/kitten-sitting.png">
-        <img 
+          srcset="images/kitten-sitting.png"&gt;
+        &lt;img 
           src="images/kitten-curled.png" 
-        alt="a cute kitten">
-    </picture>
+        alt="a cute kitten"&gt;
+    &lt;/picture&gt;
 
 Note how there is no JavaScript involved and no-third party libraries. The CSS style block is used only to style the image element and does not contain media queries. The native implementation of the picture element means that you can declare your responsive images using only HTML.
 
 注意没有 JavaScript，也没有第三方的类库。CSS 样式块仅仅为 image 元素添加样式，并没有包含 Media Queris。picture 元素原生实现让你可以仅使用 HTML来声明响应式图像。
 
-### Use with <source> elements
+### Use with &lt;source&gt; elements
 The picture element has no unique attributes of its own. The magic happens when picture is used as a container for source.
 The source element, which is used for loading media such as video and audio, has been updated for image loading and these new attributes have been added:
 
-### 使用<source>元素
+### 使用&lt;source&gt;元素
 picture 元素没有它自己特有的属性。当 picture 被用于 source 的外层容器时，奇妙的事情就发生了。
 source 元素通常用来载入像 video 和 audio 这样的媒体资源，现在也可以用来载入图片，并且加入了下面的一些新属性：
 
@@ -146,23 +146,23 @@ The example below supports 1x, 1.5x, and 2x resolution screens:
 为高分辨率的显示器添加了支持，这种显示器使用了像1x，1.5x，2x和3x的像素密度描述符。[新的 srcset](https://developers.google.com/web/fundamentals/media/images/images-in-markup#enhance-imgs-with-srcset-for-high-dpi-devices) 属性被应用于 img 和 source 元素。
 下面的例子是支持1x，1.5x和2x分辨率的屏幕：
 
-    <picture>
-        <source 
+    &lt;picture&gt;
+        &lt;source 
           media="(min-width: 650px)" 
           srcset="images/kitten-stretching.png,
                   images/kitten-stretching@1.5x.png 1.5x,  
-                  images/kitten-stretching@2x.png 2x">
-        <source 
+                  images/kitten-stretching@2x.png 2x"&gt;
+        &lt;source 
           media="(min-width: 465px)" 
           srcset="images/kitten-sitting.png,
                   images/kitten-sitting@1.5x.png 1.5x
-                  images/kitten-sitting@2x.png 2x">
-        <img 
+                  images/kitten-sitting@2x.png 2x"&gt;
+        &lt;img 
           src="images/kitten-curled.png" 
           srcset="images/kitten-curled@1.5x.png 1.5x,
                   images/kitten-curled@2x.png 2x"
-          alt="a cute kitten">
-    </picture>
+          alt="a cute kitten"&gt;
+    &lt;/picture&gt;
 
 ## Combine with width descriptors
 ## 结合width描述符
@@ -173,19 +173,19 @@ Web Fundamentals covers the the new sizes attribute for the img element indepth:
 "When the final size of the image isn't known, it can be difficult to specify a density descriptor for the image sources. This is especially true for images that span a proportional width of the browser and are fluid, depending on the size of the browser.
 Instead of supplying fixed image sizes and densities, the size of each supplied image can be specified by adding a width descriptor along with the size of the image element, allowing the browser to automatically calculate the effective pixel density and choose the best image to download."
 
-> “当图片最终尺寸未知时，为图片资源指定密度描述符会变得很困难。尤其对于图片占据了浏览器特定比例的宽度并且是不固定，依赖于浏览器的尺寸的时候。
-> 取代了提供固定图片尺寸和密度的方式，给定图片的尺寸可以通过添加一个带有图片元素尺寸的 width 描述符来指定，允许浏览器自动的计算有效的像素密度然后选择最佳的图片进行加载。”
+&gt; “当图片最终尺寸未知时，为图片资源指定密度描述符会变得很困难。尤其对于图片占据了浏览器特定比例的宽度并且是不固定，依赖于浏览器的尺寸的时候。
+&gt; 取代了提供固定图片尺寸和密度的方式，给定图片的尺寸可以通过添加一个带有图片元素尺寸的 width 描述符来指定，允许浏览器自动的计算有效的像素密度然后选择最佳的图片进行加载。”
 
 Here's an example of using the sizes attribute to set the proportion of an image to always fill 80% of the viewport. It is combined with the srcset attribute to supply four versions of the same lighthouse photo in widths of 160px, 320px, 640px, and 1280px wide:
 
 下面这个例子通过使用 sizes 属性使得图片的比例总能填满视口的 80%。把它与 srcset 属性结合起来将会提供同一张灯塔图像的四种版本，包括了160px, 320px, 640px和 1280px 宽：
 
-    <img src="lighthouse-160.jpg" alt="lighthouse"
+    &lt;img src="lighthouse-160.jpg" alt="lighthouse"
      sizes="80vw"
      srcset="lighthouse-160.jpg 160w, 
              lighthouse-320.jpg 320w,        
              lighthouse-640.jpg 640w,
-             lighthouse-1280.jpg 1280w">
+             lighthouse-1280.jpg 1280w"&gt;
 
 The browser will use these hints to choose the most appropriate image resource to serve up based on the viewport width and hardware display resolution:
 
@@ -200,23 +200,23 @@ With the addition of picture, the sizes attribute can be applied to both imgand 
 
 通过添加 picture 元素，sizes 属性可以应用于img 和 source 元素：
 
-    <picture>
-        <source 
+    &lt;picture&gt;
+        &lt;source 
           media="(min-width: 650px)" 
           srcset="images/kitten-stretching.png,
                   images/kitten-stretching@1.5x.png 1.5x,  
-                  images/kitten-stretching@2x.png 2x">
-        <source 
+                  images/kitten-stretching@2x.png 2x"&gt;
+        &lt;source 
           media="(min-width: 465px)" 
           srcset="images/kitten-sitting.png,
                   images/kitten-sitting@1.5x.png 1.5x
-                  images/kitten-sitting@2x.png 2x">
-        <img 
+                  images/kitten-sitting@2x.png 2x"&gt;
+        &lt;img 
           src="images/kitten-curled.png" 
           srcset="images/kitten-curled@1.5x.png 1.5x,
                   images/kitten-curled@2x.png 2x"
-          alt="a cute kitten">
-    </picture>
+          alt="a cute kitten"&gt;
+    &lt;/picture&gt;
 
 Building on the previous example, when the viewport is at 800px and above, the browser will serve up a landscape version of the lighthouse version instead:
 
@@ -233,10 +233,10 @@ The type attribute of source can be used to load alternative image file formats 
 ## 加载可供选择的图像文件格式
 source 元素的 type 属性可被用于去加载一个可选择的图像文件格式，这可能不会被所有的浏览器支持。比如，对于支持 WebP 的浏览器可以提供一张WebP 格式图片，在其他浏览器上再降级到 JPEG:
 
-    <picture>
-        <source type="image/webp" srcset="images/butterfly.webp">
-        <img src="images/butterfly.jpg" alt="a butterfly">
-    </picture>
+    &lt;picture&gt;
+        &lt;source type="image/webp" srcset="images/butterfly.webp"&gt;
+        &lt;img src="images/butterfly.jpg" alt="a butterfly"&gt;
+    &lt;/picture&gt;
 
 ## Additional code examples
 Refer to [Responsive Images: Use Cases and Documented Code Snippets to Get You Started](http://dev.opera.com/articles/responsive-images/) on the Dev.Opera blog for an exhaustive list of examples combiningpicture and img with the srcset, media, sizes, and type attributes.
