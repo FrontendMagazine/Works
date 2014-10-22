@@ -56,7 +56,7 @@ Source: caniuse.com via Sencha
 
 WKWebView, a replacement for UIWebView, includes the Nitro JS engine, which Gerbasi notes has been "tested and measured to have at least 4x the performance of UIWebView." Not surprisingly, "This has the potential to be a huge win for hybrid apps."
 
-作为 UIWebView 的替代，WKWebView 包含 Nitro JavaScript 引擎，Gerbasi 表示“进过测试计算，它至少性能是 UIWebView 的四倍。”，毫无疑问，“这对于 hybrid 应用来说是一个巨大的胜利。”
+作为 UIWebView 的替代，WKWebView 包含 Nitro JavaScript 引擎，Gerbasi 表示“经过测试计算，它至少性能是 UIWebView 的四倍。”，毫无疑问，“这对于 hybrid 应用来说是一个巨大的胜利。”
 
 Nor is it really surprising that "native first" Apple would work so hard to improve the HTML5 experience. As noted above, developers want to embed the Web into their apps, and Apple wants developers to have a fantastic iOS experience. As such, anything that makes its devices better, Apple will support.
 
