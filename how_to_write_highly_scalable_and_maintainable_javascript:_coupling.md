@@ -20,7 +20,7 @@ Coupling between modules occurs when one module directly references another modu
 
 For this chapter, assume that we are building a web application that allows people to place food delivery orders. Each time the user places an order, the application creates the order and then sends a confirmation to the user that includes the estimated time of delivery. The user can check the status of the order, or cancel at any time.
 
-在这一节，假定我们要去创建一个 web 应用要求评价食品订单。每次用户都会评价一个订单，应用创建订单号然后给用户发放一个确认信息，包含了预计发货时间。用户可以检查这个订单的状态，或者随时取消订单。
+在这一节，假定我们要去创建一个 web 应用提供给用户食品发放订单的功能。每次用户下单，应用创建订单号然后给用户发放一个确认信息，包含了预计发货时间。用户可以检查这个订单的状态，或者随时取消订单。
 
 One modular approach to implement this scenario is to create a module that handles orders and another that handles deliveries. The ordering module may have functions to create, update, and delete orders, while the deliveries module may have functions to estimate delivery time, begin delivery, complete delivery, and so on.
 
@@ -28,7 +28,7 @@ One modular approach to implement this scenario is to create a module that handl
 
 Let’s look at an example of this in action. Note that the code in this post is written primarily for clarity.
 
-看一下和这个相关的例子。注意一下，出于清晰、明确的考虑，文中的代码只写了主要的部分。
+看一下相关的例子。注意一下，出于清晰、明确的考虑，文中的代码只写了主要的部分。
 
 Example: Create Order
 示例：创建顺序
@@ -57,11 +57,11 @@ The order and delivery modules shown are tightly coupled. For the order module t
 
 There are many reasons to avoid tightly coupling your modules. We discussed some of these in the first chapter of this series. Recall that one of the goals when creating highly scalable and maintainable JavaScript applications is that any module can be easily swapped out at any time for a different module. Reusability is also a major reason to minimize coupling. We would ideally like to maximize code reuse and the ability to test modules independently.
 
-有很多理由要去避免模块间的重度耦合。在这个系列的第一章中，我们已经讨论了一些。回忆一下，创建高度扩展并且可维护的 JavaScript 应用的一个目标就是任意模块都可以随时的轻易换成另外一个模块。可重用性也是降低耦合的一个重要的原因。我们很理想的要实现最大化代码重用以及独立的模块测试。
+有很多理由要去避免模块间的重度耦合。在这个系列的第一节中，我们已经讨论了一些。回忆一下，创建高度扩展并且可维护的 JavaScript 应用的一个目标就是任意模块都可以随时的轻易换成另外一个模块。可重用性也是降低耦合的一个重要的原因。我们很理想的要去完成最大化代码重用以及独立的模块测试。
 
 Another goal was that there should not be a single point of failure anywhere in the application. Suppose that something went wrong in our call to get the estimated delivery time, this may break the entire application, or at least the successful completion of the ordering process. We would likely prefer that the order is still placed and the application continues to operate, even if we are unable to temporarily provide a delivery time estimate to the customer.
 
-另一个目标就是在应用中任何地方都能有单点故障。设想一下，在我们调用获取预计发货时间时出现了问题，导致整个应用无法运行，或者至少是已经成功结束订单的进程。我们可能想要订单依旧存在，并且应用可以继续运行，尽管我们没办法临时的为消费者提供一个发货时间的预算。
+另一个目标就是在应用中任何地方都不能有单点故障。设想一下，在我们调用接口获取预计发货时间时出现了问题，导致整个应用无法运行，或者至少是已经成功结束订单的进程。我们可能想要订单依旧存在，并且应用可以继续运行，尽管我们没办法临时为消费者提供一个发货时间的预算。
 
 Now let’s examine some ways to reduce coupling between modules.
 
@@ -71,11 +71,11 @@ Now let’s examine some ways to reduce coupling between modules.
 ##降低耦合的模式
 Tightly coupled modules have a variety of disadvantages as noted in this series. Luckily there are ways we can reduce coupling throughout our code. There are many patterns used to achieve loose coupling between JavaScript modules, and often are a variation of the so-called observer pattern. One such variation is referred to as the Pub/Sub or Publish/Subscribe pattern.
 
-模块间重度耦合有很多的弊端，在这个系列中已经说明。幸运的是，有几种方式可以用来降低我们代码中的耦合度。有很多模式可被用于实现 JavaScript 模块之间的松散耦合，通常都是所谓的观察者模式的一个变体。其中一个变体就是被称为 Pub/Sub 或者发布/订阅模式。
+模块间重度耦合有很多的弊端，在这个系列中已经说明。幸运的是，有几种方式可以用来降低我们代码中的耦合度。有很多模式可被用于实现 JavaScript 模块之间的松散耦合，通常都是所谓的观察者模式的一个变体。我们要说的就是其中一个变体被称为 Pub/Sub 或者发布/订阅模式。
 
 In some cases the observer registers itself with the event emitter directly in order to be notified whenever a certain event occurs. The downside to this approach is that an observer “knows” about the event emitter object and what observables or events to observe through the registration process.
 
-某些情况下，观察者直接为自己注册了事件触发器，当特定的事件被触发时就可以被通知到。这个方法的弊端就是观察者“知道”关于事件触发对象以及哪些明显的或者事件的观察通过注册进程。
+某些情况下，观察者直接为自己注册了事件触发器，当特定的事件被触发时就可以被通知到。这个方法的弊端就是观察者“知道”关于事件触发对象以及哪些观测值或者事件的观察通过注册进程。
 
 We can do better than this. There are many versions of the Pub/Sub pattern that involve the use of a mediator object, which helps to minimize coupling between modules even further. A mediator object is an object that isolates the publisher from the subscriber. Addy Osmani made an excellent analogy in one of his articles in which he related the mediator to a flight control tower in airplane communications. Airplanes never communicate directly with each other. Airplanes instead only provide information to, and receive information from the tower. The airplanes therefore do not “know” about one another without information from the tower.
 
@@ -133,15 +133,15 @@ Notice that we have defined a topic with the EST_DELIVERY constant called ‘cur
 
 By calling this method, the delivery module is used to figure out the current estimated delivery wait time, which is likely based on the number of delivery orders currently in the queue, and then publishes the expected estimated delivery time to the EST_DELIVERY topic. At this point, any subscriber to this topic will be notified of the update, and will also receive the latest delivery time estimate.
 
-通过调用这个方法，发货模块可用于计算出当前预计发获等待时间，可能会基于当前的队列中等待发货订单的个数，然后发布者计算出预计发货时间给 EST_DELIVERY 主题。此刻，这个主题的任何一个发布者都会被通知到这个更新，也会收到最新的发货时间估算。
+通过调用这个方法，发货模块可用于计算出当前预计发货等待时间，可能会基于当前的队列中等待发货订单的个数，然后发布者计算出预计发货时间给 EST_DELIVERY 主题。此刻，这个主题的任何一个发布者都会被通知到这个更新，也会收到最新的发货时间估算。
 
 The order module subscribes to this topic. It will therefore always have the most up-to-date estimated delivery wait time to use when orders are placed, but without actually having to “know” about the delivery module and its methods, events, etc. We can even implement a mechanism that regularly updates and publishes the estimated delivery wait time to this topic on regular intervals, or each time an order is placed and the queue is changed.
 
-订单模块订阅了这个主题。因此它总会获得最近更新的预计发货等待时间当一个新的订单发出时，但是不需要精确的“知道”关于发货模块和它的方法，事件等等。我们甚至可以实现一种机制，在固定的时间间隔内有规律的更新然后发布预计发货等待时间给这个主题，或者每当顺序被放置以及队列改变时。
+订单模块订阅了这个主题。因此，当一个新的订单发出时它总会获得最近更新的预计发货等待时间，但是不需要精确的“知道”关于发货模块和它的方法，事件等等。我们甚至可以实现一种机制，在固定的时间间隔内有规律的更新然后发布预计发货等待时间给这个主题，或者每当有新的订单以及队列改变时。
 
 This is just one example of the many ways to use the Publish/Subscribe pattern to your advantage. There are however some potential downsides to this level of loose coupling, and I encourage you to read some of the resources noted in the references section for further discussion on the matter.
 
-这只是使用 Publish/Subscribe 模式的多种方式中的一个实例。当然在这个松散耦合的层面上也存在一些潜在的缺点。鼓励你看一些资源，已经记录在引用章节中，可以在这个事情上做更深的讨论。
+这只是使用 Publish/Subscribe 模式的多种方式中的一个实例。当然，在这个松散耦合的层面上也存在一些潜在的缺点。鼓励你看一些资源，已经记录在引用部分中，可以在这个事情上做更深的讨论。
 
 ##Summary
 
@@ -158,13 +158,14 @@ We also discussed the “wild west” syndrome and why it is so important to con
 
 In this final chapter we discussed coupling between modules and ways to minimize it. Patterns such as the observer and/or a variation of Publish/Subscribe are excellent choices for reducing coupling. This is very important for promoting code reuse, independent testability, interchangeability, and protection against a single point of failure.
 
-章节的末尾，我们讨论模块间的耦合以及最小化耦合的方式。像观察者模式以及/或者变体的发布者/订阅者将会是降低耦合的最佳选择。这对于提升代码重用很重要，测试上独立，可互换性以及防止单点故障。
+章节的末尾，我们讨论模块间的耦合以及最小化耦合的方式。像观察者模式以及变体的发布者/订阅者一定是降低耦合的最佳选择。这对于提升代码重用，测试上独立，可互换性以及防止单点故障都很重要。
 
 When the above goals and techniques are considered and executed properly, your JavaScript code can most certainly be highly scalable, maintainable, usable, reusable, sustainable, extensible, and so on.
 
-当上面的目标和方法被考虑到并且恰当的被执行，你的 JavaScript 代码无疑是高度扩展的，可维护的，可用的，可重用的，可持续性的，可扩展的等。
+当上面的目标和方法被考虑到并且恰当的被执行时，你的 JavaScript 代码无疑是高度扩展的，可维护的，可用的，可重用的，可持续性的，可扩展的等。
 
 Cheers and happy coding!
 
 欢呼并且快乐的编码！
+
 原文：[How to Write Highly Scalable and Maintainable JavaScript: Coupling](http://www.innoarchitech.com/scalable-maintainable-javascript-coupling)
