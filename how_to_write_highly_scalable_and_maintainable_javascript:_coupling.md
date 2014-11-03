@@ -1,26 +1,30 @@
-#How to Write Highly Scalable and Maintainable JavaScript: Coupling
+# How to Write Highly Scalable and Maintainable JavaScript: Coupling
 
-#编写高扩展并且可维护的 JavaScript：耦合
+# 编写高扩展并且可维护的 JavaScript：耦合
 
-##Introduction
+## Introduction
+
 In the previous chapter of this series, we discussed modular JavaScript. We looked at native JavaScript patterns and some of the prominent modular specifications and formats such as AMD, CommonJS, etc.
 
-##简介
+## 简介
+
 在这个系列的前一章节中，讨论了模块化的 JavaScript。我们看到了原生的 JavaScript 模式以及几个重要的模块化规范和格式，比如：AMD，CommonJS 等等。
 
 In this final chapter, we will examine ways to reduce coupling between JavaScript modules.
 
 在最后一个章节，我们将总结出降低 JavaSript 模块耦合度的几种方式。
 
-##Coupling
+## Coupling
+
 Coupling between modules occurs when one module directly references another module. In other words, one module “knows” about another module.
 
-##耦合
-当一个模块直接引用另一个模块时会出现模块间的耦合。换句话说，一个模块“知道”关于另一个模块。
+## 耦合
+
+当一个模块直接引用另一个模块时会出现模块间的耦合。换句话说，一个模块“知道”另一个模块。
 
 For this chapter, assume that we are building a web application that allows people to place food delivery orders. Each time the user places an order, the application creates the order and then sends a confirmation to the user that includes the estimated time of delivery. The user can check the status of the order, or cancel at any time.
 
-在这一节，假定我们要去创建一个 web 应用提供给用户食品发放订单的功能。每次用户下单，应用创建订单号然后给用户发放一个确认信息，包含了预计发货时间。用户可以检查这个订单的状态，或者随时取消订单。
+举个例子，假定我们要去创建一个 web 应用提供给用户食品发放订单的功能。每次用户下单，应用创建订单号然后给用户发放一个确认信息，包含了预计发货时间。用户可以检查这个订单的状态，或者随时取消订单。
 
 One modular approach to implement this scenario is to create a module that handles orders and another that handles deliveries. The ordering module may have functions to create, update, and delete orders, while the deliveries module may have functions to estimate delivery time, begin delivery, complete delivery, and so on.
 
@@ -67,8 +71,10 @@ Now let’s examine some ways to reduce coupling between modules.
 
 现在，看一下可以降低模块间耦合的几种方式。
 
-##Patterns to Reduce Coupling
-##降低耦合的模式
+## Patterns to Reduce Coupling
+
+## 降低耦合的模式
+
 Tightly coupled modules have a variety of disadvantages as noted in this series. Luckily there are ways we can reduce coupling throughout our code. There are many patterns used to achieve loose coupling between JavaScript modules, and often are a variation of the so-called observer pattern. One such variation is referred to as the Pub/Sub or Publish/Subscribe pattern.
 
 模块间重度耦合有很多的弊端，在这个系列中已经说明。幸运的是，有几种方式可以用来降低我们代码中的耦合度。有很多模式可被用于实现 JavaScript 模块之间的松散耦合，通常都是所谓的观察者模式的一个变体。我们要说的就是其中一个变体被称为 Pub/Sub 或者发布/订阅模式。
@@ -125,7 +131,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 });
 For simplicity, all of the required code and both module definitions are included in the same document ready event handler. Here we define two modules; one for orders and the other for deliveries respectively.
 
-出于简洁，要用到的所有代码包括模块定义都写在同一个文档加载的事件监听函数当中。这里我们定义了两个模块；一个用于订单，两一个用于发货。
+出于简洁，要用到的所有代码包括模块定义都写在同一个文档加载的事件监听函数当中。这里我们定义了两个模块；一个用于订单，另一个用于发货。
 
 Notice that we have defined a topic with the EST_DELIVERY constant called ‘current estimated delivery time’. Any module can publish and/or subscribe to this topic without ‘knowing’ of each other’s existence. In this case we have directly called the getEstimatedDeliveryTime method of the delivery module.
 
@@ -143,9 +149,9 @@ This is just one example of the many ways to use the Publish/Subscribe pattern t
 
 这只是使用 Publish/Subscribe 模式的多种方式中的一个实例。当然，在这个松散耦合的层面上也存在一些潜在的缺点。鼓励你看一些资源，已经记录在引用部分中，可以在这个事情上做更深的讨论。
 
-##Summary
+## Summary
 
-##总结
+## 总结
 
 Throughout this series we have discussed ways to write highly scalable and 
 maintainable JavaScript code, as well as covered some industry best practices and patterns employed to achieve this goal.

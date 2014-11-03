@@ -1,10 +1,10 @@
-#How to Write Highly Scalable and Maintainable JavaScript: Modules
+# How to Write Highly Scalable and Maintainable JavaScript: Modules
 
-#编写高扩展并且可维护的 JavaScript：模块
+# 编写高扩展并且可维护的 JavaScript：模块
 
-##Introduction
+## Introduction
 
-##简介
+## 简介
 
 So far we have covered the so-called “wild west” syndrome and some of the reasons for needing better organized JavaScript code bases, as well as namespacing as one strategy to achieve this goal. We ended the last chapter by mentioning JavaScript modules and module formats and specifications. This chapter is a deep dive into JavaScript modules.
 
@@ -12,24 +12,24 @@ So far we have covered the so-called “wild west” syndrome and some of the re
 
 If a method can be thought of as a distinct unit of functionality, then modules should be thought of as a distinct grouping of units of similar functionality. JavaScript modules can be thought as somewhat synonymous to components in many server-side frameworks. Continuing with the classical analogy, a class should abide by the single responsibility principle from SOLID. Likewise, a module should also have a single responsibility, but In this case the single responsibility is that the module should be a one-stop-shop for handling related tasks.
 
-如果一个方法可以理解为功能上独立的单元，那么模块就该被认为是功能上相似的单元的一个独立的分组。可以这样认为，JavaScript 模块近似等同于服务端框架中的组件。继续这个经典的类比，类应该遵循单一的职责，按照[SOLID](http://en.wikipedia.org/wiki/SOLID_(object-oriented_design))原则。同样的，一个模块也应该完成单一的职责。不过在这个实例中，单一职责意味着一站式地处理了相关的任务。
+假如把一个方法理解为功能上独立的单元，那么模块就该被认为是功能上相似的单元的一个独立的分组。JavaScript 模块近似等同于服务端框架中的组件。继续这个经典的类比，类应该遵循单一的职责，按照[SOLID](http://en.wikipedia.org/wiki/SOLID_(object-oriented_design))原则。同样的，一个模块也应该只承担单一的职责。就此而言，单一职责意味着一站式地处理了相关的任务。
 
 
 Returning to our error handling module discussion from a previous chapter, an error handling module may have many distinct units of functionality (i.e., functions), but they should all be related to handling errors. In addition, the module should not contain any functionality not required for handling errors, and likewise be able to handle all error handling requirements for a given application.
 
-回到前一节中我们关于错误处理模块的讨论，错误处理模块可能产生很多功能上不同的单元（比如函数），但是都应该是与处理错误相关的。此外，模块不应该包含任何在功能上对于处理错误没有需要的代码，也需要能够处理给定应用所需要处理的所有错误。
+回到前一节中我们关于错误处理模块的讨论，错误处理模块可能包含很多功能上不同的单元（比如函数），但是都应该是与处理错误相关的。而且，模块不应该包含任何在功能上对于处理错误无关的代码，此外，需要能够处理给定应用所需要处理的所有错误。
 
 Once the error handling module is complete, it should be consumable by your application, or other modules as required. Even better, it could be loosely coupled from the rest of your application through an event-driven pattern like Pub/Sub, which we will cover in a future chapter.
 
-当完成了错误处理模块，就应该在你的应用中被使用，或者被用到的其他模块。更好的是，通过一个类似 Pub/Sub 的事件驱动模式实现与应用中其他模块松散地耦合，将会包含在下一个节中。
+当完成了错误处理模块，就应该在你的应用中被使用，或者被用到的其他模块中。更进一步，通过一个类似 Pub/Sub 的事件驱动模式实现与应用中其他模块松散地耦合，将会包含在下一个节中。
 
 For now, let us take a close look at actual JavaScript module implementations.
 
-现在，我们近距离的看一下真正 JavaScript 模块实现。
+现在，我们近距离的看一下真正 JavaScript 模块的实现。
 
-##Vanilla JavaScript Modules
+## Vanilla JavaScript Modules
 
-##普遍的 JavaScript 模块
+## 通常的 JavaScript 模块
 
 Modules are relatively easy to implement in plain JavaScript, but there are a variety of patterns at your disposal. Each pattern arguably has its pluses and minuses. We will cover some of these patterns here, but leave out the opinions on which is most suitable for you. Most of the time it boils down to your preference and what works best for your particular situation. There is no shortage of very strong opinions online about what module implementations are best, so feel free to search around a bit if you are still unsure.
 
@@ -56,7 +56,7 @@ var myModule = {
 };
 In order to create a closure and ensure all variables and functions are local to the module, often practitioners will wrap the module with an IIFE, or immediately-invoked function expression. This is very similar to the object method mentioned above.
 
-为了创建闭包，并且确保所有的变量和函数都是这个模块局部的，通常业内会用一个 IIFE 包裹这个模块，或者立即执行的函数表达式。这与前面提到的对象方法很类似。
+为了创建闭包，并且确保所有的变量和函数都是这个模块局部的，通常业内会用一个 IIFE（立即执行的函数表达式）包裹这个模块，这与前面提到的对象方法很类似。
 
 Example: Scoped module pattern
 
@@ -74,11 +74,11 @@ var myModule = (function () {
 })();
 Another pattern is the module pattern itself, along with the so-called revealing module pattern. The revealing module pattern is a special case of the module pattern that implements a form of private members, and thus exposes a public interface only. Here is an example of the revealing module pattern.
 
-另一种模式是模块模式自己，连同所谓的揭示模块模式。揭示模块模式只是模块模式的一个特例，实现了一种形式的私有成员，这样仅仅暴漏了一个公共接口。下面是揭示模块模式的的一个实例。
+另一种模式是模块模式，连同所谓的暴露模块模式。暴露模块模式只是模块模式的一个特例，实现了一种形式的私有成员，这样仅仅暴漏了一个公共接口。下面是暴露模块模式的的一个实例。
 
 Example: Revealing module pattern
 
-实例：揭示模块模式
+实例：暴露模块模式
 
 var myRevealingModule = (function () {
   
@@ -106,7 +106,7 @@ var myRevealingModule = (function () {
 })();
 The last vanilla JavaScript pattern that I will cover is the prototype pattern. It is very similar to the module patterns described above, but embraces the prototypal nature of JavaScript. Here is an example of a module based on the prototype pattern with private members.
 
-我要说的最后一个普遍的 JavaScript 模式是原型模式。和前面描述的模块模式类似，但是浸入了 JavaScript 原型。下面是一个带有私有成员基于原型模式的模块的一个实例。
+我要说的最后一个普遍的 JavaScript 模式是原型模式。和前面描述的模块模式类似，但是使用了 JavaScript 原型。下面是一个带有私有成员基于原型模式的模块的一个实例。
 
 Example: Prototype pattern
 
@@ -139,15 +139,15 @@ var myPrototypeModule = (function (){
 
 For a more detailed view of different JavaScript module patterns and implementations, including global importing, I highly recommend reading this article by Ben Cherry. In addition, Addy Osmani’s book on JavaScript design patterns is a must read for anyone seriously interested in the topic.
 
-再仔细的看一下不同的 JavaScript 模块模式和实现，包括全局入口，我强烈的建议读一下 Ben Cherry 的这篇[文章](http://www.adequatelygood.com/JavaScript-Module-Pattern-In-Depth.html)。另外，如果对这个问题非常感兴趣，Addy Osmani 的 [JavaScript 设计模式](http://addyosmani.com/resources/essentialjsdesignpatterns/book/)也是一本必读的书。
+再仔细的看一下不同的 JavaScript 模块模式和实现，包括全局引入，我强烈的建议读一下 Ben Cherry 的这篇[文章](http://www.adequatelygood.com/JavaScript-Module-Pattern-In-Depth.html)。另外，如果对这个问题非常感兴趣，Addy Osmani 的 [JavaScript 设计模式](http://addyosmani.com/resources/essentialjsdesignpatterns/book/)也是一本必读的书。
 
-##Module Formats and Specifications
+## Module Formats and Specifications
 
-##模块格式和规范
+## 模块格式和规范
 
 While there is nothing technically wrong with implementing vanilla JavaScript modules as per the examples given above, there are some things that are certainly worth considering. The first is that there are many ways to implement modules in plain JavaScript, which often lead to inconsistency and lack of standardization. Remember chapter one of this series on the “Wild West” syndrome? The other important consideration is that the plain JavaScript approach does nothing to account for asynchronous and parallel module loading, dependency management between modules, optimization, etc.
 
-尽管，像前面给出的每个实例那样实现普通的 JavaScript 模块没有什么技术上的错误，不过有一些问题还是非常值得考虑的，那些往往会导致不一致以及缺乏标准化。还记得这个系列第一节中关于“狂野西部”征么？另一个值得考虑的是原生 JavaScript 在处理异步和并行模块载入时，模块之间的依赖和优化等等时显得很无力。
+尽管，像前面给出的每个实例那样实现普通的 JavaScript 模块没有什么技术上的错误，不过有一些问题还是非常值得考虑的，那些往往会导致不一致，缺乏标准化。还记得这个系列第一节中关于“狂野西部”症么？另一个值得考虑的是原生 JavaScript 在处理异步和并行模块载入时，模块之间的依赖和优化等等时显得很无力。
 
 In order to address these considerations, a variety of module formats and specifications have surfaced that are intended to promote the following: standardization and consistency, encapsulation, asynchronous and parallel script loading, increased application performance, improve readability and code cleanliness, reduction of HTML script tags, and dependency management. The three biggest players are AMD (Asynchronous Module Definition), CommonJS, and the ECMAScript 6 Harmony module specification.
 
@@ -161,13 +161,13 @@ Let us examine each of these options individually and at a high level. Please re
 
 现在我们深层次的分别看一下这些选择。可以查阅这一节末尾的“资源”部分，有更多的资源的详细地涵盖了这些主题。
 
-##Asynchronous Module Definition API (AMD)
+## Asynchronous Module Definition API (AMD)
 
-##异步模块定义（AMD）
+## 异步模块定义 API（AMD）
 
 Asynchronous Module Definition, or AMD, is a specification of how to define modules and their dependencies, which can be loaded asynchronously by the browser. The Require.js file and module loader by James Burke is a very commonly used framework based on the AMD specification. While it is likely the most popular, it is not the only AMD implementation in the wild.
 
-异步模块定义，或者 AMD 是一个关于如何定义模块以及模块间依赖的说明，可以被浏览器异步的载入。James Burke 的 Require.js 文件和模块加载器就是一个基于 AMD 规范的非常通用的框架。或许它可能是最受欢迎的，但它不是当前环境下唯一的 AMD 实现。
+异步模块定义，或者 AMD 是一个关于如何定义模块以及模块间依赖的规范，使得这些模块可以被浏览器异步载入。James Burke 的 Require.js 文件和模块加载器就是一个基于 AMD 规范的非常通用的框架。它可能是最受欢迎的，但它不是当前环境下唯一的 AMD 实现。
 
 Require.js is highly configurable and customizable, and is very well implemented and widely used. It uses the AMD syntax, which is focused on the define and require functions. Common complaints about Require.js and AMD in general are that it can be fairly complicated to configure and set up, and the syntax required is not exactly terse. Also, by design, Require.js is more of a client-side (a.k.a. browser-based) module implementation and framework.
 
@@ -181,12 +181,11 @@ The other advantage of using Require.js is that it has a built-in optimizer that
 
 使用 Require.js 的另一个优势就是它拥有内建的控制器，可被用于合并、压缩脚本（通过 UglifyJS 或者 Google 的 Closure Compiler），当然还有内联和优化 CSS 文件，通过 @imports 命令和移除注释。
 
-##CommonJS
-
+## CommonJS
 
 CommonJS is another module specification that is widely used. It is intended to specify a module format to be used by both browsers and servers alike, although it is most commonly implemented in server-side frameworks like Node.js. Browserify is a very popular framework intended to implement CommonJS modules on the client-side. You can implement a full stack CommonJS module solution when Browserify (or similar) for the client is combined with Node.js on the server.
 
-CommonJS 是另外一个被广泛应用的模块规范。它试图指定一个模块格式可以在浏览器和服务端通用，尽管它最普遍的实现是服务端的框架，像 Node.js。Browserify 是一个很流行的框架，试图在客户端实现 CommonJS 模块。你能够实现一个全栈的 CommonJS 模块方案，通过把客户端的 Browserify（或者类似的）和服务端的 Node.js 结合在一起。
+CommonJS 是另外一个被广泛应用的模块规范。它试图制定一个模块格式可以在浏览器和服务端通用，尽管它最普遍的实现是服务端的框架，像 Node.js。Browserify 是一个很流行的框架，试图在客户端实现 CommonJS 模块。你能够实现一个全栈的 CommonJS 模块方案，通过把客户端的 Browserify（或者类似的）和服务端的 Node.js 结合在一起就行。
 
 Unlike AMD, CommonJS is based primarily on the exports and require functions. Note that both AMD and CommonJS represent module dependencies as strings.
 
@@ -197,9 +196,9 @@ Some common complaints of the CommonJS specification are reliance on server-side
 
 对 CommonJS 规范最多的抱怨是依赖于服务端工具以及构建过程，服务驱动很重，跨域问题以及缺乏传输格式。尽管如此，CommonJS对很多人来说都是受益的，原因如下：相对容易去安装和配置，简洁的语法和接口，容易阅读，变化多，并且可以遍及全栈来实现。也就能够更好的复用多个依赖。
 
-##ECMAScript 6 Harmony
+## ECMAScript 6 Harmony
 
-##ECMAScript 6 Harmony
+## ECMAScript 6 Harmony
 
 ECMAScript is a scripting language specification as defined by the ECMA-262 standard and ISO/IEC 16262. The maintenance and standardization of the ECMAScript language specification is the responsibility of ECMA International.
 
@@ -215,7 +214,7 @@ Whenever new features and changes are introduced to the ECMAScript specification
 
 The obvious benefit of a native module implementation in JavaScript is that it is, well, native! According to Axel Rauschmayer2, ES6 modules are more compact, benefit from static analysis and module structure, implement improved cyclical dependency handling, standardize on a single module specification, eliminate globals, and reduce or eliminate dependency of object-based namespaces.
 
-使用 JavaScript实现的原生模块最明显的好处当然就是原生！根据 Axel Rauschmayer2 指出，ES6更加坚实，得益于静态解析和模块结构，实现改进的周期性处理依赖关系，单个模块规范的标准化，消除全局变量，并且降低或者消除基于对象命名空间的依赖。
+使用 JavaScript 实现的原生模块最明显的好处当然就是原生！根据 Axel Rauschmayer2 指出，ES6 更加坚实，得益于静态解析和模块结构，实现改进的周期性处理依赖关系，单个模块规范的标准化，消除全局变量，并且降低或者消除基于对象命名空间的依赖。
 
 ES6 modules consist of a declarative importing and exporting syntax, and programmatic loader API for module loading and dependency management.
 
@@ -237,9 +236,9 @@ Note that ES6 modules are not implemented yet by all major browsers and may requ
 
 注意，ES6 模块还没有被所有主流浏览器实现，可能需要使用 transpiler 来实现。这个[链接](http://kangax.github.io/compat-table/es6/)是一个非常好的资源，用于判定浏览器对于 ES6 和 ES7 的兼容性。
 
-##Summary
+## Summary
 
-##总结
+## 总结
 
 In this chapter we have examined various plain JavaScript module implementations, as well explored the three dominant module formats and specifications. The upcoming native ECMAScript module specification is certainly exciting, but it is still in its infancy, and I highly recommend choosing a module pattern or specification that makes the most sense for you. Once you have settled on a module implementation, be sure to use it consistently throughout your application. Consistency is a key component to maintainability!
 
@@ -250,6 +249,7 @@ In the next chapter we will discuss patterns used to minimize coupling between m
 下一节中，我们会讨论用于最小化模块间耦合的模式，这对于一个应用的可扩展性，可重用性，可靠性和可维护性都至关重要。
 
 Stay tuned!
+
 敬请期待！
 
 
