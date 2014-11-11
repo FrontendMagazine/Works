@@ -54,7 +54,7 @@ Glyphs differ between Tradition and Simplified Chinese.
 
 I'll list system fonts for OS X / iOS / Windows and Android for you to choose the right font. Some of them not available for old version systems, and in iOS App, you have to do extra works to download them from Apple.
 
-我把 OS X / iOS / Windows 以及 Android 的系统自己列在下面，方便你选择正确的字体，某些字体在老版的系统或者 iOS App 中并没有，你需要做一些[额外的工作](https://developer.apple.com/Library/ios/samplecode/DownloadFont/Listings/DownloadFont_ViewController_m.html#//apple_ref/doc/uid/DTS40013404-DownloadFont_ViewController_m-DontLinkElementID_6)，从 Apple 下载它们。
+我把 OS X / iOS / Windows 以及 Android 的系统字体列在下面，方便你选择正确的字体，某些字体在老版的系统或者 iOS App 中并没有，你需要做一些[额外的工作](https://developer.apple.com/Library/ios/samplecode/DownloadFont/Listings/DownloadFont_ViewController_m.html#//apple_ref/doc/uid/DTS40013404-DownloadFont_ViewController_m-DontLinkElementID_6)，从 Apple 下载它们。
 
 Chinese default fonts for latest OSs.
 
@@ -62,7 +62,7 @@ Chinese default fonts for latest OSs.
 
 For Android, Droid Sans Fallback is pain for CJK. If you want to get typography better, Noto Sans will be good solution, unfortunately the CJK fonts are so huge that you have to subset them for decrease loading time. You can also try dynamic subsetting webfont service like iFontCloud. Or just forget Android *sigh*.
 
-说到 Android，Droid Sans Fallback 对于 CJK 来说就是满满的通。如果你希望字体好看些，[Noto Sans](https://www.google.com/get/noto/#/) 是一个不错的方案。不好的地方在于 CJK 字体体积很大，你必须抽取其中的子集来减少加载的时间。你也可以尝试下像 [iFontCloud](http://webfont.arphic.com/index/index.jsp#&panel1-1) 这样的动态 webfont 子集服务。或者干脆忽略 Android 的叹息声。	
+说到 Android，Droid Sans Fallback 对于 CJK 来说就是满满的痛。如果你希望字体好看些，[Noto Sans](https://www.google.com/get/noto/#/) 是一个不错的方案。不好的地方在于 CJK 字体体积很大，你必须抽取其中的子集来减少加载的时间。你也可以尝试下像 [iFontCloud](http://webfont.arphic.com/index/index.jsp#&panel1-1) 这样的动态 webfont 子集服务。或者干脆忽略 Android 的叹息声。	
 
 ## 3, Proper line-height.
 

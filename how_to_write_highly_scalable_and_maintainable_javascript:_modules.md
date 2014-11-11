@@ -47,13 +47,14 @@ Example: POJO module pattern
 
 实例：POJO 模块模式
 
-var myModule = {
+``var myModule = {
     propertyEx: "This is a property on myModule",
     functionEx: function(){
         //insert functionality here
         //在这里插入代码
     }
-};
+};``
+
 In order to create a closure and ensure all variables and functions are local to the module, often practitioners will wrap the module with an IIFE, or immediately-invoked function expression. This is very similar to the object method mentioned above.
 
 为了创建闭包，并且确保所有的变量和函数都是这个模块局部的，通常业内会用一个 IIFE（立即执行的函数表达式）包裹这个模块，这与前面提到的对象方法很类似。
