@@ -1,5 +1,6 @@
-ReactJS For Stupid People
-笨蛋的 ReactJS
+#ReactJS For Stupid People
+
+#笨蛋的 ReactJS
 
 I struggled for a long time trying to understand what React is and how it fits in the application architecture. This post is what I wish someone had told me.
 
@@ -65,6 +66,7 @@ $.post('/login', credentials, function( user ) {
     $('header .name').show().text( user.name );
 });``
 
+
 ``
 <header>
 	<div class="name"></div>
@@ -82,6 +84,7 @@ I can tell you from experience that this code will ruin your life and your frien
 
 Here's how you might do it in React:
 下面是在 React 中你可能做的：
+
 ``
 render: function() {  
     return <header>
@@ -89,6 +92,7 @@ render: function() {
     </header>;
 }
 ``
+
 ``
 render: function() {
 	return <header>
@@ -96,6 +100,7 @@ render: function() {
 	</header>;
 }
 ``
+
 We can tell instantly how this component will render. If you know the state, you know the rendered output. You don't have to trace program flow. When working on complex applications, especially in teams, this is critically important.
 
 我们会清楚的分辨出这个组件可能会如何渲染。如果你知道这个语句，就会知道渲染后的输出。你没必要去记录程序的流程。在复杂应用中，尤其是团退开发，尤为重要。
