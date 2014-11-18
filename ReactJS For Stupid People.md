@@ -31,7 +31,7 @@ React 通常和其他的 JavaScript 框架同时被提及，但是说“React �
 
 React gives you a template language and some function hooks to essentially render HTML. That's all React outputs, HTML. Your bundles of HTML / Javascript, called "components", are allowed things like storing their own internal state in memory (such as which tab is selected in a tab view), but in the end you just barf out HTML.
 
-React 提供了模板语法以及一些函数钩子用于基本的 HTML 渲染。这就是 React 的输出，HTML。同类的 HTML / JavaScript，被称为“组件”，允许把它们自己内部的状态存到内存中（比如在一个选项卡中哪个被选中），但是最后你只是吐出 HTML。
+React 提供了模板语法以及一些函数钩子用于基本的 HTML 渲染。这就是 React 的输出，HTML。同类的 HTML / JavaScript，被称为“组件”，允许把它们自己内部的状态存到内存中（比如在一个选项卡中哪个被选中），不过最后你只是吐出 HTML。
 
 
 You absolutely cannot build a fully functional dynamic application with React alone. We'll learn more about why below.
@@ -43,7 +43,7 @@ The Good
 好处
 
 After working with React for a while, I've seen three very important benefits surface.
-使用 React 一段时间后，我发现了非常重要的三个特性。
+使用 React 一段时间后，我发现了三个非常重要的特性。
 
 **1. You can always tell how your component will render by looking at one source file.**
 
@@ -79,11 +79,11 @@ $.post('/login', credentials, function( user ) {
 
 I can tell you from experience that this code will ruin your life and your friends' lives. How do you debug the output? Who updated the header? Who else has access to the header HTML? Who holds the source of truth for the name being visible? This DOM manipulation is just as bad as a GOTO statement for reasoning about your program.
 
-按照我的经验，这些代码要毁掉你的生活以及你同事的生活。如何对输出调试？谁来更新头部？谁还可以访问头部的 HTML？谁来维护名字的显示隐藏状态？这个 DOM 操作使你的项目**像 GOTO 语句那样糟糕**。
+按照我的经验，这些代码要毁掉你的生活甚至你同事的生活。如何对输出调试？谁来更新头部？谁还可以访问头部的 HTML？谁来维护名字的显示隐藏状态？这个 DOM 操作会让你的项目**像 GOTO 语句那样糟糕**。
 
 
 Here's how you might do it in React:
-下面是在 React 中你可能做的：
+在 React 中你可以像下面这样做：
 
 ``
 render: function() {  
@@ -103,15 +103,15 @@ render: function() {
 
 We can tell instantly how this component will render. If you know the state, you know the rendered output. You don't have to trace program flow. When working on complex applications, especially in teams, this is critically important.
 
-我们会清楚的分辨出这个组件可能会如何渲染。如果你知道这个语句，就会知道渲染后的输出。你没必要去记录程序的流程。在复杂应用中，尤其是团退开发，尤为重要。
+我们会清楚的分辨出这个组件可能会如何渲染。如果你知道这个语句，就会知道渲染后的输出。你没必要去记录程序的流程。在复杂应用中，特别是团队开发中，显得尤为重要。
 
 **2. Bundling Javascript and HTML into JSX makes components easily understandable.**
 
-**2. 将 JavaScript 和 HTML 绑定到 JSX 是组件更易懂**
+**2. 将 JavaScript 和 HTML 绑定到 JSX 使组件更易懂**
 
 The weird mix of HTML / Javascript soup above might make you cringe. We've been conditioned to not put raw Javascript in the DOM (like onClick handlers) since we were wee developers. You'll have to trust me, though; working with JSX components is really nice.
 
-上面的那种把 HTML 和 JavaScript 混合在一起的写法可能让你很不适应。我们会很自然地拒绝将 JavaScript 放在 DOM 当中（比如 **onClick** 事件处理函数）即便我们是小小的开发者。但，一定要相信我；JSX 组件真的会让你的工作变得很“nice”。
+上面的那种把 HTML 和 JavaScript 混合在一起的写法可能让你很不适应。我们会很自然地拒绝将 JavaScript 放在 DOM 当中（比如 **onClick** 事件处理函数）即便我们是小小的开发者。但是，请一定要相信我；JSX 组件真的会让你的工作变得很“nice”。
 
 Traditionally you separate views (HTML) from functionality (Javascript). This leads to monolithic Javascript files containing all functionality for one "page", and you have to trace complex flow from JS > HTML > JS > bad-news-sad-time.
 
@@ -119,7 +119,7 @@ Traditionally you separate views (HTML) from functionality (Javascript). This le
 
 Tying functionality directly to markup and packaging it in a portable, self contained "component" will make you happier and less filthy in general. Your Javascript has intimate knowledge of your HTML, so mashing them together makes sense.
 
-捆绑功能直接标记和打包成一个可移植的，自主控制的“组件”，将会让你很兴奋并且很自然地减少了脏乱。当你的 JavaScript 非常了解 HTML 时，将它们糅合在一起才更有意义。
+捆绑功能直接标记和打包成一个可移植的，自主控制的“组件”，将会让你很兴奋并且很自然地减少了脏乱。只有 JavaScript 非常熟悉 HTML 时，将它们糅合在一起才更有意义。
 
 **3. You can render React on the server.**
 **3. 你可以在服务端渲染 React**
@@ -149,13 +149,13 @@ Any application framework at all
 Any idea how implement the above
 React on its own is useless for the real world. Worse yet, as we'll see, this leads to everyone reinventing the wheel.
 
-一个事件系统（除了原生的 DOM 事件）
-任何的 AJAX 功能可言
-任意一种形式的数据层
-Promises
-任何的应用程序框架
-实现以上功能的任意一种方式
-单独的 React 在这个世界上真的没什么用。更糟糕的是，就像我们将要看到的，这迫使每个开发者都要重新造轮子。
+*一个事件系统（除了原生的 DOM 事件）*
+*任何的 AJAX 功能可言*
+*任意一种形式的数据层*
+*Promises*
+*任何的应用程序框架*
+*实现以上功能的任意一种方式*
+*单独的 React 在这个世界上真的没什么用。更糟糕的是，就像我们将要看到的，这迫使每个开发者都要重新造轮子。*
 
 
 **2. The documentation is not "accessible" nor "good." Again, this is a blog post for stupid people. Look at the first part of the sidebar on the documentation page:**
@@ -169,10 +169,10 @@ There are three separate, competing quickstart guides. I'm overwhelmed and I'm n
 有三点区别，和快速开始向导对比。我有些不知所措，不过我没有喝多。更下面的侧边栏就像是恶梦一样，很明显一些章节不应该放在那里，像“More About Refs”和“PureRenderMixin”。
 
 **3. React is large for how little you get, including how little cross browser support.**
-**3. React 非常大，相对于你可用的很小的那部分，包括跨浏览器支持的很小的那部分。**
+**3. React 非常大，相对于你可用的很小的那部分，以及跨浏览器支持的很小的那部分。**
 
 Update: React is not 144 KB as I previously wrote. React is about 35 KB gzipped over the wire.
-更新：我之前写到 React 不到144KB。通过 gzip 压缩传输后的大小在 35KB 左右。
+更新：我之前写到 React 大小不到 144KB。通过 gzip 压缩传输后在 35KB 左右。
 
 ![React file size](http://blog.andrewray.me/content/images/2014/Oct/react-size.png)
 
@@ -223,7 +223,7 @@ This one way data flow / decoupled observer pattern is designed to guarantee tha
 
 The bad side of Flux is that everyone is re-inventing it. Since there's no agreed on event library, model layer, AJAX layer, or anything, there are many different "Flux" implementations, and they all compete with each other.
 
-Flux 的坏处是每个人都在重新编写它。由于没有在事件库，model 层，AJAX 层等达成一致，出现了很多种“Flux”的实现方式，并且它们彼此之间相互混杂。
+Flux 的坏处是每个人都可能重新编写它。由于没有在事件库，model 层，AJAX 层等达成一致，出现了很多种“Flux”的实现方式，并且它们彼此之间相互混杂。
 
 Should I Use React?
 
