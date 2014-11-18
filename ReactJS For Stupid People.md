@@ -1,6 +1,6 @@
 #ReactJS For Stupid People
 
-#笨蛋的 ReactJS
+#给笨蛋准备的 ReactJS 教程
 
 I struggled for a long time trying to understand what React is and how it fits in the application architecture. This post is what I wish someone had told me.
 
@@ -261,7 +261,7 @@ That's It!
 就是这样！
 
 Check out the follow-up post, Flux For Stupid People.
-下一篇文章，[笨蛋的 Flux](http://blog.andrewray.me/flux-for-stupid-people/)
+下一篇文章，[给笨蛋准备的 Flux 教程 ](http://blog.andrewray.me/flux-for-stupid-people/)
 
 I hope this helped someone as stupid as me understand React better. If this post made your life easier, consider following me on Twitter
 
