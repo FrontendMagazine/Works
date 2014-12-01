@@ -1,6 +1,6 @@
 # Flux For Stupid People
 
-# 为笨蛋准备的 Flux 教程
+# 给笨蛋准备的 Flux 教程
 
 TL;DR As a stupid person, this is what I wish someone had told me when I struggled learning Flux. It's not straightforward, not well documented, and has many moving parts.
 
@@ -8,7 +8,7 @@ Flux 很不直观，没什么好的文档，而且一直在更新。作为一个
 
 This is a follow-up to ReactJS For Stupid People.
 
-这是 [为笨蛋准备的 ReactJS 教程]的续篇。
+这是 [给笨蛋准备的 ReactJS 教程]的续篇。
 
 ## Should I Use Flux?
 
@@ -36,7 +36,7 @@ Flux 是一种相对比较复杂的概念，你可能会问，为什么要增加
 
 On the Front End™ (HTML, Javascript, CSS), we don't even have that. Instead we have a big problem: No one knows how to structure a Front End™ application. Seriously, I've worked in this industry for years, and "best practices" are never taught. Instead, "libraries" are taught. jQuery? Angular? Backbone? Handlebars? The real problem, data flow, still eludes us.
 
-在前端（HTML、JavaScript、CSS），我们没有这些东西。只有一个很大的问题：前端项目的架构没有一个统一的标准。而且，我们以及花了很多年的时间摸索，结果好的方法没找到，出现了很多类库。使用 jQuery、Angular、Backbone 还是 Handlebars？但正真的问题是数据流的架构还没有。
+在前端（HTML、JavaScript、CSS），我们没有这些东西。只有一个很大的问题：前端项目的架构没有一个统一的标准。而且，我们已经花了很多年的时间摸索，结果好的方法没找到，出现了很多类库。使用 jQuery、Angular、Backbone 还是 Handlebars？但正真的问题是数据流的架构还没有。
 
 
 
