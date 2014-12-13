@@ -1,5 +1,7 @@
 # Using Polymer to Create Web Components
 
+# 使用 Polymer 创建 Web 组件
+
 Building modern web applications requires a lot of tooling. This includes preprocessors, JavaScript frameworks, testing tools and a whole lot more. And as the complexities of these apps increases, so does the breadth of tooling and services needed to manage them. Wouldn't it be great if some things were simplified?
 
 Web Components aim to solve some of these complexities by providing a unified way to create new elements that encompass rich functionality without the need for all the extra libraries. Web components are comprised of four different specifications (Custom Elements, Templates, Shadow DOM and HTML imports) which are being fleshed out in the W3C.
@@ -7,6 +9,8 @@ Web Components aim to solve some of these complexities by providing a unified wa
 To bridge the gap and give developers access to this rich functionality now, Google has created the Polymer library which serves as a set of polyfills to bring the promise of Web Components to you today. Let's dive a little deeper into.
 
 ## What Is Polymer
+
+## 什么是 Polymer
 
 As I mentioned, the Polymer library is a set of polyfills that help you create Web Components on all major modern browsers. It provides the framework for defining, creating and rendering complex custom elements in a simplistic fashion similar to the tags you've grown up with. What I mean by this, is that it helps to simplify the way we use complex components by:
 
@@ -39,6 +43,8 @@ And since it's a normal element in the DOM, you can style it as well using CSS l
 It's certainly not the prettiest clock, but that's not the point. The fact is that you can customize the component to your liking and then reuse it via an easier and more maintainable syntax.
 
 ## Installing Polymer
+
+## 安装 Polymer
 
 There are three ways to install and use Polymer:
 
@@ -106,6 +112,8 @@ Installing via Bower will create a folder called bower_components in your projec
 
 ## Making a New Polymer Element
 
+## 创建一个新的 Polymer 元素
+
 The Polymer site pretty much nails the description of custom elements:
 
 “Custom Elements are the core building blocks of Polymer-based applications. You create applications by assembling custom elements together, either ones provided by Polymer, ones you create yourself, or third-party elements.”
@@ -141,6 +149,8 @@ That's it! My custom element is done and I can now use it.
 
 ## Using Your New Polymer Element
 
+## Polymer 元素的使用
+
 Keep in mind that this component will be imported into other pages in your web app that may want to leverage it. This is possible because of Polymer's implementation of the HTML Imports specification that allows you to include and reuse HTML documents in other HTML documents.
 
 First, you need to include platform.js which provides the polyfill that mimicks the native APIs:
@@ -165,6 +175,8 @@ You also have the ability to fully style the element as well:
 This is a pretty basic example. Let's take it a step further.
 
 ## Adding More Functionality to Your Element
+
+## 为元素添加更多的功能
 
 If you remember, I mentioned how you can leverage existing elements to enhance your custom one. Let's look at an example of this.
 
@@ -225,4 +237,8 @@ And there's quite a bit more stuff you can do including adding custom callback h
 
 ## The Future Is Here
 
+## 未来始于足下
+
 Web Components are going to change the way we build web apps and Polymer is bringing this to us today. You now have the ability to create your own customized and maintainable components that can be catered to the specific needs of your application. These components can be easily shared allowing other teams or the community to easily share and benefit from these encapsulated building blocks.
+
+原文：http://code.tutsplus.com/tutorials/using-polymer-to-create-web-components--cms-20475
