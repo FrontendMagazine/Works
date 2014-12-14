@@ -250,11 +250,15 @@ Here's why you should think twice before you switch:
 *React will slow you down tremendously at the start. Understanding how props, state, and component communication works is not straightforward, and the docs are a maze of information. This will be countered, in theory, by a grand speed up when your whole team is on board.*
 
 *React does not support any browser below IE8, and never will*
+
 *If your application / website doesn't have very much dynamic page updating, you will be implementing a lot of code for a very small benefit.*
+
 *You will reinvent a lot of wheels. React is young, and because there's no canonical way to do events / component communication, you'll have to build large component libraries from scratch. Does your application have dropdowns, resizable windows, or lightboxes? You'll probably have to write those all from scratch.*
 
 *一开始 React 会极大地减慢你的开发。理解props、state以及组件通信如何工作并不是很简单，并且文档信息错综复杂。理论上，这将会被克服，你的整个团队都上道之后，开发速度上就会有一个很大的提升。*
+
 *React 不支持 IE8 以下的任何浏览器，以后也绝不会。*
+*如果你的应用/站点不需要频繁的动态页面更新，你可能为了很小的功能而编写大量的代码。*
 *你会改造很多轮子。React 很年轻，并且因为没有权威的方式来处理事件、组件通信，你必须从零开始创建大量的组件库。你的应用是否有下拉菜单，可调整大小的窗口，或者 lightbox？你同样必须从零开始写这些。*
 
 ## That's It!
