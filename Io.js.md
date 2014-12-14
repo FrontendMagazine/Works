@@ -1,5 +1,7 @@
 # Io.js
 
+# Io.js
+
 A lot of people have asked me lately about io.js and its place among Node Forward, the Advisory Board, and npm.
 
 有很多人向我打听 io.js，问我它和 Node Forward、Advisory Board（Node 委员会）和 npm 是什么关系。
@@ -110,7 +112,7 @@ I brought up the issue in the third Joyent Node Advisory Board meeting on Novemb
 
 By that time, there was also clear indication of forward progress at the JNAB meetings. We had taken steps towards a consensus-based open governance model not dictated by any one corporation. There had been several discussions of relaxing use of the “Node.js” trademark by businesses providing products related to Node. There was a clearer understanding of the role that the community might play in future Advisory Board meetings.
 
-那个时候，在 JNAB 会议上取得了一些显著的成果。我们已经迈向一种共同的开放的管理模型，而不是任由任何一个公司发号施令。已经有过数次讨论，对提供 Node 相关的商业行为放宽 “Node.js” 商标的使用。对社区在 Advisory Board 会议未来扮演的角色也有的清晰的认识。
+那个时候，在 JNAB 会议上取得了一些显著的成果。我们已经迈向一种共同的开放的管理模型，而不是任由任何一个公司发号施令。对提供 Node 相关的商业服务行为放宽 “Node.js” 商标的使用已经有过数次讨论。对社区在 Advisory Board 会议未来扮演的角色也有的清晰的认识。
 
 I am optimistic that the JNAB meetings will continue to be productive.
 
@@ -122,9 +124,11 @@ I am optimistic that the JNAB meetings will continue to be productive.
 
 On November 26, Fedor Indutny, an extremely prolific Node.js core contributor, and an active participant in Node Forward, decided that he would create a fork of Node.js with a different name, so that the technical work started in Node Forward could continue in public without violating Joyent’s trademark.
 
-11月26号，
+11月26号，Fedor Indutny，一个高产的 Node.js 核心贡献者，同时也是一个获取的 Node Forward 参与者，提议说他可以创建一个 Node.js 的 fork 版，使用另外一个名字，以此继续公开地进行 Node Forward 开发工作，而不对 Joyent 的商标造成侵权。
 
 The Technical Committee that had previously been working on node-forward/node decided to move to the io.js repository. The other non-technical discussion repositories remain on the Node Forward organization at this time.
+
+之前一直在 node-forward/node 项目上开发的技术委员会决定迁移到 io.js 项目上。同时其他非技术的讨论项目还留在 Node Forward 这个组织里。
 
 ## Does io.js compete with Joyent or Node.js?
 
@@ -132,19 +136,31 @@ The Technical Committee that had previously been working on node-forward/node de
 
 No.
 
+不是。
+
 The intent of io.js is to provide a space for the Node core team to continue to do the work of improving Node.
+
+io.js 的目的，是为了给 Node 核心团队一个地方，继续开发，提升 Node。
 
 Io.js continues the efforts of Node Forward. We are committed to making forward progress and serving the Node.js community, both in technical and non-technical issues.
 
+Io.js 延续了 Node Forward 做出的努力。我们承诺继续推进，继续为 Node.js 社区服务，技术和非技术方面都有。
+
 The work being done in the Joyent Node Advisory Board appears to be heading towards shared goals for the good of the Node community. I expect that this will continue.
 
+Joyent Node Advisory Board 已经完成的事情正朝着分享对 Node 社区有意义的目标推进。我希望这可以继续下去。
+
 The Node community as whole is endeavoring to make a change.  The transformation is in progress and we expect to come out better for it.  io.js is an ingredient in the process of change, a spark. The future is large, and we continue exploring it.
+
+整个 Node 社区正在努力转变。迁移正在进行，我们希望能够有更好的结果。io.js 是转变过程中不可或缺的一部分，一个星星之火。前途一片光明，我们继续探索前行。
 
 ## What are the goals of io.js?
 
 ## 什么是 io.js 的目标？
 
 In no particular order:
+
+与顺序无关：
 
 - Continuous integration
 - 100% passing tests as a normal state of affairs
@@ -158,15 +174,34 @@ In no particular order:
 - Community engagement
 - Assuming the Joyent Node Advisory Board continues to make progress towards these goals, we expect to merge the projects in the future.
 
+- 持续集成
+- 正常情况下必须100%测试通过
+- 严格兼容SemVer标准的版本号管理
+- 贡献者自治，不受任何公司控制
+- 透明的民主制度
+- 每周发布
+- 支持 V8 更新
+- 活跃地开发
+- 可见的 roadmap
+- 集体约定
+- 假定 Joyent Node Advisory Board 也是继续朝着这些目标推进，希望将来项目和合并
+
+
 ## What is npm’s position on Node forks?
 
 ## 在 Node 社区中 npm 是什么？
 
 npm is the package manager for JavaScript. We support all nodes that are widely used in the JavaScript community, and do not recommend or prefer any of them over any other.
 
+npm 是一个 JavaScript 包管理器。我们支持各种平台，在 JavaScript 社区被广泛使用，不支持谁谁谁比谁谁谁优先级更高。
+
 Node’s community has always been its best feature. With over 100,000 modules today, covering a breathtaking array of use cases, used every day by millions of developers around the world, it is clear that the primary value Node provides is a small core enabling userland innovation.
 
+Node 社区是它最好的一个特性。现在在上面的包已经超过了10万，覆盖了繁多的使用场景，每天被全世界数以百万的人使用，很显然 Node 提供的主要价值作为一个核心，正在促使着用户群的革新。
+
 npm remains committed to its mission of reducing friction for all JavaScript developers.
+
+npm 任然会致力于自己的使命——减少 JavaScript 开发者阻力。
 
 ## Will npm be renaming to “ipm” since it’s the io.js package manager?
 
@@ -174,10 +209,16 @@ npm remains committed to its mission of reducing friction for all JavaScript dev
 
 No.
 
+不会。
+
 "npm" does not stand for Node Package Manager. It is officially an abbreviation for “npm is not an acronym”. We do enjoy novel pun-making though.
+
+“npm” 不是指代 Node Package Manager。它是“npm 不是首字母缩写词”的官方缩写词。我们的确喜欢这种文艺的双关语。
 
 —————
 
 *Edit 2014-12-11 – At the decision of the last TC meeting, it’s “io.js” or “Io.js” when capitalized, but not “IO.js*”.
 
 *2014-12-11 更新——根据最新一次 TC 会议的决定，使用 “io.js” 或 “Io.js”（大写版），不用“IO.js*”。
+
+原文：http://blog.izs.me/post/104685388058/io-js
