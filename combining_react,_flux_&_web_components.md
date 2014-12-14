@@ -18,7 +18,7 @@ In the wake of React comes another important part of the immediate future of fro
 
 The Flux architecture proposes to simplify complex Single-Page Applications through an unidirectional data flow. This is also explained better elsewhere; the point to take away from this is that things become simpler when you just re-render the entire application based on the current state of the world, a single, consistent source of truth, and do it every time that state changes. This reminds us of the good-old-days of server-side rendering, back in the 90’s: you have a bunch of data (e.g. request parameters, stuff from a database), which you turn into HTML by passing it through a function (e.g. your templating implementation). What makes this simple - and crucially different from traditional DOM wrangling in the browser - is you don’t have to care about any existing state in the DOM, you just overwrite everything with a new one.Traditional string-interpolation templating has been possible in the browser for ages, but constantly dumping and re-creating the DOM has been prohibitively expensive for larger apps. A Virtual DOM changes this.
 
-Flux 框架试图通过一个单向的数据流去简化复杂的单页面应用。关于这一点的[详细](http://facebook.github.io/flux/docs/overview.html)解释有[很多](https://www.youtube.com/watch?v=nYkdrAPrdcw#t=622)；这篇文章的中心思想就是在基于当前状态简单重新渲染整个应用使事情变得更简单，并且在每次状态改变时也只是重新渲染。这让我们想起了服务端渲染的好日子，[回溯到上世纪九十年代](https://www.youtube.com/watch?v=nYkdrAPrdcw#t=1588)：你得到一坨数据（例如：请求参数，数据库里的数据），然后将这些传递到一个函数中（比如：模板的实现）并吐出 HTML。让事情变得简单（同样是与传统的浏览器端 DOM 操作最显著的区别）的是你不必去关心 DOM 中已经存在的 state，仅仅使用一个全新的覆盖之。传统的[字符串式](http://underscorejs.org/#template)[模板](http://mustache.github.io/)已经在浏览器端存在很多年，但是频繁的销毁和重绘 DOM 带来的花销让稍大的应用望而却步。Virtual DOM 改变了这个现状。
+Flux 框架试图通过一个单向的数据流去简化复杂的单页面应用。关于这一点的[详细](http://facebook.github.io/flux/docs/overview.html)解释有[很多](https://www.youtube.com/watch?v=nYkdrAPrdcw#t=622)；这篇文章的中心思想就是在基于目前的 state ，简单重新渲染整个应用使事情变得更简单，并且在每次状态改变时也只是重新渲染。这让我们想起了服务端渲染的好日子，[回溯到上世纪九十年代](https://www.youtube.com/watch?v=nYkdrAPrdcw#t=1588)：你得到一坨数据（例如：请求参数，数据库里的数据），然后将这些传递到一个函数中（比如：模板的实现）并吐出 HTML。让事情变得简单（同样是与传统的浏览器端 DOM 操作最显著的区别）的是你不必去关心 DOM 中已经存在的 state，仅仅使用一个全新的覆盖之。传统的[字符串式](http://underscorejs.org/#template)[模板](http://mustache.github.io/)已经在浏览器端存在很多年，但是频繁的销毁和重绘 DOM 带来的花销让稍大的应用望而却步。Virtual DOM 改变了这个现状。
 
 So this is what I take the short-term future of web frontends to be, and indeed, the ball is already rolling. But is there something even bigger brewing?
 
@@ -44,22 +44,22 @@ Sound good? I think so. I’m willing to go on record saying Web Components will
 
 So these are the directions frontend development seems headed, now and later. However, these short- and long-term futures seem incompatible at face value: aren’t the intricacies of maintaining stateful DOM components exactly what Flux et al attempt to rid us of? If we have a “mini-app” with encapsulated internal state, we can’t just re-render the whole DOM whenever we feel like it, as we’ll potentially lose that important state. Or, from another perspective, if we no longer have control over (or even access to!) the full state of the world, how can we ever be sure that that state remains consistent across our UI? This mismatch seems quite fundamental, and I don’t see a simple way to unify these concepts.
 
-所以这些迟早会是前端发展的方向。然而，这些短期和长期的未来看上去和表面价值有些矛盾：准确的维护 DOM 组件带来的错综复杂性不正是 Flux 等尝试去让我们摆脱的么？如果有一个封装了内部 state 的“mini-app”，我们不能按照我们的需要随时地重新渲染整个 DOM，因为这会潜在地遗漏一些重要的 state。或者，换一个角度，如果我们不能够控制（甚至访问）所有的 state，那么我们要如何保证那个 state 在我们整个 UI 下的一致性？这种不匹配看上去非常的浅显，并且我还没有发现一个简单的方式可以统一这些概念。
+所以这些迟早会是前端发展的方向。然而，这些短期和长期的未来看上去和表面价值有些矛盾：准确的维护 DOM 组件带来的错综复杂性不正是 Flux 等尝试去让我们摆脱的么？如果有一个封装了内部 state 的“迷你应用”，我们不能按照我们的需要随时地重新渲染整个 DOM，因为这会潜在地遗漏一些重要的 state。或者，换一个角度，如果无法控制（哪怕是获取）每一个状态，如何保持整个 UI 层面状态的一致性？这种不匹配看上去非常的浅显，并且我还没有发现一个简单的方式可以统一这些概念。
 
 Yet, that is not to say there’s no potential for overlap. Indeed, the promised interop mechanisms of Web Components are too important for the frontend profession to overlook. It should also be noted Flux itself proposes to striking a balance between the simplicity of a single, unidirectional flow of data (with a singular state of the world) and breaking a large application into smaller, more manageable sub-applications (with their own internal states). The reasoning behind this is a familiar one: we human beings are pretty terrible at handling a lot of complexity at once, so it helps to break problems into manageable chunks. So, if these two futures aren’t mutually exclusive after all, how would we go about marrying them, and would we get anything out of it?
 
 不过，那也不是说没有任何的共同点。确实，Web Components 实现的互操作机制对于前端行业的前景非常重要。值得一提的是，Flux 自身[试图](http://facebook.github.io/flux/docs/overview.html#views-and-controller-views)达到存在于一个简单的、单向的数据流（这个领域的一个奇怪的 state）和拆分大的应用为小的、更加可控的子应用（包括它们内部的 state）之间的平衡。背后的原因我们都很熟悉：人类在同时处理很多复杂事物时的表现相当糟糕，所以它帮我们将问题分成了可操作的区块。同样，如果这两种未来终究没有相互排斥，我们又要何去何从，我们从中会得到什么呢？
 
 ## A brief aside on loosely connected sub-domains
-## 顺便提一下松散连接的子应用
+## 顺便提一下松散连接的子域
 
 Say you were building a web shop, ignoring the choice of frontend architecture for a bit. The domain of that application would probably include displaying product categories, the products that belong to those categories, a shopping cart implementation, that sort of thing. The information within that domain - the price of a product, for instance - has to remain consistent regardless of where the product appears (e.g. in a listing, a shopping cart or a wishlist). Giving this domain the “mini-app” treatment, and breaking it apart into smaller chunks might not reduce the overall complexity of the system at all. The opposite seems likely, in fact, as making sure the state of the world remains consistent across a distributed system is far from trivial.
 
-假如你正在创建一个网上商店，忽略了选择前端架构这一点。应用的域名应该会包括展示商品的类目，划分在那些类目下的商品，一个购物车，这类的事情。域名包含的信息 - 商品的价格，举个例子 - 不管出现在哪里，必须保证产品属性的一致性（例如：在一个清单，一个购物车或者一个愿望清单）。给这个域名“mini-app”的待遇，并且把它拆分更小的块可能根本不会减少整个系统的全局复杂性。说会增加更可信些。实际上，就像确保这个领域内的 state 在分布式系统上的一致性是微不足道的。
+假如你正在创建一个网上商店，忽略了选择前端架构这一点。应用的域应该会包括展示商品的类目，划分在那些类目下的商品，一个购物车，诸如此类。域所包含的信息（商品的价格，举个例子）不管出现在哪里，必须保证产品属性的一致性（例如：在一个清单，一个购物车或者一个愿望清单）。把这个域看成“迷你应用”，并且把它拆分更小的块可能根本不会减少整个系统的全局复杂性。反过来看，实际上，就像达成这个领域内的 state 在分布式系统上的一致性一样是微不足道的。
 
 Consider, however, having to add a chat-box next to your product details page. You know, the kind where you can talk to a human if you can’t figure out if the product is right for you. Implementing a real-time chat application in the browser is certainly easier than it used to be, but it isn’t trivial, either. Facebook had problems getting theirs right, and they employ pretty smart people. But even though the chat-box contains an interesting domain of engineering challenges, it’s only loosely connected to the domain of the main application. That is, while the sales representative at the other end might be interested in a bit of context - like the current product category - the chat-box can lead a relatively independent life.
 
-考虑一下，不管怎样，都有必要在你商品的详情页的侧边添加一个聊天框。你知道，如果你不能区分出这个商品是否对你合适时，你可以和其他人讨论。今天在浏览器端实现一个实时的聊天应用比以前要容易得多，不过这也不是重点。Facebook 遇到了获取它们的权限的[问题](https://www.youtube.com/watch?v=nYkdrAPrdcw#t=882)，并且他们雇佣了非常聪明的工程师。但即便这样，chat-box 为工程师带来了一个在域名上非常有趣的挑战，它仅仅松散地连接到主应用的域名上。也就是说，而在另一端的销售代表可能对环境有一点兴趣，像当前的产品目录，chat-box 可能引领一个相对独立的生活。
+考虑一下，不管怎样，都有必要在商品的详情页的侧边添加一个聊天框。如你所知，如果你不能分辨出这个商品是否对你合适时，你可以和其他人讨论。今天在浏览器端实现一个实时的聊天应用比以前要容易得多，不过这也不是重点。Facebook 遇到了获取它们的权限的[问题](https://www.youtube.com/watch?v=nYkdrAPrdcw#t=882)，并且他们雇佣了非常聪明的工程师。但即便这样，chat-box 为工程师带来了一个在域上非常有趣的挑战，它仅仅松散地连接到主应用的域上。也就是说，而在另一端的销售代表可能对环境有一点兴趣（像当前的产品目录），chat-box 可能是一个相对独立的存在。
 
 But I digress; what does any of this have to do with marrying React, Flux & Web Components?
 
@@ -70,11 +70,11 @@ But I digress; what does any of this have to do with marrying React, Flux & Web 
 
 One way to leverage both paradigms is to implement the internals of a Web Component using a Flux-like architecture. If you’re able to identify a loosely connected sub-domain in your frontend application - the chat-box for example - you can use all the simplifying power of Flux within that domain. Packaging it up in a Web Component gives you a custom element - say &lt;chat-box&gt; - which is both agnostic to its surroundings, and reusable within and across projects. Pulling it in is as simple as adding a &lt;link rel="import" href="chat-box.html"&gt; to your application, and it’s ready to be used wherever you could drop any other tag, say, &lt;video&gt;.
 
-影响到每个范例的一种方式就是使用类 FLux 结构实现 Web Components 的内部。如果你已经能够在你的前端应用中认出一个松散关联的子域名 - 聊天框为例 - 你可以在那个域名内应用 Flux 的简洁化的能力。把它打包成一个 Web Component 得到一个自定义元素 - 称为&lt;chat-box&gt; - 这是一个黑盒，并且在项目内以及跨项目时都是可重用的。使用它就像添加一个 &lt;link rel="import" href="chat-box.html"&gt;到你的应用中一样简单，并且无论何时你丢掉任何其他的标签它都可以使用，假设，&lt;video&gt;。
+利用好每个范例的一种方式就是使用类 FLux 结构实现 Web Components 的内部。如果你已经能够在你的前端应用中辨认出一个松散关联的子域（聊天框为例）你可以在那个域内应用 Flux 的简洁化的能力。把它打包成一个 Web Component 得到一个自定义元素 - 称为&lt;chat-box&gt; - 这是一个黑盒，并且在项目内以及跨项目时都是可重用的。使用它就像添加一个 &lt;link rel="import" href="chat-box.html"&gt;到你的应用中一样简单，并且无论何时你丢掉任何其他的标签它都可以使用，比如，&lt;video&gt;。
 
 The <chat-box> element presents itself as a regular DOM element, and exposes any custom functionality through standard DOM API’s, the ones all kinds of libraries already know how to manipulate:
 
-&lt;chat-box&gt;元素把自己表现的就像是普通的 DOM 元素，并且暴漏了所有自定义的功能通过标准的 DOM API，也就是所有类型的类库都已经知道如何去操作：
+&lt;chat-box&gt;元素看起来就像是普通的 DOM 元素，并且通过标准的 DOM API 暴漏了所有自定义的功能，换句话说所有类型的类库都知道如何使用它：
 
 - To parametrize it during instantiation, you can pass in attributes:
 <chat-box product-category="bikes">
@@ -87,17 +87,17 @@ The true (proposed) power of Web Components is realized when the packaging of su
 
 - 在实例化的过程中实现参数化，你可以在属性中传递：
 &lt;chat-box product-category="bikes"&gt;
-- 想要调用它所包含的功能，你需要在这个 DOM 元素上调用方法：documment.querySelector("chat-box").connect()
+- 想要调用它所封装的功能，你需要在这个 DOM 元素上调用方法：documment.querySelector("chat-box").connect()
 - 想要在 State 里对那些感兴趣的变化做出反应，你需要监听事件：chatBox.addEventListener("customer-rep-avaliable", highlightChatBox)
 
-Web Components 真正的（提出的）能力已经实现了，就是当打包这样一个组件是如此的难懂以至于它根本不在乎哪个框架在[组件内](http://pixelscommander.com/polygon/reactive-elements/example/)（或者组件外！）。我们假定 [Angular 2.0 已经发布](http://www.reddit.com/r/programming/comments/2kl88s/angular_20_drastically_different/)并且你知道它解决了实时聊天的域名问题，和 FLux 相比更加的优雅。将其替换成 Angular 的实现就像更换 &lt;chat-box&gt; 元素的 HTML Import一样简单。
+Web Components 真正的（提出的）能力已经实现了，就是当打包这样一个组件是如此的难懂以至于它根本不在乎哪个框架在[组件内](http://pixelscommander.com/polygon/reactive-elements/example/)（或者组件外！）。我们假定 [Angular 2.0 已经发布](http://www.reddit.com/r/programming/comments/2kl88s/angular_20_drastically_different/)并且你知道它使用了和 FLux 相比更加的优雅的方式解决了实时聊天的域问题。将其替换成 Angular 的实现就会像更换 &lt;chat-box&gt; 元素的 HTML Import一样简单。
 
 ## Managing Web Components within Flux
 ## 在 Flux 中操作 Web Components
 
 The pairing also works the other way around. Since a Virtual DOM implementation essentially allows you to create lightweight DOM elements (which are realized into their heavyweight counterparts only as necessary), there’s no reason why custom elements can’t receive the same treatment. That is, if our React component’s render method looks like this:
 
-配对也在其它方面发挥着作用。由于 Virtual DOM 的实现本质上允许你创建轻量的 DOM 元素（仅仅在需要的时候才会实现重量级的副本），没有什么原因关于为什么自定义元素不能得到同样的待遇。也就是说，如果我们的 React 组件的渲染方式就像这样：
+这两者也在其它方面发挥着作用。由于 Virtual DOM 的实现本质上允许你创建轻量的 DOM 元素（仅仅在需要的时候才会实现重量级的副本），没有什么原因关于为什么自定义元素不能得到同样的待遇。也就是说，如果我们的 React 组件的渲染方式就像这样：
 
 ```
 render: function() {
@@ -110,18 +110,18 @@ render: function() {
 
 ...then there’s no reason to assume the <chat-box> element has to be implemented as a React component. Indeed, exactly as you’re able to create a virtualized <div> which will later be turned into an actual DOM <div>, we can let React manage the life and death of our custom <chat-box> element. Again, what makes this possible is the fact that custom elements are integrated through standard DOM API’s, which DOM libraries (like React or jQuery) already know well.
 
-然而没有什么原因去假设&lt;chat-box&gt;元素[被实现](http://facebook.github.io/react/docs/reconciliation.html)为一个 React 组件。实际上，当你能够创建一个虚拟的&lt;div&gt;，它将会被装换成一个真正的 DOM &lt;div&gt;，我们可以让 React 管理我们这个自定义&lt;chat-box&gt;元素的创建和销毁。还有，自定义元素是通过集成标准 DOM API 的事实让这个成为可能，DOM 库（像 React 或者 jQuery）已经做得很好。
+然而没有必要去假设&lt;chat-box&gt;元素[被实现](http://facebook.github.io/react/docs/reconciliation.html)为一个 React 组件。实际上，当你创建一个虚拟的&lt;div&gt;，它将会被封装成一个真正的 DOM &lt;div&gt;，我们可以让 React 管理我们这个自定义&lt;chat-box&gt;元素的创建和销毁。再者，自定义元素是通过集成标准 DOM 库（像 React 或者 jQuery）已经所熟知的 API 使它成为了可能。
 
 The problematic part of this approach is that in order to be fast, React will often reuse existing DOM elements to realize DOM updates as cheaply as possible. If our custom element contains internal state, it will likely end up either lost or corrupted as a result. While the problem can be somewhat worked around with keyed children, we still need to be careful to not lose important internal state along with the comings and goings of custom elements.
 
-这种方式存在的问题是想要变得更快，React 就需要频繁地[复用存在的 DOM 元素](http://facebook.github.io/react/docs/multiple-components.html#child-reconciliation)来实现尽可能低廉地更新 DOM。如果我们自定义的元素包含内部 state，它最终的结果可能是丢失或者毁坏。然而这个问题可能有点[边缘化](http://facebook.github.io/react/docs/multiple-components.html#dynamic-children)，我们依旧需要小心不能丢了重要的内部 state 以及自定义元素的来去。
+这种实现存在的问题是：如果想要变得更快，React 就需要频繁地[复用存在的 DOM 元素](http://facebook.github.io/react/docs/multiple-components.html#child-reconciliation)来实现尽可能低廉地更新 DOM。如果我们自定义的元素包含内部 state，它最终的结果可能是丢失或者毁坏。然而这个问题可能有点[边缘化](http://facebook.github.io/react/docs/multiple-components.html#dynamic-children)，我们依旧需要小心不能丢了重要的内部 state 以及自定义元素的来去。
 
 ## Managing stateless Web Components
 ## 使用无状态的 Web Components
 
 The two previous approaches to combining a Virtual DOM with Web Components have been very much concerned with state management, and rightly so: managing the consistency of state in a complex frontend application can be a daunting task. If we forget Flux, state management and our beloved “mini-apps” for a bit, however, we’re still left with an interesting case to consider: Web Components without any internal state.
 
-前面提到的两种结合 Virtual DOM 和 Web Components 的方式都与 state 的管理有关，准确地说：管理状态的一致性在一个复杂的前端应用中可能是一个很可怕的任务。如果我们忘了 Flux，state 管理和我们钟爱的“mini-apps”这一点，我们依旧有一个很有意思的东西需要考虑：没有任何内部 state 的 Web Components。
+前面提到的两种结合 Virtual DOM 和 Web Components 的方式都与 state 的管理有关，准确地说：管理状态的一致性在一个复杂的前端应用中可能是一个很可怕的任务。如果我们忘了 Flux，state 管理和我们钟爱的“迷你应用”这一点，我们依旧有一个很有意思的东西需要考虑：没有任何内部 state 的 Web Components。
 
 Let’s say you’ve created a sweet tab implementation as a Web Component, and decided its markup looks like this:
 
@@ -137,7 +137,7 @@ Let’s say you’ve created a sweet tab implementation as a Web Component, and 
 
 The "selected" attribute controls which tab is currently visible. We can easily let React manage this tab implementation, without fears of clobbering delicate internal state, like so:
 
-带有“selected”属性的选项卡当前可见。我们能很容易的让 React 管理这个选项卡的执行，没有必要对内部 state心存畏惧，就像这样：
+带有“selected”属性的选项卡当前可见。我们能很容易的让 React 管理这个选项卡的执行，没有必要对内部 state 心存畏惧，就像这样：
 
 ``
 render: function() {
@@ -157,6 +157,6 @@ The important difference to the preceding <chat-box> example is that any and all
 
 I hope this helped clarify how the two futures of frontend architecture - Flux and Web Components - are fundamentally different, and yet still composable in interesting ways. The simplifying power of Flux can’t be dismissed, but even less so the powerful interoperability characteristics of Web Components. While an acceptable level of Web Components support is still years away, if we align our choices today with what’s coming tomorrow, we’ll be on more solid ground as the craft continues to evolve, often at breakneck speeds. As software craftsmen, we want to use these latest advances in technology to deliver kick-ass user experiences for the browser. Currently, the “new hotness” is React, with a Flux-like architecture backing it up. Still, it’s certainly not the end-all of frontend architectures, and big players are betting big on Web Components. Understanding the interplay between these short- and long-term futures is important to make sure our creations stand the test of time.
 
-我希望这个可以帮助认清 Flux 和 Web Components 这两个前端架构的情况，它们基本上是不同的，并且还能够以更有趣的方式进行组合。Flux 的精简的能力不能被忽视，即便是互操作性不是那么强大的 Web Components 也是如此。然而对 Web Components 支持提升到可接受的水平还要几年时间，如果我们按照明天将会发生的事调整今天的选择，我们的技术将在更加坚实的基础之上持续的发展，很可能以惊人的速度。作为一个软件工匠，我们想要使用那些最前沿的技术在浏览器上提供了不起的用户体验。当前，React 绝对是“新宠”，有一个类 Flux 的架构在它背后。它当然不会是前端架构的终极目标，并且大玩家在 Web Components 上下了大的赌注。意识到这些短期和长期的未来间的相互作用非常重要，确保我们的作品经得起时间的考验。
+我希望这个可以帮助认清 Flux 和 Web Components 这两个前端架构的情况，它们基本上是不同的，并且还能够以更有趣的方式进行组合。Flux 的精简的能力不能被忽视，即便是互操作性不是那么强大的 Web Components 也是如此。然而对 Web Components 支持提升到可接受的水平还要几年时间，如果我们按照明天将会发生的事调整今天的选择，我们的技术将在更加坚实的基础之上持续的发展，很可能以惊人的速度。作为一个软件工匠，我们想要使用那些最前沿的技术在浏览器上提供了不起的用户体验。当前，React 绝对是“新宠”，有一个类 Flux 的架构在它背后。它当然不会是前端架构的终极目标，并且大玩家们在 Web Components 上下了大的赌注。意识到这些短期和长期的未来间的相互作用非常重要，确保我们的作品经得起时间的考验。
 
 原文：[Combining React, Flux & Web Components](http://futurice.com/blog/combining-react-flux-and-web-components)
