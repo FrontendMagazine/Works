@@ -16,7 +16,7 @@ This is my own personal point of view. However, I have shared early drafts of th
 
 Io.js is a collaborative fork of joyent/node. Io.js is created by Fedor Indutny, a long-time active node core team member responsible for some of the most important parts of the Node.js runtime.
 
-Io.js 是 joyent/node 的 fork 协作版，是 Fedor Indutny 创建的。后者是一位长期活跃的核心团队的成员，负责 Node.js 运行时中一些重要的部分。
+Io.js 是 joyent/node 的 fork 协作版。Io.js 是 Fedor Indutny 创建的，他是一位长期活跃的 node 核心团队成员，负责 Node.js 运行时中一些重要的部分。
 
 Io.js continues the work that was previously being done by Node Forward in the node-forward/node repository. We hope to merge with the original Node.js project at some point in the future.
 
@@ -32,7 +32,7 @@ Node Forward 是 Node.js 核心贡献者、社区成员以及利益企业之间�
 
 On July 11, Mikeal Rogers created a private node-forward repository under his personal GitHub account to discuss the future direction of Node.js. Many of us felt that it was time to pursue a consensus-seeking contributor-governed process for the project, in a neutral foundation.
 
-今天7月11号，Mikeal Rogers 在自己的 Github 账号下创建了一个 node-forward 非公开的项目，用于讨论 Node.js 未来发展的方向。我们中的很多人意识到是时候给这个项目寻求一种大家能够接受的贡献者自治的流程，在一个中立基础之上。
+今年7月11日，Mikeal Rogers 在自己的 Github 账号下创建了一个 node-forward 非公开的项目，用于讨论 Node.js 未来发展的方向。我们中的很多人意识到是时候给这个项目寻求一种大家能够接受的贡献者自治的流程，在一个中立基础之上。
 
 ## What is “node-forward/node”?
 
@@ -48,7 +48,7 @@ At that time, Mikeal wrote:
 
 > The first goal of the foundation is to house core development at a neutral organization that can support Node. Nobody prefers that work to be released as a fork and we will continue to work with Joyent to make them a member and even a leader of this foundation. Joyent may decide that the best thing for Node is to continue their own work in parallel to the work other contributors are taking under the foundation in a symbiotic manner that has propelled projects like Linux and BSD. In that case the contributors in the TC are committed to releasing as a “fork” although they do not find it preferable.
 
-> 最根本的目的就是把核心开发放到这里，在一个可以支持 Node 的中立组织下。没有人愿意成就作为一个 fork 的分支发布出来，我们还将继续与 Joyent 一同工作，把他们作为一个成员，甚至是作为这个组织的带头人。Joyent 可能会觉得对 Node 最好的做法就是他们自己的工作与组织下的其他贡献者的工作并行，以一种共生的方式继续推进项目，就像 Linux 和 BSD 的关系类似。这样的话， TC（技术委员会）的贡献者被迫承诺以 “fork” 的方式发布，不过这会让他们感觉不爽。
+> 最根本的目的就是把核心开发放到这里，在一个可以支持 Node 的中立组织下。没有人愿意把成就作为一个 fork 的分支发布出来，我们还将继续与 Joyent 一同工作，把他们作为一个成员，甚至是作为这个组织的带头人。Joyent 可能会觉得对 Node 最好的做法就是他们自己的工作与组织下的其他贡献者的工作并行，以一种共生的方式继续推进项目，就像 Linux 和 BSD 的关系类似。这样的话， TC（技术委员会）的贡献者被迫承诺以 “fork” 的方式发布，不过这会让他们感觉不爽。
 
 In the Node Forward repository, the core contributors involved in this effort formed a Technical Committee (TC), and came to consensus on governance process and broad technical direction. The TC consists of 6 of the top 8 Node.js core contributors. (Ryan Dahl has no current involvement with Node.js. TJ Fontaine was invited but declined to participate.)
 
@@ -64,7 +64,7 @@ No.
 
 Joyent is a corporation that provides container infrastructure as a service solutions, including the Joyent Container Service, the Manta data storage and analytics platform, and the SmartDataCenter orchestration system. In 2010, Joyent purchased the Node.js copyright and trademark from Node’s original author, Ryan Dahl.
 
-Joyent 是一个把容器基础设置作为服务解决方案提供的公司。包括 Joyent Container Service、Manta 数据存储和分析平台和SmartDataCenter编排系统。2010年，Joyent 从 Node 的原作者，即 Ryan Dahl 手中购买了 Node.js 的版权和商标。
+Joyent 是一个把容器基础设置作为服务解决方案提供的公司。包括 Joyent Container Service、Manta 数据存储以及分析平台和 SmartDataCenter 编排系统。2010年，Joyent 从 Node 的原作者，即 Ryan Dahl 手中购买了 Node.js 的版权和商标。
 
 Node Forward is a group of community members and core committers who want to continue to work on improving Node.js as effectively as possible, using open self-governance in a neutral community foundation.
 
@@ -72,7 +72,7 @@ Node Forward 是一个由社区成员和核心贡献者组成的组织。目的�
 
 The goal of Node Forward is to work with Joyent and the rest of the Node.js community in order to improve Node.js. We respect Joyent’s significant investment in Node.js over the years, and we believe that a combined effort is beneficial to Joyent and to Node.
 
-Node Forward 的目的是于 Joyent 和其他 Node.js 社区一起联手提升 Node.js。感谢 Joyent 数年来对 Node.js 的大力资助，我们相信双方努力的联合，对 Joyent 和 Node 都大有好处。
+Node Forward 的目的是与 Joyent 和其他 Node.js 社区一起联手提升 Node.js。感谢 Joyent 数年来对 Node.js 的大力资助，我们相信双方努力的联合，对 Joyent 和 Node 都大有好处。
 
 ## What is the Joyent Node Advisory Board?
 
@@ -88,7 +88,7 @@ On September 26, he held a meeting to discuss the creation of an advisory board.
 
 The first official meeting of the Advisory Board occurred on October 23.
 
-第一个正式 的委员会会议于10月23号召开。
+第一个正式的委员会会议于10月23号召开。
 
 More information about the Joyent Node Advisory Board can be found on Joyent’s website.
 
@@ -108,7 +108,7 @@ Hammond 表示，他把这看做是不守信用的一个迹象，破坏了他对
 
 I brought up the issue in the third Joyent Node Advisory Board meeting on November 20. Scott Hammond reiterated that it is a violation of Joyent’s trademark to release code “based on Joyent Node.js which is also called node”, and that he intended to ensure that their trademark was protected “by any and all legal means”. He requested that we choose a name other than “node” if we make this project public.
 
-11月20日，我在 Joyent Node Advisory Board 会议上提出了这个问题。Scott Hammond 重申，发布“基于 Joyent Node.js 同样叫做 node 的”代码是对 Joyent 商标的侵权，而且他打算通过“任何合法的手段”保护其商标。要求我们取另外一个不是“node”的名字，如果我们要把这个项目公开的话。
+11月20日，我在第三届 Joyent Node Advisory Board 会议上提出了这个问题。Scott Hammond 重申，发布“基于 Joyent Node.js 同样叫做 node 的”代码是对 Joyent 商标的侵权，而且他打算通过“任何合法的手段”保护其商标。要求我们取另外一个不是“node”的名字，如果我们要把这个项目公开的话。
 
 By that time, there was also clear indication of forward progress at the JNAB meetings. We had taken steps towards a consensus-based open governance model not dictated by any one corporation. There had been several discussions of relaxing use of the “Node.js” trademark by businesses providing products related to Node. There was a clearer understanding of the role that the community might play in future Advisory Board meetings.
 
@@ -124,7 +124,7 @@ I am optimistic that the JNAB meetings will continue to be productive.
 
 On November 26, Fedor Indutny, an extremely prolific Node.js core contributor, and an active participant in Node Forward, decided that he would create a fork of Node.js with a different name, so that the technical work started in Node Forward could continue in public without violating Joyent’s trademark.
 
-11月26号，Fedor Indutny，一个高产的 Node.js 核心贡献者，同时也是一个获取的 Node Forward 参与者，提议说他可以创建一个 Node.js 的 fork 版，使用另外一个名字，以此继续公开地进行 Node Forward 开发工作，而不对 Joyent 的商标造成侵权。
+11月26号，Fedor Indutny，一个高产的 Node.js 核心贡献者，同时也是一个积极的 Node Forward 参与者，提议说他可以创建一个 Node.js 的 fork 版，使用另外一个名字，以此继续公开地进行 Node Forward 开发工作，而不对 Joyent 的商标造成侵权。
 
 The Technical Committee that had previously been working on node-forward/node decided to move to the io.js repository. The other non-technical discussion repositories remain on the Node Forward organization at this time.
 
@@ -177,7 +177,7 @@ In no particular order:
 
 - 持续集成
 - 正常情况下必须100%测试通过
-- 严格兼容SemVer标准的版本号管理
+- 严格兼容 SemVer 标准的版本号管理
 - 贡献者自治，不受任何公司控制
 - 透明的民主制度
 - 每周发布
@@ -185,7 +185,7 @@ In no particular order:
 - 活跃地开发
 - 可见的 roadmap
 - 集体约定
-- 假定 Joyent Node Advisory Board 也是继续朝着这些目标推进，希望将来项目和合并
+- 假定 Joyent Node Advisory Board 也是继续朝着这些目标推进，希望将来项目和合并。
 
 
 ## What is npm’s position on Node forks?
@@ -202,7 +202,7 @@ Node 社区是它最好的一个特性。现在在上面的包已经超过了10�
 
 npm remains committed to its mission of reducing friction for all JavaScript developers.
 
-npm 任然会致力于自己的使命——减少 JavaScript 开发者阻力。
+npm 仍然会致力于自己的使命——减少 JavaScript 开发者阻力。
 
 ## Will npm be renaming to “ipm” since it’s the io.js package manager?
 
