@@ -8,7 +8,7 @@ A lot of people have asked me lately about io.js and its place among Node Forwar
 
 This is my own personal point of view. However, I have shared early drafts of this post with the io.js technical committee to ensure that it’s at least a reasonable approximation of how the team sees things.
 
-下面是我个人的看法。一个较早的版本我已经在 io.js 委员会里发过了，目的是让大家能够大体上达成一致的看法。
+下面是我个人的看法。一个较早的版本我已经在 io.js 委员会里发过了，目的是让大家能够大体上达成一致的意见。
 
 ## What is io.js?
 
@@ -16,11 +16,11 @@ This is my own personal point of view. However, I have shared early drafts of th
 
 Io.js is a collaborative fork of joyent/node. Io.js is created by Fedor Indutny, a long-time active node core team member responsible for some of the most important parts of the Node.js runtime.
 
-Io.js 是 joyent/node 的 fork 协作版，是 Fedor Indutny 创建的。后者是一位长期活跃的核心团队的成员，负责 Node.js 运行时中一些重要的部分。
+[Io.js](https://github.com/iojs/io.js) 是 Fedor Indutny 创建的[ joyent/node](https://github.com/joyent/node) 的 fork 版。后者是一位长期活跃的核心团队的成员，负责 Node.js 运行时中一些重要部分的开发。
 
 Io.js continues the work that was previously being done by Node Forward in the node-forward/node repository. We hope to merge with the original Node.js project at some point in the future.
 
-Io.js 继续完成 Node Forward 之前在 node-forward/node 项目中的工作。我们希望在将来的某个时间点可以合并会原始的 Node.js 项目中。
+Io.js 继续完成 Node Forward 之前在 node-forward/node 中的工作。我们希望在将来的某个时间点可以合并回原始的 Node.js 项目中。
 
 ## What is Node Forward?
 
@@ -40,7 +40,7 @@ On July 11, Mikeal Rogers created a private node-forward repository under his pe
 
 After a month in Mikeal’s private node-forward repository, the discussion was moved to the Node Forward organization in August, where it could be continued in public. The Node Forward organization included a (GitHub fork-button-style) “fork” of Node.js at node-forward/node, created with the express intent of merging changes with the joyent/node repository.
 
-一个月后，也就是8月份，我们的讨论从非公开的 node-forward 项目，迁移到了 Node Forward 这个组织，这样可以把讨论公开化。Node Forward 这个组织包含了一个 Node.js fork 的项目 node-forward/node。创建的目的就是希望可以和  joyent/node 项目之间互相 merge 更新。
+一个月后，也就是8月份，我们的讨论从非公开的 node-forward 项目，迁移到了 [Node Forward ](https://github.com/node-forward)这个组织，这样可以把讨论公开化。Node Forward 这个组织包含了一个 Node.js fork 的项目 [node-forward/node](https://github.com/node-forward)。创建的目的就是希望可以和  joyent/node 项目之间互相 merge 更新。
 
 At that time, Mikeal wrote:
 
@@ -48,11 +48,12 @@ At that time, Mikeal wrote:
 
 > The first goal of the foundation is to house core development at a neutral organization that can support Node. Nobody prefers that work to be released as a fork and we will continue to work with Joyent to make them a member and even a leader of this foundation. Joyent may decide that the best thing for Node is to continue their own work in parallel to the work other contributors are taking under the foundation in a symbiotic manner that has propelled projects like Linux and BSD. In that case the contributors in the TC are committed to releasing as a “fork” although they do not find it preferable.
 
+
 > 最根本的目的就是把核心开发放到这里，在一个可以支持 Node 的中立组织下。没有人愿意成就作为一个 fork 的分支发布出来，我们还将继续与 Joyent 一同工作，把他们作为一个成员，甚至是作为这个组织的带头人。Joyent 可能会觉得对 Node 最好的做法就是他们自己的工作与组织下的其他贡献者的工作并行，以一种共生的方式继续推进项目，就像 Linux 和 BSD 的关系类似。这样的话， TC（技术委员会）的贡献者被迫承诺以 “fork” 的方式发布，不过这会让他们感觉不爽。
 
 In the Node Forward repository, the core contributors involved in this effort formed a Technical Committee (TC), and came to consensus on governance process and broad technical direction. The TC consists of 6 of the top 8 Node.js core contributors. (Ryan Dahl has no current involvement with Node.js. TJ Fontaine was invited but declined to participate.)
 
-在 Node Forward 项目中，核心贡献者被卷进来努力形成一个技术委员会（TC），并就管理流程和长远的技术方向达成一致。TC 由 8 位 Node.js 的顶级贡献者中的 6 名组成。（Ryan Dahl 已经不参与 Node.js 相关的事情了，而 TJ Fontaine 拒绝了我们的邀请。）
+在 Node Forward 项目中，核心贡献者被卷进来努力形成一个技术委员会（TC），并就管理流程和长远的技术方向达成一致。TC 由 [8 位 Node.js 的顶级贡献者](https://github.com/joyent/node/graphs/contributors)中的 6 名组成。（Ryan Dahl 已经不参与 Node.js 相关的事情了，而 TJ Fontaine 拒绝了我们的邀请。）
 
 ## Does Node Forward compete with Joyent or Node.js?
 
@@ -92,7 +93,7 @@ The first official meeting of the Advisory Board occurred on October 23.
 
 More information about the Joyent Node Advisory Board can be found on Joyent’s website.
 
-更多关于 Joyent Node 委员会的信息可以在 Joyent 的网站上找到。
+更多关于 Joyent Node 委员会的信息可以在[ Joyent 的网站](http://nodejs.org/about/advisory-board/)上找到。
 
 ## Why was node-forward/node made private?
 
@@ -120,7 +121,7 @@ I am optimistic that the JNAB meetings will continue to be productive.
 
 ## Why was io.js created?
 
-## 为什么创建 io.js？
+## 为什么创建 [io.js](https://github.com/iojs/io.js)？
 
 On November 26, Fedor Indutny, an extremely prolific Node.js core contributor, and an active participant in Node Forward, decided that he would create a fork of Node.js with a different name, so that the technical work started in Node Forward could continue in public without violating Joyent’s trademark.
 
@@ -128,7 +129,7 @@ On November 26, Fedor Indutny, an extremely prolific Node.js core contributor, a
 
 The Technical Committee that had previously been working on node-forward/node decided to move to the io.js repository. The other non-technical discussion repositories remain on the Node Forward organization at this time.
 
-之前一直在 node-forward/node 项目上开发的技术委员会决定迁移到 io.js 项目上。同时其他非技术的讨论项目还留在 Node Forward 这个组织里。
+之前一直在 node-forward/node 项目上开发的技术委员会决定迁移到 [io.js](https://github.com/iojs/io.js) 项目上。同时其他非技术的讨论项目还留在 [Node Forward](https://github.com/node-forward) 这个组织里。
 
 ## Does io.js compete with Joyent or Node.js?
 
@@ -214,7 +215,7 @@ No.
 
 "npm" does not stand for Node Package Manager. It is officially an abbreviation for “npm is not an acronym”. We do enjoy novel pun-making though.
 
-“npm” 不是指代 Node Package Manager。它是“npm 不是首字母缩写词”的官方缩写词。我们的确喜欢这种文艺的双关语。
+“npm” 不是指代 Node Package Manager。它是“npm 不是首字母缩写词”的[官方缩写词](https://docs.npmjs.com/misc/faq#if-npm-is-an-acronym-why-is-it-never-capitalized-)。我们的确喜欢这种文艺的[双关语](https://github.com/npm/npm-expansions)。
 
 —————
 
