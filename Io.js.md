@@ -174,6 +174,7 @@ In no particular order:
 - Community engagement
 - Assuming the Joyent Node Advisory Board continues to make progress towards these goals, we expect to merge the projects in the future.
 
+
 - 持续集成
 - 正常情况下必须100%测试通过
 - 严格兼容SemVer标准的版本号管理
