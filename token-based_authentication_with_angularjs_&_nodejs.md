@@ -1,13 +1,12 @@
 # Token-Based Authentication With AngularJS & NodeJS
 # 使用 AngularJS & NodeJS 实现基于 token 的认证应用
->寸志，有两个次不确定 bearer token，endpoints 我翻译成原始 token 和 端点。帮忙指正下。
 
 ![Final product image](https://cms-assets.tutsplus.com/uploads/users/487/posts/22543/final_image/token-based-real-life-architecture%20(3).png)
 我们将要创建的
 
 Authentication is one of the most important parts of any web application. In this tutorial, we'll be discussing token-based authentication systems and how they differ from traditional login systems. At the end of this tutorial, you'll see a fully working demo written in AngularJS and NodeJS
 
-认证是任何 web 应用中不可或缺的一部分。在这个教程中，我们会讨论基于 token 的认证系统以及他和传统的登录系统的不同。这这篇教程的末尾，你会看到一个使用 AngularJS 和 NodeJS 构建的一个完整的应用。
+认证是任何 web 应用中不可或缺的一部分。在这个教程中，我们会讨论基于 token 的认证系统以及它和传统的登录系统的不同。这篇教程的末尾，你会看到一个使用 AngularJS 和 NodeJS 构建的完整的应用。
 
 ## Traditional Authentication Systems
 ## 传统的认证系统
@@ -21,10 +20,11 @@ Before proceeding with a token-based authentication system, let's have a look at
 3. Provide the session information for accessing restricted endpoints in the application.
 4. If the session information is valid, let the user access specified end points, and respond with the rendered HTML content.
 
-1. 用户在登录域输入 __用户名__ 和 __密码__ ，然后点击 __登录__ 。
-2. 请求发送之后，通过在后端查询数据库验证用户的合法性。如果请求有效，使用在数据库得到的信息创建一个 session，然后在响应头信息中返回这个 session 的信息，目的是把这个 session ID 存储到浏览器中。
-3. 在访问应用中受限制的端点时提供这个 session 信息。
+1. 用户在登录域输入 __用户名__ 和 __密码__ ，然后点击 __登录__ ；
+2. 请求发送之后，通过在后端查询数据库验证用户的合法性。如果请求有效，使用在数据库得到的信息创建一个 session，然后在响应头信息中返回这个 session 的信息，目的是把这个 session ID 存储到浏览器中；
+3. 在访问应用中受限制的端点时提供这个 session 信息；
 4. 如果 session 信息有效，允许用户访问受限制的端点，并且把渲染好的 HTML 内容返回。
+
 ![](https://cms-assets.tutsplus.com/uploads/users/487/posts/22543/image/traditional-authentication-system-png.png)
 
 Everything is fine until this point. The web application works well, and it is able to authenticate users so that they may access restricted endpoints; however, what happens when you want to develop another client, say for Android, for your application? Will you be able to use the current application to authenticate mobile clients and to serve restricted content? As it currently stands, no. There are two main reasons for this:
@@ -34,10 +34,11 @@ Everything is fine until this point. The web application works well, and it is a
 1. Sessions and cookies do not make sense for mobile applications. You cannot share sessions or cookies created on the server-side with mobile clients.
 2. In the current application, the rendered HTML is returned. In a mobile client, you need something like JSON or XML to be included as the response.
 
-1. 在移动应用上 session 和 cookie 根本讲不通。你做不到共享移动终端服务器创建的 session 和 cookie。
-2. 在实际应用中，渲染好的 HTML 被返回。在移动端，你需要包含一些类似 JSON 或者 XML 的东西包含在响应中。
+1. 在移动应用上 session 和 cookie 行不通。你无法与移动终端共享服务器创建的 session 和 cookie。
+2. 在这个应用中，渲染好的 HTML 被返回。但在移动端，你需要包含一些类似 JSON 或者 XML 的东西包含在响应中。
+
 In this case, you need a client-independent application.
-在这个例子中，需要一个客户端独立的应用。
+在这个例子中，需要一个独立客户端服务。
 
 ## Token-Based Authentication
 ## 基于 token 的认证
@@ -54,14 +55,14 @@ It will use the following flow of control:
 3. Provide token information in every request header for accessing restricted endpoints in the application.
 4. If the token fetched from the request header information is valid, let the user access the specified end point, and respond with JSON or XML.
 
-1. 用户在登录域输入 __用户名__ 和 __密码__ ，然后点击 __登录__ 。
-2. 请求发送之后，通过在后端查询数据库验证用户的合法性。如果请求有效，使用在数据库得到的信息创建一个 token，然后在响应头信息中返回这个的信息，目的是把这个 token 存储到浏览器的本地存储中。
-3. 在每次发送访问应用中受限制的终端数据的请求时提供 token 信息。
+1. 用户在登录表单中输入 __用户名__ 和 __密码__ ，然后点击 __登录__ ；
+2. 请求发送之后，通过在后端查询数据库验证用户的合法性。如果请求有效，使用在数据库得到的信息创建一个 token，然后在响应头信息中返回这个的信息，目的是把这个 token 存储到浏览器的本地存储中；
+3. 在每次发送访问应用中受限制的终端的请求时提供 token 信息；
 4. 如果从请求头信息中拿到的 token 有效，允许用户访问受限制的端点，并且返回 JSON 或者 XML。
 
 In this case, we have no returned session or cookie, and we have not returned any HTML content. That means that we can use this architecture for any client for a specific application. You can see the architecture schema below:
 
-在这个例子中，我们没有返回的 session 或者 cookie，并且我们没有返回任何 HTML 内容。那意味着我们可以把这个架构应用于一个特定应用的所有客户端中。你可以看一下面的架构体系：
+在这个例子中，我们没有返回的 session 或者 cookie，并且我们没有返回任何 HTML 内容。那意味着我们可以把这个架构应用于特定应用的所有客户端中。你可以看一下面的架构体系：
 
 [](https://cms-assets.tutsplus.com/uploads/users/487/posts/22543/image/token-based-authentication-system-png.png)
 
@@ -72,7 +73,7 @@ So, what is this JWT?
 
 JWT stands for __JSON Web Token__ and is a token format used in authorization headers. This token helps you to design communication between two systems in a secure way. Let's rephrase JWT as the "bearer token" for the purposes of this tutorial. A bearer token consists of three parts: header, payload, and signature.
 
-JWT 代表 __JSON Web Token__ ，它是一种用于认证头部的 token 格式。这个 token 帮你实现了在两个系统之间以一种安全的方式传递信息。出于教学目的，我们暂且把 JWT 作为“原始 token”。一个原始 token 包含了三部分：header，payload，signature。
+JWT 代表 __JSON Web Token__ ，它是一种用于认证头部的 token 格式。这个 token 帮你实现了在两个系统之间以一种安全的方式传递信息。出于教学目的，我们暂且把 JWT 作为“不记名 token”。一个不记名 token 包含了三部分：header，payload，signature。
 
 - The header is the part of the token that keeps the token type and encryption method, which is also encrypted with base-64.
 - The payload includes the information. You can put any kind of data like user info, product info and so on, all of which is stored with base-64 encryption.
@@ -88,7 +89,7 @@ You can see the JWT schema and an example token below:
 
 You do not need to implement the bearer token generator as you can find versions that already exist in several languages. You can see some of them below:
 
-你不必关心如何实现原始 token 生成器函数，因为它对于很多常用的语言已经有多个版本的实现。下面给出了一些：
+你不必关心如何实现不记名 token 生成器函数，因为它对于很多常用的语言已经有多个版本的实现。下面给出了一些：
 
 Language	Library URL
 NodeJS	http://github.com/auth0/node-jsonwebtoken
@@ -103,7 +104,7 @@ Python	http://github.com/progrium/pyjwt/
 
 After covering some basic information about token-based authentication, we can now proceed with a practical example. Take a look at the following schema, after which we'll analyze it in more detail:
 
-在讨论了关于基于 token 认证的一些基本信息后，我们接下来看一个实例。看一下下面的几点，然后我们会仔细的分析它：
+在讨论了关于基于 token 认证的一些基础知识后，我们接下来看一个实例。看一下下面的几点，然后我们会仔细的分析它：
 
 ![](https://cms-assets.tutsplus.com/uploads/users/487/posts/22543/image/real-life-architecture-png.png)
 
@@ -158,13 +159,13 @@ In the back-end project, there are three main files:
 - ``models\User.js`` contains a User model that will be used for making database operations about users.
 - ``server.js`` is for project bootstrapping and request handling.
 
-- ``package.json`` 用于管理依赖。
-- ``models\User.js`` 包含了可能被用于处理关于用户的数据库操作的用户模型。
+- ``package.json`` 用于管理依赖；
+- ``models\User.js`` 包含了可能被用于处理关于用户的数据库操作的用户模型；
 - ``server.js`` 用于项目引导和请求处理。
 
 That's it! This project is very simple, so that you can understand the main concept easily without doing a deep dive.
 
-就是这样！这个项目非常简单，你可以轻而易举的了解主要的概念。
+就是这样！这个项目非常简单，你不必深入研究就可以了解主要的概念。
 ````
 {
     "name": "angular-restful-auth",
@@ -365,7 +366,7 @@ function ensureAuthorized(req, res, next) {
 
 In this function, request headers are intercepted and the ``authorization`` header is extracted. If a bearer token exists in this header, that token is assigned to ``req.token`` in order to be used throughout the request, and the request can be continued by using ``next()``. If a token does not exist, you will get a 403 (Forbidden) response. Let's go back to the handler ``/me``, and use ``req.token`` to fetch user data with this token. Whenever you create a new user, a token is generated and saved in the user model in DB. Those tokens are unique.
 
-在这个函数中，请求头部被拦截并且 ``authorization`` 头部被提取。如果头部中存在一个原始 token，通过调用 ``next()`` 函数，请求继续。如果 token 不存在，你会得到一个 403（Forbidden）返回。我们回到  ``/me`` 事件处理函数，并且使用 ``req.token`` 获取这个 token 对应的用户数据。当你创建一个新的用户，会生成一个 token 并且存储到数据库的用户模型中。那些 token 都是唯一的。
+在这个函数中，请求头部被拦截并且 ``authorization`` 头部被提取。如果头部中存在一个不记名  token，通过调用 ``next()`` 函数，请求继续。如果 token 不存在，你会得到一个 403（Forbidden）返回。我们回到  ``/me`` 事件处理函数，并且使用 ``req.token`` 获取这个 token 对应的用户数据。当你创建一个新的用户，会生成一个 token 并且存储到数据库的用户模型中。那些 token 都是唯一的。
 
 We have only three handlers for this simple project. After that, you will see;
 
@@ -379,7 +380,7 @@ process.on('uncaughtException', function(err) {
 
 The NodeJS app may crash if an error occurs. With the above code, that crash is prevented and an error log is printed in the console. And finally, we can start the server by using the following code snippet. 
 
-当程序出错时 NodeJS 应用可能崩溃。添加上面的代码可以拯救它并且一个错误日志会打到控制台上。最终，我们可以使用下面的代码片段启动服务。
+当程序出错时 NodeJS 应用可能会崩溃。添加上面的代码可以拯救它并且一个错误日志会打到控制台上。最终，我们可以使用下面的代码片段启动服务。
 
 ````
 // Start Server
@@ -416,7 +417,7 @@ You can clone the back-end project from this [GitHub repository](http://github.c
 
 I will not be discussing how to create an app in Heroku; you can refer [to this article](http://devcenter.heroku.com/articles/creating-apps) for creating a Heroku app if you have not done this before. After you create your Heroku app, you can add a destination to your current project by using the following command:
 
-我不会教你如何在 Heroku 如何创建一个应用；如果你还没有做过这个，你可以查阅[这篇文章](http://devcenter.heroku.com/articles/creating-apps)用来创建一个 Heroku。创建完 Heroku 应用，你可以使用下面的命令为你的项目添加一个地址：
+我不会教你如何在 Heroku 如何创建一个应用；如果你还没有做过这个，你可以查阅[这篇文章](http://devcenter.heroku.com/articles/creating-apps)。创建完 Heroku 应用，你可以使用下面的命令为你的项目添加一个地址：
 
 ````
 git remote add heroku <your_heroku_git_url>
@@ -534,8 +535,8 @@ In this controller, some utility functions are defined, such as:
 - ``signup`` for sign-up form handling
 - ``me`` for assigning the Me button in the layout
 
-- ``signin`` 可以在登录表单中初始化一个登录按钮。
-- ``signup`` 用于处理注册操作。
+- ``signin`` 可以在登录表单中初始化一个登录按钮；
+- ``signup`` 用于处理注册操作；
 - ``me`` 可以在 layout 中生生一个 Me 按钮。
 
 
@@ -615,7 +616,7 @@ These functions are simply Ajax requests to our service which we deployed togeth
 
 In the sign-up or sign-in part of the application, the bearer token responds to the request and this token is saved to local storage. Whenever you make a request to a service in the back-end, you need to put this token in the headers. You can do this by using AngularJS interceptors.
 
-在应用的注册或者登录部分，原始 token 响应了这个请求并且这个 token 被存储到本地存储中。当你在后端请求一个服务时，你需要把这个 token 放在头部中。你可以使用 AngularJS 的拦截器实现这个。
+在应用的注册或者登录部分，不记名 token 响应了这个请求并且这个 token 被存储到本地存储中。当你向后端请求一个服务时，你需要把这个 token 放在头部中。你可以使用 AngularJS 的拦截器实现这个。
 
 ````
 $httpProvider.interceptors.push(['$q', '$location', '$localStorage', function($q, $location, $localStorage) {
@@ -687,7 +688,7 @@ You can see how everything we discussed in this tutorial works into practice by 
 
 Token-based authentication systems help you to construct an authentication/authorization system while you are developing client-independent services. By using this technology, you will just focus on your services (or APIs). 
 
-基于 token 的认证系统帮你建立了一个认证/授权系统，当你在开发客户端独立的服务时。通过使用这个技术，你可以仅仅关注于服务（或者 API）。
+基于 token 的认证系统帮你建立了一个认证/授权系统，当你在开发客户端独立的服务时。通过使用这个技术，你只需关注于服务（或者 API）。
 
 The authentication/authorization part will be handled by the token-based authentication system as a layer in front of your services. You can access and use services from any client like web browsers, Android, iOS, or a desktop client.
 
