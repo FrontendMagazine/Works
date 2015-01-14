@@ -295,7 +295,7 @@ This method is called whenever the Save button is clicked. It accepts ``noteText
 
 This is how the data flows into the system and subsequently goes out in a Flux based application.
 
-这就是数据如何流入系统并且随后流出到 Flux 基础应用。
+这就是在 Flux 应用中数据如何流入系统并且随后流出的。
 
 ## Why Use React on the Server
 
@@ -303,11 +303,11 @@ This is how the data flows into the system and subsequently goes out in a Flux b
 
 You might be wondering why I used React and Reflux on the server. One of the cool features of React is that the components can be rendered on both the client and server. Using this technique, you can create isomorphic apps that render on server and also behave as Single Page Apps. While this may not be required for a note app, you can easily use this setup to build complex isomorphic apps in future.
 
-你可能好奇为什么我使用了服务端的 React 和 Reflux。React 最酷的一个特性就是可以在客户端和服务端渲染。使用这种技术，你可以创建同构的应用，在服务端渲染并且表现的和单页面应用一样。然而这对一个记事本应用不是很必要，你可以轻松地使用这个方案创建一个复杂的同构的应用。
+你可能好奇为什么在服务端使用 React 和 Reflux。React 最酷的一个特性就是可以在客户端和服务端渲染。使用这种技术，你可以创建同构的应用，在服务端渲染并且表现的和单页面应用一样。然而这对一个记事本应用不是很必要，你可以轻松地使用这个方案创建一个复杂的同构的应用。
 
 I encourage you to go through the source code and improve it further as there is a lot of room for improvements. If you have any questions do let me know in comments.
 
-我建议你通读项目源码并且进一步地改造它，因为这里还有很大的提升空间。
+我建议你通读项目源码并且进一步地改造它，因为这里还有很大的提升空间。如果有任何的问题，可以在评论里告诉我。
 
 Thanks for reading!
 
