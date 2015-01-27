@@ -1,30 +1,37 @@
 Introduction
-简介
+
+##简介
+
 Node.js has seen an important growth in the past years, with big companies such as Walmart or PayPal adopting it. More and more people are picking up Node and publishing modules to NPM at such a pace that exceeds other languages. However, the Node philosophy can take a bit to get used to, especially if you have switched from another language.
+
 NODEJS在过去的几年中迅猛发展，沃尔玛，paypal等大公司均涉足其中。越来越多的人使用NODEJS开发并在NPM上发布模块，如此快的速度已经[超越了其他语言][1]。
 
 In this article we will talk about the most common mistakes Node developers make and how to avoid them. You can find the source code for the examples on github.
+
 这篇文章中，我们将要探讨那些Node开发者常犯的错误，以及如何避免他们。你可以在github上找到实例中的代码。
 
 1 Not using development tools
 nodemon or supervisor for automatic restart
 In-browser live reload (reload after static files and/or views change)
 
-1 不使用开发工具
-使用nodemon或者supervisor来自动重启nodejs
-浏览器端的live reload（当静态文件或模板文件改变后重新加载）
+##1 不使用开发工具
+
+- 使用nodemon或者supervisor来自动重启nodejs
+- 浏览器端的live reload（当静态文件或模板文件改变后重新加载）
 
 Unlike other languages such as PHP or Ruby, Node requires a restart when you make changes to the source code. Another thing that can slow you down while creating web applications is refreshing the browser when the static code changes. While you can do these things manually, there are better solutions out there.
+
 当你改变源代码时需要重启node，这点与ruby或者php等语言不同。此外当你开发web应用时，有件事情会拖累你：当静态代码更新时需要刷新网页。现在有一些更好的方案来代替手动执行这些操作。
 
 1.1 Automating restarts
 Most of us are probably used to saving a file in the editor, hit [CTRL+C] to stop the application and then restart it by pressing the [UP] arrow and [Enter]. However you can automate this repetitive task and make your development process easier by using existing tools such as:
 
-nodemon
-node-supervisor
-forever
+- nodemon
+- node-supervisor
+- forever
 
-1.1 自动重启
+###1.1 自动重启
+
 我们经常做的操作：在编辑器中保存文件，按下CTRL+C终止node应用，按一下上，再按一下Enter键再次启动。你可以自动化这些操作，使用以下的工具来解放你的双手：
 
  - nodemon 
@@ -32,11 +39,13 @@ forever
  - forever
 
 What these modules do is to watch for file changes and restart the server for you. Let us take nodemon for example. First you install it globally:
+
 这些模块会监听文件改变并帮你重启应用。我们以nodemon为例，首先你需要全局安装这个模块：
 
     npm i nodemon -g
 
 Then you should simply swap the node command for the nodemon command:
+
 接下来你需要使用nodemon命令，替代node命令来启动应用：
 
     $ nodemon server.js 
@@ -45,17 +54,22 @@ Then you should simply swap the node command for the nodemon command:
     14 Nov 21:23:23 - [nodemon] starting `node server.js` 
     14 Nov 21:24:14 - [nodemon] restarting due to changes... 
     14 Nov 21:24:14 - [nodemon] starting `node server.js`
+
  Among the existing options for nodemon or node-supervisor, probably the most popular one is to ignore specific files or folders.
+
   此外nodemon或node-supervisor也提供了一些选项,最常用的是忽略特定文件或文件夹。
   
 1.2 Automatic browser refresh
+
 Besides reloading the Node application when the source code changes, you can also speed up development for web applications. Instead of manually triggering the page refresh in the browser, we can automate this as well using tools such as livereload.
-1.2自动刷新浏览器
+
+###1.2自动刷新浏览器
 
 除了当源代码更改时重启应用,你还有另外的途径来提高web应用的开发效率。你也可以通过使用livereload等工具代替手动刷新。
 
 
 They work similarly to the ones presented before, because they watch for file changes in certain folders and trigger a browser refresh in this case (instead of a server restart). The refresh is done either by a script injected in the page or by a browser plugin.
+
 这些工具跟之前介绍的工具原理类似，通过监听特定文件夹中的文件改变，来触发浏览器的刷新(不需要重启服务)。浏览器的刷新则是通过脚本注入页面或浏览器插件完成。
 
 Instead of showing you how to use livereload, this time we will create a similar tool ourselves with Node. It will do the following:
@@ -84,7 +98,7 @@ Next we will create a simple Express server that renders a home view on the fron
 
  - express——用于创建示例web应用程序 
  - watch——监听文件改变
- - sendevent——服务器端事件,SSE(另一种是选择是websockets
+ - sendevent——服务器端事件,SSE(另一种是选择是websockets)
  - uglify-js——压缩客户端JavaScript文件
  - ejs——视图模板
 
@@ -131,25 +145,25 @@ We are watching the /views folder for changes. And now for the middleware:
     var polyfill = fs.readFileSync(__dirname + '/assets/eventsource-polyfill.js', 'utf8');
     var clientScript = fs.readFileSync(__dirname + '/assets/client-script.js', 'utf8');
     var script = uglify.minify(polyfill + clientScript, {
-    		fromString : true
-    	}).code;
+            fromString : true
+        }).code;
     function reloadify(app, dir) {
-    	if (ENV !== 'development') {
-    		app.locals.watchScript = '';
-    		return;
-    	}
-    	// create a middlware that handles requests to `/eventstream`  建立一个中间件来处理来自/eventstream的请求
-    	var events = sendevent('/eventstream');
-    	app.use(events);
-    	watch.watchTree(dir, function (f, curr, prev) {
-    		events.broadcast({
-    			msg : 'reload'
-    		});
-    	});
+        if (ENV !== 'development') {
+            app.locals.watchScript = '';
+            return;
+        }
+        // create a middlware that handles requests to `/eventstream`  建立一个中间件来处理来自/eventstream的请求
+        var events = sendevent('/eventstream');
+        app.use(events);
+        watch.watchTree(dir, function (f, curr, prev) {
+            events.broadcast({
+                msg : 'reload'
+            });
+        });
     
-    	// assign the script to a local var so it's accessible in the view 把这个脚本挂到应用的local上，以便view可以获取到
+        // assign the script to a local var so it's accessible in the view 把这个脚本挂到应用的local上，以便view可以获取到
     
-    	app.locals.watchScript = '<script>' + script + '</script>';
+        app.locals.watchScript = '<script>' + script + '</script>';
     }
     
     module.exports = reloadify;
@@ -206,7 +220,8 @@ Now every time you make a change to the home.html page the browser will automati
 2 Blocking the event loop
 Since Node.js runs on a single thread, everything that will block the event loop will block everything. That means that if you have a web server with a thousand connected clients and you happen to block the event loop, every client will just...wait.
 
-2阻塞[event loop][2] 
+##2 阻塞[event loop][2] 
+
 由于Nodejs运行在一个单线程上,当event loop被阻塞后将阻塞一切。这意味着,如果你的web服务器与1000个客户端同时链接，event loop被阻塞后,每个客户只会……傻等。
 
 
@@ -231,6 +246,7 @@ Luckily you can monitor the event loop delay to detect anomalies. This can be ac
 The idea behind these tools is to accurately track the time spend between an interval repeatedly and report it. The time difference is calculated by getting the time at moment A and moment B, subtracting the time at moment A from moment B and also subtracting the time interval.
 
 幸运的是，你可以监视eventloop延迟来检测异常。这可以通过StrongOps等专有的解决方案，通过使用开源模块比如blocked 来解决。
+
 这些工具背后的原理是准确地反复跟踪一个interval所消耗的时间并报告出来。时差是通过获取A和B时刻的时间,减去A时刻到B时刻的时间，再减去设定的时间间隔后计算而来。
 
 
@@ -241,10 +257,13 @@ Determines the delay of the event loop at regular intervals;
 Displays the delay in green or red, in case it exceeds the threshold; then
 To see it in action, each 300 miliseconds a heavy computation is executed.
 The source code for the example is the following:
+
 下面的一个例子描述了如何实现:
-获取高精度的当前时间与参数传递的时间的差;
-定义定期事件循环的延迟;
-使用绿色显示延迟,如果它超过阈值则使用红色显示。
+
+- 获取高精度的当前时间与参数传递的时间的差;
+- 定义定期事件循环的延迟;
+- 使用绿色显示延迟,如果它超过阈值则使用红色显示。
+
 为了展示实际效果,我们每隔300ms执行一次大计算量的代码。
 源代码示例如下:
 
@@ -292,6 +311,7 @@ You must install the chalk before running it. After running the example you shou
 ![此处输入图片的描述][4]
 
 As said before, existing open source modules are doing it similarly so use them with confidence:
+
 像之前说的一样，使用一些现成的开源模块也可以完成这些，可以参考以下链接：
 
 
@@ -307,7 +327,7 @@ If you couple this technique with profiling, you can determine exactly which par
 3 Executing a callback multiple times
 How many times have you saved a file and reloaded your Node web app only to see it crash really fast? The most likely scenario is that you executed the callback twice, meaning you forgot to return after the first time.
 
-3多次执行一个回调
+##3 多次执行一个回调
 　
 有多少次你保存一个文件，重新启动nodejs web应用程序，然后程序很快崩溃了?
 　
@@ -326,32 +346,32 @@ Let's create an example to replicate this situation. We will create a simple pro
     var expression =/[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
     var isUrl = new RegExp(expression);
     var respond = function(err, params) {
-    	var res = params.res;
-    	var body = params.body;
-    	var proxyUrl = params.proxyUrl;
-    	res.setHeader('Content-type', 'text/html; charset=utf-8');
-    	if (err) {
-    		console.error(err);
-    		res.end('An error occured. Please make sure the domain exists.');
-    	} else {
-    		res.end(body);
-    	}
+        var res = params.res;
+        var body = params.body;
+        var proxyUrl = params.proxyUrl;
+        res.setHeader('Content-type', 'text/html; charset=utf-8');
+        if (err) {
+            console.error(err);
+            res.end('An error occured. Please make sure the domain exists.');
+        } else {
+            res.end(body);
+        }
     };
     http.createServer(function(req, res) {
-    			var queryParams = url.parse(req.url, true).query;
-    			var proxyUrl = queryParams.url;
-    			if (!proxyUrl || (!isUrl.test(proxyUrl))) {
-    				res.writeHead(200, {
-    					'Content-Type': 'text/html'
-    				});
-    				res.write("Please provide a correct URL param. For ex: ");
-    				res.end("<a href='http://localhost:1337/?url=http://www.google.com/'>http://localhost:1337/?url=http://www.google.com/</a>");
-    			} else { 
-    	// ------------------------ 
-    	// Proxying happens here  在这里进行代理
-    	// TO BE CONTINUED  看下文
-    	// ------------------------ 
-    	}
+                var queryParams = url.parse(req.url, true).query;
+                var proxyUrl = queryParams.url;
+                if (!proxyUrl || (!isUrl.test(proxyUrl))) {
+                    res.writeHead(200, {
+                        'Content-Type': 'text/html'
+                    });
+                    res.write("Please provide a correct URL param. For ex: ");
+                    res.end("<a href='http://localhost:1337/?url=http://www.google.com/'>http://localhost:1337/?url=http://www.google.com/</a>");
+                } else { 
+        // ------------------------ 
+        // Proxying happens here  在这里进行代理
+        // TO BE CONTINUED  看下文
+        // ------------------------ 
+        }
      }).listen(PORT);
      
 The source code above contains almost everything except the proxying itself, because I want you to take a closer look at it:
@@ -359,17 +379,17 @@ The source code above contains almost everything except the proxying itself, bec
 上面的源代码除了代理部分都包括了，现在我希望你仔细研究下代理部分:
 
     request(proxyUrl, function(err, r, body) {
-	if (err) {
-		respond(err, {
-			res: res,
-			proxyUrl: proxyUrl
-		});
-	}
-	respond(null, {
-		res: res,
-		body: body,
-		proxyUrl: proxyUrl
-	});
+    if (err) {
+        respond(err, {
+            res: res,
+            proxyUrl: proxyUrl
+        });
+    }
+    respond(null, {
+        res: res,
+        body: body,
+        proxyUrl: proxyUrl
+    });
     });
     
 In the callback we have handled the error condition, but forgot to stop the execution flow after calling the respond function. That means that if we enter a domain that doesn't host a website, the respond function will be called twice and we will get the following message in the terminal:
@@ -386,10 +406,10 @@ In the callback we have handled the error condition, but forgot to stop the exec
 因此正确的做法如下：
 
     request(.., function(..params) {
-    	if (err) {
-    		return respond(err, ..);
-    	}
-    	respond(..);
+        if (err) {
+            return respond(err, ..);
+        }
+        respond(..);
     }); 
     // OR: 
     request(.., function(..params) {
@@ -401,19 +421,20 @@ In the callback we have handled the error condition, but forgot to stop the exec
     });
     
     
-4 The Christmas tree of callbacks (Callback Hell)
+##4 The Christmas tree of callbacks (Callback Hell)
 Every time somebody wants to bash Node they come up with the 'callback hell' argument. Some of them see callback nesting as unavoidable, but that is simply untrue. There are a number of solutions out there to keep your code nice and tidy, such as:
 
-4圣诞树回调(回调地狱callback hell)
+##4 圣诞树回调(回调地狱callback hell)
+
 　　每当有人吐槽nodejs，肯定会提到“回调地狱”的论点。他们中的一些人认为回调函数嵌套是不可避免的,但这是错误的。Nodejs有许多解决方案可以让代码清楚明了,如:
 
 Using control flow modules (such as async);
 Promises; and
 Generators.
 
-使用流程控制模块（[比如async][5]）
-使用[Promises][6]
-使用[Generator][7]
+－ 使用流程控制模块（[比如async][5]）
+－ 使用[Promises][6]
+－ 使用[Generator][7]
 
 We are going to create a sample application and then refactor it to use the async module. The app will act as a naive frontend resource analyzer which does the following:
 
@@ -438,9 +459,9 @@ request for getting the page data (body, headers, etc).
 cheerio as jQuery on the backend (DOM element selector).
 once to make sure our callback is executed once.
 
-request 用于获取页面数据(body, headers, etc).
-cheerio 类似JQuery的底层框架(DOM element selector).
-once 保证回调只执行一次.
+－ request 用于获取页面数据(body, headers, etc).
+－ cheerio 类似JQuery的底层框架(DOM element selector).
+－ once 保证回调只执行一次.
 
 
     var URL = process.env.URL;
@@ -452,74 +473,75 @@ once 保证回调只执行一次.
     var isUrl = new RegExp(/[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi);
     assert(isUrl.test(URL), 'must provide a correct URL env variable');
     request({
-    	url : URL,
-    	gzip : true
+        url : URL,
+        gzip : true
     }, function (err, res, body) {
-    	if (err) {
-    		throw err;
-    	}
-    	if (res.statusCode !== 200) {
-    		return console.error('Bad server response', res.statusCode);
-    	}
-    	var $ = cheerio.load(body);
-    	var resources = [];
-    	$('script').each(function (index, el) {
-    		var src = $(this).attr('src');
-    		if (src) {
-    			resources.push(src);
-    		}
-    	});
+        if (err) {
+            throw err;
+        }
+        if (res.statusCode !== 200) {
+            return console.error('Bad server response', res.statusCode);
+        }
+        var $ = cheerio.load(body);
+        var resources = [];
+        $('script').each(function (index, el) {
+            var src = $(this).attr('src');
+            if (src) {
+                resources.push(src);
+            }
+        });
     
-			// ..... 
-			// 处理样式表跟图片的代码跟以上代码类似
-			// 可以去github看所有代码	
-    	var counter = resources.length;
-    	var next = once(function (err, result) {
-    			if (err) {
-    				throw err;
-    			}
-    			var size = (result.size / 1024 / 1024).toFixed(2);
-    			console.log('There are ~ %s resources with a size of %s Mb.', result.length, size);
-    		});
-    	var totalSize = 0;
-    	resources.forEach(function (relative) {
-    		var resourceUrl = url.resolve(URL, relative);
-    		request({
-    			url : resourceUrl,
-    			gzip : true
-    		}, function (err, res, body) {
-    			if (err) {
-    				return next(err);
-    			}
-    			if (res.statusCode !== 200) {
-    				return next(new Error(resourceUrl + ' responded with a bad code ' + res.statusCode));
-    			}
-    			if (res.headers['content-length']) {
-    				totalSize += parseInt(res.headers['content-length'], 10);
-    			} else {
-    				totalSize += Buffer.byteLength(body, 'utf8');
-    			}
-    			if (!--counter) {
-    				next(null, {
-    					length : resources.length,
-    					size : totalSize
-    				});
-    			}
-    		});
-    	});
+            // ..... 
+            // 处理样式表跟图片的代码跟以上代码类似
+            // 可以去github看所有代码   
+        var counter = resources.length;
+        var next = once(function (err, result) {
+                if (err) {
+                    throw err;
+                }
+                var size = (result.size / 1024 / 1024).toFixed(2);
+                console.log('There are ~ %s resources with a size of %s Mb.', result.length, size);
+            });
+        var totalSize = 0;
+        resources.forEach(function (relative) {
+            var resourceUrl = url.resolve(URL, relative);
+            request({
+                url : resourceUrl,
+                gzip : true
+            }, function (err, res, body) {
+                if (err) {
+                    return next(err);
+                }
+                if (res.statusCode !== 200) {
+                    return next(new Error(resourceUrl + ' responded with a bad code ' + res.statusCode));
+                }
+                if (res.headers['content-length']) {
+                    totalSize += parseInt(res.headers['content-length'], 10);
+                } else {
+                    totalSize += Buffer.byteLength(body, 'utf8');
+                }
+                if (!--counter) {
+                    next(null, {
+                        length : resources.length,
+                        size : totalSize
+                    });
+                }
+            });
+        });
     });
 
 This doesn't look that horrible, but you can go even deeper with nested callbacks. From our previous example you can recognize the Christmas tree at the bottom, where you see indentation like this:
+
 这代码看起来还没那么糟糕，但之后你可能会陷入更深的回调嵌套中。在之前的例子中你可以在代码底部看到一段像圣诞树的部分
 
-    			if (!--counter) {
-    				next(null, {
-    					length : resources.length,
-    					size : totalSize
-    				});
-    			}
-    		});
-    	});
+                if (!--counter) {
+                    next(null, {
+                        length : resources.length,
+                        size : totalSize
+                    });
+                }
+            });
+        });
     });
     
 After a bit of refactoring using async our code might look like the following:
@@ -531,62 +553,62 @@ After a bit of refactoring using async our code might look like the following:
     var resources = [];
     var totalSize = 0;
     var handleBadResponse = function (err, url, statusCode, cb) {
-    	if (!err && (statusCode !== 200)) {
-    		err = new Error(URL + ' responded with a bad code ' + res.statusCode);
-    	}
-    	if (err) {
-    		cb(err);
-    		return true;
-    	}
-    	return false;
+        if (!err && (statusCode !== 200)) {
+            err = new Error(URL + ' responded with a bad code ' + res.statusCode);
+        }
+        if (err) {
+            cb(err);
+            return true;
+        }
+        return false;
     };
     async.series([function getRootHtml(cb) {
-    			request({
-    				url : URL,
-    				gzip : true
-    			}, function (err, res, body) {
-    				if (handleBadResponse(err, URL, res.statusCode, cb)) {
-    					return;
-    				}
-    				rootHtml = body;
-    				cb();
-    			});
-    		}, function aggregateResources(cb) {
-    			var $ = cheerio.load(rootHtml);
-    			$('script').each(function (index, el) {
-    				var src = $(this).attr('src');
-    				if (src) {
-    					resources.push(src);
-    				}
-    			}); 
-    			// 完整代码可以参考github
-    			
-    			setImmediate(cb);
-    		}, function calculateSize(cb) {
-    			async.each(resources, function (relativeUrl, next) {
-    				var resourceUrl = url.resolve(URL, relativeUrl);
-    				request({
-    					url : resourceUrl,
-    					gzip : true
-    				}, function (err, res, body) {
-    					if (handleBadResponse(err, resourceUrl, res.statusCode, cb)) {
-    						return;
-    					}
-    					if (res.headers['content-length']) {
-    						totalSize += parseInt(res.headers['content-length'], 10);
-    					} else {
-    						totalSize += Buffer.byteLength(body, 'utf8');
-    					}
-    					next();
-    				});
-    			}, cb);
-    		}
-    	], function (err) {
-    	if (err) {
-    		throw err;
-    	}
-    	var size = (totalSize / 1024 / 1024).toFixed(2);
-    	console.log('There are ~ %s resources with a size of %s Mb.', resources.length, size);
+                request({
+                    url : URL,
+                    gzip : true
+                }, function (err, res, body) {
+                    if (handleBadResponse(err, URL, res.statusCode, cb)) {
+                        return;
+                    }
+                    rootHtml = body;
+                    cb();
+                });
+            }, function aggregateResources(cb) {
+                var $ = cheerio.load(rootHtml);
+                $('script').each(function (index, el) {
+                    var src = $(this).attr('src');
+                    if (src) {
+                        resources.push(src);
+                    }
+                }); 
+                // 完整代码可以参考github
+                
+                setImmediate(cb);
+            }, function calculateSize(cb) {
+                async.each(resources, function (relativeUrl, next) {
+                    var resourceUrl = url.resolve(URL, relativeUrl);
+                    request({
+                        url : resourceUrl,
+                        gzip : true
+                    }, function (err, res, body) {
+                        if (handleBadResponse(err, resourceUrl, res.statusCode, cb)) {
+                            return;
+                        }
+                        if (res.headers['content-length']) {
+                            totalSize += parseInt(res.headers['content-length'], 10);
+                        } else {
+                            totalSize += Buffer.byteLength(body, 'utf8');
+                        }
+                        next();
+                    });
+                }, cb);
+            }
+        ], function (err) {
+        if (err) {
+            throw err;
+        }
+        var size = (totalSize / 1024 / 1024).toFixed(2);
+        console.log('There are ~ %s resources with a size of %s Mb.', resources.length, size);
     });
 
 
@@ -597,7 +619,7 @@ Take our previous example for instance. We have pushed everything into a single 
 
 If we extract the URL validator, the response handler, the request functionality and the resource processor into their own files our main one will look like so:
 
-　　5开发一个庞大的应用程序
+##5 开发一个庞大的应用程序
 　　
 　　开发者在刚刚接触nodejs时喜欢从不同的语言角度去思考,他们往往用不同的方式来做事情。例如一个单独的文件包含所有代码,而不去拆散代码到自己的模块，并发布到NPM,等等。
 　　
@@ -611,59 +633,59 @@ If we extract the URL validator, the response handler, the request functionality
     var request = require('./lib/requester');
     // ...
     async.series([function getRootHtml(cb) {
-    			request(URL, function (err, data) {
-    				if (err) {
-    					return cb(err);
-    				}
-    				rootHtml = data.body;
-    				cb(null, 123);
-    			});
-    		}, function aggregateResources(cb) {
-    			resources = extractResources(rootHtml);
-    			setImmediate(cb);
-    		}, function calculateSize(cb) {
-    			async.each(resources, function (relativeUrl, next) {
-    				var resourceUrl = url.resolve(URL, relativeUrl);
-    				request(resourceUrl, function (err, data) {
-    					if (err) {
-    						return next(err);
-    					}
-    					if (data.res.headers['content-length']) {
-    						totalSize += parseInt(data.res.headers['content-length'], 10);
-    					} else {
-    						totalSize += Buffer.byteLength(data.body, 'utf8');
-    					}
-    					next();
-    				});
-    			}, cb);
-    		}
-    	], function (err) {
-    	if (err) {
-    		throw err;
-    	}
-    	var size = (totalSize / 1024 / 1024).toFixed(2);
-    	console.log('\nThere are ~ %s resources with a size of %s Mb.', resources.length, size);
+                request(URL, function (err, data) {
+                    if (err) {
+                        return cb(err);
+                    }
+                    rootHtml = data.body;
+                    cb(null, 123);
+                });
+            }, function aggregateResources(cb) {
+                resources = extractResources(rootHtml);
+                setImmediate(cb);
+            }, function calculateSize(cb) {
+                async.each(resources, function (relativeUrl, next) {
+                    var resourceUrl = url.resolve(URL, relativeUrl);
+                    request(resourceUrl, function (err, data) {
+                        if (err) {
+                            return next(err);
+                        }
+                        if (data.res.headers['content-length']) {
+                            totalSize += parseInt(data.res.headers['content-length'], 10);
+                        } else {
+                            totalSize += Buffer.byteLength(data.body, 'utf8');
+                        }
+                        next();
+                    });
+                }, cb);
+            }
+        ], function (err) {
+        if (err) {
+            throw err;
+        }
+        var size = (totalSize / 1024 / 1024).toFixed(2);
+        console.log('\nThere are ~ %s resources with a size of %s Mb.', resources.length, size);
     });
 
 在这里面，request函数可能长这样：
 
     module.exports = function getSiteData(url, callback) {
-    	request({
-    		url : url,
-    		gzip : true,
-    		// lying a bit
-    		headers : {
-    			'User-Agent' : 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/38.0.2125.111 Safari/537.36'
-    		}
-    	}, function (err, res, body) {
-    		if (handleBadResponse(err, url, res && res.statusCode, callback)) {
-    			return;
-    		}
-    		callback(null, {
-    			body : body,
-    			res : res
-    		});
-    	});
+        request({
+            url : url,
+            gzip : true,
+            // lying a bit
+            headers : {
+                'User-Agent' : 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/38.0.2125.111 Safari/537.36'
+            }
+        }, function (err, res, body) {
+            if (handleBadResponse(err, url, res && res.statusCode, callback)) {
+                return;
+            }
+            callback(null, {
+                body : body,
+                res : res
+            });
+        });
     };
 
 Note: you can check the full example in the github repo.
@@ -681,7 +703,8 @@ An interesting article on how to write modules is the one from substack.
 　　nodejs的特色是鼓励你写小的模块并发布NPM。你会发现模块能做各种各样的事情，例如从一个区间中产生随机数。你应该尽可能使node应用程序模块化,让事情尽可能的简单。
 　　
 　　一篇[有趣的文章][9]，来自[substack][10]，讲述了如何编写模块。
-6 Poor logging
+
+##6 Poor logging
 
 Many Node tutorials show you a small example that contains console.log here and there, so some developers are left with the impression that that's how they should implement logging in their application.
 
@@ -714,42 +737,42 @@ Let's take a look at one of their examples on how to use it:
     
     var bunyan = require('bunyan')；
     var log = bunyan.createLogger({
-    		name : 'myserver',
-    		serializers : {
-    			req : bunyan.stdSerializers.req,
-    			res : bunyan.stdSerializers.res
-    		}
-    	});
+            name : 'myserver',
+            serializers : {
+                req : bunyan.stdSerializers.req,
+                res : bunyan.stdSerializers.res
+            }
+        });
     var server = http.createServer(function (req, res) {
-    		log.info({
-    			req : req
-    		}, 'start request');// <-- this is the guy we're testing
-    		res.writeHead(200, {
-    			'Content-Type' : 'text/plain'
-    		});
-    		res.end('Hello World\n');
-    		log.info({
-    			res : res
-    		}, 'done response');// <-- this is the guy we're testing
-    	});
+            log.info({
+                req : req
+            }, 'start request');// <-- this is the guy we're testing
+            res.writeHead(200, {
+                'Content-Type' : 'text/plain'
+            });
+            res.end('Hello World\n');
+            log.info({
+                res : res
+            }, 'done response');// <-- this is the guy we're testing
+        });
     server.listen(1337, '127.0.0.1', function () {
-    	log.info('server listening');
-    	var options = {
-    		port : 1337,
-    		hostname : '127.0.0.1',
-    		path : '/path?q=1#anchor',
-    		headers : {
-    			'X-Hi' : 'Mom'
-    		}
-    	};
-    	var req = http.request(options, function (res) {
-    			res.resume();
-    			res.on('end', function () {
-    				process.exit();
-    			})
-    		});
-    	req.write('hi from the client');
-    	req.end();
+        log.info('server listening');
+        var options = {
+            port : 1337,
+            hostname : '127.0.0.1',
+            path : '/path?q=1#anchor',
+            headers : {
+                'X-Hi' : 'Mom'
+            }
+        };
+        var req = http.request(options, function (res) {
+                res.resume();
+                res.on('end', function () {
+                    process.exit();
+                })
+            });
+        req.write('hi from the client');
+        req.end();
     });　　
 　　
 　　If you run the example in the terminal you will see something like the following:
@@ -780,13 +803,12 @@ Modules for mocks, spies, stubs or fake timers such as sinon
 Code coverage tools: istanbul, blanket
 The convention for NPM modules is that you specify a test command in your package.json, for example:
 
-　　7没有测试
+##7 没有测试
 　　
 如果我们没有写任何测试，不能把我们的应用程序称之为完成。不写测试真的没有借口,考虑我们有多少工具:
 　　
 
- - 测试框架:[mocha][13]、[jasmine][14]、[tape][15]等等
- 
+ - 测试框架:[mocha][13]、[jasmine][14]、[tape][15]等等 
  - 断言模块:[chai][16],[should.js][17] 　　
  - 模拟数据的模块[sinon][18]
  - 代码测试覆盖率工具:[istanbul][19],[blanket][20]
@@ -805,6 +827,7 @@ Another thing you should consider for your projects is to enforce having all you
 You can also decide to enforce a certain code coverage level and deny commits that don't adhere to that level. The pre-commit module simply runs npm test automatically for you as a pre-commit hook.
 
 In case you are not sure how to get started with writing tests you can either find tutorials online or browse popular Node projects on Github, such as the following:
+
 　　然后使用**npm test**可以运行测试,不管使用任何的测试框架。
 　　
 　　另一件应该考虑的是必须执行项目所有测试并保证通过。幸运的是这很简单，使用**npm i --save-dev** 即可。
@@ -830,17 +853,22 @@ Finding potential security issues, such as the use of eval() or unsafe regular e
 Detecting possible performance problems.
 Enforcing a consistent style guide.
 For a more complete set of rules checkout the ESLint rules documentation page. You should also read the configuration documents if you want to setup ESLint for your project.
-8 不使用静态分析工具
-　　若不想在生产环境中发现问题，最好在开发阶段就使用静态分析工具。
+
+##8 不使用静态分析工具
+
+若不想在生产环境中发现问题，最好在开发阶段就使用静态分析工具。
 　　
-　　如[ESLint][26]之类的工具可以帮助解决大量的问题,如:
+如[ESLint][26]之类的工具可以帮助解决大量的问题,如:
 　　
-　　可能出现的错误,例如:不允许条件表达式赋值,不允许使用debugger。
-　　执行最佳实践,例如:不允许多次声明相同的变量,不允许使用arguments.callee。
-　　发现潜在的安全问题,比如使用eval()或不安全的正则表达式。
-　　检测可能的性能问题。
-　　执行一致的代码风格指南。
-　　更完整的规则校验，你可以参考[ESLint规则文档][27]。如果你想为项目设置ESLint，你还应该阅读[配置文档][28]。
+　　
+
+ - 可能出现的错误,例如:不允许条件表达式赋值,不允许使用debugger。
+ - 执行最佳实践,例如:不允许多次声明相同的变量,不允许使用arguments.callee。
+ - 发现潜在的安全问题,比如使用eval()或不安全的正则表达式。
+ - 检测可能的性能问题。
+ - 执行一致的代码风格指南。
+
+更完整的规则校验，你可以参考[ESLint规则文档][27]。如果你想为项目设置ESLint，你还应该阅读[配置文档][28]。
 
 
 In case you were wondering where you can find a sample configuration file for ESLint, the Esprima project has one.
@@ -862,7 +890,8 @@ There are proprietary services that care of these things for you, such as the on
 
 You can also achieve that by yourself with open source modules such as look or by gluing different NPM modules. Whatever you choose make sure you are always aware of the status of your application at all times, unless you want to receive weird phone calls at night.
 
-　　9缺少监控或分析
+##9 缺少监控或分析
+
 　　若nodejs应用缺少监控或分析。很多重要的事情如event loop延迟、CPU负载、系统负载或内存使用你将一无所知。
 　　
 　　有专门的服务可以处理这些事情,比如[New Relic][34]，[StrongLoop][35]或[Concurix][36] [AppDynamics][37]。
@@ -883,19 +912,22 @@ You can selectively debug portions of your code (even with wildcards).
 The output is beautifully colored into your terminal.
 Let's take a look at their official example:
 
-10用console.log调试
+##10 用console.log调试
+
 　　当出现问题时，可以简单的使用console.log，将其插入到某些地方进行调试。找出问题后删除console.log，debug结束，开发继续。
 　　
 　　问题是,下一个开发人员(或者甚至你)可能会出现并重复这个过程。这就是为什么会有debug这种模块。不要继续使用console.log,用debug函数，然后把这些代码放在那就可以了。
 　　
-　　之后其他人试图找出问题时，他们只需要启动应用程序，使用DEBUG作为环境变量即可。
+之后其他人试图找出问题时，他们只需要启动应用程序，使用DEBUG作为环境变量即可。
 　　
-　　这个小模块有以下好处:
+这个小模块有以下好处:
 　　
-　　不会显示到控制台，除非以DEBUG作为环境变量启动node应用。
-　　您可以选择性地调试部分代码(甚至使用通配符)。
-　　终端输出好看的彩色文字。
-　　让我们看看他们的官方的例子:
+
+ - 不会显示到控制台，除非以DEBUG作为环境变量启动node应用。
+ - 您可以选择性地调试部分代码(甚至使用通配符)。
+ - 终端输出好看的彩色文字。
+
+让我们看看他们的官方的例子:
 
      // app.js
       var debug = require('debug')('http')
@@ -930,7 +962,9 @@ If we run the example with node app.js nothing happens, but if we include the DE
 如果我们使用 node app.js运行这个程序，不会发生任何事。但如果我们添加一个**DEBUG**的标识后
 
 ![此处输入图片的描述][38]
+
 Besides your applications, you can also use it for tiny modules published to NPM. Unlike a more complex logger it only does the debugging job and it does it well.
+
 除了应用程序,你还可以使用它为发布到NPM的小模块进行调试。与一个更复杂的logger相比，debugg只做调试工作而且做的很好。
 
 
