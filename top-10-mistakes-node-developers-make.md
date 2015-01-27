@@ -465,72 +465,70 @@ once to make sure our callback is executed once.
  - cheerio 类似JQuery的底层框架(DOM element selector).
  - once 保证回调只执行一次.
 
-
-    var URL = process.env.URL;
-    var assert = require('assert');
-    var url = require('url');
-    var request = require('request');
-    var cheerio = require('cheerio');
-    var once = require('once');
-    var isUrl = new RegExp(/[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi);
-    assert(isUrl.test(URL), 'must provide a correct URL env variable');
-    request({
-        url : URL,
-        gzip : true
-    }, function (err, res, body) {
-        if (err) {
-            throw err;
-        }
-        if (res.statusCode !== 200) {
-            return console.error('Bad server response', res.statusCode);
-        }
-        var $ = cheerio.load(body);
-        var resources = [];
-        $('script').each(function (index, el) {
-            var src = $(this).attr('src');
-            if (src) {
-                resources.push(src);
-            }
-        });
-    
-            // ..... 
-            // 处理样式表跟图片的代码跟以上代码类似
-            // 可以去github看所有代码   
-        var counter = resources.length;
-        var next = once(function (err, result) {
-                if (err) {
-                    throw err;
-                }
-                var size = (result.size / 1024 / 1024).toFixed(2);
-                console.log('There are ~ %s resources with a size of %s Mb.', result.length, size);
-            });
-        var totalSize = 0;
-        resources.forEach(function (relative) {
-            var resourceUrl = url.resolve(URL, relative);
-            request({
-                url : resourceUrl,
-                gzip : true
-            }, function (err, res, body) {
-                if (err) {
-                    return next(err);
-                }
-                if (res.statusCode !== 200) {
-                    return next(new Error(resourceUrl + ' responded with a bad code ' + res.statusCode));
-                }
-                if (res.headers['content-length']) {
-                    totalSize += parseInt(res.headers['content-length'], 10);
-                } else {
-                    totalSize += Buffer.byteLength(body, 'utf8');
-                }
-                if (!--counter) {
-                    next(null, {
-                        length : resources.length,
-                        size : totalSize
-                    });
-                }
-            });
-        });
-    });
+        var URL = process.env.URL;
+        var assert = require('assert');
+        var url = require('url');
+        var request = require('request');
+        var cheerio = require('cheerio');
+        var once = require('once');
+        var isUrl = new RegExp(/[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi);
+        assert(isUrl.test(URL), 'must provide a correct URL env variable');
+        request({
+        	url: URL,
+        	gzip: true
+        }, function(err, res, body) {
+        	if (err) {
+        		throw err;
+        	}
+        	if (res.statusCode !== 200) {
+        		return console.error('Bad server response', res.statusCode);
+        	}
+        	var $ = cheerio.load(body);
+        	var resources = [];
+        	$('script').each(function(index, el) {
+        		var src = $(this).attr('src');
+        		if (src) {
+        			resources.push(src);
+        		}
+        	});
+        	// ..... 
+        	// 处理样式表跟图片的代码跟以上代码类似
+        	// 可以去github看所有代码   
+        	var counter = resources.length;
+        	var next = once(function(err, result) {
+        		if (err) {
+        			throw err;
+        		}
+        		var size = (result.size / 1024 / 1024).toFixed(2);
+        		console.log('There are ~ %s resources with a size of %s Mb.', result.length, size);
+        	});
+        	var totalSize = 0;
+        	resources.forEach(function(relative) {
+        		var resourceUrl = url.resolve(URL, relative);
+        		request({
+        			url: resourceUrl,
+        			gzip: true
+        		}, function(err, res, body) {
+        			if (err) {
+        				return next(err);
+        			}
+        			if (res.statusCode !== 200) {
+        				return next(new Error(resourceUrl + ' responded with a bad code ' + res.statusCode));
+        			}
+        			if (res.headers['content-length']) {
+        				totalSize += parseInt(res.headers['content-length'], 10);
+        			} else {
+        				totalSize += Buffer.byteLength(body, 'utf8');
+        			}
+        			if (!--counter) {
+        				next(null, {
+        					length: resources.length,
+        					size: totalSize
+        				});
+        			}
+        		});
+        	});
+        });    
 
 This doesn't look that horrible, but you can go even deeper with nested callbacks. From our previous example you can recognize the Christmas tree at the bottom, where you see indentation like this:
 
@@ -810,7 +808,7 @@ The convention for NPM modules is that you specify a test command in your packag
 
 ##7 没有测试
 　　
-如果我们没有写任何测试，不能把我们的应用程序称之为完成。不写测试真的没有借口,考虑我们有多少工具:
+如果我们没有写任何测试，不能把我们的应用程序称之为“完成”。没有借口不写测试,看看我们有多少工具:
 　　
 
  - 测试框架:[mocha][13]、[jasmine][14]、[tape][15]等等 
@@ -835,7 +833,7 @@ In case you are not sure how to get started with writing tests you can either fi
 
 然后使用**npm test**可以运行测试,不管使用任何的测试框架。
 
-另一件应该考虑的是必须执行项目所有测试并保证通过。幸运的是这很简单，使用**npm i --save-dev** 即可。
+另一件应该考虑的是必须执行项目所有测试并保证通过。幸运的是这很简单，使用**npm i pre-commit --save-dev** 即可。
 
 你也可以设置覆盖率水平需要达到什么等级，若没有达到这个级别则拒绝代码提交。**pre-commit**模块在提交代码之前，以钩子的方式自动运行**npm test**命令。
 
