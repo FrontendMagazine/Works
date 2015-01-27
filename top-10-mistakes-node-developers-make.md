@@ -131,6 +131,7 @@ Since we are using Express we will also create the browser-refresh tool as an Ex
     reloadify(app, __dirname + '/views');
 
 We are watching the /views folder for changes. And now for the middleware:
+
 我们需要监听views目录下的改动。中间件则长这样：
 
 
@@ -335,8 +336,9 @@ How many times have you saved a file and reloaded your Node web app only to see 
 
 Let's create an example to replicate this situation. We will create a simple proxy server with some basic validation. To use it install the request dependency, run the example and open (for instance) http://localhost:1337/?url=http://www.google.com/. The source code for our example is the following:
 
-　　让我们创建一个示例来重现这种情况。我们将创建一个简单的代理服务器，带有一些基本的验证。跑这个例子之前请先安装依赖,之后运行示例，打开浏览器输入http://localhost:1337/?url=http://www.google.com/。
+　　让我们创建一个示例来重现这种情况。我们将创建一个简单的代理服务器，带有一些基本的验证。跑这个例子之前请先安装依赖,之后运行示例，打开浏览器输入http://localhost:1337/?url=http://www.google.com/
 　　
+
 　　我们的示例的源代码如下:
     
     var request = require('request');
@@ -432,9 +434,9 @@ Using control flow modules (such as async);
 Promises; and
 Generators.
 
-－ 使用流程控制模块（[比如async][5]）
-－ 使用[Promises][6]
-－ 使用[Generator][7]
+- 使用流程控制模块（[比如async][5]）
+- 使用[Promises][6]
+- 使用[Generator][7]
 
 We are going to create a sample application and then refactor it to use the async module. The app will act as a naive frontend resource analyzer which does the following:
 
@@ -459,9 +461,9 @@ request for getting the page data (body, headers, etc).
 cheerio as jQuery on the backend (DOM element selector).
 once to make sure our callback is executed once.
 
-－ request 用于获取页面数据(body, headers, etc).
-－ cheerio 类似JQuery的底层框架(DOM element selector).
-－ once 保证回调只执行一次.
+ - request 用于获取页面数据(body, headers, etc).
+ - cheerio 类似JQuery的底层框架(DOM element selector).
+ - once 保证回调只执行一次.
 
 
     var URL = process.env.URL;
@@ -622,9 +624,10 @@ If we extract the URL validator, the response handler, the request functionality
 ##5 开发一个庞大的应用程序
 　　
 　　开发者在刚刚接触nodejs时喜欢从不同的语言角度去思考,他们往往用不同的方式来做事情。例如一个单独的文件包含所有代码,而不去拆散代码到自己的模块，并发布到NPM,等等。
-　　
-　　比如我们之前的例子。我们已经把一切功能写到一个文件,使代码难以测试和阅读。但不用担心,重构可以使代码更好，更模块化。当你陷入“回调地狱”时此举也会对你有所帮助。
-　　我们提取URL验证的部分,响应处理部分，以及资源的请求处理部分到独立的文件后，主入口函数看起来会是这样:
+
+比如我们之前的例子。我们已经把一切功能写到一个文件,使代码难以测试和阅读。但不用担心,重构可以使代码更好，更模块化。当你陷入“回调地狱”时此举也会对你有所帮助。
+
+我们提取URL验证的部分,响应处理部分，以及资源的请求处理部分到独立的文件后，主入口函数看起来会是这样:
 
     // ...
     var handleBadResponse = require('./lib/bad-response-handler');
@@ -696,13 +699,14 @@ The good thing about Node is that it encourages you to write tiny modules and pu
 
 An interesting article on how to write modules is the one from substack.
 
-　　注意:你可以在github上看到完整的[示例][8]。
-　　
-　　现在事情变得更简单了,代码更容易阅读,我们就可以开始为我们的应用程序编写测试。我们可以继续重构代码，提取处理响应长度的函数到自己的模块中。
-　　
-　　nodejs的特色是鼓励你写小的模块并发布NPM。你会发现模块能做各种各样的事情，例如从一个区间中产生随机数。你应该尽可能使node应用程序模块化,让事情尽可能的简单。
-　　
-　　一篇[有趣的文章][9]，来自[substack][10]，讲述了如何编写模块。
+注意:你可以在github上看到完整的[示例][8]。
+
+现在事情变得更简单了,代码更容易阅读,我们就可以开始为我们的应用程序编写测试。我们可以继续重构代码，提取处理响应长度的函数到自己的模块中。
+
+
+nodejs的特色是鼓励你写小的模块并发布NPM。你会发现模块能做各种各样的事情，例如从一个区间中产生随机数。你应该尽可能使node应用程序模块化,让事情尽可能的简单。
+
+一篇[有趣的文章][9]，来自[substack][10]，讲述了如何编写模块。
 
 ##6 Poor logging
 
@@ -732,7 +736,7 @@ Let's take a look at one of their examples on how to use it:
 
 
 你可以在一个适合生产环境的日志模块中完全获得这些功能,如[bunyan][11]模块。除此之外，如果你全局安装这个模块，你还可以拥有一个命令行工具。
-　　
+
 让我们看个例子，了解模块如何使用:
     
     var bunyan = require('bunyan')；
@@ -776,7 +780,8 @@ Let's take a look at one of their examples on how to use it:
     });　　
 　　
 　　If you run the example in the terminal you will see something like the following:
-　　如果你在终端运行这个例子，可以看到如下信息：
+　　
+如果你在终端运行这个例子，可以看到如下信息：
 　　
     
     $ node server.js
@@ -828,13 +833,13 @@ You can also decide to enforce a certain code coverage level and deny commits th
 
 In case you are not sure how to get started with writing tests you can either find tutorials online or browse popular Node projects on Github, such as the following:
 
-　　然后使用**npm test**可以运行测试,不管使用任何的测试框架。
-　　
-　　另一件应该考虑的是必须执行项目所有测试并保证通过。幸运的是这很简单，使用**npm i --save-dev** 即可。
-　　
-　　你也可以设置覆盖率水平需要达到什么等级，若没有达到这个级别则拒绝代码提交。**pre-commit**模块在提交代码之前，以钩子的方式自动运行**npm test**命令。
-　　
-　　如果你不了解如何给自己的项目编写测试用例，你可以看一些在线教程或者或浏览Github上受欢迎的node项目,比如:
+然后使用**npm test**可以运行测试,不管使用任何的测试框架。
+
+另一件应该考虑的是必须执行项目所有测试并保证通过。幸运的是这很简单，使用**npm i --save-dev** 即可。
+
+你也可以设置覆盖率水平需要达到什么等级，若没有达到这个级别则拒绝代码提交。**pre-commit**模块在提交代码之前，以钩子的方式自动运行**npm test**命令。
+
+如果你不了解如何给自己的项目编写测试用例，你可以看一些在线教程或者或浏览Github上受欢迎的node项目,比如:
 
  - [express][21]
  - [loopback][22]
@@ -857,9 +862,8 @@ For a more complete set of rules checkout the ESLint rules documentation page. Y
 ##8 不使用静态分析工具
 
 若不想在生产环境中发现问题，最好在开发阶段就使用静态分析工具。
-　　
+
 如[ESLint][26]之类的工具可以帮助解决大量的问题,如:
-　　
 　　
 
  - 可能出现的错误,例如:不允许条件表达式赋值,不允许使用debugger。
@@ -878,10 +882,10 @@ There are other similar linting tools out there such as JSLint or JSHint.
 In case you want to parse the AST (abstract source tree) and create a static analysis tool by yourself, consider Esprima or Acorn.
 
 　　如果你想知道你在哪里可以找到一个配置文件的实例,[Esprima的配置文件][29]是其中一个选择。
-　　
-　　还有其他类似的lint工具，比如[JSLint][30]或[JSHint][31]等。
-　　
-　　如果您想解析AST(抽象语法树),并创建一个静态分析工具,可以考虑[Esprima][32]或[Acorn][33]。
+
+还有其他类似的lint工具，比如[JSLint][30]或[JSHint][31]等。
+
+如果您想解析AST(抽象语法树),并创建一个静态分析工具,可以考虑[Esprima][32]或[Acorn][33]。
 
 9 Zero monitoring or profiling
 Not monitoring or profiling a Node applications leaves you in the dark. You are not aware of vital things such as event loop delay, CPU load, system load or memory usage.
@@ -893,10 +897,10 @@ You can also achieve that by yourself with open source modules such as look or b
 ##9 缺少监控或分析
 
 　　若nodejs应用缺少监控或分析。很多重要的事情如event loop延迟、CPU负载、系统负载或内存使用你将一无所知。
-　　
-　　有专门的服务可以处理这些事情,比如[New Relic][34]，[StrongLoop][35]或[Concurix][36] [AppDynamics][37]。
-　　
-　　通过结合一些模块的功能，你也可以用开源模块实现。无论你选择什么，确保你总是可以监控到应用程序的状态,除非你想晚上接到奇怪的电话。
+
+有专门的服务可以处理这些事情,比如[New Relic][34]，[StrongLoop][35]或[Concurix][36] [AppDynamics][37]。
+
+通过结合一些模块的功能，你也可以用开源模块实现。无论你选择什么，确保你总是可以监控到应用程序的状态,除非你想晚上接到奇怪的电话。
 
 10 Debugging with console.log
 When something goes bad it's easy to just insert console.log in some places and debug. After you figure out the problem you remove the console.log debugging leftovers and go on.
@@ -915,11 +919,11 @@ Let's take a look at their official example:
 ##10 用console.log调试
 
 　　当出现问题时，可以简单的使用console.log，将其插入到某些地方进行调试。找出问题后删除console.log，debug结束，开发继续。
-　　
-　　问题是,下一个开发人员(或者甚至你)可能会出现并重复这个过程。这就是为什么会有debug这种模块。不要继续使用console.log,用debug函数，然后把这些代码放在那就可以了。
-　　
+
+问题是,下一个开发人员(或者甚至你)可能会出现并重复这个过程。这就是为什么会有debug这种模块。不要继续使用console.log,用debug函数，然后把这些代码放在那就可以了。
+
 之后其他人试图找出问题时，他们只需要启动应用程序，使用DEBUG作为环境变量即可。
-　　
+
 这个小模块有以下好处:
 　　
 
@@ -959,6 +963,7 @@ Let's take a look at their official example:
       }, 1000);
       
 If we run the example with node app.js nothing happens, but if we include the DEBUG flag voila:
+
 如果我们使用 node app.js运行这个程序，不会发生任何事。但如果我们添加一个**DEBUG**的标识后
 
 ![此处输入图片的描述][38]
