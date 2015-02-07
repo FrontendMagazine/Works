@@ -1,5 +1,7 @@
 # The 5 Most Popular Frontend Frameworks of 2014 Compared
 
+# 2014年5个最流行的前端框架
+
 Nowadays there is a deluge of CSS front-end frameworks. But the number of really good ones can be narrowed down to just a few.
 
 现如今快要被各种各样的 CSS 前端框架给淹没了，真做的不错的其实也就那么几个。
@@ -50,8 +52,8 @@ Bootstrap 无疑地是目前这些类库的领跑者。它非常流行，流行�
 - 发布时间：2011年
 - 最新版本：3.3.1
 - 流行程度：GitHub 上 75,000+ 的start
-- 描述：“Bootstrap 是最流行的 HTML、CSS 和 JavaScript 框架，可用来开响应式的移动有限的 Web 项目。”
-- 核心：响应式与移动优先
+- 介绍：“Bootstrap 是最流行的 HTML、CSS 和 JavaScript 框架，可用来开响应式的移动有限的 Web 项目。”
+- 核心理念/原则：响应式与移动优先
 - 框架大小：145 KB
 - 预处理器：Less 和 Sass
 - 响应式：是
@@ -71,13 +73,19 @@ Bootstrap 无疑地是目前这些类库的领跑者。它非常流行，流行�
 
 The main strength of Bootstrap is its huge popularity. Technically, it’s not necessarily better than the others in the list, but it offers many more resources (articles and tutorials, third-party plug-ins and extensions, theme builders, and so on) than the other four frameworks combined. In short, Bootstrap is everywhere. And this is the main reason people continue to choose it.
 
-(Note: By saying “unique components” I mean that they are unique compared only to the frameworks mentioned in this list.)
+Bootstrap 最大的优势就是它非常流行。从技术上讲，它并不是比其他在列框架要优秀。只是它有很多资源（文章、教程、第三方插件和扩展以及主题构造器等等），比起其他四个框架合到一起还要多。简单地讲，Bootstrap 就是无处不在。这也是大家继续使用它的原因。
+
+> Note: By saying “unique components” I mean that they are unique compared only to the frameworks mentioned in this list.
+
+> 提示：当我说“特色”的组件，这种特色就是针对目前列出的这些框架而言的。
 
 ## Foundation by ZURB
 
 ## Foundation（ZURB）
 
 Foundation is the second big player in this comparison. With a solid company like ZURB backing it, this framework has a truly strong … well… foundation. After all, Foundation is used on many big websites including Facebook, Mozilla, Ebay, Yahoo!, and National Geographic, to name a few.
+
+Foundation 是这个领域的第二大玩家。拥有像 ZURB 这样的公司在背后支持，不得不说它确实有一个非常坚实的基础。总之，Foundation 被很多大的网站采用。包括 Facebook、Mozilla、Ebay、Yahoo 以及 National Geographic 等等。
 
 ![ZURB Foundation](http://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2014/12/1418134774foundation-screen.png)
 
@@ -100,17 +108,40 @@ Foundation is the second big player in this comparison. With a solid company lik
 - Browser support: Chrome, Firefox, Safari, IE9+; iOS, Android, Windows Phone 7+
 - License: MIT
 
+- 作者: ZURB
+- 发布时间: 2011
+- 最新版本: 5.4.7
+- 流行程度: GitHub 上 18,000+ 的 star 
+- 介绍: “世界上最先进的响应式前端框架”
+- 核心理念/原则: 响应式、移动优先、语义化
+- 框架大小: 326 KB
+- 预处理器: Sass
+- 响应式: 是
+- 模块化: 是
+- 上手模块/布局: 是
+- 字体图标: Foundation 字体图标
+- 插件/扩展: 有
+- 特色组件: Icon Bar、Clearing Lightbox、Flex Video、Keystrokes、Joyride、Pricing Tables
+- 文档: 完善，还有很多其他资源
+- 自定义: 无 GUI 的自定义工具，需要自己手动修改
+- 浏览器支持: Chrome、Firefox、Safari、IE9+；iOS、Android、Windows Phone 7+
+- 开源协议: MIT
+
 ### Notes on Foundation
 
 ### Foundation 使用心得
 
 Foundation is a truly professional framework with business support, training, and consulting offered. It also provides many resources to help you learn and use the framework faster and easier.
 
+Foundation 的确是一个非常专业的框架，有商业的支持、培训以及外包。它同时还提供很多资源，帮助你更加快速更加容易地学习和使用这个框架。
+
 ## Semantic UI
 
 ## Semantic UI
 
 Semantic UI is an ongoing effort to make building websites much more semantic. It utilizes natural language principles, thus making the code much more readable and understandable.
+
+Semantic UI 一直在努力让网站建设更加语义化。它利用了自然语言的原则，使得代码更容易读更容易理解。
 
 ![Semantic UI](http://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2014/12/1418135026semanticui-screen.jpg)
 
@@ -120,6 +151,44 @@ Semantic UI is an ongoing effort to make building websites much more semantic. I
 - Popularity: 12,900+ stars on GitHub
 - Description: “A UI component framework based around useful principles from natural language.”
 - Core concepts/principles: Semantic, tag ambivalence, responsive.
+- Framework size: 552 KB
+- Preprocessors: Less
+- Responsive: Yes
+- Modular: Yes
+- Starting templates/layouts: No
+- Icon set: Font Awesome
+- Extras/Add-ons: No
+- Unique components: Divider, Flag, Rail, Reveal, Step, Advertisement, Card, Feed, Item, Statistic, Dimmer, Rating, Shape.
+- Documentation: Very good. Semantic offers a very well organized documentation, plus a separate website that offers guides for getting started, customizing and creating themes.
+- Customization: No GUI customizer, only manual customization.
+- Browser support: Firefox, Chrome, Safari, IE10+ (IE9 with browser prefix only), Android 4, Blackberry 10
+- License: MIT
+
+- 作者: ZURB
+- 发布时间: 2011
+- 最新版本: 5.4.7
+- 流行程度: GitHub 上 18,000+ 的 star 
+- 介绍: “世界上最先进的响应式前端框架”
+- 核心理念/原则: 响应式、移动优先、语义化
+- 框架大小: 326 KB
+- 预处理器: Sass
+- 响应式: 是
+- 模块化: 是
+- 上手模块/布局: 是
+- 字体图标: Foundation 字体图标
+- 插件/扩展: 有
+- 特色组件: Icon Bar、Clearing Lightbox、Flex Video、Keystrokes、Joyride、Pricing Tables
+- 文档: 完善，还有很多其他资源
+- 自定义: 无 GUI 的自定义工具，需要自己手动修改
+- 浏览器支持: Chrome、Firefox、Safari、IE9+；iOS、Android、Windows Phone 7+
+- 开源协议: MIT
+
+- 作者: Jack Lukic
+- 发布时间: 2013
+- 最新版本: 1.2.0
+- 流行程度: GitHub 上 12,900+ 的 star
+- 介绍:“一个 UI 模块框架，基于来自自然语言的一些有用的原则。”
+- 核心理念/原则: Semantic, tag ambivalence, responsive.
 - Framework size: 552 KB
 - Preprocessors: Less
 - Responsive: Yes
