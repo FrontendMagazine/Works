@@ -18,7 +18,7 @@ lib-cov
 pids
 logs
 results
-demo-hc
+blocked
 snapshot
 
 npm-debug.log
