@@ -8,7 +8,7 @@
 
 At the basic level, **flexbox has three features that are fundamental to design**, but which have long been difficult or impossible to achieve in CSS: alignment, distribution, and ordering.
 
-在底层，**flexbox 有三个特性可用于基本的设计**。在很长一段时间内，单纯使用 CSS 很难或者不可能完成：对齐方式，排布，以及顺序。
+从基础层面上来讲，**flexbox 有三个特性是设计之根本**。但也是在很长一段时间内单纯使用 CSS 很难或者不可能完成任务：对齐方式，排布和顺序。
 
 Before we begin, there are a few things to be aware of:
 
@@ -16,15 +16,15 @@ Before we begin, there are a few things to be aware of:
 
 - Flexbox went through three iterations before finally settling into the spec we have today. Each of those iterations had different property names, with appropriate [vendor prefixes](http://demosthenes.info/blog/217/CSS-Vendor-Prefixes-and-Flags) in different browsers. Right now we’re at the point where all current browsers support the unprefixed final spec, but working backwards is something of a minefield. For this reason, I very strongly recommend you **use a recent browser to create and test your code using the final version of flexbox,** then work backwards in each browser to achieve support In older versions. Trying to write flexbox code to support all browsers at the same time is an exercise in frustration.
 
-- Flexbox 在最终形成今天的规范之前，历经了三次迭代。每一次迭代都伴随着不同的属性名，在不同浏览器下有着相应的[实验性前缀](http://demosthenes.info/blog/217/CSS-Vendor-Prefixes-and-Flags)。而我们所处在的时刻正是，所有的浏览器都支持无前缀的终极规范，但是想要兼容低版本的浏览器还有很多坑要填。正因如此，我强烈建议你**按照 flexbox 的最终规范编写代码，并且使用最新的浏览器进行测试，**然后再去实现向前兼容。想要让你编写的代码同时兼容所有的浏览器是一件很头疼的事。
+- Flexbox 在最终形成今天的规范之前，历经了三次迭代。每一次迭代都伴随着不同的属性名，在不同浏览器下有着相应的[特定前缀](http://demosthenes.info/blog/217/CSS-Vendor-Prefixes-and-Flags)。而现在，我们所处在这样的时刻，所有的浏览器都支持无前缀的终极规范，但是想要兼容低版本的浏览器还有很多坑要填。正因如此，我强烈建议你**按照 flexbox 的最终规范编写代码，并且使用最新的浏览器进行测试，**然后再去实现向前兼容。想要让你编写的代码同时兼容所有的浏览器是一件很头疼的事。
 
 - While flexbox can work with other CSS layout systems, it is important to **abandon previous assumptions and practices in web page layout** before starting work in the new system. It has a very different way of working, and you’ll only be stymied if you bring presuppositions to it.
 
-- 尽管 flexbox 可以和其它的 CSS 布局系统同时工作，但是在开始使用新的系统之前，**丢掉以前在 web 布局中的假设和实践**很重要。这是一种全新的工作方式，如果坚持以前的思维，你将受到阻碍。
+- 尽管 flexbox 可以和其它的 CSS 布局系统一同工作，但是在开始使用新的系统之前，**丢掉以前在 web 布局中的假设和实践**很重要。这是一种全新的工作方式，如果坚持以前的思维，你将受到阻碍。
 
 - You’ll hear occasional claims of “what flexbox is for”. While it is true that other layout systems will quickly supplement flexbox – grids and regions among them – the claim is not exclusively true.  CSS is not semantic, and no part of it has a pre-ordained role. You can use any CSS to achieve anything you wish; the only question is how effectively the code accomplishes your goal. As we’ll see, flexbox solves a lot of layout problems that designers face today.
 
-- 你可能偶尔听到“flexbox 是用来做什么的”。诚然，其它的布局系统会很快的替代 flexbox——比如 grids 和 regions，但这种说法并不完全准确。CSS 不是语义化的，并且没有任何一部分具备特定的作用。你可以使用任意的 CSS 来完成你的需求；唯一的问题是如何让代码有效地完成你的目标。正如我们看到的，flexbox 解决了设计者在布局上正面临的问题。
+- 你可能偶尔听到“flexbox 是用来干啥干啥的”。诚然，其它的布局系统会很快的补充上 flexbox——比如 grids 和 regions，但这种称述并不完全准确。CSS 不是语义化的，没有哪一个 CSS 特性就是固定做某件事情的。你可以使用任意的 CSS 来完成你的需求；唯一的问题是什么样的代码才能更高效的实现目标。正如我们看到的，flexbox 解决了设计者在布局上正面临的诸多问题。
 
 - The previous incarnations of flexbox make researching it somewhat treacherous: it’s easy to find an article written without an entry date, only to discover that you’ve been reading an interpretation of the (now obsolete) Flexbox 2009 spec. Play close attention, and be careful.
 
@@ -33,7 +33,7 @@ Before we begin, there are a few things to be aware of:
 
 ## A Basic Example of Flexbox in Action
 
-## 一个基本的 Flexbox 应用实例
+## 一个简单的 Flexbox 应用实例
 
 Let’s take three simple ``<div>`` elements and place them inside another container:
 
@@ -61,11 +61,14 @@ Now let’s set the inner ``div`` elements to look like their class names, while
 	background-color: hsl(50,88%,50%);
 }
 .circle {
-	border-radius: 50%; width: 150px; height: 150px;
+	border-radius: 50%;
+  width: 150px;
+  height: 150px;
 	background-color: hsl(22,88%,50%);
 }
 ````
 The result looks like this:
+
 结果如下所示：
 
 ![](http://img.china.alibaba.com/cms/upload/2015/100/472/2274001_975966031.png)
@@ -75,19 +78,13 @@ There’s a few things to take note of immediately:
 此时，有几件事需要注意：
 
 - The most common flex properties are applied to the parent element, rather than the individual children. This is a frequent cause of confusion, as most web developers are accustomed to controlling individual elements, rather than styling them through their parents.
-
-- 很多常见的 flex 相关的属性都被应用于父元素，而不是单个的子元素。这通常会引起一个疑惑，绝大多数开发者习惯于控制单个的元素，而不是通过父元素为子元素添加样式。
-
 - Each immediate child of the flex container is considered a “flex item”. However the content inside the children do not inherit anything special, and can take any CSS you wish. Because each child is a flex item, you may find yourself “protecting” content by wrapping it in a div or other element, making it the flex-child rather than the inner content.
-
-- Flex 容器的每个直接子元素被称为一个“flex-item”。然而，子元素里面的所有元素不会继承任何特殊的样式，并且可以添加任何你想要的 CSS。因为每个子元素是一个 flex-item，你会发现自己通过将元素包裹在一个 div 或者其它的元素中，“保护”里面的内容。使该元素成为 flex-child，而不是它里面的内容。
-
 - “Block”, “inline”, “float” and “text-align” have no meaning in the context of flex items.
-
-- “Block”，“inline”，“float” 和 “text-align” 在 flex-item 的环境下无意义。
-
 - By default, flex items are aligned at their **tops** and to the **left** of the flex container.
 
+- 很多常见的 flex 相关的属性都被应用于父元素，而不是单个的子元素。这通常会引起一个疑惑，绝大多数开发者习惯于控制单个的元素，而不是通过父元素为子元素添加样式；
+- Flex 容器的每个直接子元素被称为一个“flex-item”。然而，子元素里面的所有元素不会继承任何特殊的样式，并且可以添加任何你想要的 CSS。因为每个子元素是一个 flex-item，你会发现自己通过将元素包裹在一个 div 或者其它的元素中，“保护”里面的内容。使该元素成为 flex-child，而不是它里面的内容；
+- “Block”，“inline”，“float” 和 “text-align” 在 flex-item 的环境下无意义；
 - 默认情况，所有的 flex-item 会按照 flex 容器的 **顶部** 和 **左侧** 对齐。
 
 ## Flex Alignment
