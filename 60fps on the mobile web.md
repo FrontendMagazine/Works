@@ -3,29 +3,28 @@
 
 by Michael Johnston ∙ February 10, 2015
 
-> Flipboard launched during the dawn of the smartphone and tablet as a mobile-first experience, allowing us to rethink      content layout principles from the web for a more elegant user experience on a variety of touchscreen form factors.
+> Flipboard launched during the dawn of the smartphone and tablet as a mobile-first experience, allowing us to rethink content layout principles from the web for a more elegant user experience on a variety of touchscreen form factors.
 
-> 在智能手机和平板电脑的黎明时期，Flipboard推出“移动先行”的体验,使我们可以重新思考页面中内容布局的原则，以及与触摸屏相关的，如何获得更好的用户体验的因素。
-　　
+> 在智能手机和平板电脑的黎明时期，Flipboard 推出“移动先行”的体验,使我们可以重新思考页面中内容布局的原则，以及与触摸屏相关的，如何获得更好的用户体验的因素。
 
 Now we’re coming full circle and bringing Flipboard to the web. Much of what we do at Flipboard has value independent of what device it’s consumed on: curating the best stories from all the topics, sources, and people that you care about most. Bringing our service to the web was always a logical extension.
 
-为了建立完整的体验，我们将Flipboard带到web端。
-我们在Flipboard所做的，在每台用户使用的设备上都拥有独立的价值:整理那些来自你最关心的主题,来源以及人的最好的故事。因此把我们的服务带到web端，也是一个合乎逻辑的延伸。
+为了建立完整的体验，我们将Flipboard带到web端。我们在Flipboard所做的，在每台用户使用的设备上都拥有独立的价值:整理那些来自你最关心的主题,来源以及人的最好的故事。因此把我们的服务带到web端，也是一个合乎逻辑的延伸。
 
 As we began to tackle the project, we knew we wanted to adapt our thinking from our mobile experience to try and elevate content layout and interaction on the web. We wanted to match the polish and performance of our native apps, but in a way that felt true to the browser.
 
-当我们开始这个项目后,认识到我们需要把源自移动体验的思考搬到web端,试图提升web端的内容布局和交互。我们想达到原生应用般的精致和性能,且仍能感知到真实的浏览器。
+当我们开始这个项目后,认识到我们需要把源自移动体验的思考搬到 web 端,试图提升 web 端的内容布局和交互。我们想达到原生应用般的精致和性能,且仍能感知到真实的浏览器。
 
 Early on, after testing numerous prototypes, we decided our web experience should scroll. Our mobile apps are known for their book-like pagination metaphor, something that feels intuitive on a touch screen, but for a variety of reasons, scrolling feels most natural on the web.
-早些时间，经过测试大量的产品原型后，我们决定使用滚动的方式作为web端体验。我们的移动应用被大家所熟知的是类似翻书般的体验，在触摸屏上这很直观。但一系列的原因表明，滚动在web端的体验更加自然。
 
+早些时间，经过测试大量的产品原型后，我们决定使用滚动的方式作为 web 端体验。我们的移动应用被大家所熟知的是类似翻书般的体验，在触摸屏上这很直观。但一系列的原因表明，滚动在 web 端的体验更加自然。
 
 In order to optimize scrolling performance, we knew that we needed to keep paint times below 16ms and limit reflows and repaints. This is especially important during animations. To avoid painting during animations there are two properties you can safely animate: CSS transform and opacity. But that really limits your options.
 
-为了[优化滚动的性能][1],我们知道我们需要保证页面渲染的频率低于16ms，同时限制回流(reflow)和重绘(repaints)。这在动画中尤其重要。为了避免动画中重新渲染，有两个属性你可以安全地作用于动画上:CSS transform和opacity。但这样选择余地太小了。
+为了[优化滚动的性能][1],我们知道我们需要保证页面渲染的频率低于16ms，同时限制回流(reflow)和重绘(repaints)。这在动画中尤其重要。为了避免动画中重新渲染，有两个属性你可以安全地作用于动画上: CSS transform 和 opacity。但这样选择余地太小了。
 
 What if you want to animate the width of an element? 
+
 当你想实现元素上宽度动画效果怎么办？
 
 ![此处输入图片的描述][2]
@@ -44,67 +43,77 @@ These types of animations have always suffered from jank on the web, particularl
 　　
 这些类型的动画一直在网上遭受[诟病][4],特别是在移动设备上,只因为一个简单的原因:
 
-The DOM is too slow.
-Dom太慢了
+**The DOM is too slow.**
+
+**DOM 太慢了。**
 
 It’s not just slow, it’s really slow. If you touch the DOM in any way during an animation you’ve already blown through your 16ms frame budget.
 
-这不是慢，是非常之慢。如果你在动画过程中，使用任何方式触摸Dom元素，都会破坏掉16ms每帧这一过程。
+这不是慢，是非常之慢。如果你在动画过程中，使用任何方式接触 DOM 元素，都会破坏掉16ms每帧这一过程。
 
-Enter < canvas>
+## Enter < canvas>
+
 Most modern mobile devices have hardware-accelerated canvas, so why couldn’t we take advantage of this? HTML5 games certainly do. But could we really develop an application user interface in canvas?
 
-开始使用 < canvas >
-大多数现代移动设备都拥有硬件加速的canvas，我们为什么不利用起来呢？[html5游戏][5]已经做到了。我们能真正在canvas上开发应用界面么？
+## 开始使用 < canvas >
+
+大多数现代移动设备都拥有硬件加速的 canvas，我们为什么不利用起来呢？[HTML5 游戏][5]已经做到了。我们能真正在 canvas 上开发应用界面么？
 
 Immediate mode vs. retained mode
 Canvas is an immediate mode drawing API, meaning that the drawing surface retains no information about the objects drawn into it. This is in opposition to retained mode, which is a declarative API that maintains a hierarchy of objects drawn into it.
 　　
-##立即模式与保留模式
+### 立即模式与保留模式
 
-Canvas是一种立即模式的绘图API,这意味着绘制时不保留所绘制对象的信息。与其相反的是保留模式,这是一种声明性的API,维护所绘制对象的层次结构。
+Canvas 是一种立即模式的绘图 API,这意味着绘制时不保留所绘制对象的信息。与其相反的是保留模式,这是一种声明性的 API,维护所绘制对象的层次结构。
 
 The advantage to retained mode APIs is that they are typically easier to construct complex scenes with, e.g. the DOM for your application. It often comes with a performance cost though, as additional memory is required to hold the scene and updating the scene can be slow.
 
-保留模式api的优点是,对于你的应用程序，他们通常更容易构建复杂的场景,例如DOM。通常这都会带来性能成本,需要额外的内存来保存场景和更新场景，这可能会很慢。
+保留模式api的优点是，对于你的应用程序，他们通常更容易构建复杂的场景，例如 DOM。通常这都会带来性能成本,需要额外的内存来保存场景和更新场景，这可能会很慢。
 
 Canvas benefits from the immediate mode approach by allowing drawing commands to be sent directly to the GPU. But using it to build user interfaces requires a higher level abstraction to be productive. For instance something as simple as drawing one element on top of another can be problematic when resources load asynchronously, such as drawing text on top of an image. In HTML this is easily achieved with the ordering of elements or z-index in CSS.
 
-canvas受益于立即模式,允许直接发送绘图命令到GPU。但若用它来构建用户界面，需要进行一个更高层次的抽象。例如一些简单的处理,比如当绘制一个异步加载的资源到一个元素上时会出现问题,如在图片上绘制文本。在HTML中，由于元素存在顺序，以及CSS中存在z - index，因此是很容易实现的。
+Canvas 受益于立即模式,允许直接发送绘图命令到 GPU。但若用它来构建用户界面，需要进行一个更高层次的抽象。例如一些简单的处理,比如当绘制一个异步加载的资源到一个元素上时会出现问题,如在图片上绘制文本。在HTML中，由于元素存在顺序，以及 CSS 中存在 z-index，因此是很容易实现的。
 
-Building a UI in < canvas>
+## Building a UI in < canvas>
+
 Canvas lacks many of the abilities taken for granted in HTML + CSS.
 
-##在< canvas >元素中建立UI
+## 在< canvas >元素中建立UI
 
-相比HTML＋CSS，canvas则有些先天不足，缺少非常多在HTML + CSS中理所当然的特性。
+相比 HTML＋CSS，canvas 则有些先天不足，缺少非常多在 HTML + CSS 中理所当然的特性。
 
-Text
+### Text
+
 There is a single API for drawing text: fillText(text, x, y [, maxWidth]). This function accepts three arguments: the text string and x-y coordinates to begin drawing. But canvas can only draw a single line of text at a time. If you want text wrapping, you need to write your own function.
 
-canvas有一个很简单的API用于绘制文字：**fillText(text, x, y [, maxWidth])**
-这个函数接受三个参数：文字本身以及绘制起点的x,y坐标。但canvas只能一次绘制一行文字。如果你需要让文字换行，需要自己写函数。
+### 文本
 
-Images
+canvas有一个很简单的 API 用于绘制文字：**fillText(text, x, y [, maxWidth])**
+这个函数接受三个参数：文字本身以及绘制起点的x,y坐标。但 canvas 只能一次绘制一行文字。如果你需要让文字换行，需要自己写函数。
+
+### Images
+
 To draw an image into a canvas you call drawImage(). This is a variadic function where the more arguments you specify the more control you have over positioning and clipping. But canvas does not care if the image has loaded or not so make sure this is called only after the image load event.
 
-##图片
+### 图片
 
-你可以使用**drawImage()**函数在canvas上绘制图片。这是个可变参数函数,你可以指定更多参数，从而控制定位和裁切。但是canvas不在乎图像是否加载，或不能确定只在图像加载事件后调用函数。
+你可以使用**drawImage()**函数在 canvas 上绘制图片。这是个可变参数函数,你可以指定更多参数，从而控制定位和裁切。但是canvas不在乎图像是否加载，或不能确定只在图像加载事件后调用函数。
 
-Overlapping elements
+### Overlapping elements
+
 In HTML and CSS it’s easy to specify that one element should be rendered on top of another by using the order of the elements in the DOM or CSS z-index. But remember, canvas is an immediate mode drawing API. When elements overlap and either one of them needs to be redrawn, both have to be redrawn in the same order (or at least the dirtied parts).
 
-##元素层叠
+### 元素层叠
 
-通过DOM元素的顺序或使用CSS的z - index属性，在HTML和CSS指定一个元素是否在另一个上应该很容易。但请记住,canvas是立即模式的绘图API。当元素重叠或者其中一个需要重绘时,都必须以同一顺序重新绘制(或至少局部重绘)。
+通过 DOM 元素的顺序或使用 CSS 的 z-index属性，在 HTML 和 CSS 指定一个元素是否在另一个上应该很容易。但请记住，canvas 是立即模式的绘图 API。当元素重叠或者其中一个需要重绘时,都必须以同一顺序重新绘制（或至少局部重绘）。
 
 > 译者注 关于局部重绘提高性能的文章大家可以参考 http://www.cnblogs.com/rhcad/archive/2012/11/17/2774794.html
 
-Custom fonts
+### Custom fonts
+
 Need to use a custom web font? The canvas text API does not care if a font has loaded or not. You need a way to know when a font has loaded, and redraw any regions that rely on that font. Fortunately, modern browsers have a promise-based API for doing just that. Unfortunately, iOS WebKit (iOS 8 at the time of this writing) does not support it.
 
-##自定义字体
+### 自定义字体
 
 需要使用一个自定义web字体吗?canvas的文本API并不在乎字体是否加载。你需要一种方法来知道一个字体是否加载，并绘制任何依赖此字体的区域。幸运的是,现代浏览器有一个[基于promise的API][6]。不幸的是,iOS WebKit(iOS 8时)不支持它。
 
@@ -487,7 +496,8 @@ One approach that was raised by Bespin in 2009 is to keep a parallel DOM in sync
 　　
 [Bespin][24]在2009年提出的一种方法,是元素渲染到canvas时，同时维护一个[平行Dom][25]，用于元素同步。我们正在继续研究实现可访问性的正确方法。
 
-Conclusion
+## Conclusion
+
 In the pursuit of 60fps we sometimes resort to extreme measures. Flipboard for mobile web is a case study in pushing the browser to its limits. While this approach may not be suitable for all applications, for us it’s enabled a level of interaction and performance that rivals native apps. We hope that by releasing the work we’ve done with React Canvas that other compelling use cases might emerge.
 
 Head on over to flipboard.com on your phone to see what we’ve built, or if you don’t have a Flipboard account, check out a couple of magazines to get a taste of Flipboard on the web. Let us know what you think.
@@ -495,7 +505,7 @@ Head on over to flipboard.com on your phone to see what we’ve built, or if you
 Special thanks to Charles, Eugene and Anh for edits and suggestions.
 Flip
 
-##结论
+## 结论
 
 在追求60 fps的过程中，我们有时会采取极端措施。Flipboard为研究移动网络的局限性提供了一个案例。虽然这种方法可能并不适用于所有应用程序,我们将应用的交互和性能水平提升到可以与本地应用相竞争。我们希望通过开放我们在[React Canvas][26]中所做的工作,可以让其他引人注目的例子出现。
 
