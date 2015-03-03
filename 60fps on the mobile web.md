@@ -27,10 +27,15 @@ In order to optimize scrolling performance, we knew that we needed to keep paint
 
 What if you want to animate the width of an element? 
 当你想实现元素上宽度动画效果怎么办？
+
 ![此处输入图片的描述][2]
+
 How about a frame-by-frame scrolling animation?
+
 一帧帧的滚动动画如何处理？
+
 ![此处输入图片的描述][3]
+
 (Notice in the above image that the icons at the top transition from white to black. These are 2 separate elements overlaid on each other whose bounding boxes are clipped depending on the content beneath.)
 
 These types of animations have always suffered from jank on the web, particularly on mobile devices, for one simple reason:
@@ -219,9 +224,9 @@ The first thing you need is a way to compute scrolling momentum. If you don’t 
 The technique we use for scrolling uses a single canvas element. At each touch event, the current render tree is updated by translating each node by the current scroll offset. The entire render tree is then redrawn with the new frame coordinates.
 
 回到canvas,简短的回答是你必须用JavaScript实现滚动。
-　　
+
 你首先需要的是一种计算滚动程度的算法。如果你不想研究数学，Zynga开源的[纯滚动实现][12],适合任何类似此布局的情况。
-　　
+
 我们使用一个canvas元素来完成滚动。在每一个触摸事件时,根据当前的滚动程度去更新渲染树。之后，整个渲染树使用新的坐标来重新渲染。
 
 This sounds like it would be incredibly slow, but there is an important optimization technique that can be used in canvas where the result of drawing operations can be cached in an off-screen canvas. The off-screen canvas can then be used to redraw that layer at a later time.
@@ -261,6 +266,7 @@ The UI for flipping an item into a magazine leverages this ability to perform a 
 这个将一个项目放入一本杂志的界面，利用了这种特性来执行一个时间轴维度的平稳过渡。快照包含去掉顶部和底部的整个项目。
 
 ![此处输入图片的描述][14]
+
 A declarative API
 We had the basic building blocks of an application now. However, imperatively constructing a tree of RenderLayers could be tedious. Wouldn’t it be nice to have a declarative API, similar to how the DOM worked?
 
@@ -464,9 +470,9 @@ In a sense, Flipboard for mobile web is a hybrid application. Rather than blendi
 ##实际应用
 　　
 React Canvas并不能完全取代DOM。我们在我们的移动web app中，性能要求最关键的地方去使用，主要是滚动时间轴视图这部分。
-　　
+
 当渲染性能不是问题的时候,Dom可能是一个更好的方法。事实上,对某些元素输入字段和音频/视频等，这是唯一的方法
-　　
+
 从某种意义上说,Flipboard的移动web是一个混合(hybird)的应用程序。相比传统的原生应用和网络技术结合的方式,Flipboard的内容全部是web内容。它的UI基于dom实现，并在适当的地方使用canvas渲染。
 
 
@@ -492,9 +498,9 @@ Flip
 ##结论
 
 在追求60 fps的过程中，我们有时会采取极端措施。Flipboard为研究移动网络的局限性提供了一个案例。虽然这种方法可能并不适用于所有应用程序,我们将应用的交互和性能水平提升到可以与本地应用相竞争。我们希望通过开放我们在[React Canvas][26]中所做的工作,可以让其他引人注目的例子出现。
-　　
+
 用手机访问[flipboard.com][27]，体验一下。或者如果你没有Flipboard账户,体验一下Flipboard上[一系列][28]的[杂志][29]。请让我们获得你的想法。
-　　
+
 特别感谢Charles, Eugene 和Anh的编辑和建议。
 
 原文：http://engineering.flipboard.com/2015/02/mobile-web/
