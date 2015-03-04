@@ -127,13 +127,13 @@ Many (including us) have tried and failed. Scrollable elements are possible in p
 In order to build an infinitely scrolling list with reasonably complex content, we needed the equivalent of UITableView for the web.
 
 ### < canvas >的优点
-　　
+
 鉴于所有这些缺点,人们开始质疑 canvas 来代替 DOM 这一选择。最终，我们的讨论由一个很简单的真理来决定：
-　　
+
 ** 你不能基于 dom 建立一个60 fps的滚动列表视图。 **
-　　
+
 许多人(包括我们)已经尝试过,但都失败了。可滚动的元素可以在纯 HTML 和 CSS 中通过 **overflow:scroll** 实现：(结合 IOS 上的 **-webkit-overflow-scrolling:touch** ),但这些不能在滚动动画中给予你逐帧控制，同时移动浏览器很难处理又长又复杂的内容。
-　　
+
 为了构建一个内含相当复杂的内容的无限滚动列表,我们需要在 web 端实现一个[UITableView][7]
 
 > 译者注 UITableView 是 IOS 控件
@@ -142,9 +142,8 @@ In contrast to the DOM, most devices today have hardware accelerated canvas impl
 
 Canvas is also a very small API when compared to HTML + CSS, reducing the surface area for bugs or inconsistencies between browsers. There’s a reason there is no Can I Use? equivalent for canvas.
 
-　　
 与 DOM 相比,今天的大多数设备都有基于硬件加速的 canvas 实现，可以直接发送绘图命令到 GPU。这意味着我们可以非常快的渲染元素;在许多情况下,我们所说的是毫秒级的范围。
-　　
+
 相比 HTML + CSS , canvas 也是一个非常“苗条”的 API ，这减少了界面上的 bug 或浏览器之间的不一致性。有一个理由更加直接，canvas 没有 [Can I Use?][8]。
 
 A faster DOM abstraction
@@ -223,7 +222,7 @@ Luckily, browser vendors are aware of the problem. In particular, the Chrome tea
 
 
 这其实是一个妥协。为了达到60 fps 的滚动指标，移动浏览器在执行滚动期间，停止 JavaScript 的执行，这是怕 DOM 修改导致回流。最近, IOS 和 Android 暴露了 **onScroll** 事件，他们的工作过程更像桌面浏览器了,但如果你试图在滚动时保持 DOM 元素的位置同步，具体的实现可能会有差别。
-　　
+
 幸运的是,浏览器厂商已经意识到这个问题。特别是 Chrome 团队已经[开放][11]了为了改善手机端这种情况所做的工作。
 
 Turning back to canvas, the short answer is you have to implement scrolling in JavaScript.
@@ -243,10 +242,11 @@ This sounds like it would be incredibly slow, but there is an important optimiza
 This technique can be used not just for image layers, but text and shapes as well. The two most expensive drawing operations are filling text and drawing images. But once these layers are drawn once, it is very fast to redraw them using an off-screen canvas.
 
 这听起来令人难以置信的慢,在 canvas 上可以使用一个重要的优化技术--画布上绘图操作的结果可以在离屏层（off-screen）canvas 被缓存。离屏层（off-screen）之后可以用来重新绘制层。
-　　
+
 这种技术不仅可以用于图像层,文本和图形也适用。两个成本最高的绘图操作是填充文本和图像。但是一旦这些层绘制一次以后,接下来使用离屏层重新绘制他们是非常快的。
 
 In the demonstration below, each page of content is divided into 2 layers: an image layer and a text layer. The text layer contains multiple elements that are grouped together. At each frame in the scrolling animation, the 2 layers are redrawn using cached bitmaps.
+
 ![此处输入图片的描述][13]
 
 
@@ -291,8 +291,8 @@ What if we could bind our canvas layout engine to React components?
 ### React
 
 我们是 React 框架的忠实粉丝。它的单一定向的数据流和声明式API已经改变了人们构建应用程序的方式。react最引人注目的特征就是虚拟 DOM (virtual DOM)。呈现为HTML容器只是它在浏览器中的一个简单实现。最近引入的 React Native 证明了这一点。
-　　
-如果我们将我们的canvas布局引擎与react组件结合起来会咋样?
+
+如果我们将我们的 canvas 布局引擎与 react 组件结合起来会咋样?
 
 ### React Canvas简介
 
@@ -327,7 +327,7 @@ Sure, this works but who wants to write code this way? In addition to being erro
 With React Canvas this becomes:
 
 当然,这样能完成效果，但是谁想这样写代码?除了容易出错,也很难想象出渲染结果
-　　
+
 使用React Canvas则变成下面这样：
 
     var MyComponent = React.createClass({
@@ -376,7 +376,7 @@ Facebook recently open sourced its JavaScript implementation of CSS. It supports
 您可能会注意到,一切都似乎是绝对定位实现的。确实是这样。我们的canvas渲染引擎的诞生，就伴随着驱动像素级布局，实现多行文本过长省略的使命。传统的CSS不能做到这一点,所以绝对定位的方式对我们来说很适合。然而,这种方法并不适合于所有应用程序。
 　　
 ### css布局
-　　
+
 Facebook 最近开源的[CSS的JavaScript实现][18]。他支持 CSS 的一些子集，包括 margin、padding,position 和最重要的 flexbox。
 
 Integrating css-layout into React Canvas was a matter of hours. Check out the example to see how this changes the way components are styled.
@@ -389,7 +389,7 @@ It turns out this is quite easy because of React’s diffing of the virtual DOM.
 将 css 布局整合到 React Canvas 只是一个时间问题。看看[这个例子][19],看看我们是如何改变组件样式的。
 　　
 ## 声明式的无限滚动
-　　
+
 你如何在 React Canvas 中创建一个达到60 fps ,无限,分页的滚动列表？
 　　
 事实证明这实现起来非常容易,因为 react 会做虚拟 DOM 的 diff 。在**render()** 函数中只有当前可见的元素被返回，React负责更新滚动期间所需的虚拟 DOM 树。
@@ -477,7 +477,7 @@ Where rendering performance is not a concern, DOM may be a better approach. In f
 In a sense, Flipboard for mobile web is a hybrid application. Rather than blending native and web technologies, it’s all web content. It mixes DOM-based UI with canvas rendering where appropriate.
 
 ## 实际应用
-　　
+
 React Canvas 并不能完全取代 DOM。我们在我们的移动 web app 中，性能要求最关键的地方去使用，主要是滚动时间轴视图这部分。
 
 当渲染性能不是问题的时候, Dom 可能是一个更好的方法。事实上,对某些元素输入字段和音频/视频等，这是唯一的方法
@@ -493,7 +493,7 @@ One approach that was raised by Bespin in 2009 is to keep a parallel DOM in sync
 ## 可访问性
 
 这个领域需要进一步探索。使用降级内容( canvas 的 DOM 子树)应该允许 VoiceOver 这样的屏幕阅读器与内容交互。我们在测试的设备上看到了不同的结果。另外，关于[焦点的管理][23]也有标准，但目前暂时不被浏览器支持。
-　　
+
 [Bespin][24]在2009年提出的一种方法,是元素渲染到 canvas 时，同时维护一个[平行Dom][25]，用于元素同步。我们正在继续研究实现可访问性的正确方法。
 
 ## Conclusion
