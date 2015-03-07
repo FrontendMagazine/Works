@@ -24,6 +24,8 @@ We've also added a way to retrieve type information at runtime.  When enabled, t
 
 ## TodoMVC for Angular 2 in TypeScript
 
+## 基于 TypeScript 的 Angular 2 版 TodoMVC
+
 At ng-conf, we are previewing this work by showing a TodoMVC example, based on [David East’s Angular 2 TodoMVC](https://github.com/davideast/ng2do). You can try this example out for yourself. If you’re new to TypeScript, you can also learn TypeScript through our [interactive playground](http://www.typescriptlang.org/Playground).
 
 在 ng-conf 中，我们已经通过一个 TodoMVC 例子预览过这些工作了，这个例子基于 [David East 的 Angular 2 TodoMVC](https://github.com/davideast/ng2do)。即可以自己试试这个例子。如果你原来不熟悉 TypeScript，你可以通过我们交互式的[练操场]((http://www.typescriptlang.org/Playground))学习 TypeScript。
