@@ -20,7 +20,7 @@ Many years ago, the web was a bunch of static pages made with HTML and CSS witho
 
 As the years have passed, the responsibilities of the client-side code have grown a lot, resulting in a new type of application known as the single-page application (SPA). In an SPA, all the necessary assets are retrieved with a single page load, or dynamically loaded and added to the page as necessary. Some examples of SPAs are [Gmail](https://mail.google.com/) and the [StackEdit editor](https://stackedit.io/editor).
 
-随着时间的推移，客户端代码可以做的事情变得越来越多，催生了被称作单页面应用（SPA）的一类应用。SPA在首次加载页面时就获取了所有必需的资源，或者再按需动态加载并且渲染到页面上。 [Gmail](https://mail.google.com/) 和 [StackEdit editor](https://stackedit.io/editor) 是很棒的 SPA 示例。
+随着时间的推移，客户端代码可以做的事情越来越多，催生了被称作单页面应用（SPA）的一类应用。SPA在首次加载页面时就获取了所有必需的资源，或者再按需动态加载并且渲染到页面上。 [Gmail](https://mail.google.com/) 和 [StackEdit editor](https://stackedit.io/editor) 是很棒的 SPA 示例。
 
 SPAs allow for better interactivity, because almost all their operations are executed on the client, keeping communications with the server to a bare minimum. Unfortunately, they also have some major problems. Let’s discuss some of them.
 
