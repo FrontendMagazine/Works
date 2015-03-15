@@ -1,5 +1,5 @@
-# A Designer’s Guide To Flexbox, Part 2: Going Vertical #
-# Flexbox设计指南 Part 2 #
+# A Designer’s Guide To Flexbox, Part 2: Going Vertical
+# Flexbox 设计指南2：垂直布局
 
 >译者注：本篇接 [Flexbox 设计指南](http://zhuanlan.zhihu.com/FrontendMagazine/19955794)
 
@@ -71,7 +71,7 @@ Placing the elements at the “end” of the flexbox container is easy, so long 
 ![](/images/A-Designers-Guide-To-Flexbox-Part-2-Going-Vertical-02.jpg)
 
 Combining both horizontal and vertical flexbox alignment finally provides web designers with true, honest-to-goodness perfect centering of elements, one of the techniques shown in my “Seven Ways To Center With CSS” article.  
-使用在水平和竖直方向上都对齐的 flexbox，Web 设计师就能实现完美的居中元素，唔，这个方法也是[使用 CSS 实现居中的7种方法](http://demosthenes.info/blog/723/Seven-Ways-of-Centering-With-CSS)之一呢。
+使用在水平和竖直方向上都对齐的 flexbox，Web 设计师就能实现完美的居中元素。唔，这个方法也是[使用 CSS 实现居中的7种方法](http://demosthenes.info/blog/723/Seven-Ways-of-Centering-With-CSS)之一呢。
 
 ## Basic Flexbox For Mobile ##
 ## 移动端上的 Flexbox 基础篇 ##
