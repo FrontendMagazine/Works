@@ -144,9 +144,3 @@ grow is only one part of the visual weight controls in flexbox: the next article
 ```grow```只是 **[flexbox](http://demosthenes.info/blog/css/flexbox)** 控制视觉重量的一部分：本系列的下一篇文章会讨论 ```flex-shrink``` 和 ```flex-basis``` 这两个属性，请大家继续关注。
 
 原文：[A Designer’s Guide To Flexbox: Understanding Visual Weight](http://demosthenes.info/blog/901/A-Designers-Guide-To-Flexbox-Understanding-Visual-Weight)
-
-外刊君推荐阅读：
-
-![](http://pic4.zhimg.com/0c4fe5e5b4498114c398ea2bf530506b_b.jpg)
-
-关注微博：[前端外刊评论](http://www.weibo.com/FrontendMagazine)
