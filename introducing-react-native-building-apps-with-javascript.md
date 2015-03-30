@@ -169,7 +169,7 @@ Open this URL in Safari; you’ll see the JavaScript code for your app. You shou
 
 When your app starts, this code is loaded and executed by the JavaScriptCore framework. In the case of your application, it loads the PropertyFinderApp component, then constructs the native UIKit view. You’ll learn a bit more about this later in the tutorial.
 
-## Hello World JSX 【寸志】
+## Hello World JSX 【天意】
 
 ## 你好 JSX 的世界
 
@@ -192,7 +192,7 @@ Since you’ll be working with the same set of JavaScript, you can leave the app
 
 Okay, enough of this “Hello World” fun; it’s time to build the real application!
 
-## Adding Navigation 【洪春】
+## Adding Navigation 【寸志】
 
 ## 添加导航
 
@@ -244,7 +244,7 @@ Head back to the simulator and press Cmd+R to see your new UI in action:
 
 There’s the navigation controller with its root view, which is currently the “Hello World” text. Excellent — you now have the basic navigation structure for your application in place. It’s time to add the ‘real’ UI!
 
-## Building the Search Page 【六妹】
+## Building the Search Page 【洪春】
 
 ## 创建搜索页
 
@@ -329,7 +329,7 @@ Return to the simulator, hit Cmd+R and check out the new UI:
 
 This is using the new component, SearchPage, which you added.
 
-## Styling with Flexbox 【寸志】
+## Styling with Flexbox 【六妹】
 
 ## 使用 Flexbox 定义外观
 
@@ -433,7 +433,7 @@ Returning to the simulator, hit Cmd+R and admire your new UI:
 
 Your current app looks good, but it’s somewhat lacking in functionality. Your task now is to add some state to your app and perform some actions.
 
-## Adding Component State 【洪春】
+## Adding Component State 【天意】
 
 ## 添加组件状态
 
@@ -511,7 +511,7 @@ It’s amazing to see the novel concepts that make ReactJS so unique — the vir
 
 You can wrap your head around all that later; you still have some work to do in the app. Remove the logging code you just added above, since it’s no longer necessary and just adds cruft to the code.
 
-## Initiating a Search 【六妹】
+## Initiating a Search 【寸志】
 
 ## 初始化一个搜索
 
@@ -593,7 +593,7 @@ The activity indicator renders and the URL for the required query appears in the
 > Note: This app makes use of the [Nestoria API for searching property listings](http://www.nestoria.co.uk/help/api). The JSON response coming back from the API is pretty straightforward, but you can have a look at the documentation for all the details on the expected request URL and response formats.
 The next step is to make the request from within your application.
 
-## Performing an API Request 【寸志】
+## Performing an API Request 【洪春】
 
 ## 执行 API 请求
 
@@ -645,7 +645,7 @@ Save your work, then in the simulator press Cmd+R and try searching for ‘londo
 
 It’s time to see what those 20 properties in real places such as London look like!
 
-## Displaying the Results 【洪春】
+## Displaying the Results 【六妹】
 
 ## 结果显示
 
@@ -730,7 +730,7 @@ Head back to the simulator, press Cmd+R and try a quick search. You’ll be gree
 
 It’s great to see the property listings, but that list is a little drab. Time to liven things up a bit.
 
-## A Touch of Style 【六妹】
+## A Touch of Style 【天意】
 
 ## 可点击样式
 
