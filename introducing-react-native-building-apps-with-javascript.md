@@ -32,33 +32,51 @@ Want to learn more? Read on!
 
 ## Getting Started 【洪春】
 
-## 起手
+## 准备工作
 
 The React Native framework is [available via GitHub](https://github.com/facebook/react-native). You can grab the framework by either cloning the repository using git, or you can choose download it as a zip file. Once you have the React Native framework locally, there are a few other prerequisites to take care of before you can start coding.
 
+React Native 框架[托管在 GitHub 上](https://github.com/facebook/react-native)。你可以通过两种方式获取到它：使用 git 克隆仓库，或者下载一个 zip 压缩包文件。如果你的机器上已经安装了 React Native，在着手编码前还有其他几个因素需要考虑。
+
 - React Native uses [Node.js](https://nodejs.org/), a JavaScript runtime, to build your JavaScript code. If you don’t already have Node.js installed, it’s time to get it!
 
+- React Native 借助 [Node.js](https://nodejs.org/)，即 JavaScript 运行时来创建 JavaScript 代码。如果你已经安装了 Node.js，那就可以上手了。
+
 First [install Homebrew](http://brew.sh/) using the instructions on the Homebrew website, then install Node.js by executing the following in a Terminal window:
+
+首先，使用 Homebrew 官网提供的指引[安装 Homebrew](http://brew.sh/)，然后在终端执行以下命令：
 
     brew install node
 
 Next, use homebrew to install [watchman](https://facebook.github.io/watchman/), a file watcher from Facebook:
 
+接下来，使用 homebrew 安装 [watchman](https://facebook.github.io/watchman/)，一个来自Facebook 的观察程序：
+
     brew install watchman
 
 This is used by React Native to figure out when your code changes and rebuild accordingly. It’s like having Xcode do a build each time you save your file.
 
+通过配置 watchman，React 实现了在代码发生变化时，完成相关的重建的功能。就像在使用 Xcode 时，每次保存文件都会进行一次创建。
+
 The React Native code has a number of dependencies that you need to satisfy before you can run it. Open a Terminal window in your React Native folder and execute the following:
+
+React Native 有很多的依赖，需要在运行之前安装好。在 React Native 文件目录下打开一个终端，执行下面代码：
 
     npm install
 
 This uses the Node Package Manager to fetch the project dependencies; it’s similar in function to CocoaPods or Carthage. Once this command has run successfully, you’ll find a node_modules folder has been created with the various external dependencies.
 
+这里通过 Node 包管理器抓取到项目的所有依赖；功能上和 CocoaPods 或者 Carthage 类似。成功执行该命令后，你会发现一个 `node_modules` 文件夹被创建，包含了各种外部依赖。
+
 The final step is to start the development server. Within the same Terminal window as the previous step, execute the following:
+
+最后，启动开发服务器。在刚才打开的终端中，执行下面命令：
 
     npm start
 
 On executing the above, you will see the following:
+
+执行上面命令，你会看到：
 
     $ npm start
      
@@ -81,9 +99,15 @@ On executing the above, you will see the following:
 
 That’s it, you’re good to get started! Leave the script running in the terminal window as you continue with the tutorial.
 
+就这样简单，准备开始！脚本在终端继续执行，我们继续。
+
 At this point, I’d recommend trying one of the React Native example apps to test your setup. Open the project from the react-native/Examples/Movies folder in Xcode, then build and run it and check that you can launch the Movies application without issue.
 
+至此，我推荐尝试一个 React Native 示例来测试配置项。在 `react-native/Examples/Movies` 文件夹下打开项目，然后创建并且运行它，确保你可以正确地发布这个 Movies 应用。
+
 > Note: One final thing before you get too deep in the code — you’re going to be writing a lot of JavaScript code in this tutorial, and Xcode is certainly not the best tool for this job! I use [Sublime Text](http://www.sublimetext.com/), which is a cheap and versatile editor, but [atom](https://atom.io/), [brackets](http://brackets.io/) or any other lightweight editor will do the job.
+
+> 注意：在进入编码工作之前，还有最后一件事 —— 在这个教程中，你需要编写大量的 JavaScript 代码，Xcode 并非是最好的工具！我使用 [Sublime Text](http://www.sublimetext.com/)，一个价格合理且应用广泛的编辑器。不过，[atom](https://atom.io/)，[brackets](http://brackets.io/) 或者其他轻量的编辑器都能胜任这份工作。
 
 ## Hello React Native 【六妹】
 
@@ -250,6 +274,8 @@ There’s the navigation controller with its root view, which is currently the �
 
 Add a new file to the project named SearchPage.js and place it in the same folder as PropertyFinderApp.js. Add the following code to this file:
 
+在项目中添加一个新文件，命名为 `SearchPage.js`，然后将其放在 `PropertyFinderApp.js` 所在目录下。在文件中添加下面代码：
+
     'use strict';
      
     var React = require('react-native');
@@ -266,9 +292,16 @@ Add a new file to the project named SearchPage.js and place it in the same folde
 
 You’ve already seen the strict mode and the react-native import before, but the assignment statement that follows it is something new.
 
+你会注意到，位于引入 `react-native` 所在位置的前面有一个严格模式标识，紧接着的声明语句是新知识。
+
+
 This is a destructuring assignment, which lets you extract multiple object properties and assign them to variables using a single statement. As a result, the rest of your code can drop the React prefix; for example, you can refer directly to StyleSheet rather than React.StyleSheet. Destructuring is also useful for manipulating arrays and is [well worth learning more about](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment).
 
+这是一种解构赋值，准许你获取对象的多个属性并且使用一条语句将它们赋给多个变量。结果是，后面的代码中可以省略掉 React 前缀；比如，你可以直接引用 `StyleSheet` ，而不再需要 `React.StyleSheet`。解构同样适用于操作数组，[更多细节请戳这里](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment)。
+
 Still working in the same file, SearchPage.js, add the following style:
+
+继续在 `SearchPage.js` 文件中添加下面的样式：
 
     var styles = StyleSheet.create({
       description: {
@@ -286,7 +319,11 @@ Still working in the same file, SearchPage.js, add the following style:
 
 Again, these are standard CSS properties. Setting up styles like this is less visual than using Interface Builder, but it’s better than setting view properties one by one in your viewDidLoad() methods! :]
 
+同样，以上都是标准的 CSS 属性。和 Interface Builder 相比，这样设置样式缺少了可视化，但是比起在 `viewDidLoad()` 中逐个设置视图属性的做法更友好！
+
 Add the component itself just below the styles you added above:
+
+只需要把组件添加到样式声明的前面：
 
     class SearchPage extends Component {
       render() {
@@ -305,25 +342,41 @@ Add the component itself just below the styles you added above:
 
 render is a great demonstration of JSX and the structure it provides. Along with the style, you can very easily visualize the UI constructed by this component: a container with two text labels.
 
+`render` 很好地展示出 JSX 以及它表示的结构。通过这个样式，你可以轻易地描绘出组件 UI 的结构：一个容器，包含两个 `text` 标签。
+
 Finally, add the following to the end of the file:
+
+最后，将下面的代码添加到文件末尾：
 
     module.exports = SearchPage;
 
 This exports the SearchPage class, which permits its use in other files.
 
+这可以 export `SearchPage` 类，方便在其他文件中使用它。
+
 The next step is to update the application routing in order to make this the initial route.
 
+下一步是更新应用的路由，以初始化路由。
+
 Open PropertyFinderApp.js and add the following just after the current require import near the top of the file:
+
+打开 `PropertyFinderApp.js`，在文件顶部紧接着上一个 require 语句的位置添加下面代码：
 
     var SearchPage = require('./SearchPage');
 
 Within the render function of the PropertyFinderApp class, update initialRoute to reference the newly added page as shown below:
 
+在 PropertyFinderApp 类的 render 函数内部，通过更新 initialRoute 来引用最新添加的页面，如下：
+
     component: SearchPage
 
 At this point you can remove the HelloWorld class and its associated style, if you like. You won’t be needing that code any longer.
 
+此时，如果你愿意则可以移除 HelloWorld 类以及与它相关联的样式。你不在需要那段代码了。
+
 Return to the simulator, hit Cmd+R and check out the new UI:
+
+切换到模拟器，按下 Cmd+R 查看新的 UI：
 
 ![react-searchstarter](http://cdn1.raywenderlich.com/wp-content/uploads/2015/03/react-searchstarter-281x500.png)
 
@@ -599,6 +652,8 @@ The next step is to make the request from within your application.
 
 Still within SearchPage.js, update the initial state in the class constructor to add a message variable:
 
+还是 `SearchPage.js` 文件中，更新构造器中的初始 `state` 添加一个 `message` 变量：
+
     this.state = {
       searchString: 'london',
       isLoading: false,
@@ -607,11 +662,17 @@ Still within SearchPage.js, update the initial state in the class constructor to
 
 Within render, add the following to the bottom of your UI:
 
+在 `render` 内部，将下面的代码添加到 UI 的底部：
+
     <Text style={styles.description}>{this.state.message}</Text>
 
 You’ll use this to display a range of messages to the user.
 
+你需要使用这个为用户展示多种信息。
+
 Within the SearchPage class, add the following code to the end of _executeQuery():
+
+在 `SearchPage` 类内部，将以下代码添加到 `_executeQuery()` 底部：
 
     fetch(query)
       .then(response => response.json())
@@ -624,7 +685,11 @@ Within the SearchPage class, add the following code to the end of _executeQuery(
 
 This makes use of the fetch function, which is [part of the Web API](https://fetch.spec.whatwg.org/), and provides a vastly improved API versus XMLHttpRequest. The asynchronous response is returned [as a promise](http://www.html5rocks.com/en/tutorials/es6/promises/), with the success path parsing the JSON and supplying it to a method which you are going to add next.
 
+这里使用了 `fetch` 函数，它是 [Web API 的一部分](https://fetch.spec.whatwg.org/)。和 XMLHttpRequest 相比，它提供了更加先进的 API。异步响应会返回[一个 promise](http://www.html5rocks.com/en/tutorials/es6/promises/)，成功的话会转化 JSON 并且为它提供了一个你将要添加的方法。
+
 The final step is to add the following function to SearchPage:
+
+最后一步是将下面的函数添加到 `SearchPage`：
 
     _handleResponse(response) {
       this.setState({ isLoading: false , message: '' });
@@ -637,13 +702,21 @@ The final step is to add the following function to SearchPage:
 
 This clears isLoading and logs the number of properties found if the query was successful.
 
+如果查询成功，这个方法会清除掉正在加载标识并且记录下查询到属性的个数。
+
 > Note: Nestoria has [a number of non-1** response codes](http://www.nestoria.co.uk/help/api-return-codes) that are potentially useful. For example, 202 and 200 return a list of best-guess locations. When you’ve finished building your app, why not try handling these and present a list of options to the user?
 
+> 注意：Nestoria 有[很多种返回码](http://www.nestoria.co.uk/help/api-return-codes)具备潜在的用途。比如，202 和 200 会返回最佳位置列表。当你创建完一个应用，为什么不处理一下这些，可以为用户呈现一个可选列表。
+
 Save your work, then in the simulator press Cmd+R and try searching for ‘london’; you should see a log message saying that 20 properties were found. Next try a non-existent location, such as ‘narnia’ (*sniff*), and you’ll be greeted by the following message:
+
+保存项目，然后在模拟器中按下 Cmd+R，尝试搜索 ‘london’；你会在日志信息中看到 `20 properties were found`。然后随便尝试搜索一个不存在的位置，比如‘narnia’，你会得到下面的问候语。
 
 ![react-narnia](http://cdn4.raywenderlich.com/wp-content/uploads/2015/03/react-narnia-281x500.png)
 
 It’s time to see what those 20 properties in real places such as London look like!
+
+是时候看一下这20个属性所对应的真实的地方，比如伦敦！
 
 ## Displaying the Results 【六妹】
 
@@ -932,21 +1005,33 @@ Your app is almost complete; the final step is to allow users to search for near
 
 Within Xcode, open Info.plist and add a new key, by right clicking inside the editor and selecting Add Row. Use NSLocationWhenInUseUsageDescription as the key name and use the following value:
 
+在 Xcode 中，打开 `Info.plist` 添加一个新的 `key`，在编辑器内部单击鼠标右键并且选择 **Add Row**。使用 `NSLocationWhenInUseUsageDescription` 作为 `key` 名并且使用下面的值：
+
     PropertyFinder would like to use your location to find nearby properties
 
 Here’s how your plist file will look once you’ve added the new key:
+
+下面是当你添加了新的 `key` 后，所得到的属性列表：
 
 ![Info.plist after adding key](http://cdn3.raywenderlich.com/wp-content/uploads/2015/03/Screen-Shot-2015-03-20-at-21.49.06-480x162.png)
 
 This key details the prompt that you’ll present to the to the user to request access to their current location.
 
+你将把这个关键的细节提示呈现给用户，方便他们请求访问当前位置。
+
 Open SearchPage.js, locate the TouchableHighlight that renders the ‘Location’ button and add the following property value:
+
+打开 `SearchPage.js`，找到用于渲染 `Location` 按钮的 `TouchableHighlight`，然后为其添加下面的属性值：
 
     onPress={this.onLocationPressed.bind(this)}
 
 When you tap the button, you ‘ll invoke onLocationPressed — you’re going to add that next.
 
+当你用手指轻点这个按钮，会调用 `onLocationPressed` —— 接下来会定义这个方法。
+
 Add the following within the body of the SearchPage class:
+
+将下面的代码添加到 `SearchPage` 类中：
 
     onLocationPressed() {
       navigator.geolocation.getCurrentPosition(
@@ -965,17 +1050,28 @@ Add the following within the body of the SearchPage class:
 
 The current position is retrieved via navigator.geolocation; this is an interface [defined by the Web API](https://developer.mozilla.org/en-US/docs/Web/API/Geolocation/Using_geolocation), so it should be familiar to anyone who has used location services within the browser. The React Native framework provides its own implementation of this API using the native iOS location services.
 
+通过 `navigator.geolocation` 检索当前位置；这是一个 [Web API 所定义的](https://developer.mozilla.org/en-US/docs/Web/API/Geolocation/Using_geolocation)接口，所以对于每个在浏览器中使用 `location` 服务的用户来说这个接口都应该是一致的。React Native 框架借助原生的 iOS `location` 服务提供了自身的 API 实现。
+
 If the current position is successfully obtained, you invoke the first arrow function; this sends a query to Nestoria. If something goes wrong, you’ll display a basic error message instead.
+
+如果当前位置很容易获取到，你将调用第一个箭头函数；这会向 `Nestoria` 发送一个 `query`。如果出现错误则会得到一个基本的出错信息。
 
 Since you’ve made a change to the plist, you’ll need to relaunch the app to see your changes. No Cmd+R this time — sorry. Stop the app in Xcode, and build and run your project.
 
+因为你已经改变了属性列表，你需要重新启动这个应用以看到更改。抱歉，这次不可以 Cmd+R。请中断 Xcode 中的应用，然后创建和运行项目。
+
 Before you use the location-based search, you need to specify a location that is covered by the Nestoria database. From the simulator menu, select Debug\Location\Custom Location … and enter a latitude of 55.02 and a longitude of -1.42, the coordinates of a rather nice seaside town in the North of England that I like to call home!
+
+在使用基于位置的搜索前，你需要指定一个被 Nestoria 数据库覆盖的位置。在模拟器菜单中，选择 `Debug\Location\Custom Location … ` 然后输入 55.02 维度和 -1.42 经度，这个坐标是英格兰北部的一个景色优美的海边小镇，我经常在那给家里打电话。
 
 ![WhitleyBaySearch](http://cdn1.raywenderlich.com/wp-content/uploads/2015/03/WhitleyBaySearch-647x500.png)
 
 > Note from Ray: Location searching worked for some of us, but not for others (reporting an access denied error even though we gave access) – we’re not sure why at the moment, perhaps an issue with React Native? If anyone has the same issue and figures it out, please let us know.
 
+> 警示：我们可以正常地使用位置搜索功能，不过可能有部分同学不能使用（在访问时返回 `access denied` 错误）—— 我们尚不确定其原因，可能是 React Native 的问题？如果谁遇到了同样的问题并且已经结果，烦请告诉我们。
 It’s not quite as swank as London — but it’s a lot more affordable! :]
+
+这里没有伦敦那样值得炫耀 —— 不过更加经济！
 
 ## Where To Go From Here? 【六妹】
 
