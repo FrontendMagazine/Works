@@ -2,33 +2,55 @@
 
 # 深入浅出 React Native：使用 JavaScript 构建原生应用
 
-【寸志】
-
 A few months ago [Facebook announced React Native](https://code.facebook.com/videos/786462671439502/react-js-conf-2015-keynote-introducing-react-native-/), a framework that lets you build native iOS applications with JavaScript – and the[ official repository](https://github.com/facebook/react-native) just came out of beta today!
+
+数月前，[Facebook 对外宣布了正在开发的 React Native 框架](https://code.facebook.com/videos/786462671439502/react-js-conf-2015-keynote-introducing-react-native-/)，这个框架允许你使用 JavaScript 开发原生的 iOS 应用——就在今天，[Beta 版的仓库](https://github.com/facebook/react-native)释出了！
 
 People have been using JavaScript and HTML5 to create iOS applications using the [PhoneGap](http://phonegap.com/) wrapper for a number of years, so is React Native really such a big deal?
 
+基于 [PhoneGap](http://phonegap.com/) 使用 JavaScript 和 HTML5 开发 iOS 应用已经有好几年了，那 React Native 有什么牛的？
+
 React Native is a big deal, and people are getting very excited about it for two main reasons:
+
+React Native 真的很牛，让大家兴奋异常的主要原因有两点：
 
 1. With React Native your application logic is written and runs in JavaScript, whereas your application UI is fully native; therefore you have none of the compromises typically associated with HTML5 UI.
 
 2. React introduces a novel, radical and highly functional approach to constructing user interfaces. In brief, the application UI is simply expressed as a function of the current application state.
 
+1. ，可以基于 React Native使用 JavaScript 编写应用逻辑，UI 则可以保持全是原生的。这样的话就没有必要就 HTML5 的 UI 做出常见的妥协；
+
+2. React 引入了一种与众不同的、略显激进但具备高可用性的方案来构建用户界面。长话短说，应用的 UI 简单通过一个基于应用目前状态的函数来表达。
+
 The key point with React Native is that it aims to primarily bring the power of the [React](http://facebook.github.io/react/) programming model to mobile app development. It is not aiming to be a cross platform, write-once run-anywhere, tool. It is aiming to be learn-once write-anywhere. An important distinction to make. This tutorial only covers iOS, but once you’ve learned the concepts here you could port that knowledge into creating an Android app very quickly.
+
+React Native 的关键就是，以把 [React](http://facebook.github.io/react/) 编程模式的能力带到移动开发来作为主要目标。它的目标不是跨平台一次编写到处执行，而是一次学习跨平台开发。这个是一个非常大的区别。这篇教程只介绍 iOS 平台，不过你一旦掌握了相关的概念，就可以应用到 Android 平台，快速构建 Android 应用。
 
 If you have only ever written applications in Objective-C or Swift, you might not be particularly excited about the prospect of using JavaScript instead. Although, as a Swift developer, the second point above should pique your interest!
 
+如果之前只用过 Objective-C 或者 Swift 写应用的话，你很可能不会对使用 JavaScript 来编写应用的愿景感到兴奋。尽管如此，作为一个 Swift 开发者来说，上面提到的第二点应该可以激起你的兴趣！
+
 Through Swift, you’ve no doubt been learning new and more functional ways to encode algorithms, and techniques that encourage transformation and immutability. However, the way in which you construct your UI is very much the same as it was when developing with Objective-C: it’s still UIKit-based and imperative.
+
+你通过 Swift，毫无疑问学习到了新的更多有效的编码方法和技巧，鼓励转换和不变性。然而，构建 UI 的方式还是和使用 Objective-C 的方式一致。仍然以 UIKit 为基础，独断专横。
 
 Through intriguing concepts such as a virtual DOM and reconciliation, React brings functional programming directly to the UI layer.
 
+通过像 virtual DOM 和 reconciliation 这些有趣的概念，React 将函数式编程直接带到了 UI 层。
+
 This tutorial takes you through the process of building an application for searching UK property listings:
+
+这篇教程将带着你一路构建一个 UK 房产搜索应用：
 
 ![PropertyFinder](http://cdn4.raywenderlich.com/wp-content/uploads/2015/03/PropertyFinder-700x360.png)
 
 If you’ve never written any JavaScript before, fear not; this tutorial leads you through each and every step of the coding. React uses CSS properties for styling which are generally easy to read and understand, but if you need to, you can always refer to the excellent [Mozilla Developer Network reference](https://developer.mozilla.org/en-US/docs/Web/CSS).
 
+如果你之前一点 JavaScript 都没写过，别担心。这篇教程带着你进行一步一步进行编码。React 使用 CSS 属性来定义样式，一般比较容易读也比较容易理解。但是如果你想了解更多的话，可以去看看 [Mozilla Developer Network reference](https://developer.mozilla.org/en-US/docs/Web/CSS)，很不错的。
+
 Want to learn more? Read on!
+
+想要学习更多，继续往下读！
 
 ## Getting Started 【洪春】
 
@@ -192,20 +214,28 @@ Since you’ll be working with the same set of JavaScript, you can leave the app
 
 Okay, enough of this “Hello World” fun; it’s time to build the real application!
 
-## Adding Navigation 【寸志】
+## Adding Navigation
 
 ## 添加导航
 
 The Property Finder app uses the standard stack-based navigation experience provided by UIKit’s navigation controller. It’s time to add this behavior.
 
-Within PropertyFinderApp.js, rename the PropertyFinderApp class to HelloWorld:
+我们的房产查找应用使用标准的栈式导航，基于 UIKit 的 navigation controller。现在正是添加的时候。
+
+Within index.ios.js, rename the PropertyFinderApp class to HelloWorld:
+
+在 `index.ios.js` 文件中，把 `PropertyFinderApp` 重命名为 `HelloWorld`：
+
 
     class HelloWorld extends React.Component {
 
-class HelloWorld extends React.Component {
 You’ll keep the “Hello World” text display around a little longer, but it won’t be the root component of your app anymore.
 
+“Hello World” 这几个字你还需要让它显示一会儿，但它不再是应用的根组件了。
+
 Next add the following class below the HelloWorld component:
+
+接下来，在 `HelloWorld` 这个组件下面添加如下这个类：
 
     class PropertyFinderApp extends React.Component {
       render() {
@@ -222,7 +252,11 @@ Next add the following class below the HelloWorld component:
 
 This constructs a navigation controller, applies a style and sets the initial route to the HelloWorld component. In web development, routing is a technique for defining the navigation structure of an application, where pages — or routes — are mapped to URLs.
 
+构造一个 navigation controller，应用一个样式，并把初始路由设为 `Hello World` 组件。在 Web 开发中，`路由`就是一种定义应用导航的一种技术，即定义页面——或者说是路由——与 URL 的对应关系。
+
 Within the same file, update the styles declaration to include the container style as shown below:
+
+在同一个文件中，更新样式定义，包含如下 container 的样式：
 
     var styles = React.StyleSheet.create({
       text: {
@@ -238,11 +272,17 @@ Within the same file, update the styles declaration to include the container sty
 
 You’ll find out what flex: 1 means a bit later in this tutorial.
 
+在随后的教程中会告诉你 `flex: 1` 是什么意思。
+
 Head back to the simulator and press Cmd+R to see your new UI in action:
+
+回到模拟器，`Cmd+R`，看看新 UI 的样子：
 
 ![react-helloworldagain](http://cdn5.raywenderlich.com/wp-content/uploads/2015/03/react-helloworldagain-281x500.png)
 
 There’s the navigation controller with its root view, which is currently the “Hello World” text. Excellent — you now have the basic navigation structure for your application in place. It’s time to add the ‘real’ UI!
+
+这就是包含了 root view 的 navigation controller，目前 root view 就是 "Hello World"。很棒——应用已经有了基础的导航结构，到添加**真实** UI 的时候了。
 
 ## Building the Search Page 【洪春】
 
@@ -511,13 +551,17 @@ It’s amazing to see the novel concepts that make ReactJS so unique — the vir
 
 You can wrap your head around all that later; you still have some work to do in the app. Remove the logging code you just added above, since it’s no longer necessary and just adds cruft to the code.
 
-## Initiating a Search 【寸志】
+## Initiating a Search
 
-## 初始化一个搜索
+## 初始化搜索功能
 
 In order to implement the search functionality you need handle the ‘Go’ button press, create a suitable API request, and provide a visual indication to the user that a query is in progress.
 
+为了实现搜索功能，你需要处理 “Go” 按钮的点击事件，调用对应的 API，并提供一个视觉效果，告诉用户正在做查询。
+
 Within SearchPage.js, update the initial state within the constructor:
+
+在 `SearchPage.js` 中，在构造函数中把初始状态更新成：
 
     this.state = {
       searchString: 'london',
@@ -526,7 +570,11 @@ Within SearchPage.js, update the initial state within the constructor:
 
 The new isLoading property will keep track of whether a query is in progress.
 
+新的 `isLoading` 属性将会记录是否有请求正在处理的状态。
+
 Add the following logic to the start of render:
+
+在 `render` 开始的添加如下逻辑：
 
     var spinner = this.state.isLoading ?
       ( <ActivityIndicatorIOS
@@ -536,15 +584,23 @@ Add the following logic to the start of render:
 
 This is a ternary if statement that either adds an activity indicator or an empty view, depending on the component’s isLoading state. Because the entire component is rendered each time, you are free to mix JSX and JavaScript logic.
 
+这是一个三元操作符，与 if 语句类似，即根据组件 `isLoading` 的状态，要么添加一个 indicator，要么添加一个空的 view。因为整个组件会不停地更新，所以你自由地混合 JSX 和 JavaSript 代码。
+
 Within the JSX that defines the search UI in return, add the following line below the Image:
+
+回到用 JSX 定义搜索界面的地方，在图片的下面添加：
 
     {spinner}
 
 Now, add the following property within the TouchableHighlight tag that renders the ‘Go’ text:
 
+给渲染“Go”的 `TouchableHighlight` 标记添加如下的属性：
+
     onPress={this.onSearchPressed.bind(this)}
 
 Next, add the following methods to the SearchPage class:
+
+接下来，添加下面这两个方法到 `SearchPage` 类中：
 
     _executeQuery(query) {
       console.log(query);
@@ -558,11 +614,19 @@ Next, add the following methods to the SearchPage class:
 
 _executeQuery() will eventually run the query, but for now it simply logs a message to the console and sets isLoading appropriately so the UI can show the new state.
 
+`_executeQuery()` 之后会进行真实的查询，现在的话就是简单输出一条信息到控制台，并且把 `isLoading` 设置为对应的值，这样 UI 就可以显示新的状态了。
+
 > Note: JavaScript classes do not have access modifiers, so they have no concept of ‘private’. As a result you often see developers prefixing methods with an underscore to indicate that they should be considered private.
+
+> 提示：JavaScript 的类并没有访问修饰符，因此没有 “私有”  的该奶奶。因此常常会发现开发者使用一个下划线作为方法的前缀，来说明这些方法是私有方法。
 
 You’ll invoke onSearchPressed() and initiate the query when the ‘Go’ button is pressed.
 
+当 “Go” 按钮被点击时，`onSearchPressed()` 将会被调用，开始查询。
+
 Finally, add the following utility function just above the SearchPage class declaration:
+
+最后，添加下面这个工具函数在定义 `SearchPage` 类的上面：
 
     function urlForQueryAndPage(key, value, pageNumber) {
       var data = {
@@ -584,14 +648,25 @@ Finally, add the following utility function just above the SearchPage class decl
 
 This function doesn’t depend on SearchPage, so it’s implemented as a free function rather than a method. It first creates the query string based on the parameters in data. Following this, it transforms the data into the required string format, name=value pairs separated by ampersands. The => syntax is an arrow function, another [recent addition to the JavaScript language](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions) that provides a succinct syntax for creating anonymous functions.
 
+- 这个函数并不依赖 `SearchPage`，因此被定义成了一个独立的函数，而不是类方法。他首先通过 `data` 来定义查询字符串所需要的参数，接着将 data 转换成需要的字符串格式，`name=value` 对，使用 & 符号分割。语法 => 是一个箭头函数，又一个[对 JavaScript 语言的扩展](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions)，提供了这个便捷的语法来创建一个匿名函数。
+
 Head back to the simulator, press Cmd+R to reload the application and tap the ‘Go’ button. You’ll see the activity indicator spin; take a look at the Xcode console to see what it’s telling you:
+
+回到模拟器，Cmd+R，重新加载应用，点击 “Go” 按钮。你可以看到 activity indicator 显示出来，再看看 Xcode 的控制台：
 
 ![SearchAcitivityIndicator](http://cdn5.raywenderlich.com/wp-content/uploads/2015/03/SearchAcitivityIndicator-700x169.png)
 
 The activity indicator renders and the URL for the required query appears in the log. Copy and paste that URL into your browser to see the result. You’ll see a massive JSON object. Don’t worry — you don’t need to understand that! You’ll add code to parse that now.
 
+activity indicator 渲染了，并且作为请求的 URL 出现在输出中。把 URL 拷贝到浏览器中访问看看得到的结果。你会看到大量的 JSON 对象。别担心——你不需要理解它们，之后会使用代码来解析之。
+
 > Note: This app makes use of the [Nestoria API for searching property listings](http://www.nestoria.co.uk/help/api). The JSON response coming back from the API is pretty straightforward, but you can have a look at the documentation for all the details on the expected request URL and response formats.
+
+> 提示：应用使用了 [Nestoria 的 API 来做房产的搜索](http://www.nestoria.co.uk/help/api)。API 返回的 JSON 数据非常的直白。但是你也可以看看文档了解更多细节，请求什么 URL 地址，以及返回数据的格式。
+
 The next step is to make the request from within your application.
+
+下一步就是从应用中发出请求。
 
 ## Performing an API Request 【洪春】
 
@@ -811,11 +886,13 @@ That looks a lot better — although it’s a wonder anyone can afford to live i
 
 Time to add the final view to the application.
 
-## Property Details View 【寸志】
+## Property Details View
 
-## 详情视图
+## 房产详情视图
 
 Add a new file PropertyView.js to the project, then add the following to the top of the file:
+
+添加一个新的文件 `PropertyView.js` 到项目中，在文件的顶部添加如下代码：
 
     'use strict';
      
@@ -830,7 +907,11 @@ Add a new file PropertyView.js to the project, then add the following to the top
 
 Surely you can do this in your sleep by now! :]
 
+信手拈来了吧！
+
 Next add the following styles:
+
+接着添加如下样式：
 
     var styles = StyleSheet.create({
       container: {
@@ -867,6 +948,8 @@ Next add the following styles:
 
 Then add the component itself:
 
+然后加上组件本身：
+
     class PropertyView extends Component {
      
       render() {
@@ -897,16 +980,27 @@ Then add the component itself:
 
 The first part of render() performs some manipulation on the data. As is often the case, the data returned by the API is of mixed quality and often has missing fields. This code applies some simple logic to make the data a bit more presentable.
 
+`render()` 前面部分对数据进行了处理，与通常的情况一样，API 返回的数据良莠不齐，往往有些字段是缺失的。这段代码通过一些简单的逻辑，让数据更加地规整一些。
+
 The rest of render is quite straightforward; it’s simply a function of the immutable state of this component.
 
+`render` 剩余的部分就非常直接了。它就是一个简单的这个状态不可变状态的函数。
+
 Finally add the following export to the end of the file:
+
+最后在文件的末尾加上如下的 export：
 
     module.exports = PropertyView;
 
 Head back to SearchResults.js and add the require statement to the top of the file, just underneath the React require line:
 
+返回到 `SearchResults.js` 文件，在顶部，require React 的下面，添加一个新的 `require` 语句。
+
     var PropertyView = require('./PropertyView');
-    Next update rowPressed() to navigate to your newly added PropertyView:
+
+Next update rowPressed() to navigate to your newly added PropertyView:
+
+接下来更新 `rowPassed() `，添加跳转到新加入的 `PropertyView`：
     
     rowPressed(propertyGuid) {
       var property = this.props.listings.filter(prop => prop.guid === propertyGuid)[0];
@@ -920,11 +1014,17 @@ Head back to SearchResults.js and add the require statement to the top of the fi
 
 You know the drill: head back to the Simulator, press Cmd+R, and go all the way to the property details by running a search and tapping on a row:
 
+你知道的：回到模拟器，`Cmd + R`，一路通过搜索点击一行到房产详情界面：
+
 ![react-property](http://cdn3.raywenderlich.com/wp-content/uploads/2015/03/react-property-281x500.png)
 
 Affordable living at it’s finest — that’s a fancy looking pad!
 
+物廉价美——看上去很不错哦！
+
 Your app is almost complete; the final step is to allow users to search for nearby properties.
+
+应用即将完成，最后一步是允许用户搜索附近的房产。
 
 ## Geolocation Search 【洪春】
 
