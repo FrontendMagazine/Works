@@ -131,31 +131,49 @@ At this point, I’d recommend trying one of the React Native example apps to te
 
 > 注意：在进入编码工作之前，还有最后一件事 —— 在这个教程中，你需要编写大量的 JavaScript 代码，Xcode 并非是最好的工具！我使用 [Sublime Text](http://www.sublimetext.com/)，一个价格合理且应用广泛的编辑器。不过，[atom](https://atom.io/)，[brackets](http://brackets.io/) 或者其他轻量的编辑器都能胜任这份工作。
 
-## Hello React Native 【六妹】
+## Hello React Native
 
 ## React Native 你好
 
 Before getting started on the property search application, you’re going to create a very simple Hello World app. You’ll be introduced to the various components and concepts as you go along.
 
+在开始“搜房App”之前，先来个简单的Hello World App热热身。在这一节里，你将会使用到一些组件。
+
 Download and unzip the [starter project](http://cdn5.raywenderlich.com/wp-content/uploads/2015/03/PropertyFinderStarter.zip) for this tutorial to the react-native/Examples folder. Once unzipped, open the PropertyFinder project within Xcode. Don’t build and run just yet; you’re going to have to write some JavaScript first!
 
+下载[起始项目](http://cdn5.raywenderlich.com/wp-content/uploads/2015/03/PropertyFinderStarter.zip)，解压缩到react-native/Examples目录中。解压完成后，在Xcode中打开**PropertyFinder**项目，不要直接运行这个项目，还需要加上一些JS！
+
 Open PropertyFinderApp.js in your text editor of choice and add the following to the start of the file:
+
+在编辑器中打开**PropertyFinderApp.js**，将下面这行代码加到文件的开头位置：
 
     'use strict';
 
 This enables Strict Mode, which adds improved error handling and disables some less-than-ideal JavaScript language features. In simple terms, it makes JavaScript better!
 
+这行代码是用于开启**Strict Mode**，Strict mode的错误处理可以有所提高，JavaScript的一些语言缺陷也可以避免。简而言之就是，JavaScript在这种模式下工作地更好！
+
 > Note: For a more detailed overview of Strict Mode, I’d encourage you to read [Jon Resig’s article](http://ejohn.org/blog/ecmascript-5-strict-mode-json-and-more/) “ECMAScript 5 Strict Mode, JSON, and More”.
 
+> 注意：想要研究一下Strict Mode的朋友，我会推荐你阅读[Jon Resig的文章:“ECMAScript 5 Strict Mode, JSON, and More”](http://ejohn.org/blog/ecmascript-5-strict-mode-json-and-more/)
+
 Next, add the following line:
+
+然后，加上这一行：
 
     var React = require('react-native');
 
 This loads the react-native module and assigns it to React. React Native uses the same module loading technology as Node.js with the require function, which is roughly equivalent to linking and importing libraries in Swift.
 
+这句代码是将react-native模块加载进来，并将它赋值给变量```React```的。React Native使用同Node.js相同的模块加载方式：```require```，这个概念可以等同于Swift中的“链接库”或者“导入库”。
+
 > Note: For more information about JavaScript modules I’d recommend reading[ this article by Addy Osmani](http://addyosmani.com/writing-modular-js/) on writing modular JavaScript.
 
+> 注意：想要了解更多关于JavaScript模块的知识，我推荐阅读[Addy Osmani写的这篇文章](http://addyosmani.com/writing-modular-js/)。
+
 Just below the require statement, add the following:
+
+在```require```语句的下面，加上这一段：
 
     var styles = React.StyleSheet.create({
       text: {
@@ -168,7 +186,11 @@ Just below the require statement, add the following:
 
 This defines a single style that you will shortly apply to your “Hello World” text. If you’ve done any web development before, you’ll probably recognize those property names; React Native uses [Cascading Style Sheets (CSS)](http://www.w3schools.com/css/) to style the application UI.
 
+以上代码定义了一段应用在"Hello World"文本上的样式。如果你曾接触过We开发，那你很可能已经发现了：React Native使用的是 [CSS](http://www.w3schools.com/css/) 来定义应用界面的样式。
+
 Now for the app itself! Still working in the same file, add the following code just beneath the style declaration above:
+
+现在我们来关注应用本身吧！依然是在相同的文件下，将以下代码添加到样式代码的下面：
 
     class PropertyFinderApp extends React.Component {
       render() {
@@ -178,42 +200,71 @@ Now for the app itself! Still working in the same file, add the following code j
 
 Yes, that’s a JavaScript class!
 
+是的，奏是 JavaScript class!
+
 Classes were introduced in ECMAScript 6 (ES6). Although JavaScript is constantly evolving, web developers are restricted in what they can use due to the need to maintain compatibility with older browsers. React Native runs within JavaScriptCore; as a result, you can use modern language features without worrying about supporting legacy browsers.
+
+类 (class) 是在ES6中被引入的，纵然JavaScript一直在进步，但Web开发者受困于兼容浏览器的状况中，不能怎么使用JS的新特性。React Native运行在JavaScriptCore中是，也就是说，你可以使用JS的新特性啦，完全不用担心兼容什么的呢。
 
 > Note: If you are a web developer, I’d thoroughly encourage you to use modern JavaScript, and then convert to older JavaScript using tools such as [Babel](https://babeljs.io/) to maintain support for older and incompatible browsers.
 
+> 注意：如果你是一名Web开发者，我百分百鼓励你要使用现代的JavaScript，然后使用像 [Babel](https://babeljs.io/) 这样的工具生成兼容性的JavaScript，用于支持兼容性不好的老浏览器。
+
 PropertyFinderApp extends React.Component, the basic building block of the React UI. Components contain immutable properties, mutable state variables and expose a method for rendering. Your current application is quite simple and only requires a render method.
+
+```PropertyFinderApp``` 继承了 ```React.Component```（React UI的基础模块）。组件包含着不可变的属性，可变的状态变量以及暴露给渲染用的方法。这会你做的应用比较简单，只用一个渲染方法就可以啦。
 
 React Native components are not UIKit classes; instead they are a lightweight equivalent. The framework takes care of transforming the tree of React components into the required native UI.
 
+React Native 组件并不是 UIKit 类，它们只能说是在某种程度上等同。框架只是将 React 组件树转化成为原生的UI。
+
 Finally, add the following to the end of the file:
+
+最后一步啦，将这一行加在文件末尾：
 
     React.AppRegistry.registerComponent('PropertyFinderApp', function() { return PropertyFinderApp });
 
-React.AppRegistry.registerComponent('PropertyFinderApp', function() { return PropertyFinderApp });
 AppRegistry defines the entry point to the application and provides the root component.
 
+```AppRegistry``` 定义了App的入口，并提供了根组件。
+
 Save your changes to PropertyFinderApp.js and then return to Xcode. Ensure the PropertyFinder scheme is selected with one of the iPhone simulators, and then build and run your project. After a few seconds you’ll see your “Hello World” app in action:
+
+保存 **PropertyFinderApp.js**，回到Xcode中。确保**PropertyFinder**规划（scheme）已经勾选了，并设置了相应的iPhone模拟器，然后生成并运行你的项目。几秒之后，你应该就可以看到 "Hello World" 应用正在运行了：
 
 ![react-helloworld](http://cdn4.raywenderlich.com/wp-content/uploads/2015/03/react-helloworld-281x500.png)
 
 That’s a JavaScript application running in the simulator, rendering a native UI, without a browser in sight!
 
+这个JavaScript应用运行在模拟器上，使用的是原生UI，没有任何内嵌的浏览器哦！
+
 Still don’t trust me? :] Verify it for yourself: within Xcode, select Debug\View Debugging\Capture View Hierarchy and take a look at the native view hierarchy. You will see no UIWebView instances anywhere! Just a proper, real, view! Neat :]!
+
+还不相信这是真的？:] 那打开你的Xcode，选择 **Debug\View Debugging\Capture View Hierarchy**，你看 **native view hierarchy** 中都没有 ```UIWebView```，就只有一个原生的view！:]
 
 ![A native view hierarchy](http://cdn4.raywenderlich.com/wp-content/uploads/2015/03/ViewDebugging-480x227.png)
 
 Curious as to how it all works? In Xcode open AppDelegate.m and locate application:didFinishLaunchingWithOptions:. This method constructs a RCTRootView, which loads the JavaScript application and renders the resultant view.
 
+你一定很好奇其中的原理吧，那就在Xcode中打开 **AppDelegate.m**，接着找到 ```application:didFinishLaunchingWithOptions```：这个方法构建了 ```RCTRootView``` 用于加载 JavaScript 应用以及渲染最后的视图的。
+
 When the application starts, the RCTRootView loads the application from the following URL:
+
+当应用开始运行的时候，```RCTRootView```将会从以下的URL中加载应用：
 
     http://localhost:8081/Examples/PropertyFinder/PropertyFinderApp.includeRequire.runModule.bundle
 
-Recall at the beginning of the tutorial when you executed npm start within a terminal window; this starts a packager and server that handles the above request.
+Recall the Terminal window that was opened when you ran this application; this starts a packager and server that handles the above request.
+
+重新调用了你在运行这个App时打开的终端窗口，它开启了一个 packager 和 server 来处理上面的请求。
 
 Open this URL in Safari; you’ll see the JavaScript code for your app. You should be able to find your “Hello World” code embedded among the React Native framework.
 
+在 Safari 中打开那个 URL；你将会看到这个 App 的 JavaScript 代码。你也可以在 React Native 框架中找到你的 "Hello World" 代码。 
+
 When your app starts, this code is loaded and executed by the JavaScriptCore framework. In the case of your application, it loads the PropertyFinderApp component, then constructs the native UIKit view. You’ll learn a bit more about this later in the tutorial.
+
+当你的App开始运行了以后，这段代码将会被加载进来，然后 JavaScriptCore 框架将会执行它。在 Hello World 的例子里，它将会加载 ```PropertyFinderApp``` 组件，然后构建出原生的 UIKit 视图。关于这部分的内容，后文里会再详细解释的。
 
 ## Hello World JSX 【天意】
 
@@ -422,25 +473,39 @@ Return to the simulator, hit Cmd+R and check out the new UI:
 
 This is using the new component, SearchPage, which you added.
 
-## Styling with Flexbox 【六妹】
+## Styling with Flexbox
 
 ## 使用 Flexbox 定义外观
 
 So far, you’ve seen basic CSS properties that deal with margins, paddings and color. However, you might not be familiar with flexbox, a more recent addition to the CSS specification that is very useful for application UI layout.
 
+现在，你已经看到了用基本的CSS属性来控制外间距（margin），内间距（padding）还有颜色（color）。不过，可能你还不太了解要如何使用伸缩盒（flexbox），flexbox是最近新加入CSS规范，用它就能很便利地布局界面。
+
 React Native uses the [css-layout](https://github.com/facebook/css-layout) library, a JavaScript implementation of the flexbox standard which is transpiled into C (for iOS) and Java (for Android).
+
+React Native用[css-layout](https://github.com/facebook/css-layout)（这是一个用JavaScript实现flexbox标准然后编译成C（iOS平台）或者Java（Android平台）的库）。
 
 It’s great that Facebook has created this as a separate project that targets multiple languages, since this allows for novel applications, such as applying [flexbox layout to SVG](http://blog.scottlogic.com/2015/02/02/svg-layout-flexbox.html) (yes, that was written by me … and no, I don’t sleep much!).
 
+Facebook把这个项目单独出来实在太正确了，这样可以编译成多种语言，促进更多新颖的应用的发展，比如[flexbox layout to SVG](http://blog.scottlogic.com/2015/02/02/svg-layout-flexbox.html)。
+
 In your app, the container has the default flow direction of column, which means its children are arranged in a vertical stack, like so:
+
+在你的App中，容器（container）默认地是纵向布局，也就是说在它的子元素将会竖直地排列，像这样：
 
 ![FlexStack](http://cdn3.raywenderlich.com/wp-content/uploads/2015/03/FlexStack.png)
 
 This is termed the main axis, and can run either vertically or horizontally.
 
+这被称为```主轴 (main axis)```，它的方向可以是竖直的也可以是水平的。
+
 The vertical position of each child is determined from a combination of its margin, height and padding. The container also sets the alignItems property to center, which determines the placement of children on the cross axis. In this case, it results in center-aligned text.
 
+每一个子元素在竖直方向上的位置是由它的margin，height和padding共同决定的。容器的```alignItems```属性也要设置成```center```，这个属性可以控制子元素在十字轴上的位置。在这里，它实现了居中对齐的文本。
+
 It’s time to add the input field and buttons. Open SearchPage.js and insert the following just after the closing tag of the second Text element:
+
+好啦，现在我们把输入框和按钮加上去吧。打开**SearchPage.js**，将下面的代码插入第二个```Text```元素的后面：
 
     <View style={styles.flowRight}>
       <TextInput
@@ -458,7 +523,11 @@ It’s time to add the input field and buttons. Open SearchPage.js and insert th
 
 You’ve added two top-level views here: one to hold a text input and a button, and one with only a button. You’ll read about how these elements are styled in a little bit.
 
+现在你已经加上了两个最高等级的视图（top-level view），一个视图包含了文本输入框和一个按钮，还有一个视图内只有一个按钮。在后文中你会看到，它们的样式是什么样的。
+
 Next, add the accompanying styles to your styles definition:
+
+接着，添加上对应的样式：
 
     flowRight: {
       flexDirection: 'row',
@@ -496,20 +565,49 @@ Next, add the accompanying styles to your styles definition:
 
 Take care with the formatting; each style property should be separated by a comma. That means you’ll need to add a trailing comma after the container selector.
 
+要注意格式问题：每一个样式都是用逗号分隔开的，所以别忘了在```container```选择器后面还要加上一个逗号。
+
 These styles are used by the text input and buttons which you just added.
 
+以上的样式将会应用在你刚刚加上的输入框和按钮上。
+
 Return to the simulator and press Cmd+R to see the updated UI:
+
+现在返回到模拟器，然后按下Cmd+R刷新界面：
 
 ![react-searchpageinput](http://cdn2.raywenderlich.com/wp-content/uploads/2015/03/react-searchpageinput-281x500.png)
 
 The text field and ‘Go’ button are on the same row, so you’ve wrapped them in a container that has a flexDirection: 'row' style. Rather than explicitly specifying the widths of the input field and button, you give each a flex value instead. The text field is styled with flex: 4, while the button has flex: 1; this results in their widths having a 4:1 ratio.
 
+文本区域和'Go'按钮在同一行，不需要显式地定义两个组件的宽度，你只需要将它们放在同一个容器中，加上```flexDirection:'row'```样式，再定义好它们的```flex```值。文本区域是```flex:4```，按钮则是```flex:1```，这说明两者的宽度比是4:1。
+
 You might have noticed that your buttons…aren’t actually buttons! :] With UIKit, buttons are little more than labels that can be tapped, and as a result the React Native team decided it was easier to construct buttons directly in JavaScript. The buttons in your app use TouchableHighlight, a React Native component that becomes transparent and reveals the underlay colour when tapped.
 
-The final step to complete the search screen of the application is to add the house graphic. Add the following beneath the TouchableHighlight component for the location button:
+大概你也发现了，你的“按钮”其实并不是按钮！:] 使用了UIKit后，按钮更倾向于是可以轻碰（tap）的标签（label），所以React Native团队决定直接在JavaScript中构建按钮了。所以你在App中使用的按钮是```TouchableHighlight```，这是一个React Native组件，当轻碰```TouchableHighlight```时，它会变得透明从而显示出衬底的颜色（也就是按钮下层的组件颜色）。
 
-<Image source={require('image!house')} style={styles.image}/>
+The final step to complete the search screen of the application is to add the house graphic. The images are available to download as a zip file. Download and unzip the file.
+
+搜索界面的最后一步就是加上一张图片.你可以从[这里下载我们用的图片素材](http://cdn2.raywenderlich.com/wp-content/uploads/2015/03/ReactNative-HouseImage.zip)并解压。
+
+Within Xcode open the Images.xcassets file and tap the plus button to add a new image set. Next drag the required images into the correct ‘slots':
+
+在Xcode中打开**Images.xcassets**文件，点击加号添加一个新的图片集。然后将图片素材拖进正确的“区间”：
+
+![](http://cdn4.raywenderlich.com/wp-content/uploads/2015/03/AddingHouseImage.png)
+
+You’ll have to stop the running application and restart so that these images become available to your React Native app.
+
+你需要重启应用才能让图片生效。
+
+Add the following beneath the TouchableHighlight component for the location button:
+
+将以下代码添加到```TouchableHighlight```组件后面，它将用于“获取位置”按钮：
+
+	<Image source={require('image!house')} style={styles.image}/>
+
 Now, add the image’s corresponding style to the end of the style list, remembering to add a trailing comma to the previous style:
+
+现在再样式表的最后加上图片对应的样式，别忘了给原样式中最后一个加上逗号哦：
 
     image: {
       width: 217,
@@ -518,13 +616,21 @@ Now, add the image’s corresponding style to the end of the style list, remembe
 
 The require('image!house') statement is used to reference an image located within your application’s asset catalogue. Within Xcode, if you open up Images.xcassets you will find the ‘house’ icon that the above code refers to.
 
+```require('image!house') ```语句用于确定在你应用的asset目录下的图片资源，在Xcode中，如果你的打开了**Images.xcassets**，你会看到一个“房屋”的图标，正是上面代码中引用到的。
+
 Returning to the simulator, hit Cmd+R and admire your new UI:
+
+返回到模拟器，Cmd+R刷新UI：
 
 ![react-searchpagehouse](http://cdn1.raywenderlich.com/wp-content/uploads/2015/03/react-searchpagehouse-281x500.png)
 
 > Note: If you don’t see the house image at this point and see an image that “image!house” cannot be found instead, try restarting the packager (i.e. the “npm start” command you have in the terminal).
 
+> 注意：如果你这会没有看到“房屋”图片，取而代之的是一张“找不到资源”的图片，尝试重启packager（也就是在终端里输入```npm start```命令）。
+
 Your current app looks good, but it’s somewhat lacking in functionality. Your task now is to add some state to your app and perform some actions.
+
+现在你的应用看起来挺不错的啦，不过它还少了点功能。接下来你的任务就是给它加上点状态，让它执行一些操作。
 
 ## Adding Component State 【天意】
 
@@ -1173,16 +1279,24 @@ It’s not quite as swank as London — but it’s a lot more affordable! :]
 
 这里没有伦敦那样值得炫耀 —— 不过更加经济！
 
-## Where To Go From Here? 【六妹】
+## Where To Go From Here? 
 
 ## 下一步行动？
 
 Congratulations on completing your first React Native application! You can [download the final project for this tutorial](http://cdn1.raywenderlich.com/wp-content/uploads/2015/03/PropertyFinder-Final1.zip) to try out on your own.
 
+完成了第一个React Native应用呢，恭喜你！你可以[下载本教程的完整代码](http://cdn1.raywenderlich.com/wp-content/uploads/2015/03/PropertyFinder-Final1.zip)，亲自来试试看。
+
 If you come from the web world, you can see how easy it is to define your interface and navigation with JavaScript and React to get a fully native UI from your code. If you work mainly on native apps, I hope you’ve gained a feel for the benefits of React Native: fast app iteration, modern JavaScript and clear style rules with CSS.
+
+如果已经接触过Web开发了，你会发现使用JavaScript和React来定义与原生UI相连接的接口和导航是多么地容易。而如果你曾经开发过原生App，我相信在使用React Native的过程里你会感受到它种种好处：快速的应用迭代，JavaScript的引入以及清晰地使用CSS定义样式。
 
 Perhaps you might write your next app using this framework? Or then again, perhaps you will stick with Swift or Objective-C? Whichever path you take, I hope you have learned something new and interesting in this article, and can carry some of the principles forward into your next project.
 
+也许下次做App的时候，你可以试试这个框架？或者说，你依然坚持使用Swift或者Objective-C？无论之后你的选择是怎么样的，我都希望读完这篇文章的你有所收获，还能把这些收获融入到你的项目当中是最好的啦。
+
 If you have any questions or comments on this tutorial, feel free to join the discussion in the forums below!
+
+如果你对这篇教程又任何疑问，请在[这篇文章](http://www.raywenderlich.com/99473/introducing-react-native-building-apps-javascript)下方的讨论区留言！
 
 原文：http://www.raywenderlich.com/99473/introducing-react-native-building-apps-javascript
