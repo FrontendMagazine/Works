@@ -968,6 +968,8 @@ It’s time to see what those 20 properties in real places such as London look l
 
 Create a new file SearchResults.js, and add the following:
 
+创建一个新的文件，命名为 **SearchResults.js**，然后加上下面这段代码：
+
     'use strict';
      
     var React = require('react-native');
@@ -983,7 +985,11 @@ Create a new file SearchResults.js, and add the following:
 
 Yes, that’s right, it’s a require statement that includes the react-native module, and a destructuring assignment. You’ve been paying attention haven’t you? :]
 
+你肯定注意到啦，这里用到了 ```require``` 语句将 ```react-native``` 模块引入其中，还有一个重构赋值语句。
+
 Next add the component itself:
+
+接着就是加入搜索结果的组件：
 
     class SearchResults extends Component {
      
@@ -1019,19 +1025,31 @@ Next add the component itself:
 
 The above code makes use of a more specialized component — ListView — which displays rows of data within a scrolling container, similar to UITableView. You supply data to the ListView via a ListView.DataSource, and a function that supplies the UI for each row.
 
+上述的代码里用到了一个特定的组件 -- ```ListView``` -- 它能将数据一行行地呈现出来，并放置在一个可滚动的容器内，和 ```UITableView``` 很相似。通过 ```ListView.DataSource``` 将 ```ListView``` 的数据引入，还有一个函数来显示每一行UI。
+
 When constructing the data source, you provide a function that compares the identity of a pair of rows. The ListView uses this during the reconciliation process, in order to determine the changes in the list data. In this instance, the properties returned by the Nestoria API have a guid property, which is a suitable check for this purpose.
 
+在构建数据源的同时，你还需要一个函数用来比较每两行之间是否重复。 为了确认列表数据的变化，在 reconciliation 过程中```ListView``` 就会使用到这个函数。在这个实例中，由 Nestoria API 返回的房屋数据都有一个 ```guid``` 属性，它就是用来测试数据变化的。
+
 Now add the module export to the end of the file:
+
+现在将模块导出的代码添加至文件末尾：
 
     module.exports = SearchResults;
 
 Add the following to SearchPage.js near the top of the file, underneath the require call for React:
 
+将下面这段代码加到 **SearchPage.js** 较前的位置，不过要在 ```require``` 语句的后面哦：
+
     var SearchResults = require('./SearchResults');
 
 This allows us to use the newly added SearchResults class from within the SearchPage class.
 
+这样我们就能在 ```SearchPage``` 类中使用刚刚加上的 ```SearchResults``` 类。
+
 Modify the current _handleResponse method by replacing the console.log statement with the following:
+
+还要把 ```_handleResponse``` 方法中的 ```console.log``` 语句改成下面这样：
 
     this.props.navigator.push({
       title: 'Results',
@@ -1041,11 +1059,17 @@ Modify the current _handleResponse method by replacing the console.log statement
 
 The above code navigates to your newly added SearchResults component and passes in the listings from the API request. Using the push method ensures the search results are pushed onto the navigation stack, which means you’ll get a ‘Back’ button to return to the root.
 
+```SearchResults``` 组件通过上面的代码传入列表里。在这里用的是 ```push``` 方法确保搜索结果全部推进导航栈中，这样你就可以通过 'Back' 按钮返回到根页面。
+
 Head back to the simulator, press Cmd+R and try a quick search. You’ll be greeted by a list of properties:
+
+回到模拟器，按下 Cmd+R 刷新页面，然后试试看我们的搜索。估计你会得到类似下面这样的结果：
 
 ![react-searchresults1](http://cdn3.raywenderlich.com/wp-content/uploads/2015/03/react-searchresults1-281x500.png)
 
 It’s great to see the property listings, but that list is a little drab. Time to liven things up a bit.
+
+耶你的搜索实现了呢，不过这个搜索结果颜值好低。不要担心，接下来给它化化妆。
 
 ## A Touch of Style
 
