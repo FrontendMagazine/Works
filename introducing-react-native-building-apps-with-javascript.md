@@ -274,10 +274,16 @@ Your current application uses React.createElement to construct the simple UI for
 
 Make sure the app is still running, then return to your text editor to edit PropertyFinderApp.js. Modify the return statement of your component’s render method as follows:
 
+你当前的应用程序会使用 React.createElement 来构建应用 UI ,React会将其转换到原生环境中。在当前情况下，你的JavaScript代码是完全可读的,但一个更复杂的 UI 与嵌套的元素将迅速使代码变成一大坨。
+　　
+确保应用程序仍在运行,然后回到你的文本编辑器中，编辑 PropertyFinderApp.js 。修改组件 render 方法的返回语句如下:
+
     return <React.Text style={styles.text}>Hello World (Again)</React.Text>;
 
 return <React.Text style={styles.text}>Hello World (Again)</React.Text>;
 This is JSX, or JavaScript syntax extension, which mixes HTML-like syntax directly in your JavaScript code; if you’re already a web developer, this should feel rather familiar. You’ll use JSX throughout this article.
+
+这是 JSX ，或 JavaScript 语法扩展,它直接在你的 JavaScript 代码中混合了类似 HTML 的语法;如果你是一个 web 开发人员,应该对此不陌生。在本篇文章中你将一直使用 JSX 。
 
 Save your changes to PropertyFinderApp.js and return to the simulator. Press Cmd+R, and you’ll see your application refresh to display the updated message “Hello World (Again)”.
 
