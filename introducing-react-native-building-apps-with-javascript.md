@@ -283,11 +283,22 @@ Save your changes to PropertyFinderApp.js and return to the simulator. Press Cmd
 
 Re-running a React Native application is really as simple as refreshing a web browser! :]
 
+把你的改动保存到 PropertyFinderApp.js 中，并返回到模拟器。按下 Cmd + R ,你将看到你的应用程序刷新,并显示更新的消息 "Hello World(again)"。
+
+重新运行一个 React Native 应用程序像刷新 web 浏览器一样简单!:]
+
 Since you’ll be working with the same set of JavaScript, you can leave the app running and simply refresh the app in this fashion after modifying and saving PropertyFinderApp.js.
 
 > Note: If you are feeling inquisitive, take a look at your ‘bundle’ in the browser to see what the JSX is transformed into.
 
+因为你会使用相同的一系列 JavaScript 文件,您可以让应用程序一直运行,只在更改和保存 PropertyFinderApp.js 后刷新即可
+
+> 注意:如果你感到好奇,可以看看你的“包”在浏览器中，JSX被转换成什么。
+
+
 Okay, enough of this “Hello World” fun; it’s time to build the real application!
+
+这个 "Hello World" 已经够大家玩耍了,是时候构建实际的应用程序了!
 
 ## Adding Navigation
 
@@ -638,7 +649,11 @@ Your current app looks good, but it’s somewhat lacking in functionality. Your 
 
 Each React component has its own state object, which is used as a key-value store. Before a component is rendered you must set the initial state.
 
+每个 React 组件都带有一个key-value存储的状态对象，你必须在组件渲染之前设置其初始状态。
+
 Within SearchPage.js, add the following code to the SearchPage class, just before render():
+
+在 SearchPage.js 中，我们对 SearchPage 类中，render方法前添加以下的代码。
 
     constructor(props) {
       super(props);
@@ -649,7 +664,11 @@ Within SearchPage.js, add the following code to the SearchPage class, just befor
 
 Your component now has a state variable, with searchString set to an initial value of london.
 
+现在你的组件拥有一个状态变量：searchString ，且初始值被设置为 london 。
+
 Time to make use of this component state. Within render, change the TextInput element to the following:
+
+这时候你需要利用起组件中的状态了。在render方法中，用以下的代码替换TextInput元素中的内容：
 
     <TextInput
       style={styles.searchInput}
@@ -658,7 +677,11 @@ Time to make use of this component state. Within render, change the TextInput el
 
 This sets the TextInput value property — that is, the text displayed to the user — to the current value of the searchString state variable. This takes care of setting the initial state, but what happens when the user edits this text?
 
+这一步设置了 TextInput 组件 value 属性的值，这个值用于把状态变量 searchString 的当前值作为展示给用户的文字。我们已经考虑初始值的设定了，但如果用户编辑这里的文字会发生什么呢？
+
 The first step is to create a method that acts as an event handler. Within the SearchPage class add the following method:
+
+第一步需要建立一个方法来处理事件。在 SearchPage 类中添加以下的代码：
 
     onSearchTextChanged(event) {
       console.log('onSearchTextChanged');
@@ -668,7 +691,11 @@ The first step is to create a method that acts as an event handler. Within the S
 
 This takes the value from the event’s text property and uses it to update the component’s state. It also adds some logging code that will make sense shortly.
 
+上面的代码从 events 中取出了 text 属性的值，并用于更新组件的状态。这里面也添加了一些有用的调试代码。
+
 To wire up this method so it gets called when the text changes, return to the TextInput field within the render method and add an onChange property so the tag looks like the following:
+
+当文字改变时，需要让这个方法被调用，调用后的文字会通过 render 函数返回到组件中。因此我们需要在标签上添加一个 onChange 属性，添加后的标签如下所示：
 
     <TextInput
       style={styles.searchInput}
@@ -678,11 +705,17 @@ To wire up this method so it gets called when the text changes, return to the Te
 
 Whenever the user changes the text, you invoke the function supplied to onChange; in this case, it’s onSearchTextChanged.
 
+当用户更改文本时,会调用 onChange 上 的函数;在本例中,则是 onSearchTextChanged 。
+
 > Note: You might be wondering what the bind(this) statement is for. JavaScript treats the this keyword a little differently than most other languages; its counterpart in Swift is self. The use of bind in this context ensures that inside the onSearchTextChanged method, this is a reference to the component instance. For more information, see the [MDN page on this](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this).
+
+> 注意:你估计会对 bind(this) 语句有疑问。在 JavaScript 中，this 这个关键字有点不同于大多数其他语言;在 Swift 表示 “自身”。在这种情况中，bind 可以确保在 onSearchTextChanged 方法中, this 可以作为组件实例的引用。有关更多信息,请参见[MDN this](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this)页面。
 
 There’s one final step before you refresh your app again: add the following logging statement to the top of render(), just before return:
 
     console.log('SearchPage.render');
+
+在你再次刷新你的应用程序之前，还有一个步骤:在 return 前添加以下语句，打印一条日志来记录 render() 函数的调用:
 
 You are about to learn something quite intriguing from these log statements! :]
 
@@ -690,7 +723,13 @@ Return to your simulator, then press Cmd+R. You should now see that the text inp
 
 react-renderconsole
 
+你会从这些日志语句中学到一些很有趣的东西!:]
+
+回到你的模拟器,然后按Cmd + R。您现在应该看到文本输入的初始值为 "london" ,编辑一下文本，从而在 Xcode 控制台中产生一些日志:
+
 Looking at the screenshot above, the order of the logging statement seems a little odd:
+
+注意看上面的截图，日志打印的顺序看起来有些奇怪：
 
 This is the initial call to render() to set up the view.
 You invoke onSearchTextChanged() when the text changes.
@@ -698,17 +737,35 @@ You then update the component state to reflect the new input text, which trigger
 onSearchTextChanged() then wraps things up by logging the new search string.
 Whenever the app updates the state of any React component, this triggers an entire UI re-rendering that in turn calls render of all of your components. This is a great idea, as it entirely de-couples the rendering logic from the state changes that affect the UI.
 
+第一次调用 render() 函数用于设置视图。当文本变化时， onSearchTextChanged  函数被调用。之后，通过更新组件的状态来反映输入了新的文本,这会触发另一次 render 。 onSearchTextChanged() 函数也会被调用，会将改变的字符串打印出来。每当应用程序更新任何 React 组件,将会触发整个UI层的重新绘制,这会调用你所有组件的 render 方法。这是一个好主意,因为这样做把组件的渲染逻辑，从状态变化影响UI这一过程中完全解耦出来。
+
+
 With most other UI frameworks, it is either your responsibility to manually update the UI based on state changes, or use of some kind of binding framework which creates an implicit link between the application state and its UI representation; see, for example, my article on implementing the [MVVM pattern with ReactiveCocoa](http://www.raywenderlich.com/74106/mvvm-tutorial-with-reactivecocoa-part-1).
+
+与其他大多数 UI 框架所不同的是,你既不需要在状态改变的时候去手动更新 UI ,或使用某种类型的绑定框架，来创建某种应用程序状态和它的 UI 表现的关联;例如,我的文章中讲的，[通过ReactiveCocoa实现MVVM模式](http://www.raywenderlich.com/74106/mvvm-tutorial-with-reactivecocoa-part-1)。
 
 With React, you no longer have to worry about which parts of the UI might be affected by a state change; your entire UI is simply expressed as a function of your application state.
 
+在 React 中,你不再需要担心 UI 的哪些部分可能受到状态变化的影响;你的整个应用程序的 UI，都可以简单地表示为一个函数的状态。
+
 At this point you’ve probably spotted a fundamental flaw in this concept. Yes, that’s right — performance!
+
+此时,您可能已经发现了这一概念中一个根本性的缺陷。是的,非常准确——性能!
 
 Surely you can’t just throw away your entire UI and re-build it every time something changes? This is where React gets really smart. Each time the UI renders itself, it takes the view tree returned by your render methods, and reconciles — or diffs — it with the current UIKit view. The output of this reconciliation process is a simple list of updates that React needs to apply to the current view. That means only the things that have actually changed will re-render.
 
+你肯定不能在 UI 变化时，完全抛弃掉整个 UI 然后重新绘制吧
+？这就是 React 高明的地方了。每当 UI 渲染出来后,render 方法会返回一颗视图渲染树,并与当前的 UIKit 视图进行比较。这个称之为 reconciliation 的过程的输出是一个简单的更新列表, React 会将这个列表应用到当前视图。这意味着，只有实际改变了的部分才会重新绘制。
+
 It’s amazing to see the novel concepts that make ReactJS so unique — the virtual-DOM (Document Object Model, the visual-tree of a web document) and reconciliation — applied to an iOS app.
 
+这个令人拍案叫绝的崭新概念让ReactJS变得独特——virtual-DOM(文档对象模型,一个web文档的视图树)和 reconciliation 这些概念——被应用于iOS应用程序。
+
+
 You can wrap your head around all that later; you still have some work to do in the app. Remove the logging code you just added above, since it’s no longer necessary and just adds cruft to the code.
+
+
+稍后你可以整理下思路,之后,在刚才的应用中你仍然有一些工作要做。日志代码增加了代码的繁琐性，已经不需要了，所以删除掉日志代码。
 
 ## Initiating a Search
 
@@ -990,7 +1047,11 @@ It’s great to see the property listings, but that list is a little drab. Time 
 
 This React Native code should be starting to look familiar by now, so this tutorial is going to pick up the pace.
 
+这些 React Native 的原生代码现在应该理解起来轻车熟路了,所以本教程将会加快速度。
+
 Add the following style definition just after the destructuring assignment in SearchResults.js:
+
+在 SearchResults.js 中，destructuring 声明后面添加以下语句来定义样式：
 
     var styles = StyleSheet.create({
       thumb: {
@@ -1022,7 +1083,11 @@ Add the following style definition just after the destructuring assignment in Se
 
 This defines all the styles that you are going to use to render each row.
 
+这些定义了每一行的样式。
+
 Next replace renderRow() with the following:
+
+接下来修改 renderRow() 如下:
 
     renderRow(rowData, sectionID, rowID) {
       var price = rowData.price_formatted.split(' ')[0];
@@ -1047,9 +1112,15 @@ Next replace renderRow() with the following:
 
 This manipulates the returned price, which is in the format ‘300,000 GBP’, to remove the GBP suffix. Then it renders the row UI using techniques that you are by now quite familiar with. This time, the data for the thumbnail image is supplied via a URL, and React Native takes care of decoding this off the main thread.
 
+这个操作修改了返回的价格,将已经格式了化的"300000 GBP"中的GBP后缀删除。然后它通过你已经很熟悉的技术来渲染每一行的 UI 。这一次,通过一个 URL 来提供缩略图的数据, React Native 负责在主线程之外解码这些数据。
+
 Also, note the use of an arrow function in the onPress property of the TouchableHighlight component; this is used to capture the guid for the row.
 
+同时要注意 TouchableHighlight 组件中 onPress属性后使用的箭头函数；它用于捕获每一行的 guid。
+
 The final step is to add this method to the class to handle the press:
+
+最后一步，给类添加一个方法来处理按下操作:
 
     rowPressed(propertyGuid) {
       var property = this.props.listings.filter(prop => prop.guid === propertyGuid)[0];
@@ -1057,13 +1128,21 @@ The final step is to add this method to the class to handle the press:
 
 This method locates the property that was tapped by the user. It doesn’t do anything with it yet, but you’ll fix that shortly. But right now, it’s time to admire your handiwork.
 
+该方法通过用户触发的属性来定位。目前该方法没有做任何事，你可以稍后处理。现在，是时候欣赏你的大作了。
+
 Head back to the simulator, press Cmd+R and check out your results:
+
+回到模拟器,按下 Cmd + R 查看结果:
 
 ![react-searchresults2](http://cdn2.raywenderlich.com/wp-content/uploads/2015/03/react-searchresults2-281x500.png)
 
 That looks a lot better — although it’s a wonder anyone can afford to live in London!
 
+看起来好多了——尽管你会怀疑是否任何人都能承受住在伦敦的代价!
+
 Time to add the final view to the application.
+
+是时候向应用程序添加最后一个视图了。
 
 ## Property Details View
 
