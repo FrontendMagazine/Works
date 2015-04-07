@@ -52,7 +52,7 @@ Want to learn more? Read on!
 
 想要学习更多，继续往下读！
 
-## Getting Started 【洪春】
+## Getting Started
 
 ## 准备工作
 
@@ -266,7 +266,7 @@ When your app starts, this code is loaded and executed by the JavaScriptCore fra
 
 当你的App开始运行了以后，这段代码将会被加载进来，然后 JavaScriptCore 框架将会执行它。在 Hello World 的例子里，它将会加载 ```PropertyFinderApp``` 组件，然后构建出原生的 UIKit 视图。关于这部分的内容，后文里会再详细解释的。
 
-## Hello World JSX 【天意】
+## Hello World JSX
 
 ## 你好 JSX 的世界
 
@@ -376,7 +376,7 @@ There’s the navigation controller with its root view, which is currently the �
 
 这就是包含了 root view 的 navigation controller，目前 root view 就是 "Hello World"。很棒——应用已经有了基础的导航结构，到添加**真实** UI 的时候了。
 
-## Building the Search Page 【洪春】
+## Building the Search Page
 
 ## 创建搜索页
 
@@ -649,7 +649,7 @@ Your current app looks good, but it’s somewhat lacking in functionality. Your 
 
 现在你的应用看起来挺不错的啦，不过它还少了点功能。接下来你的任务就是给它加上点状态，让它执行一些操作。
 
-## Adding Component State 【天意】
+## Adding Component State
 
 ## 添加组件状态
 
@@ -890,7 +890,7 @@ The next step is to make the request from within your application.
 
 下一步就是从应用中发出请求。
 
-## Performing an API Request 【洪春】
+## Performing an API Request
 
 ## 执行 API 请求
 
@@ -962,7 +962,7 @@ It’s time to see what those 20 properties in real places such as London look l
 
 是时候看一下这20个属性所对应的真实的地方，比如伦敦！
 
-## Displaying the Results 【六妹】
+## Displaying the Results
 
 ## 结果显示
 
@@ -1047,7 +1047,7 @@ Head back to the simulator, press Cmd+R and try a quick search. You’ll be gree
 
 It’s great to see the property listings, but that list is a little drab. Time to liven things up a bit.
 
-## A Touch of Style 【天意】
+## A Touch of Style
 
 ## 可点击样式
 
@@ -1290,7 +1290,7 @@ Your app is almost complete; the final step is to allow users to search for near
 
 应用即将完成，最后一步是允许用户搜索附近的房产。
 
-## Geolocation Search 【洪春】
+## Geolocation Search
 
 ## 地理位置搜索
 
