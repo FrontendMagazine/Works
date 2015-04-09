@@ -1,11 +1,11 @@
 ## A Baseline for Front-End [JS] Developers: 2015
 
-## 2015 前端[JS]工程师必知必会
+## 2015 前端应该掌握的基础知识: JS部分
 
 
 It’s been almost three years since I wrote A Baseline for Front-End Developers, probably my most popular post ever. Three years later, I still get Twitter mentions from people who are discovering it for the first time.
 
-上次我写[《前端工程师必知必会》](http://rmurphey.com/blog/2012/04/12/a-baseline-for-front-end-developers/)已经是三年前了，那是我写过的最火的文章。三年了，我仍然会在Twitter上收到关于这篇文章的消息。
+上次我写[《前端应掌握的基础知识》](http://rmurphey.com/blog/2012/04/12/a-baseline-for-front-end-developers/)已经是三年前了，那是我写过的最火的文章。三年了，我仍然会在Twitter上收到关于这篇文章的消息。
 
 
 In some ways, my words have aged well: there is, shockingly, nothing from that 2012 post that has me hanging my head in shame. Still, though: three years is a long time, and a whole lot has changed. In 2012 I encouraged people to learn browser dev tools and get on the module bandwagon; CSS pre-processors and client-side templating were still worthy of mention as new-ish things that people might not be sold on; and JSHint was a welcome relief from the #getoffmylawn admonitions – accurate though they may have been – of JSLint.
@@ -15,7 +15,7 @@ In some ways, my words have aged well: there is, shockingly, nothing from that 2
 
 It’s 2015. I want to write an update, but as I sit down to do just that, I realize a couple of things. One, it’s arguably not fair to call this stuff a “baseline” – if you thought that about the original post, you’ll find it doubly true for this one. One could argue we should consider the good-enough-to-get-a-job skills to be the “baseline.” But there are a whole lot of front-end jobs to choose from, and getting one doesn’t establish much of a baseline. For me, I don’t want to get a job; I want to get invited to great jobs. I don’t want to go to work; I want to go to work with talented people. And I don’t want to be satisfied with knowing enough to do the work that needed to be done yesterday; I want to know how to do the work that will need to get done tomorrow.
 
-今年，我觉得这些内容（前端必须掌握的知识）得更新一下了。在开始之前，有两件事我需要先提一下。第一，把这写东西称为“必须掌握的知识”可能是不公平的，如果你还记得我那篇2012年的文章，那么你会发现这篇文章更是如此[check]。也许有同学会说，我们应该把 “能找到一份好工作” 作为 “前端必须掌握的知识”。但是也有各种各样的前端工作可供选择，这样的话也只能得到一个并不适合所有人的 “前端基础知识”。而对于我来说，我需要的不是工作，我想要的是被邀请去做一份牛逼的工作。我想要的不只是去干活而已，而是想和一群牛逼的人一起做牛逼的工作。我不想仅仅满足于用已有的知识来完成现在的工作，而是去掌握更多的知识来解决未来将会面对的问题。
+今年，我觉得这些内容（前端基本技能）得更新一下了。在开始之前，有两件事我需要先提一下。第一，把这写东西称为“基础知识”可能是不公平的，如果你还记得我那篇2012年的文章，那么你会发现这篇文章更是如此[check]。也许有同学会说，我们应该把 “能找到一份好工作” 作为 “前端基础知识[check 前端技能标准?]”。但是也有各种各样的前端工作可供选择，这样的话也只能得到一个并不适合所有人的 “前端基础知识”。而对于我来说，我需要的不是工作，我想要的是被邀请去做一份牛逼的工作。我想要的不只是去干活而已，而是想和一群牛逼的人一起做牛逼的工作。我不想仅仅满足于用已有的知识来完成现在的工作，而是去掌握更多的知识来解决未来将会面对的问题。
 
 
 Two, my world has become entirely JavaScript-centric: knowledge of the ins and outs of CSS has become less and less relevant to my day-to-day work, except where performance is concerned. I know there are plenty of very smart front-end developers for whom this isn’t true, but I have also noticed a growing gulf between those who focus on CSS and those who focus on JavaScript. That’s probably a subject for another blog post, but I bring it up just to say: I am woefully unequipped to make recommendations about what you should know about CSS these days, so I’m not going to try.
