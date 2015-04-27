@@ -22,7 +22,7 @@ Thus in the time-honored tradition of taking yet another noun and making .js fil
 
 > 译注：由于知乎专栏的限制，可以到原文 [black-hole.js](http://cliffcrosland.tumblr.com/post/115981256393/black-hole-js) 查看效果。
 
-![black-hole.js-01](./image/black-hole.js-01.png)
+![black-hole.js-01](./images/black-hole.js-01.png)
 
 ## What is gravitational lensing?
 
@@ -379,6 +379,6 @@ And there you have it! Gravitational lensing for all. Even for Mr. Muffins:
 
 > 译注：由于知乎专栏的限制，可以到原文 [black-hole.js](http://cliffcrosland.tumblr.com/post/115981256393/black-hole-js) 查看效果。
 
-![black-hole.js-02](./image/black-hole.js-02.png)
+![black-hole.js-02](./images/black-hole.js-02.png)
 
 原文：http://cliffcrosland.tumblr.com/post/115981256393/black-hole-js
