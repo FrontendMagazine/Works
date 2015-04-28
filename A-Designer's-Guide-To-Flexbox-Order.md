@@ -1,4 +1,4 @@
-> 译者注：本篇为 Flexbox 设计指南系列第三篇，第一篇[在这里](http://zhuanlan.zhihu.com/FrontendMagazine/19955794)，第二篇[在这](http://zhuanlan.zhihu.com/FrontendMagazine/19978387)
+> 译者注：本篇为 Flexbox 设计指南系列第三篇，第一篇[在这里](http://zhuanlan.zhihu.com/FrontendMagazine/19955794)，第二篇[在这](http://zhuanlan.zhihu.com/FrontendMagazine/19978387)。
 
 # A Designer’s Guide To Flexbox: Order #
 # Flexbox 设计指南3：排序 #
