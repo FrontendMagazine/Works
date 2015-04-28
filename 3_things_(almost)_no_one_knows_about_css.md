@@ -20,10 +20,11 @@ It’s safe to say that if you [take the test yourself](https://sitthetest.com/t
 
 This first question should have been easy for anyone who deals with text styles on a regular basis:
 
-第一个问题对于有操作过文本样式常规基础的开发者来说应该很简单：
+第一个问题对于有文本样式常规操作经验的开发者来说应该很简单：
 
->**You want text on your website to be double-spaced by default. Which of the following line-height values is the best way to achieve this?**
->**想要让站点内文字默认为双倍行距。下面哪个 `line-height` 值是最佳实现方式？**
+> **You want text on your website to be double-spaced by default. Which of the following line-height values is the best way to achieve this?**
+
+> **想要让站点内文字默认为双倍行距。下面哪个 `line-height` 值是最佳实现方式？**
 
 - 200%
 - 2em
@@ -40,7 +41,7 @@ First off, `double` is a red herring. The only keyword value that `line-height` 
 
 The answer that most people selected is `2em` (39% chose this). Indeed, `2em` will certainly give you double-spaced text for the element it’s applied to; but so will `200%`, and only 21% liked that answer! Either ems are much more in fashion than percentages, or people don’t really understand them.
 
-大多数测试者选择了 `2em`（39%）。实际上，`2em` 确实会将它所应用的元素内的文本渲染为双倍行距；不过 `200%` ，仅仅有 21% 选择了这个答案！或者 `ems` 相比百分数更加流行， 又或者人们根本就没有理解他们。
+大多数测试者选择了 `2em`（39%）。实际上，`2em` 确实会将它所应用的元素内的文本渲染为双倍行距；不过 `200%` ，仅仅有 21% 选择了这个答案！或者 em 相比百分数更加流行， 又或者人们根本就没有理解它们。
 
 The correct answer, though, is `2`.
 
@@ -66,8 +67,9 @@ This question was a bit trickier. It called for some experience of the “dirty 
 
 这个问题有一点棘手。需要一些 CSS 布局总会用到的“奇技淫巧”：
 
->**Which of the following CSS properties, used by itself, can cause HTML elements to overlap?**
->**仅仅借助下面的哪个 CSS 属性，可以实现 HTML 元素部分重叠？**
+> **Which of the following CSS properties, used by itself, can cause HTML elements to overlap?**
+
+> **仅仅借助下面的哪个 CSS 属性，可以实现 HTML 元素部分重叠？**
 
 - z-index
 - margin
@@ -109,14 +111,16 @@ For web design history buffs, in 2005 overlapping elements with negative margins
 对 web 设计历史爱好者来讲，在 2005 年负值 margin 部分覆盖元素使得三列页面布局成为可能，比如所谓的[One True Layout](http://positioniseverything.net/articles/onetruelayout/)（以及后来的[圣杯布局](http://alistapart.com/article/holygrail)）。
 
 ## Question 3: Pseudo-elements vs Pseudo-classes
+
 ## Q3：伪元素 VS 伪类
 
 This last question is a bit of a cheap shot, I’ll admit. But with only 23% of test takers able to answer it correctly (that’s worse than chance!), it clearly hits on a point of confusion:
 
 最后一个问题有一点卑劣，我承认。不过只有 23% 的测试者回答正确（比碰运气还糟糕！）。毫无疑问，它挖出了一个疑点。
 
->**Which of the following effects is best achieved using a pseudo-element?**
->**下面哪个效果可以通过伪元素很好地实现？**
+> **Which of the following effects is best achieved using a pseudo-element?**
+
+> **下面哪个效果可以通过伪元素很好地实现？**
 
 - Add a drop-shadow to a hyperlink when a user hovers their mouse over it.
 - Display the label of a checkbox in a different color when the checkbox is checked.
@@ -145,6 +149,7 @@ With this distinction in mind, let’s run through the options:
 先记住这点，我们再来看看下面的选项：
 
 ### Add a drop-shadow to a hyperlink when a user hovers their mouse over it.
+
 ### 当用户将鼠标悬停在超链接上时，为其添加一个投影
 
 A hyperlink is an actual HTML element. Applying styles to it only in a particular situation (when the mouse is over it) means we’re using a pseudo-class. The pseudo-class you’d use in this case is `:hover`.
@@ -162,7 +167,7 @@ A hyperlink is an actual HTML element. Applying styles to it only in a particula
 
 Again, a `label` is an actual HTML element, not a virtual one. When a checkbox is checked, the browser applies the `:checked` pseudo-class to it. You can then use it in your selectors to style the checkbox, or even a `label` next to it (e.g. using an adjacent sibling selector with `+`).
 
-不过， `label` 是一个真实的 HTML 元素，不是虚拟的。当复选框被选中时，浏览器会将 `:checked` 伪类应用于它。然后，你就能够在选择器中使用它为复选框添加样式，甚至和它相邻的  `label` 元素（比如：使用相邻元素选择器 `+`）。
+一样不对， `label` 是一个真实的 HTML 元素，不是虚拟的。当复选框被选中时，浏览器会将 `:checked` 伪类应用于它。然后，你就能够在选择器中使用它为复选框添加样式，甚至和它相邻的  `label` 元素（比如：使用相邻元素选择器 `+`）。
 
 20% of test takers thought this was a pseudo-element.
 
@@ -198,7 +203,7 @@ This, of course, is the right answer. And by now, hopefully, the distinction is 
 
 If you’re thinking “OK, sure, that all makes sense, but c’mon—no one knows the difference between pseudo-elements and pseudo-classes”, well the W3C agrees with you. In the [CSS3 Selectors spec](http://dev.w3.org/csswg/selectors-3/#pseudo-elements), in an attempt to distinguish the two, it changed the syntax so that pseudo-element selectors use two colons (`::first-line`), while pseudo-classes still use one (`:hover`). Of course, for backwards compatibility, browsers must support both versions.
 
-如果你正在想“OK，确实，可以讲得通，但是拜托——每人知道伪元素和伪类之间有什么区别”，确实 W3C 也同意你的管段。在 [CSS3 选择器规范](http://dev.w3.org/csswg/selectors-3/#pseudo-elements)中，在区分二者上做了一次尝试，改变了语法——伪元素选择器使用两个冒号（`::first-line`），而伪类依旧使用一个（`:hover`）。当然，为了向后兼容，浏览器必须支持这两个版本。
+如果你正在想“OK，确实讲得通，但是拜托——没一个人知道伪元素和伪类之间有什么区别”，确实 W3C 也同意你的观点。在 [CSS3 选择器规范](http://dev.w3.org/csswg/selectors-3/#pseudo-elements)中，在区分二者上做了一次尝试，改变了语法——伪元素选择器使用两个冒号（`::first-line`），而伪类依旧使用一个（`:hover`）。当然，为了向后兼容，浏览器必须支持这两个版本。
 
 So yeah, like I said: cheap shot. But hey, if you’re a CSS geek like me, I imagine you’d know your pseudo-elements from your pseudo-classes.
 
@@ -210,18 +215,20 @@ So yeah, like I said: cheap shot. But hey, if you’re a CSS geek like me, I ima
 
 So that’s it: three tough questions from the test. If you answered just one of them with confidence, you’re doing okay. Got two of them? Not bad at all. If you got all three, I’d love to hear from you! Especially now that I’ve given away the answers to these, I could really use some ideas for more tricky CSS questions. Post ’em in the comments!
 
-这就是测试中三个棘手的问题。如果你仅仅对一个有信心，做的不错。两个？一点也不差。答对了三个，我非常乐意听到！现在，我已经公布了这些问题的答案，同样也可以用这些观点解决更棘手的 CSS 问题。请在评论中留言。
+这就是测试中三个棘手的问题。如果你仅仅对一个有信心，还可以。两个？做得不错。答对了三个，我非常乐意听到！现在，我已经公布了这些问题的答案，同样也可以用这些观点解决更棘手的 CSS 问题。请在评论中留言。
 
 If you enjoyed these questions, maybe you’d like to give the [rest of the test](https://sitthetest.com/tests) a try. Rest assured, the other questions are much easier than these … mostly!
 
 如果你享受这些问题，或许你可以尝试一下[测试的其他部分](https://sitthetest.com/tests)。请放心，其他的问题比这些要简单许多许多！
 
->![Kevin Yank](http://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2015/04/1429112558kevinyank-96x96.jpg)
+> ![Kevin Yank](http://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2015/04/1429112558kevinyank-96x96.jpg)
 
->**Kevin Yank**
+> **Kevin Yank**
 
 ----
 
->Kevin began developing for the Web in 1995 and is a highly respected technical author. Kev is a world-renowned author, speaker and JavaScript expert. He has a passion for making web technology easy to understand by anyone. Yes, even you!
+> Kevin began developing for the Web in 1995 and is a highly respected technical author. Kev is a world-renowned author, speaker and JavaScript expert. He has a passion for making web technology easy to understand by anyone. Yes, even you!
 
->Kevin 于 1995 年接触 Web 开发，是一位备受尊重的技术类作者。Kev 更是一名知名作家、演说家和 JavaScript 专家。他热衷于让每个人都能轻易地理解 Web 技术。是的，包括你！
+> Kevin 于 1995 年接触 Web 开发，是一位备受尊重的技术类作者。Kev 更是一名知名作家、演说家和 JavaScript 专家。他热衷于让每个人都能轻易地理解 Web 技术。是的，包括你！
+
+原文：http://www.sitepoint.com/3-things-almost-one-knows-css/
