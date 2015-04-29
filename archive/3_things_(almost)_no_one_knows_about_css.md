@@ -8,7 +8,7 @@ Think you know CSS? If the results of a [free CSS test](https://sitthetest.com/t
 
 But hey, an average isn’t that interesting by itself. I was more curious about which questions people were getting wrong. For this article, I’ve run the numbers, and zeroed in on three questions where people scored especially badly. I’ll talk you through each question, show you the answer that most people chose, and explain the correct answer.
 
-但是，嘿，平均分本身并没有什么意思。我更加关心大家都在哪些问题上栽了。这篇文章中，按照出错的程度将其中三个问题列出来。我会和你讨论每个问题，告诉你哪个答案被选择的最多，然后解释正确答案。
+但是，嘿，平均分本身并没有什么意思。我更加关心大家都栽到了哪些问题上。这篇文章中，按照出错的程度将其中三个问题列出来。我会和你讨论每个问题，告诉你哪个答案被选择的最多，然后解释正确答案。
 
 It’s safe to say that if you [take the test yourself](https://sitthetest.com/tests) after reading this, you’ll have an unfair advantage!
 
@@ -37,11 +37,11 @@ With four answers to choose from, you’d expect 25% of people to get the right 
 
 First off, `double` is a red herring. The only keyword value that `line-height` accepts is `normal`. I’m happy to say that only 9% of people fell for this one. The remaining three answers were all pretty popular, though.
 
-首先排除，`double` 只是用来混淆你。 `line-height` 接受的唯一关键字是  `normal`。我很高兴地说，仅仅有 9% 被这个选项蒙蔽。尽管，剩下的三个答案都非常得普遍。
+首先排除，`double` 只是用来混淆你。 `line-height` 接受的唯一关键字是 `normal`。我很高兴地说，仅仅有 9% 被这个选项蒙蔽。尽管，剩下的三个答案都非常得普遍。
 
 The answer that most people selected is `2em` (39% chose this). Indeed, `2em` will certainly give you double-spaced text for the element it’s applied to; but so will `200%`, and only 21% liked that answer! Either ems are much more in fashion than percentages, or people don’t really understand them.
 
-大多数测试者选择了 `2em`（39%）。实际上，`2em` 确实会将它所应用的元素内的文本渲染为双倍行距；不过 `200%` ，仅仅有 21% 选择了这个答案！或者 em 相比百分数更加流行， 又或者人们根本就没有理解它们。
+大多数测试者选择了 `2em`（39%）。实际上，`2em` 确实会将它所应用的元素内的文本渲染为双倍行距；不过 `200%` ，仅仅有 21% 选择了这个答案！或者 `em` 相比百分数更加流行， 又或者人们根本就没有理解它们。
 
 The correct answer, though, is `2`.
 
@@ -49,11 +49,11 @@ The correct answer, though, is `2`.
 
 This is a lesson that was drilled into me a long time ago, when I was first learning CSS. **Always specify** `line-height` **as a unitless number**; that way, descendent elements that specify a different `font-size` will inherit that number rather than a fixed line height.
 
-这是一个很久以前的一个教训，那时我第一次学习 CSS。**确保将** `line-height` **指定为一个无单位的数值**；这样一来，指定了不同 `font-size` 的子元素将会集成这个数值而不是一个固定的高度。
+这是一个很久以前的一个教训，那时我第一次学习 CSS。**确保将** `line-height` **指定为一个无单位的数值**；这样一来，指定了不同 `font-size` 的子元素将会继承这个数值而不是一个固定的高度。
 
 Let’s say the page has a default `font-size` of `12pt`, but it also contains a heading with a `font-size` of `24pt`. If you set the `line-height` of the body to `2em` (or `200%`), then you’ll get a line height of exactly `24pt` (twice the body’s `font-size`) everwhere in the document—even in that heading. The heading will therefore be single-spaced, not double-spaced!
 
-我们假设页面默认 `12pt` 的 `font-size`，不过它也会包含一个 `font-size` 为 `24pt` 的头部。如果你将 body 的 `line-height` 设置为`2em` 或者 `200%`，那样在文档中（当然也包括头部）就会得到一个 `24pt` 的行高（body 的 `font-size` 的两倍）。因而，头部就是单倍行距，而不是双倍！
+我们假设页面默认的 `font-size` 是 `12pt` ，不过它也会包含了一个 `font-size` 为 `24pt` 的头部。如果你将 body 的 `line-height` 设置为`2em` 或者 `200%`，那样在文档中（当然也包括头部）就会得到一个 `24pt` 的行高（body 的 `font-size` 的 2 倍）。因而，头部就是单倍行距，而不是双倍！
 
 Setting `line-height` to `2` instead tells the browser to preserve the font-size/line-height ratio even when the font size changes. The line height for the body will be `24pt`, but for the heading’s `24pt` font, the line height will automaticlly increase to `48pt`.
 
@@ -65,7 +65,7 @@ Setting `line-height` to `2` instead tells the browser to preserve the font-size
 
 This question was a bit trickier. It called for some experience of the “dirty tricks” that CSS layout often requires:
 
-这个问题有一点棘手。需要一些 CSS 布局总会用到的“奇技淫巧”：
+这个问题有一点棘手。需要一些 CSS 布局常用到的“奇技淫巧”：
 
 > **Which of the following CSS properties, used by itself, can cause HTML elements to overlap?**
 
@@ -82,11 +82,11 @@ Got an answer picked out? Okay, let’s dive in.
 
 Once again, there was an easily-eliminated option: `background`. All but 2% of test takers steered clear of it, knowing that it controls background colors and images.
 
-同样，有一个很容易排除的选项： `background`。除了2%的测试者外都避开了它，知道它控制背景颜色和图像。
+同样，有一个很容易排除的选项： `background`。除了 2% 的测试者外都避开了它，知道它控制背景颜色和图像。
 
 Unfortunately, most steered straight into `z-index`. A full 46% of people jumped on that one. I’m guessing it’s because no one really understands how `z-index` works. In fact, setting the `z-index` property by itself has no effect whatsoever; you also need to set the `position` property of an element for z-index to do anything. In short, `z-index` lets you control the stacking order of elements that do overlap, but they need to be overlapping in the first place. MDN has [a really nice article called “Understanding CSS z-index”](https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Understanding_z_index) that’s worth a read for more detail.
 
-很不幸，很多测试者之间选择了 `z-index`。几乎有 46% 跳进了这个选项。我猜测是因为他们没有真正地理解 `z-index` 的工作原理。实际上，自身设置 `z-index` 属性根本无济于事；你还需要设置元素的 `position` 属性让 `z-index` 起作用。简而言之， `z-index` 控制了部分重叠元素间的堆放顺序，不过前提是他们要重叠。MDN 上有一篇非常棒的文章叫做[《理解 CSS z-index》](https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Understanding_z_index)，非常值得仔细阅读。
+很不幸，很多测试者之间选择了 `z-index`。几乎有 46% 栽倒在这个选项上。我猜测是因为他们没有真正地理解 `z-index` 的工作原理。实际上，自身设置 `z-index` 属性根本无济于事；你还需要设置元素的 `position` 属性让 `z-index` 起作用。简而言之， `z-index` 控制了部分重叠元素间的堆放顺序，不过前提是它们要重叠。MDN 上有一篇非常棒的文章叫做[《理解 CSS z-index》](https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Understanding_z_index)，非常值得仔细阅读。
 
 `overflow` should have been easy to eliminate too, if you’ve ever used it. It controls how content that doesn’t fit inside a sized box behaves: whether it’s chopped off, whether it flows out past the edges of the box, etc. Again, this depends on the box’s size being constrained with other properties; by itself, it won’t cause overlaps. Still, 22% of people thought it might.
 
@@ -94,7 +94,7 @@ Unfortunately, most steered straight into `z-index`. A full 46% of people jumped
 
 That leaves us with `margin`, which is the right answer. Only 30% of people got it. You might wonder how on earth a property that creates distance between elements can cause them to overlap. If you’ve done any real-world CSS layout, the answer should be obvious: **negative margins make things overlap.**
 
-剩下的就是 `margin`，也就是正确答案。仅仅 30% 的测试者选择了它。你可能好奇究竟一个属性如何做到元素间的相互遮盖。如果你具备一些 CSS 布局的经验，答案应该很明显：**负值 margin 让他们相互遮盖。**
+剩下的就是 `margin`，也就是正确答案。仅仅 30% 的测试者选择了它。你可能好奇究竟一个属性如何做到元素间的相互遮盖。如果你具备一些 CSS 布局的经验，答案应该很明显：**负值 margin 让它们相互遮盖。**
 
 To demonstrate this, create a page with two `div` elements. Set the `margin-top` on the second `div` to a negative measurement, for example `-100px`. Bam! The second `div` now covers the bottom one hundred pixels of the first `div`.
 
@@ -102,13 +102,13 @@ To demonstrate this, create a page with two `div` elements. Set the `margin-top`
 
 In practice, you’d almost never overlap blocks like this on purpose, but negative margins are extremely useful for squeezing HTML elements into places they don’t normally go. I often use them to push left- or right-floated elements into the padding region of their parent box.
 
-实际上，你几乎不会有意地这样覆盖一个区块，不过负值 margin 在处理外层空间小于 HTML 元素大小的情况时异常地好用。
+实际上，你几乎不会有意地这样覆盖一个区块，不过负值 margin 在处理外层空间小于 HTML 元素大小的情况时出奇地好用。
 
 ![](http://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2015/04/1429090154fig-negative-margin-float.png)
 
 For web design history buffs, in 2005 overlapping elements with negative margins is what made possible three-column page layouts such as the so-called [One True Layout](http://positioniseverything.net/articles/onetruelayout/) (and later the [Holy Grail layout](http://alistapart.com/article/holygrail)).
 
-对 web 设计历史爱好者来讲，在 2005 年负值 margin 部分覆盖元素使得三列页面布局成为可能，比如所谓的[One True Layout](http://positioniseverything.net/articles/onetruelayout/)（以及后来的[圣杯布局](http://alistapart.com/article/holygrail)）。
+对 web 设计历史爱好者来讲，在 2005 年负值 margin 实现的部分覆盖元素使得三列页面布局成为可能，比如所谓的[One True Layout](http://positioniseverything.net/articles/onetruelayout/)（以及后来的[圣杯布局](http://alistapart.com/article/holygrail)）。
 
 ## Question 3: Pseudo-elements vs Pseudo-classes
 
@@ -128,7 +128,7 @@ This last question is a bit of a cheap shot, I’ll admit. But with only 23% of 
 - In a flexible page layout, display the first line of a paragraph in bold text.
 
 - 当用户将鼠标悬停在超链接上时，为其添加一个投影；
-- 当复选框选中时，在这个复选框的标签上显示一种不同的颜色；
+- 当复选框选中时，在其对应的 `label` 上显示一种不同的颜色；
 - 为表格的偶数行和奇数行添加不同的背景色；
 - 在弹性布局中，将段落的第一行加粗显示。
 
@@ -163,7 +163,7 @@ A hyperlink is an actual HTML element. Applying styles to it only in a particula
 
 ### Display the label of a checkbox in a different color when the checkbox is checked.
 
-### 当复选框选中时，在这个复选框的标签上显示一种不同的颜色
+### 当复选框选中时，在其对应的 `label` 上显示一种不同的颜色
 
 Again, a `label` is an actual HTML element, not a virtual one. When a checkbox is checked, the browser applies the `:checked` pseudo-class to it. You can then use it in your selectors to style the checkbox, or even a `label` next to it (e.g. using an adjacent sibling selector with `+`).
 
@@ -179,7 +179,7 @@ Again, a `label` is an actual HTML element, not a virtual one. When a checkbox i
 
 This is the one that really fooled people, but once again we’re talking about applying styles to actual HTML elements (`tr` elements, in this case). A `tr` being even- or odd-numbered within its parent element’s collection of children is just another circumstance that you can match with a pseudo-class.
 
-这着实愚弄了很多人，不过重申一遍我们讨论的是将样式应用于真是的 HTML 元素（在本例中是 `tr` 元素）。在各自父元素的子元素中的偶数或者奇数行的 `tr` 只是另外一种符合伪类的情景。
+这着实愚弄了很多人，不过重申一遍我们讨论的是将样式应用于真实的 HTML 元素（在本例中是 `tr` 元素）。在各自父元素包含的子元素中的偶数或者奇数行的 `tr` 只是另外一种符合伪类的情景。
 
 In this case, the pseudo-class is `:nth-child(even)` (or `:nth-child(2n)`) for even elements, and `:nth-child(odd)` (or `:nth-child(2n+1)`) for odd ones.
 
@@ -195,15 +195,15 @@ I’m guessing it’s just because `:nth-child` and pseudo-elements in general b
 
 This, of course, is the right answer. And by now, hopefully, the distinction is clear. In a flexible page layout, you can’t look at the HTML code of a page and say “that element there contains just the first line of the paragraph’s text”. The browser does the word-wrapping depending on the width of the paragraph, which is something you don’t get to control in a flexible page layout.
 
-很明显，这是正确答案。现在，单元我们的讨论足够清晰。在弹性布局中，你无法看到页面中的 HTML 代码只能假想“里面仅仅包含段落文本的第一行”。浏览器会根据段落的宽度进行换行，这在弹性布局总是你无法控制的。
+很明显，这是正确答案。现在，但愿我们的讨论足够清晰。在弹性布局中，你无法看到页面中的 HTML 代码只能假想“里面仅仅包含段落文本的第一行”。浏览器会根据段落的宽度进行换行，这在弹性布局中是你无法控制的。
 
 `:first-line` is the pseudo-element that lets you apply styles to the first line of text in a block, no matter where that first line wraps to the second.
 
-`:first-line` 是允许你将样式应用于文本块第一行的伪元素，无论第一行在何处换到第二行。
+`:first-line` 是允许你将样式应用于文本块第一行的伪元素，无论第一行是在何处换到第二行。
 
 If you’re thinking “OK, sure, that all makes sense, but c’mon—no one knows the difference between pseudo-elements and pseudo-classes”, well the W3C agrees with you. In the [CSS3 Selectors spec](http://dev.w3.org/csswg/selectors-3/#pseudo-elements), in an attempt to distinguish the two, it changed the syntax so that pseudo-element selectors use two colons (`::first-line`), while pseudo-classes still use one (`:hover`). Of course, for backwards compatibility, browsers must support both versions.
 
-如果你正在想“OK，确实讲得通，但是拜托——没一个人知道伪元素和伪类之间有什么区别”，确实 W3C 也同意你的观点。在 [CSS3 选择器规范](http://dev.w3.org/csswg/selectors-3/#pseudo-elements)中，在区分二者上做了一次尝试，改变了语法——伪元素选择器使用两个冒号（`::first-line`），而伪类依旧使用一个（`:hover`）。当然，为了向后兼容，浏览器必须支持这两个版本。
+如果你正在想“OK，确实讲得通，但是拜托——没一个人知道伪元素和伪类之间有什么区别”，确实 W3C 也同意你的观点。[CSS3 选择器规范](http://dev.w3.org/csswg/selectors-3/#pseudo-elements)中，在区分二者上做了一次尝试，改变了语法——伪元素选择器使用两个冒号（`::first-line`），而伪类依旧使用一个（`:hover`）。当然，为了向后兼容，浏览器必须支持这两个版本。
 
 So yeah, like I said: cheap shot. But hey, if you’re a CSS geek like me, I imagine you’d know your pseudo-elements from your pseudo-classes.
 
@@ -229,6 +229,6 @@ If you enjoyed these questions, maybe you’d like to give the [rest of the test
 
 > Kevin began developing for the Web in 1995 and is a highly respected technical author. Kev is a world-renowned author, speaker and JavaScript expert. He has a passion for making web technology easy to understand by anyone. Yes, even you!
 
-> Kevin 于 1995 年接触 Web 开发，是一位备受尊重的技术类作者。Kev 更是一名知名作家、演说家和 JavaScript 专家。他热衷于让每个人都能轻易地理解 Web 技术。是的，包括你！
+> Kevin 于 1995 年接触 Web 开发，是一位备受尊重的技术类作者。Kev 更是一位知名作家、演说家和 JavaScript 专家。他热衷于让每个人都能轻易地理解 Web 技术。是的，包括你！
 
 原文：http://www.sitepoint.com/3-things-almost-one-knows-css/
