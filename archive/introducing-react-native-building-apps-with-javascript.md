@@ -148,13 +148,9 @@ Before getting started on the property search application, you’re going to cre
 
 在开始“搜房App”之前，先来个简单的Hello World App热热身。在这一节里，你将会使用到一些组件。
 
-Download and unzip the [starter project](http://cdn5.raywenderlich.com/wp-content/uploads/2015/03/PropertyFinderStarter.zip) for this tutorial to the react-native/Examples folder. Once unzipped, open the PropertyFinder project within Xcode. Don’t build and run just yet; you’re going to have to write some JavaScript first!
+Open index.ios.js in your text editor of choice and delete the current contents since you’re going to build your own app from scratch. Add the following to the start of the file:
 
-下载[起始项目](http://cdn5.raywenderlich.com/wp-content/uploads/2015/03/PropertyFinderStarter.zip)，解压缩到react-native/Examples目录中。解压完成后，在Xcode中打开**PropertyFinder**项目，不要直接运行这个项目，还需要加上一些JS！
-
-Open PropertyFinderApp.js in your text editor of choice and add the following to the start of the file:
-
-在编辑器中打开**PropertyFinderApp.js**，将下面这行代码加到文件的开头位置：
+在你钟爱的编辑其中打开 `index.ios.js` ，删除当前的内容，因为你要从头构建你自己的应用。然后在文件顶部增加下面这样一行：
 
     'use strict';
 
@@ -231,7 +227,7 @@ Finally, add the following to the end of the file:
 
 最后一步啦，将这一行加在文件末尾：
 
-    React.AppRegistry.registerComponent('PropertyFinderApp', function() { return PropertyFinderApp });
+    React.AppRegistry.registerComponent('PropertyFinder', function() { return PropertyFinderApp });
 
 AppRegistry defines the entry point to the application and provides the root component.
 
@@ -261,7 +257,7 @@ When the application starts, the RCTRootView loads the application from the foll
 
 当应用开始运行的时候，```RCTRootView```将会从以下的URL中加载应用：
 
-    http://localhost:8081/Examples/PropertyFinder/PropertyFinderApp.includeRequire.runModule.bundle
+    http://localhost:8081/index.ios.bundle
 
 Recall the Terminal window that was opened when you ran this application; this starts a packager and server that handles the above request.
 
