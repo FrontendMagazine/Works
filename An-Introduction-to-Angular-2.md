@@ -138,7 +138,7 @@ So you said we can drop that selector somewhere? Yeah, let’s modify the index.
     
 Ok, here we used our new component. Let’s go to localhost:3000
 好了，现在我们来运行下我们的组件，在浏览器中访问`localhost:3000`
-![Alt text](./1433353897605.png)
+![Hello angular 2][16]
 
 So far so good, isn’t it? Inside App we are going to configure the router that we got injected from the bootstrap function:
 到目前为止，一切都还好，对吧？现在我们需要配置一下从`bootstrap`函数中注入的`路由`。
@@ -229,7 +229,7 @@ Before running our app, let’s add bootstrap to our index.css:
 Now we have something like:
 现在我们的应用看起来应该是这样的：
 
-![Alt text](./1433424868727.png)
+![2](http://angular-tips.com/images/posts/angular2intro/2.png)
 
 
 Let’s do something real, shall we? On this home component, we want to grab a new word every time we click a button. To abstract `Home` from requests and stuff, let’s create a service for that, called `Words`:
@@ -315,7 +315,7 @@ There is a couple of new stuff in `Angular 2`. Instead of `ng-click` we use `(cl
     <template [if]="word">
     
 Is that `if` a directive? Yes, and what we said about using directives inside our templates? That we need to import them:
-那`if`是一个指令（译者注：[指令][16]）么？是的。如果我们需要在模板中使用指令的话，之前怎么说来着？嗯，我们需要导入这些玩意：
+那`if`是一个指令（译者注：[指令][17]）么？是的。如果我们需要在模板中使用指令的话，之前怎么说来着？嗯，我们需要导入这些玩意：
 
     home/home.js
     
@@ -344,7 +344,7 @@ Next, we need that button working so we can show the words:
     
 If we now try the app, we can see something like:
 再试着运行一下我们的应用，我们会看到：
-![Alt text](./1433427773522.png)
+![Alt text](http://angular-tips.com/images/posts/angular2intro/3.png)
 
 Alright, it is getting shape!
 嗯，终于像那么回事儿了！
@@ -553,7 +553,7 @@ In the near future, we can avoid that `login` method thanks to the `RouteLink` c
 
 Alright, now we have the link to the login page:
 好的，现在让我们链接到`login`页面：
-![Alt text](./1433431140189.png)
+![Alt text](http://angular-tips.com/images/posts/angular2intro/4.png)
 
 And if we click it, we… Oh wait, it is not working. Ah, we forgot to add the route for it back at app.js:
 然后我们点击`login`，我们就会……哦 稍等，它没反应了。 啊，我们忘了把`login`的路由加到`app.js`里：
@@ -574,12 +574,12 @@ And if we click it, we… Oh wait, it is not working. Ah, we forgot to add the r
 Now it works:
 现在它好了：
 
-![Alt text](./1433431381665.png)
+![Alt text](http://angular-tips.com/images/posts/angular2intro/5.png)
 
 And if we login with the demo credentials (demo / 12345) we see:
 然后我们用示例账户（demo / 12345）登录，我们会看到：
 
-![Alt text](./1433431401333.png)
+![Alt text](http://angular-tips.com/images/posts/angular2intro/6.png)
 
 That’s great!
 爽！
@@ -611,12 +611,12 @@ The last step is showing the translation if we are logged in and that is easy to
 Now we have our app completed:
 现在我们终于完成了应用：
 
-![Alt text](./1433431415604.png)
+![Alt text](http://angular-tips.com/images/posts/angular2intro/7.png)
 
 Oh wait, I forgot to log in:
 噢 稍等，我忘了登录：
 
-![Alt text](./1433431426171.png)
+![Alt text](http://angular-tips.com/images/posts/angular2intro/8.png)
 
 I bet you can learn `Angular 2` faster than the word on the image :)
 我希望你学习`Angular 2`能比学图片中的单词还要快 :)
@@ -624,8 +624,8 @@ I bet you can learn `Angular 2` faster than the word on the image :)
 Before closing this article and as a curiosity, you can import the `Login` component in `Home`, add it as a used directive in the `View` component and then add `<login></login>` at the bottom of the template. Doing that, you will attach the entire `login` form and its functionality to the `Home` component, yay!
 在结束这篇文章之前，作为一个有趣的探索，你可以把`Login`组件导入到`Home`中，然后把`Login`作为一个指令加入到`View`的指令数组中，接着把`<login></login>`添加到模板的底部。这样做之后，你就可以在的`Home`页面使用`login`组件完整的表单和功能了，耶！
 
-I want to thanks [Matias Gontovnikas][17] and [PatrickJS][18] for their demo [angular2-authentication-sample][19] and explanations which helped me a lot understanding the whole process.
-我想感谢[Matias Gontovnikas][20]和[PatrickJS][21]的demo [angular2-authentication-sample][22]和他们的解释，这给我理解整个流程提供了巨大的帮助。
+I want to thanks [Matias Gontovnikas][18] and [PatrickJS][19] for their demo [angular2-authentication-sample][20] and explanations which helped me a lot understanding the whole process.
+我想感谢[Matias Gontovnikas][21]和[PatrickJS][22]的demo [angular2-authentication-sample][23]和他们的解释，这给我理解整个流程提供了巨大的帮助。
 
 Posted by Jesus Rodriguez May 4th, 2015
 Jesus Rodriguez 发表于 2015年5月4日 
@@ -646,10 +646,11 @@ Jesus Rodriguez 发表于 2015年5月4日
   [13]: https://angular.io/docs/js/latest/api/di/
   [14]: https://angular.io/docs/js/latest/api/directives/
   [15]: https://angular.io/docs/js/latest/api/core/ViewAnnotation-class.html
-  [16]: https://angular.io/docs/js/latest/api/directives/
-  [17]: https://github.com/mgonto
-  [18]: https://github.com/gdi2290
-  [19]: https://github.com/auth0/angular2-authentication-sample
-  [20]: https://github.com/mgonto
-  [21]: https://github.com/gdi2290
-  [22]: https://github.com/auth0/angular2-authentication-sample
+  [16]: http://angular-tips.com/images/posts/angular2intro/1.png
+  [17]: https://angular.io/docs/js/latest/api/directives/
+  [18]: https://github.com/mgonto
+  [19]: https://github.com/gdi2290
+  [20]: https://github.com/auth0/angular2-authentication-sample
+  [21]: https://github.com/mgonto
+  [22]: https://github.com/gdi2290
+  [23]: https://github.com/auth0/angular2-authentication-sample
