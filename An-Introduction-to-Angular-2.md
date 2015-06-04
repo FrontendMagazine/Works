@@ -186,6 +186,8 @@ So you said we can drop that selector somewhere? Yeah, let’s modify the index.
 Ok, here we used our new component. Let’s go to localhost:3000
 
 好了，现在我们来运行下我们的组件，在浏览器中访问`localhost:3000`
+
+
 ![Hello angular 2][16]
 
 
