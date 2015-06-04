@@ -80,54 +80,63 @@ This is used by React Native to figure out when your code changes and rebuild ac
 
 通过配置 watchman，React 实现了在代码发生变化时，完成相关的重建的功能。就像在使用 Xcode 时，每次保存文件都会进行一次创建。
 
-The React Native code has a number of dependencies that you need to satisfy before you can run it. Open a Terminal window in your React Native folder and execute the following:
+Next use npm to install the React Native CLI tool:
 
-React Native 有很多的依赖，需要在运行之前安装好。在 React Native 文件目录下打开一个终端，执行下面代码：
+接下来使用 `npm` 安装 React Native CLI 工具：
 
-    npm install
+	npm install -g react-native-cli
+	
+This uses the Node Package Manager to fetch the CLI tool and install it globally; npm is similar in function to CocoaPods or Carthage.
 
-This uses the Node Package Manager to fetch the project dependencies; it’s similar in function to CocoaPods or Carthage. Once this command has run successfully, you’ll find a node_modules folder has been created with the various external dependencies.
+这使用 Node 包管理器抓取 CLI 工具，并且全局安装；`npm` 在功能上与 CocoaPods 或者 Carthage 类似。
 
-这里通过 Node 包管理器抓取到项目的所有依赖；功能上和 CocoaPods 或者 Carthage 类似。成功执行该命令后，你会发现一个 `node_modules` 文件夹被创建，包含了各种外部依赖。
+Navigate to the folder where you would like to develop your React Native application, and use the CLI tool to construct the project:
 
-The final step is to start the development server. Within the same Terminal window as the previous step, execute the following:
+浏览到你想要创建 React Native 应用的文件夹下，使用 CLI 工具构建项目：
 
-最后，启动开发服务器。在刚才打开的终端中，执行下面命令：
+	react-native init PropertyFinder
+	
+This creates a starter-project containing everything you need to build and run a React Native application.
 
-    npm start
+现在，已经创建了一个初始项目，包含了创建和运行一个 React Native 应用所需的一切。
 
-On executing the above, you will see the following:
+If you look at the created folders and files you will find a node_modules folder, which contains the React Native framework. You will also find an index.ios.js file, which is the skeletal app created by the CLI tool. Finally, there is an Xcode project file and an iOS folder, containing the small amount of code required to ‘bootstrap’ your application.
 
-执行上面命令，你会看到：
+如果仔细观察了创建的文件夹和文件，你会发现一个 `node_modules` 文件夹，包含了 React Native 框架。你也会发现一个 `index.ios.js` 文件，这是 CLI 工具创建的一个空壳应用。最后，会出现一个 Xcode 项目文件和一个 iOS 文件夹，包含了少量的代码用来引入 `bootstrap` 到你的项目中。
 
-    $ npm start
-     
-    > react-native@0.1.0 start /Users/colineberhardt/Projects/react-native
-    > ./packager/packager.sh
-     
-     
-     ===============================================================
-     |  Running packager on port 8081.       
-     |  Keep this packager running while developing on any JS         
-     |  projects. Feel free to close this tab and run your own      
-     |  packager instance if you prefer.                              
-     |                                                              
-     |     https://github.com/facebook/react-native                 
-     |                                                              
-     ===============================================================
- 
- 
-		React packager ready.
+Open the Xcode project file then build and run. The simulator will start and display the following greeting:
 
-That’s it, you’re good to get started! Leave the script running in the terminal window as you continue with the tutorial.
+打开 Xcode 项目文件，然后创建并运行。模拟器将会启动并且展示下面的问候语：
 
-就这样简单，准备开始！脚本在终端继续执行，我们继续。
+![](http://cdn1.raywenderlich.com/wp-content/uploads/2015/03/ReactNative-Starter-281x500.png)
 
-At this point, I’d recommend trying one of the React Native example apps to test your setup. Open the project from the react-native/Examples/Movies folder in Xcode, then build and run it and check that you can launch the Movies application without issue.
+You might also have noticed that a terminal window has popped up, displaying the following:
 
-至此，我推荐尝试一个 React Native 示例来测试配置项。在 `react-native/Examples/Movies` 文件夹下打开项目，然后创建并且运行它，确保你可以正确地发布这个 Movies 应用。
+你可以能发现，一个终端窗口被弹出，输出了下面的信息：
 
-> Note: One final thing before you get too deep in the code — you’re going to be writing a lot of JavaScript code in this tutorial, and Xcode is certainly not the best tool for this job! I use [Sublime Text](http://www.sublimetext.com/), which is a cheap and versatile editor, but [atom](https://atom.io/), [brackets](http://brackets.io/) or any other lightweight editor will do the job.
+	===============================================================
+	 |  Running packager on port 8081.       
+	 |  Keep this packager running while developing on any JS         
+	 |  projects. Feel free to close this tab and run your own      
+	 |  packager instance if you prefer.                              
+	 |                                                              
+	 |     https://github.com/facebook/react-native                 
+	 |                                                              
+	 ===============================================================
+	 
+	Looking for JS files in
+	   /Users/colineberhardt/Temp/TestProject
+	 
+	React packager ready.
+	
+
+This is the React Native packager, running under node. You’ll find out what it does shortly.
+
+这就是 React Native 包，在 node 下运行。一会儿你就会知道它是用来干什么的。
+
+Don’t close the Terminal window; just keep it running in the background. If you do close it by mistake, simply stop and re-run the project via Xcode.
+
+不要关闭终端窗口；就然它在后台运行。如果你不小心关了，只需要停下来使用 Xcode 重新运行项目。
 
 > 注意：在进入编码工作之前，还有最后一件事 —— 在这个教程中，你需要编写大量的 JavaScript 代码，Xcode 并非是最好的工具！我使用 [Sublime Text](http://www.sublimetext.com/)，一个价格合理且应用广泛的编辑器。不过，[atom](https://atom.io/)，[brackets](http://brackets.io/) 或者其他轻量的编辑器都能胜任这份工作。
 
@@ -139,13 +148,9 @@ Before getting started on the property search application, you’re going to cre
 
 在开始“搜房App”之前，先来个简单的Hello World App热热身。在这一节里，你将会使用到一些组件。
 
-Download and unzip the [starter project](http://cdn5.raywenderlich.com/wp-content/uploads/2015/03/PropertyFinderStarter.zip) for this tutorial to the react-native/Examples folder. Once unzipped, open the PropertyFinder project within Xcode. Don’t build and run just yet; you’re going to have to write some JavaScript first!
+Open index.ios.js in your text editor of choice and delete the current contents since you’re going to build your own app from scratch. Add the following to the start of the file:
 
-下载[起始项目](http://cdn5.raywenderlich.com/wp-content/uploads/2015/03/PropertyFinderStarter.zip)，解压缩到react-native/Examples目录中。解压完成后，在Xcode中打开**PropertyFinder**项目，不要直接运行这个项目，还需要加上一些JS！
-
-Open PropertyFinderApp.js in your text editor of choice and add the following to the start of the file:
-
-在编辑器中打开**PropertyFinderApp.js**，将下面这行代码加到文件的开头位置：
+在你钟爱的编辑其中打开 `index.ios.js` ，删除当前的内容，因为你要从头构建你自己的应用。然后在文件顶部增加下面这样一行：
 
     'use strict';
 
@@ -222,7 +227,7 @@ Finally, add the following to the end of the file:
 
 最后一步啦，将这一行加在文件末尾：
 
-    React.AppRegistry.registerComponent('PropertyFinderApp', function() { return PropertyFinderApp });
+    React.AppRegistry.registerComponent('PropertyFinder', function() { return PropertyFinderApp });
 
 AppRegistry defines the entry point to the application and provides the root component.
 
@@ -252,7 +257,7 @@ When the application starts, the RCTRootView loads the application from the foll
 
 当应用开始运行的时候，```RCTRootView```将会从以下的URL中加载应用：
 
-    http://localhost:8081/Examples/PropertyFinder/PropertyFinderApp.includeRequire.runModule.bundle
+    http://localhost:8081/index.ios.bundle
 
 Recall the Terminal window that was opened when you ran this application; this starts a packager and server that handles the above request.
 
