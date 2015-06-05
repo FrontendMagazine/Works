@@ -41,7 +41,7 @@ Leave it running and clone [this repo.][3] Here we are going to work on the befo
     
 I got this boilerplate from my friend [Pawel][5] and I updated thanks to [mgonto][6] and [gdi2290][7].
 
-我从我的朋友[Pawel][8]那里搞到了这个代码模板然后修改了一下，同时也感谢[mgonto][9]和[gdi2290][10]。[check]
+我从我的朋友[Pawel][8]那里搞到了这个代码模板然后修改了一下，同时也感谢[mgonto][9]和[gdi2290][10]。
 
 
 Let me explain it a bit:
