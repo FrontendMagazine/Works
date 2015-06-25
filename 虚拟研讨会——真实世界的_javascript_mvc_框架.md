@@ -8,7 +8,7 @@
 
 随着越来越多的逻辑在浏览器中执行，JavaScript 前端代码库变得更大也更加难维护。开发者发现了一个解决该问题的方式，即前端 MVC 框架，提高了开发效率并且更容易维护代码。
 
-早在 2013 年，InfoQ 已经发起了社区内 [关于  JavaScript MVC 框架排行](http://www.infoq.com/research/top-javascript-mvc-frameworks) 的调查，依据它们的特点以及它们的完成度：
+早在 2013 年，InfoQ 已经发起了社区内 [关于 JavaScript MVC 框架排行](http://www.infoq.com/research/top-javascript-mvc-frameworks) 的调查，依据它们的特点以及它们的完成度：
 
 ![](http://www.infoq.com/resource/articles/real-world-javascript-mvc-frameworks/en/resources/61.png)
 
@@ -22,7 +22,7 @@
 
 ----
 
-> **Julien Knebel：** 在过去 2 年多的时间内，我已经使用 Ember.js 开发了 5 个 web 应用。不得不说，它给我带来了灵活、高效还有自信，因为我可以更多的聚焦在用户体验，而不是在复杂的特性上投入大量的时间，比如实例一个健全的异步路由。
+> **Julien Knebel：** 在过去 2 年多的时间内，我已经使用 Ember.js 开发了 5 个 web 应用。不得不说，它给我带来了灵活、高效还有自信，因为我可以更多的聚焦在用户体验，而不是在复杂的特性上投入大量的时间，比如一个强大的异步路由。
 
 ----
 
@@ -201,13 +201,13 @@
 
 >I've always liked the concept of components/modules. It lets me think of writing programs much like building a watch. Each part (or component) has its purpose, and needs to work as independently as possible, exposing a small surface area that other components can interact with.
 
->我一直很喜欢组件或者模块的概念。它让我觉得写程序就像是创建一个。每部分（或者说组件）都有它的目的，并且需要尽可能地独立运行，暴漏可以和其他组件进行交互的一小块。
+>我一直很喜欢组件或者模块的概念。它让我觉得写程序就像是创建一个。每部分（或者说组件）都有它的目的，并且需要尽可能地独立运行，暴露可以和其他组件进行交互的一小块。
 
 ---
 
 >**Thomas Davis:** As I said above as long as you use a modular JavaScript framework such as Require.js, scaling and maintaining your code base is a walk in the park and will only depend on your coding practises. Though Backbone.js does need to be split into its own modules at this point so instead of requiring Backbone as a dependency, you would only require Backbone.Model for example.
 
->**Thomas Davis：**就像我前面所提到的，只要你使用了一个模块花 JavaScript 框架比如 Require.js，规模和维护代码库犹如闲庭信步，仅仅取决于代码规范。在这点上，尽管 Backbone.js 不需要被拆分成模块。你仅仅需要想示例那样引入 Backbone.Model，而不用单独地将 Backbone 作为依赖引入。
+>**Thomas Davis：**就像我前面所提到的，只要你使用了一个模块化 JavaScript 框架比如 Require.js，规模和维护代码库犹如闲庭信步，仅仅取决于代码规范。在这点上，尽管 Backbone.js 不需要被拆分成模块。你仅仅需要想示例那样引入 Backbone.Model，而不用单独地将 Backbone 作为依赖引入。
 
 ----
 
@@ -218,7 +218,7 @@
 
 >**Matteo Pagliazzi:** Working on a big open source project that uses Angular as the client side framework I found that for developers without much experience it's easy to incur in problems with inheritance or to start polluting the $scope and $rootScope with a lot of objects that at a certain point will start to slow the application and grow the RAM used by the browser (we easily use 300+ MB and it can easily get to 1GB with an even small memory leak). The fact that it's made data binding so "simple" is of course fantastic but you have to understand that it will always work as you want just because it's "magic".
 
->**Matteo Pagliazzi：**曾在一个很大的开源项目中使用 Angular 作为客户端框架，我发现经验不够丰富的开发者很容易陷入继承的问题中或者使用很多对象污染了 $scope 和 $rootScope，这会让应用变得很慢并且增加了浏览器的 RAM 占用（我们一般使用 300+ MB，一个很小的内存泄露都可能轻易地占用 1GB）。如此简单的数据绑定确实很棒，不过你必须理解它才能更好地使用，因为它是“有魔力的”。
+>**Matteo Pagliazzi：**曾在一个很大的开源项目中使用 Angular 作为客户端框架，我发现经验不够丰富的开发者很容易陷入继承的问题中或者使用很多对象污染了 $scope 和 $rootScope，这会让应用变得很慢并且增加了浏览器的 RAM 占用（我们一般使用 300+ MB，一个很小的内存泄露都可能轻易地占用 1GB）。如此简单的数据绑定确实很棒，不过你必须理解它才能更好地使用，因为它是很“神奇的”。
 
 ----
 
