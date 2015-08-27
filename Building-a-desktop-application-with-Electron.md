@@ -1,3 +1,6 @@
+原文链接：[Building a desktop application with Electron](https://medium.com/developers-writing/building-a-desktop-application-with-electron-204203eeb658)
+
+
 # Building a desktop application with Electron
 
 ## A detailed guide on building your very own sound machine using JavaScript, Node.js and Electron
