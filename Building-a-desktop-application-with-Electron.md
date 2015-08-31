@@ -1,39 +1,66 @@
 原文链接：[Building a desktop application with Electron](https://medium.com/developers-writing/building-a-desktop-application-with-electron-204203eeb658)
 
-
 # Building a desktop application with Electron
+# 使用 Electron 创建桌面应用
 
 ## A detailed guide on building your very own sound machine using JavaScript, Node.js and Electron
+## 使用 JavaScript，Node.js 和 Electron 创建你的专属播放器
 
 ### The how and what of JavaScript desktop applications
+### JavaScript 桌面应用是什么
 
 Desktop applications always had a special place in my heart. Ever since browsers and mobile devices got powerful, there’s been a steady decline of desktop applications which are getting replaced by mobile and web applications. Still, there’s are a lot of upsides to writing desktop applications — they are always present once they’re in your start menu or dock, they’re alt(cmd)-tabbable (I hope that’s a word) and mostly connect better with the underlying operating system (with its shortcuts, notifications, etc) than web applications.
 
+即使在移动端和云端大行其道桌面端日渐落末的现在，桌面应用仍然在我心中占有一个特殊的位置。和 Web 应用比起来桌面应用的优点还是很多的：只要把它们放在开始菜单栏或者 dock 上，你就行随时打开它们；可以通过 alt-tab 切换应用；和操作系统之间的交互更良好（快捷键，通知栏等）。
+
 In this article, I’ll try to guide you through the process of building a simple desktop application and touch on important concepts for building desktop application with JavaScript.
+
+在这篇文章中，我将会指导你如何构建一个简单的桌面应用，当然，我们还会看到使用 JavaScript 构建桌面应用的时候要哪些重要的概念。
 
 The main idea behind developing desktop applications with JavaScript is that you build one codebase and package it for each operating system separately. This abstracts away the knowledge needed to build native desktop applications and makes maintenance easier. Nowadays, developing a desktop application with JavaScript relies on either Electron or NW.js. Although both tools offer more or less the same features, I went with Electron because it has some advantages I found important. At the end of the day, you can’t go wrong with either.
 
+使用 JavaScript 开发桌面应用意味着你需要根据操作系统的不同做不同的打包。这一行为是将原生桌面应用兼容不同平台的概念抽象出来，使得应用易于维护。现在，我们可以借助 Electron 或者 NW.js 开发一个桌面应用。虽然这两者提供的或多或少差不多的特性，但我还是因为一些非他不可的原因选择了 Electron。详细考虑各种情况之后，你不会选错的。
+
 #### Basic assumptions
+#### 基础假设
 
 I assume that you’ve got your basic text editor (or IDE) and Node.js/npm installed. I’ll also assume you’ve got HTML/CSS/JavaScript knowledge (Node.js knowledge with CommonJS modules would be great, but isn’t crucial) so we can focus on learning Electron concepts without worrying about building the user interface (which, as it turns out, are just common web pages). If not, you’ll probably feel somewhat lost and I recommend visiting my previous blog post to brush up on your basics.
 
+我设想的是，你已经有一个顺手的编辑器（或者 IDE），也安装了 Node.js 和 npm。相信你也具有基础的 HTML/CSS/JavaScript （料及 Node.js 的 CommonJS 模块概念最好了，不过没有也不是什么大问题） 知识。然后我们就能把精力集中在学习 Electron 上，不用担心界面的事情（其实这样的界面就是普通的 Web 页面而已）。如果以上知识你并不了解，为了防止这篇文章看到你头昏脑胀，推荐你先看看之前我写过的博文，补充一下基础知识。
+
 #### A 10,000 foot view of Electron
+#### Electron 概览
 
 In a nutshell, Electron provides a runtime to build desktop applications with pure JavaScript. The way it works is — Electron takes a main file defined in your package.json file and executes it. This main file (usually named main.js) then creates application windows which contain rendered web pages with the added power of interacting with the native GUI (graphical user interface) of your operating system.
 
+简而言之，Electron 提供了一个实时构建桌面应用的纯 JavaScript 环境。Electron 可以获取到你定义在 package.json 中 main 文件内容，然后执行它。通过这个 main 文件（通常我们称之为 main.js），可以创建一个应用窗口，这个应用窗口包含一个渲染好的 web 界面，还可以和系统原生的 GUI 交互。
+
 In detail, once you start up an application using Electron, a main process is created. This main process is responsible for interacting with the native GUI of your operating system and creates the GUI of your application (your application windows).
+
+具体来说，就是当你启动了一个 Electron 应用，就有一个主线程被创建了，这条线程将负责创建出应用的 GUI （也就是应用的窗口）和处理用户与这个 GUI 之间的交互。
 
 Purely starting the main process doesn’t give the users of your application any application windows. Those are created by the main process in the main file by using something called a BrowserWindow module. Each browser window then runs its own renderer process. This renderer process takes a web page (an HTML file which references the usual CSS files, JavaScript files, images, etc.) and renders it in the window. Your web pages are rendered with Chromium so a very high level of compatibility with standards is guaranteed.
 
+但是直接开启那条主线程是无法启动应用窗口的，在 main.js 中通过调用 BrowserWindow 模块才能将使用应用窗口。然后每个浏览器窗口将执行它们各自的渲染器线程。渲染器线程将会获取到一个真正的 web 页面（HTML + CSS + JavaScript）并将它渲染到窗口中。鉴于 Electron 使用的是基于 Chrominum 的浏览器内核，所以兼容的问题就不要担心太多啦。
+
 For example, if you only had a calculator application, your main process would instantiate a window with a web page where your actual web page (calculator) is.
+
+举个例子，如果你只想做一个计算器，那你的主线程只会做一件事情：实例化一个窗口，并内置了一个计算器的界面（这个界面是你用 HTML、CSS 和 JavaScript 写的）。
 
 Although it is said that only the main process interacts with the native GUI of your operating system, there are techniques to offload some of that work to renderer processes (we’ll look into building a feature leveraging such a technique).
 
+虽然只有主线程才能和原生 GUI 产生交互，事实上还是可以通过技术手段使得在渲染器线程中与原生 GUI 交互（在后文中我们将会实现这样的效果）。
+
 The main process can access the native GUI through a series of modules available directly in Electron. Your desktop application can access all Node modules like the excellent node-notifier to show system notifications, request to make HTTP calls, etc.
 
+主线程可以通过 Electron 中的一系列模块直接和原生 GUI 交互。你的桌面应用可以使用任意的 Node 模块，比如用 node-notifier 显示系统通知，用 request 发出 HTTP 请求……
+
+### Hello, world!
 ### Hello, world!
 
 Let’s get started with a traditional greeting and install all the necessary prerequisites.
+
+安装好必要的东西，让我们从传统的问好开始吧！
 
 #### Accompanying repository
 
