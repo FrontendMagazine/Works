@@ -4,7 +4,7 @@
 # 使用 Electron 创建桌面应用
 
 ## A detailed guide on building your very own sound machine using JavaScript, Node.js and Electron
-## 使用 JavaScript，Node.js 和 Electron 创建你的专属播放器
+## 使用 JavaScript，Node.js 和 Electron 创建你的专属声音机器
 
 ### The how and what of JavaScript desktop applications
 ### JavaScript 桌面应用是什么
@@ -63,9 +63,12 @@ Let’s get started with a traditional greeting and install all the necessary pr
 安装好必要的东西，让我们从传统的问好开始吧！
 
 #### Accompanying repository
+#### 使用的 repo
 
 This guide is accompanied by the sound-machine-tutorial repository.
 Use the repository to follow along or continue at certain points. Clone the repository to get started:
+
+这篇教程使用了一个声音机器教程 repo，请使用下面的命令将它克隆到本地：
 
 ```bash
 git clone https://github.com/bojzi/sound-machine-electron-guide.git
@@ -73,11 +76,15 @@ git clone https://github.com/bojzi/sound-machine-electron-guide.git
 
 and then you can jump to a git tag in the sound-machine-tutorial folder with:
 
+接着，你可以看看这个 repo 中有哪些 tag：
+
 ```bash
 git checkout <tag-name>
 ```
 
 I’ll let you know when a tag is available with a code block:
+
+我将会告诉你在什么时候使用哪个 tag：
 
 ```bash
 Follow along:
@@ -85,6 +92,7 @@ git checkout 00-blank-repository
 ```
 
 Once you clone/checkout your desired tag, run:
+当你 checkout 了想要的 tag，执行：
 
 ```bash
 npm install
@@ -92,7 +100,11 @@ npm install
 
 so that you aren’t missing any Node modules.
 
+这样你就不会错过任何 Node 模块了：
+
 If you can’t switch to another tag, it would be easiest to just reset your repository state and then do the checkout:
+
+如果你无法切换到某一个 tag，最简单的解决方式就是重置你的 repo 的状态，然后再 checkout：
 
 ```bash
 git add -A
@@ -100,6 +112,7 @@ git reset --hard
 ```
 
 #### Set up shop
+#### 开工
 
 ```bash
 Follow along with the tag 00-blank-repository:
@@ -107,6 +120,8 @@ git checkout 00-blank-repository
 ```
 
 In the project folder create a new package.json file in it with the following contents:
+
+在项目文件夹中创建有以下内容 package.json 文件：
 
 ```json
 {
@@ -120,11 +135,18 @@ In the project folder create a new package.json file in it with the following co
 ```
 This barebones package.json:
 
+这个 package.json 的作用是：
+
 + sets up the name and version of the application,
++ 确定应用的名字和版本号，
 + lets Electron know which script the main process is going to run (main.js) and
++ 告诉 Electron 哪个脚本是主线程的入口，
 + sets up a useful shortcut — an npm script to run the application easily by running “npm start” in your CLI (terminal or command prompt).
++ 准备一个好用的快捷键 - 在 CLI （终端或者命令行）中执行 ```npm start``` 即可完成依赖安装。
 
 It’s time to get Electron. The easiest way of accomplishing that is by installing a prebuilt binary for your operating system through npm and save it as a development dependency in your package.json (that happens automatically with --save-dev). Run the following in your CLI (in the project folder):
+
+好啦，说完这些东西之后，让我们快把 Electron 安装起来吧。最简单的安装方式应该是通过 npm 安装预编好的二进制文件，然后把它作为 development dependency 放在你的 package.json 中（安装时带上 ```--save-dev``` 参数即可自动写入依赖）。在 CLI 中进入项目目录，执行下面的命令：
 
 ```bash
 npm install --save-dev electron-prebuilt
@@ -132,17 +154,25 @@ npm install --save-dev electron-prebuilt
 
 The prebuilt binary is tailored to the operating system it’s being installed on and allows the running of “npm start”. We’re installing it as a development dependency because we will only need it during development.
 
+预编的二进制文件是根据操作系统不同而不同的，允许执行 ```npm start```。我们之所以以 ```development dependency``` 的方式使用它是因为在项目构建中只有在开发阶段才会使用到 Electron。
+
 That’s, more or less, everything you need to start developing with Electron.
 
+以上，就是本次 Electron 教程所需要的全部东西了。
+
 #### Greeting the world
+#### 向世界问好
 
 Create an app folder and an index.html file in that folder with the following contents:
+创建一个 app 目录，在目录中新建 index.html 文件：
 
 ```html
 <h1>Hello, world!</h1>
 ```
 
 In the root of the project create a main.js file. That’s the file that Electron’s main process is going to spin up and allow the creation of our “Hello, world!” web page. Create the file with the following contents:
+
+在根目录创建 main.js 文件。Electron 主线程的入口是这个 JS 文件，然后 “Hello world!” 页面也通过它显示出来：
 
 ```javascript
 'use strict';
@@ -164,17 +194,29 @@ app.on('ready', function() {
 
 Nothing scary, right?
 
+看起来也不难，对吧？
+
 The app module controls your application lifecycle (for example — reacting to the ready state of your application).
 
+```app``` 模块控制着应用的生命周期（比如，当应用进入 ready 状态的时候要采取什么行动）
+
 The BrowserWindow module allows window creation.
+```BrowserWindow``` 模块控制窗口的创建。
 
 The mainWindow object is going to be your main application window and is declared as null because the window would otherwise be closed once JavaScripts garbage collection kicks in.
+```mainWindow``` 对象就是你的应用窗口的主界面，它被定义成 null 因为当 JavaScript 垃圾回收机制被触发时窗口会被关闭。
 
 Once app gets the ready event, we create a new 800 pixels wide and 600 pixels high window using BrowserWindow.
 
+当 ```app``` 获取到 ```ready``` 事件，我们可以通过 BrowserWindow 创建一个新的 800x600 窗口。
+
 That window’s renderer process is going to render our index.html file.
 
+这个 window 的渲染器线程将会渲染 index.html 文件。
+
 Run our “Hello, World!” application by running the following in your CLI:
+
+执行下面这行代码，看看我们的 “Hello, World!” 应用是什么样的：
 
 ```bash
 npm start
@@ -182,12 +224,19 @@ npm start
 
 and bask in the glory that is your app.
 
+现在沐浴在这个 app 的圣光中吧。
+
 ### Developing a real application
+### 开发一个真正的应用
+
 #### A glorious sound machine
+#### 华丽丽的声音机器
 
 First things first — what’s a sound machine?
+首先要问一个问题：什么是声音机器？
 
 A sound machine is a little device that makes sounds when you press various buttons, mostly cartoon or reaction sounds. It’s a funny little tool to lighten up the mood in an office and a great use case to develop a desktop application as we’re going to explore quite a few concepts while developing it (and get a nifty sound machine to boot).
+
 
 The features we’re going to build and concepts we’re going to explore are:
 
