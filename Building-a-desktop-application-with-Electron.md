@@ -237,32 +237,51 @@ First things first — what’s a sound machine?
 
 A sound machine is a little device that makes sounds when you press various buttons, mostly cartoon or reaction sounds. It’s a funny little tool to lighten up the mood in an office and a great use case to develop a desktop application as we’re going to explore quite a few concepts while developing it (and get a nifty sound machine to boot).
 
+声音机器就是一个小设备，当你按下不同按键的时候，它会发出不同声音，通常都是卡通音或者反应声。在办公室里听到这样有趣的声音，好像一整天都明亮起来了呢。它作为我们探索如何使用 Electron 是个很棒的例子。
 
 The features we’re going to build and concepts we’re going to explore are:
 
+具体来说，我们将会实现以下功能并涉及到以下知识：
+
 + basic sound machine (basic browser window instantiation),
++ 声音机器的基础（实例化浏览器窗口），
 + closing the sound machine (remote messages between main and renderer process),
++ 关闭声音机器（主线程和渲染器线程之间的通信），
 + playing sounds without having the application in focus (global keyboard shortcuts),
++ 随时播放声音（全局快捷键），
 + creating a settings screen for shortcut modifier keys (Shift, Ctrl and Alt) (storing user settings in home folder),
++ 创建一个快捷键设置页面（Shift、Ctrl 和 Alt）（并将用户设置保存在 ```home``` 目录下），
 + adding a tray icon (remotely creating native GUI elements and getting to know menus and tray icon) and
++ 添加一个汉堡包导航图标（创建原生 GUI 元素、了解菜单的使用以及汉堡图标）,
 + packaging your application (packaging your application for Mac, Windows and Linux).
++ 应用打包（打包到Mac、Windows 和 Linux 平台）。
 
 ### Building the basic feature of a sound machine
+### 实现声音机器的基本功能
+
 #### Starting point and application organisation
+#### 起点和应用结构
 
 With a working “Hello, world!” application under your belt, it’s high time to start building a sound machine.
+现在你已经开发了一个 "Hello World!"，现在该开始做我们的声音机器了。
 
 A typical sound machine features several rows of buttons which respond to presses by making sounds. The sounds are mostly cartoonish and/or reaction based (laughter, clapping, glass breaking, etc.).
+一个典型的声音机器的特点是它有很多按钮，你需要按下它们才能让这个机器发出声音。它发出的声音通常是拟声词（比如笑声、掌声、打碎玻璃的声音等等）。
 
 That’s also the very first feature we’ll build — a basic sound machine that responds to clicks.
+响应点击 -- 这也是我们要做的第一件事情。
 
 Our application structure is going to be very straightforward.
+我们的应用结构非常简单直白。
 
 In the root of the application we’ll keep the package.json file, the main.js file and any other application-wide files we need.
+在应用的根目录中，要有一个 package.json、main.js 和其他全局所需的应用文件。
 
 The app folder will house our HTML files of various types within folders like css, js, wav and img.
+app/ 目录中要包含 HTML 文件、CSS、JS、wav 还有图片。
 
 To make things easier, all the files needed for web page design have already been included in the initial state of the repository. Please check the tag 01-start-project out. If you followed along and created the “Hello, world!” application, you’ll have to reset your repository and then do the checkout:
+为了让事情简单一点，所有和网页设计相关的文件都已经在一开始就放在仓库中了。请在命令行中输入 ```git checkout 01-start-project```，教程看到现在，你可以输入以下命令，它会重置你的仓库：
 
 ```bash
 If you followed along with the "Hello, world!" example:
@@ -274,9 +293,13 @@ git checkout 01-start-project
 
 To keep things simple, we’re going to have only two sounds but extending it to the full 16 sounds is simply a matter of finding extra sounds, extra icons and modifying index.html.
 
+出于简单易懂的初衷，我们只会使用两种声效，然后将它们扩展成16种效果，要达到这个目的只要更改 index.html 然后找一些别的音效和别的图标就可以。
+
 #### Defining the rest of the main process
+#### 定义主进程的其他部分
 
 Let’s revisit main.js to define the look of the sound machine. Replace the contents of the file with:
+让我们找到 main.js 中定义声音机器外形的部分，用下面这段替换：
 
 ```javascript
 'use strict';
@@ -299,9 +322,13 @@ app.on('ready', function() {
 ```
 
 We’re customising the window we’re creating by giving it a dimension, making it non-resizable and frameless. It’s going to look like a real sound machine hovering on your desktop.
+当我们给窗口赋上维度的时候，我们就是在自定义这个窗口，使得它不可拉伸没有框架，让它看起来就像一个真正的声音机器浮在桌面上。
 
 The question now is — how to move a frameless window (with no title bar) and close it?
+现在问题来了 -- 要如何移动或者关闭一个没有标题栏的窗口。
+
 I’ll talk about custom window (and application) closing very soon (and introduce a way of communicating between the main process and a renderer process), but the dragging part is easy. If you look at the index.css file (in app/css), you’ll see the following:
+
 
 ```css
 html,
