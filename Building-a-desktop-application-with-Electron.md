@@ -328,6 +328,7 @@ The question now is — how to move a frameless window (with no title bar) a
 现在问题来了 -- 要如何移动或者关闭一个没有标题栏的窗口。
 
 I’ll talk about custom window (and application) closing very soon (and introduce a way of communicating between the main process and a renderer process), but the dragging part is easy. If you look at the index.css file (in app/css), you’ll see the following:
+很快我就会说到自定义窗口（和应用）的关闭，还会谈到如何在主进程和渲染器进程中通信
 
 
 ```css
@@ -340,6 +341,7 @@ body {
 ```
 
 -webkit-app-region: drag; allows the whole html to be a draggable object. There is a problem now, though — you can’t click buttons on a draggable object. The other piece of the puzzle is -webkit-app-region: no-drag; which allows you to define undraggable (and thus clickable elements). Consider the following excerpt from index.css:
+``` -webkit-app-region: drag; ``` 把整个 html 变成了一个可拖拽的对象。现在就来了一个问题，在可拖拽的对象上你怎么点击啊？！还有一个迷就是如果设置``` -webkit-app-region: no-drag; ```，那就允许 html 定义成不可拖拽（当然也可以点击了）。让我们想想下面这段 index.css 片段：
 
 ```css
 .button-sound {
@@ -349,10 +351,13 @@ body {
 ```
 
 #### Displaying the sound machine in its own window
+#### 展示声音机器
 
 The main.js file can now make a new window and display the sound machine. And really, if you start your application with npm start, you’ll see the sound machine come alive. It’s not a surprise that nothing’s happening right now because we just have a static web page.
+main.js 文件现在可以创建一个新窗口，并在窗口中显示出声音机器的界面。如果你是通过``` npm start ```开始你的应用，你将会看到一个可以动的声音机器。因为我们就是从一个静态页面开始，所以现在你看到的也是不会动的页面：
 
 Put the following in the index.js file (located in app/js) to get the interactivity going:
+将下面这段代码保存为 index.js 文件（位置在 app/js 目录下），运行后，声音机器就能动了：
 
 ```javascript
 'use strict';
@@ -378,18 +383,25 @@ function prepareButton(buttonEl, soundName) {
 ```
 
 This code is pretty simple. We:
+以上代码看起来很简单：
 
 + query for the sound buttons,
++ 获取声音按钮，
 + iterate through the buttons reading out the data-sound attribute,
++ 迭代访问按钮的``` data-sound ```属性值，
 + add a background image to each button
++ 给每个按钮加上背景图，
 + and add a click event to each button that plays audio (using the HTMLAudioElement interface)
++ 通过 HTMLAudioElement 接口给每个按钮都添加一个点击事件，播放音频，
 + Test your application by running the following in your CLI:
++ 通过下面这行命令运行你的应用吧：
 
 ```bash
 npm start
 ```
 
 ### Closing the application from a browser window via remote events
+### 通过远程事件从浏览窗口中关闭应用
 
 ```bash
 Follow along with the tag 02-basic-sound-machine:
@@ -397,14 +409,19 @@ git checkout 02-basic-sound-machine
 ```
 
 To recap — application windows (more exactly their renderer process) shouldn’t be interacting with the GUI (and that’s what closing a window is). The official Electron quick start guide says:
+简单来说 - 应用窗口（渲染器进程）不应该和 GUI 发生交互（也就是不应该和“关闭窗口”有关联），Electron 的官方教程上说了：
 
 > In web pages, it is not allowed to call native GUI related APIs because managing native GUI resources in web pages is very dangerous and it is easy to leak resources. If you want to perform GUI operations in a web page, the renderer process of the web page must communicate with the main process to request the main process perform those operations.
+> 考虑到在网页中直接调用原生的 GUI 是一件很危险的事情，容易造成资源溢出，所以不允许这么使用。如果开发者想要在网页上执行 GUI 操作，必须要通过渲染器进程和主进程的通信实现。
 
 Electron provides the ipc (inter-process communication) module for that type of communication. ipc allows subscribing to messages on a channel and sending messages to subscribers of a channel. A channel is used to differentiate between receivers of messages and is represented by a string (for example “channel-1”, “channel-2”…). The message can also contain data. Upon receiving a message, the subscriber can react by doing some work and can even answer. The biggest benefit of messaging is separation of concerns — the main process doesn’t have to know which renderer processes there are or which one sent a message.
+Electron 为以上场景提供了 ipc （跨进程通信）模块，ipc 模块允许接受和发送通信频道的信息。频道由字符串表示（比如“channel-1”，“channel-2”这样）可以用于区分不同的信息接收者。传递的信息中也可以包含数据。根据接收到的信息，订阅者可以做出响应。信息传递的最大好处就是做到分离责任 -- 主进程不需要知道是那些渲染器进程发送了信息。
 
 That’s exactly what we’ll do here — subscribe the main process (main.js) to the “close-main-window” channel and send a message on that channel from the renderer process (index.js) when someone clicks the close button.
+这正是我们想要做的 -- 将主进程（main.js）订阅到“关闭主窗口”频道中，当用户点击关闭按钮试，从渲染器进程（index.js）向该频道发送信息。
 
 Add the following to main.js to subscribe to a channel:
+将下面的代码添加到 main.js 中：
 
 ```javascript
 var ipc = require('ipc');
@@ -415,8 +432,10 @@ ipc.on('close-main-window', function () {
 ```
 
 After requiring the module, subscribing to messages on a channel is very easy and involves using the on() method with the channel name and a callback function.
+把 ipc 模块包含进来之后，从频道中订阅信息就非常简单了，通过 ```on()``` 方法和频道名称，再加上一个回调函数就行了。
 
 To send a message on that channel, add the following to index.js:
+要像该频道发送信息，就要把下面的代码加入 index.js 中:
 
 ```javascript
 var ipc = require('ipc');
@@ -428,8 +447,10 @@ closeEl.addEventListener('click', function () {
 ```
 
 Again, we require the ipc module and bind a click event to the element with the close button. On clicking the close button we send a message via the “close-main-window” channel with the send() method.
+我们依然需要把 ipc 模块引入到文件中，给关闭按钮绑定点击时间。当点击了关闭按钮时，通过 ```send()``` 方法，我们会发送一条信息到“关闭主窗口”频道。
 
 There’s one more detail that could bite you and we’ve talked about it already — the clickability of draggable areas. index.css has to define the close button as non-draggable.
+还有一个点搞不好会击中你，我们刚刚也说到了 -- 可拖拽区域的点击事件。需要在 ```index.css``` 中设置关闭按钮是不可拖拽的（non-draggable）。
 
 ```css
 .settings {
@@ -437,9 +458,12 @@ There’s one more detail that could bite you and we’ve talked about it alread
     -webkit-app-region: no-drag;
 }
 ```
+
 That’s all, our application can now be closed via the close button. Communicating via ipc can get complicated by examining the event or passing arguments and we’ll see an example of passing arguments later.
+就这样，我们的应用现在可以通过关闭按钮关掉了。ipc 的通信可以通过事件和参数的传递变得很复杂，在后文中会有传递参数的例子。
 
 ### Playing sounds via global keyboard shortcuts
+### 通过全局快捷键播放声音
 
 ```bash
 Follow along with the tag 03-closable-sound-machine:
@@ -447,23 +471,31 @@ git checkout 03-closable-sound-machine
 ```
 
 Our basic sound machine is working great. But we do have a usability issue — what use is a sound machine that has to sit in front of all your windows the whole time and be clicked repeatedly?
+声音机器的地基已经打的不错了。但是我们还面临着使用性的问题 -- 这个应用要始终保持在桌面最前方，且可以被重复点击。
 
 This is where global keyboard shortcuts come in. Electron provides a global shortcut module which allows you to listen to custom keyboard combinations and react. The keyboard combinations are known as Accelerators and are string representations of a combination of keypresses (for example “Ctrl+Shift+1”).
+这就是全局快捷键要介入的地方。Electron 提供了全局快捷模块（global shortcut module）允许开发者捕获组合键并做出相应的反应。组合键可以提高使用效率，组合键以字符串的形式被记录下（比如 “Ctrl+Shift+1”）。
 
 Since we want to catch a native GUI event (global keyboard shortcut) and do an application window event (play a sound), we’ll use our trusted ipc module to send a message from the main process to the renderer process.
+因为我们想要捕获到原生的 GUI 事件（全局快捷键），并执行应用窗口时间（播放声音），我们将使用 ipc 模块从主进程发送信息到渲染器进程。
 
 Before diving into the code, there are two things to consider:
+在看代码之前，还有两件事情要我们考虑：
 
 1. global shortcuts have to be registered after the app “ready” event (the code should be in that block) and
-2. when sending messages via ipc from the main process to a renderer process you have to use the reference to that window (something like “createdWindow.webContents.send(‘channel’))
+1. 全局快捷键会在 app 的 'ready' 事件后被注册（相关代码片段要被包含在 'ready' 中）
+2. when sending messages via ipc from the main process to a renderer process you have to use the reference to that window (something like “createdWindow.
+webContents.send(‘channel’))
+2. 通过 ipc 模块，你不得不使用 window 的引用（类似于 ```createdWindow.webContents.send(‘channel’)```）。
 
 With that in mind, let’s alter our main.js and add the following code:
+记住上面的两点了吗？现在让我们来改写 main.js 吧：
 
 ```javascript
 var globalShortcut = require('global-shortcut');
 
 app.on('ready', function() {
-    ... // existing code from earlier
+    ... // 之前写过的代码
 
     globalShortcut.register('ctrl+shift+1', function () {
             mainWindow.webContents.send('global-shortcut', 0);
@@ -475,6 +507,7 @@ app.on('ready', function() {
 ```
 
 First, we require the global-shortcut module. Then, once our application is ready, we register two shortcuts — one that will respond to pressing Ctrl, Shift and 1 together and the other that will respond to pressing Ctrl, Shift and 2 together. Each of those will send a message on the “global-shortcut” channel with an argument. We’ll use that argument to play the correct sound. Add the following to index.js:
+首先，要先引入 ```global-shortcut``` 模块，当应用进入``` ready ```状态之时，我们将会注册两个快捷键 -- 'Ctrl+Shift+1' 和 'Ctrl+Shift+2'。这两个快捷键可以通过不同的参数向“全局快捷键”频道（ “global-shortcut” channel）发送信息。我们将会用那个参数播放正确的声音，将下面的代码加入 index.js 中：
 
 ```javascript
 ipc.on('global-shortcut', function (arg) {
@@ -484,8 +517,11 @@ ipc.on('global-shortcut', function (arg) {
 ```
 
 To keep thing simple, we’re going to simulate a button click and use the soundButtons selector that we’ve created while binding buttons to playing sounds. Once a message comes with an argument of 1, we’ll take the soundButtons[1] element and trigger a mouse click on it (note: in a production application, you’d want to encapsulate the sound playing code and execute that).
+为了保证整个架构足够简单，我们将会用``` soundButtons ```选择器模拟按钮的点击播放声音。当发送的信息是“1”时，我们将会获取``` soundButtons[1] ```元素，触发鼠标点击事件（注意：在生成环境中的应用，你需要封装好播放声音的代码，然后执行它）。
+
 
 ### Configuring modifier keys via user settings in a new window
+### 在新窗口中通过用户设置配置 modifier keys
 
 ```bash
 Follow along with the tag 04-global-shortcuts-bound:
@@ -493,19 +529,29 @@ git checkout 04-global-shortcuts-bound
 ```
 
 With so many applications running at the same time, it could very well be that the shortcuts we’ve envisioned are already taken. That’s why we’re going to introduce a settings screen and store which modifiers (Ctrl, Alt and/or Shift) we’re going to use.
+通常我们都会同时运行好多个应用，我们设置的快捷键很可能已经被占用了。这正是我们要引入设置界面，允许用户更改快捷键的原因（Ctrl、Alt 和 Shift）。
 
 To accomplish all of that, we’ll need the following:
+要完成这一个功能，我们需要做下面这些事情：
 
-+ ngs button in our main window,
++ a settings button in our main window,
++ 在主界面上添加设置按钮，
 + a settings window (with accompanying HTML, CSS and JavaScript files),
++ 设置窗口（设置页面上有对应的HTML、CSS 和 JS）
 + ipc messages to open and close the settings window and update our global shortcuts and
++ 开启和关闭设置窗口，以及更新全局快界面的 ipc 信息，
 + storing/reading of a settings JSON file from the user system.
++ 从用户的系统中读写存储设置的 JSON 文件。
 
 Phew, that’s quite a list.
+piu~ 以上就是我们要做的。
 
 #### Settings button and settings window
+#### 设置按钮和设置窗口
 
 Similar to closing the main window, we’re going to send messages on a channel from index.js when the settings button gets clicked. Add the following to index.js:
+和关闭主窗口类似，我们将会在 index.js 中加入发送给频道的信息：
+
 
 ```javascript
 var settingsEl = document.querySelector('.settings');
@@ -515,6 +561,7 @@ settingsEl.addEventListener('click', function () {
 ```
 
 After clicking the settings button, a message on the channel “open-settings-window” gets sent. main.js can now react to that event and open up the new window. Add the following to main.js:
+当点击了设置按钮，将会有一条信息向“打开设置窗口”这个频道发送。main.js 可以响应这个事件并打开一个新窗口，将以下代码加入 main.js中：
 
 ```javascript
 var settingsWindow = null;
@@ -538,9 +585,12 @@ ipc.on('open-settings-window', function () {
     });
 });
 ```
+
 Nothing new to see here, we’re opening up a new window just like we did with the main window. The only difference is that we’re checking if the settings window is already open so that we don’t open up two instances.
+这一步里并没有什么新鲜事，和刚刚在主窗口中一样，在这里我们将会打开一个新的窗口。唯一的不同点就是，为了防止实例化两个一样的对象，我们将会检查设置窗口是否已经被打开了。
 
 Once that works, we need a way of closing that settings window. Again, we’ll send a message on a channel, but this time from settings.js (as that is where the settings close button is located). Create (or replace the contents of) settings.js with the following:
+当上述代码成功执行之后，我们需要再添加一个关闭设置窗口的动作。类似的，我们需要向频道中发送一条信息，但是这次是从 settings.js 中发送了（关闭按钮的事件是在 settings.js 中）。新建 settings.js 文件，并添加以下代码（如果已经有了 settings.js，就直接在原文件中添加）：
 
 ```javascript
 'use strict';
@@ -564,6 +614,7 @@ ipc.on('close-settings-window', function () {
 ```
 
 Our settings window is now ready to implement its own logic.
+现在我们的设置窗口已经可以实现我们的逻辑了。
 
 #### Storing and reading user settings
 
@@ -573,27 +624,38 @@ git checkout 05-settings-window-working
 ```
 
 The process of interacting with the setting windows, storing the settings and promoting them to our application will look like this:
+设置窗口的交互流程如下，要做到储存设置和刷新应用：
 
 + create a way of storing and reading user settings in a JSON file,
++ 创建一个 JSON 文件用于读写用户设置，
 + use these settings to display the initial state of the settings window,
++ 用这个设置初始化设置窗口，
 + update the settings upon user interaction and
++ 通过用户的操作更新这个设置文档，
 + let the main process know of the changes.
++ 通知主进程要更新设置页面。
 
 We could just implement the storing and reading of settings in our main.js file but it sounds like a great use case for writing a little module that we can then include in various places.
+我们可以把实现读写设置的部分直接写进 main.js 中，但是如果把这部分独立成模块，可以随处引用这样不是更好吗？
 
 ##### Working with a JSON configuration
+#### 使用 JSON 做配置
 
 That’s why we’re going to create configuration.js file and require it whenever we need it. Node.js uses the CommonJS module pattern which means that you export only your API and other files require/use the functions available on that API.
+现在我们要创建一个 configuration.js 文件，通过``` require ```将这个文件包含进来。Node.js 使用了 CommonJS 作为编写模块的规范，也就是说你需要将你的 API 和这个 API 中可用的函数都要暴露出来。
 
 To make storing and reading easier, we’ll use the nconf module which abstracts the reading and writing of a JSON file for us. It’s a great fit. But first, we have to include it in the project with the following command executed in the CLI:
+为了使读写更简单，我们将会使用 nconf 模块，这个模块封装好了读写 JSON 文件。但首先，我们需要将这个模块包含到项目中来：
 
 ```bash
 npm install --save nconf
 ```
 
 This tells npm to install the nconf module as an application dependency and it will be included and used when we package our application for an end user (in contrast to installing with the save-dev argument which will only include modules for development purposes).
+这行命令意味着``` nconf ```模块将会作为应用依赖被安装到项目中，当我们要发布应用的时候，这个模块会被一起打包给用户（``` save-dev ```参数会使安装的模块只出现在开发阶段，发布应用的时候不会被包含进去）。
 
 The configuration.js file is pretty simple, so let’s examine it fully. Create a configuration.js file in the root of the project with the following contents:
+``` configuration.js ```文件内容非常简单，让我们直接上代码吧，在根目录创建 configuration.js 文件，并添加以下内容：
 
 ```javascript
 'use strict';
@@ -621,12 +683,16 @@ module.exports = {
 ```
 
 nconf only wants to know where to store your settings and we’re giving it the location of the user home folder and a file name. Getting the user home folder is simply a matter of asking Node.js (process.env) and differentiating between various platforms (as observed in the getUserHome() function).
+``` nconf ```模块想要知道你的设置文件是储存在哪里，我们要把文件位置和文件名传给这个模块。通过 Node.js 的 process.env 就能获取到文件的位置，文件的位置会根据不同的平台不同。
 
 Storing or reading settings is then accomplished with the built-in methods of nconf (set() for storing, get() for reading with save() and load() for file operations) and exporting the API by using the standard CommonJS module.exports syntax.
+通过``` nconf ```模块的``` set() ```和``` get() ```方法结合文件操作的``` save() ```和``` load() ```我们可以完成设置文件的读写操作，然后就可以将接口暴露出去了。
 
 ##### Initialising default shortcut key modifiers
+##### 初始化默认热键设置
 
 Before moving on with settings interaction, let’s initialise the settings in case we’re starting the application for the first time. We’ll store the modifier keys as an array with the key “shortcutKeys” and initialise it in main.js. For all of that to work, we must first require our configuration module:
+在讲设置交互之前，为了避免用户是第一次打开这个应用，要先初始化一个设置文件。我们将会以数组的形式储存热键，对应的 key 是 'shortcutKeys'，储存在 main.js 中，我们需要把 configuration 文件包含进模块中：
 
 ```javascript
 'use strict';
@@ -642,13 +708,15 @@ app.on('ready', function () {
 ```
 
 We try reading if there’s anything stored under the setting key “shortcutKeys”. If not, we set an initial value.
+我们需要先检测 key 'shortcutKeys'　是否已经有对应的值了，如果没有我们需要初始化一个值。
 
 As an additional thing in main.js, we’ll rewrite the registering of global shortcut keys as a function that we can call later when we update our settings. Remove the registering of shortcut keys from main.js and alter the file this way:
+在 main.js 中，我们将要重写注册全局快捷键的方法，在之后我们更新设置的时候，直接调用这个方法。将原来的注册代码删除，改成以下内容：
 
 ```javascript
 app.on('ready', function () {
     ...
-    setGlobalShortcuts(); 
+    setGlobalShortcuts();
 }
 
 function setGlobalShortcuts() {
@@ -667,10 +735,13 @@ function setGlobalShortcuts() {
 ```
 
 The function resets the global shortcuts so that we can set new ones, reads the modifier keys array from settings, transforms it to a Accelerator-compatible string and does the usual global shortcut key registration.
+上述方法重置了全局快捷键为新值，从设置中读取热键的数组，将它传入加速器兼容字符串（Accelerator-compatible）并注册新键。
 
 ##### Interaction in the settings window
+##### 设置窗口的交互
 
 Back in the settings.js file, we need to bind click events which are going to change our global shortcuts. First, we’ll iterate through the checkboxes and mark the active ones (reading the values from the configuration module):
+回到 settings.js 文件，我们需要绑定点击事件来改变我们的全局快捷键。首先，我们将会遍历复选框，记录下被勾选的选项（从 configuration 模块中读值）：
 
 ```javascript
 var configuration = require('../configuration.js');
@@ -681,17 +752,18 @@ for (var i = 0; i < modifierCheckboxes.length; i++) {
     var shortcutKeys = configuration.readSettings('shortcutKeys');
     var modifierKey = modifierCheckboxes[i].attributes['data-modifier-key'].value;
     modifierCheckboxes[i].checked = shortcutKeys.indexOf(modifierKey) !== -1;
-    
+
     ... // Binding of clicks comes here
 }
 ```
 
 And now we’ll bind the checkbox behaviour. Take into consideration that the settings window (and its renderer process) are not allowed to change GUI binding. That means that we’ll need to send an ipc message from settings.js (and handle that message later):
+现在我们需要绑定复选框的行为。考虑到设置窗口（和它的渲染器进程）是不允许改变 GUI 绑定的。这说明我们需要从 setting.js 中发送 ipc 信息（之后会处理这个信息的）：
 
 ```javascript
 for (var i = 0; i < modifierCheckboxes.length; i++) {
     ...
-    
+
     modifierCheckboxes[i].addEventListener('click', function (e) {
         bindModifierCheckboxes(e);
     });
@@ -716,8 +788,10 @@ function bindModifierCheckboxes(e) {
 
 It’s a bigger piece of code but still pretty simple.
 We iterate through all the checkboxes, bind a click event and on each click check if the settings array contains the modifier key or not — and according to that result, modify the array, save the result to settings and send a message to the main process which should update our global shortcuts.
+这段代码看起来比较多，但事实上它比较简单。我们将会遍历所有的复选框，并绑定点击事件，在每次点击的时候检查设置数组中是否包含有热键。根据检查结果，更改数组，将结果保存到设置中，并向主进程发送信息，更新我们的全局快捷键。
 
 All that’s left to do is subscribe to the ipc channel “set-global-shortcuts” in main.js and update our global shortcuts:
+现在的工作就是在 main.js 中将 ipc 信息订阅到“设置全局快捷键”频道，并更新我们的全局快捷键：
 
 ```javascript
 ipc.on('set-global-shortcuts', function () {
@@ -726,8 +800,10 @@ ipc.on('set-global-shortcuts', function () {
 ```
 
 Easy. And with that, our global shortcut keys are configurable!
+就是这么简单。现在我们的全局快捷键是可配置的了！
 
 ### What’s on the menu?
+### 菜单中要放什么？
 
 ```bash
 Follow along with the tag 06-shortcuts-configurable:
