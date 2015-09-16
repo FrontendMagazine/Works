@@ -1,66 +1,71 @@
 原文链接：[Building a desktop application with Electron](https://medium.com/developers-writing/building-a-desktop-application-with-electron-204203eeb658)
+。
+> 译者注：译者预计在本周末使用**新Mac**实践本教程，所以周末之前如果各位发现教程有任何问题，译者也是不知道要如何修正的QAQ。但是等译者实践之后，可能会些许更改此译文。
 
 # Building a desktop application with Electron
-# 使用 Electron 创建桌面应用
+# 使用 Electron 构建桌面应用
 
 ## A detailed guide on building your very own sound machine using JavaScript, Node.js and Electron
-## 使用 JavaScript，Node.js 和 Electron 创建你的专属声音机器
+## 使用 JavaScript、Node.js 和 Electron 创造专属于你的声音机器
 
 ### The how and what of JavaScript desktop applications
 ### JavaScript 桌面应用是什么
 
 Desktop applications always had a special place in my heart. Ever since browsers and mobile devices got powerful, there’s been a steady decline of desktop applications which are getting replaced by mobile and web applications. Still, there’s are a lot of upsides to writing desktop applications — they are always present once they’re in your start menu or dock, they’re alt(cmd)-tabbable (I hope that’s a word) and mostly connect better with the underlying operating system (with its shortcuts, notifications, etc) than web applications.
 
-即使在移动端和云端大行其道桌面端日渐落末的现在，桌面应用仍然在我心中占有一个特殊的位置。和 Web 应用比起来桌面应用的优点还是很多的：只要把它们放在开始菜单栏或者 dock 上，你就行随时打开它们；可以通过 alt-tab 切换应用；和操作系统之间的交互更良好（快捷键，通知栏等）。
+即使在移动端和云端大行其道而，桌面端日渐落末的现在，我的心中仍然为桌面应用留有一个特殊的位置。和 Web 应用比起来桌面应用的优点还是很多的：只要把它们放在开始菜单栏或者 dock 上，你就能随时打开它们；还可以通过``` alt-tab ```或者``` cmd-tab ```切换应用；和操作系统之间的交互更良好（快捷键，通知栏等）。
 
 In this article, I’ll try to guide you through the process of building a simple desktop application and touch on important concepts for building desktop application with JavaScript.
 
-在这篇文章中，我将会指导你如何构建一个简单的桌面应用，当然，我们还会看到使用 JavaScript 构建桌面应用的时候要哪些重要的概念。
+我将会在这篇文章中指导构建一个简单的桌面应用。当然，你也将了解到在使用 JavaScript 构建桌面应用的时候要哪些重要的概念。
 
 The main idea behind developing desktop applications with JavaScript is that you build one codebase and package it for each operating system separately. This abstracts away the knowledge needed to build native desktop applications and makes maintenance easier. Nowadays, developing a desktop application with JavaScript relies on either Electron or NW.js. Although both tools offer more or less the same features, I went with Electron because it has some advantages I found important. At the end of the day, you can’t go wrong with either.
 
-使用 JavaScript 开发桌面应用意味着你需要根据操作系统的不同做不同的打包。这一行为是将原生桌面应用兼容不同平台的概念抽象出来，使得应用易于维护。现在，我们可以借助 Electron 或者 NW.js 开发一个桌面应用。虽然这两者提供的或多或少差不多的特性，但我还是因为一些非他不可的原因选择了 Electron。详细考虑各种情况之后，你不会选错的。
+使用 JavaScript 开发桌面应用意味着在打包（package application）的时候你会需要根据操作系统的不同发出不同的命令。这一行为是将原生桌面应用兼容不同平台的概念抽象出来，方便维护应用。现在，我们可以借助 Electron 或者 NW.js 开发一个桌面应用。其实这两者提供的或多或少差不多的特性，但对于我来说，还是更偏向于 Electron。在做出选择之前，先详细了解它们并考虑各种情况，就不会选错的。
 
 #### Basic assumptions
-#### 基础假设
+#### 基本假设
 
 I assume that you’ve got your basic text editor (or IDE) and Node.js/npm installed. I’ll also assume you’ve got HTML/CSS/JavaScript knowledge (Node.js knowledge with CommonJS modules would be great, but isn’t crucial) so we can focus on learning Electron concepts without worrying about building the user interface (which, as it turns out, are just common web pages). If not, you’ll probably feel somewhat lost and I recommend visiting my previous blog post to brush up on your basics.
 
-我设想的是，你已经有一个顺手的编辑器（或者 IDE），也安装了 Node.js 和 npm。相信你也具有基础的 HTML/CSS/JavaScript （料及 Node.js 的 CommonJS 模块概念最好了，不过没有也不是什么大问题） 知识。然后我们就能把精力集中在学习 Electron 上，不用担心界面的事情（其实这样的界面就是普通的 Web 页面而已）。如果以上知识你并不了解，为了防止这篇文章看到你头昏脑胀，推荐你先看看之前我写过的博文，补充一下基础知识。
+开始教程之前，请允许我假设你已经有了一个常用的的编辑器（或者 IDE），系统中也安装了 [Node.js 和 npm](https://nodejs.org/download/)，并有基础的 HTML/CSS/JavaScript （对 Node.js 的 CommonJS 模块概念有所了解是最好，但不强求） 知识。如果以上知识你并不了解，为了防止这篇文章看到你头昏脑胀，推荐你先看看之前我写过的[博文](https://medium.com/@bojzi/overview-of-the-javascript-ecosystem-8ec4a0b7a7be)，补充一下基础知识。
+
+万事俱备，现在就把精力集中在学习 Electron 上，不要再担心界面的事情（将会构建的界面本质上就是普通的 Web 页面而已）。
 
 #### A 10,000 foot view of Electron
 #### Electron 概览
 
 In a nutshell, Electron provides a runtime to build desktop applications with pure JavaScript. The way it works is — Electron takes a main file defined in your package.json file and executes it. This main file (usually named main.js) then creates application windows which contain rendered web pages with the added power of interacting with the native GUI (graphical user interface) of your operating system.
 
-简而言之，Electron 提供了一个实时构建桌面应用的纯 JavaScript 环境。Electron 可以获取到你定义在 package.json 中 main 文件内容，然后执行它。通过这个 main 文件（通常我们称之为 main.js），可以创建一个应用窗口，这个应用窗口包含一个渲染好的 web 界面，还可以和系统原生的 GUI 交互。
+简而言之，Electron 提供了一个实时构建桌面应用的纯 JavaScript 环境。Electron 可以获取到你定义在* package.json *中* main *文件内容，然后执行它。通过这个文件（通常我们称之为* main.js *），可以创建一个应用窗口，这个应用窗口包含一个渲染好的 web 界面，还可以和系统原生的 GUI 交互。
 
 In detail, once you start up an application using Electron, a main process is created. This main process is responsible for interacting with the native GUI of your operating system and creates the GUI of your application (your application windows).
 
-具体来说，就是当你启动了一个 Electron 应用，就有一个主线程被创建了，这条线程将负责创建出应用的 GUI （也就是应用的窗口）和处理用户与这个 GUI 之间的交互。
+具体来说，就是当你启动了一个 Electron 应用，就有一个主进程（* main process *）被创建了。这条进程将负责创建出应用的 GUI（也就是应用的窗口），并处理用户与这个 GUI 之间的交互。
 
 Purely starting the main process doesn’t give the users of your application any application windows. Those are created by the main process in the main file by using something called a BrowserWindow module. Each browser window then runs its own renderer process. This renderer process takes a web page (an HTML file which references the usual CSS files, JavaScript files, images, etc.) and renders it in the window. Your web pages are rendered with Chromium so a very high level of compatibility with standards is guaranteed.
 
-但是直接开启那条主线程是无法启动应用窗口的，在 main.js 中通过调用 BrowserWindow 模块才能将使用应用窗口。然后每个浏览器窗口将执行它们各自的渲染器线程。渲染器线程将会获取到一个真正的 web 页面（HTML + CSS + JavaScript）并将它渲染到窗口中。鉴于 Electron 使用的是基于 Chrominum 的浏览器内核，所以兼容的问题就不要担心太多啦。
+但直接启动* main.js *是无法显示应用窗口的，在* main.js *中通过调用``` BrowserWindow ```模块才能将使用应用窗口。然后每个浏览器窗口将执行它们各自的渲染器进程（* renderer
+ process *）。渲染器进程将会处理一个真正的 web 页面（HTML + CSS + JavaScript），将页面渲染到窗口中。鉴于 Electron 使用的是基于 [Chrominum](https://www.chromium.org/) 的浏览器内核，你就不太需要考虑兼容的问题。
 
 For example, if you only had a calculator application, your main process would instantiate a window with a web page where your actual web page (calculator) is.
 
-举个例子，如果你只想做一个计算器，那你的主线程只会做一件事情：实例化一个窗口，并内置了一个计算器的界面（这个界面是你用 HTML、CSS 和 JavaScript 写的）。
+举个例子，如果你只想做一个计算器，那你的* main process *只会做一件事情：实例化一个窗口，并内置了一个计算器的界面（这个界面是你用 HTML、CSS 和 JavaScript 写的）。
 
 Although it is said that only the main process interacts with the native GUI of your operating system, there are techniques to offload some of that work to renderer processes (we’ll look into building a feature leveraging such a technique).
 
-虽然只有主线程才能和原生 GUI 产生交互，事实上还是可以通过技术手段使得在渲染器线程中与原生 GUI 交互（在后文中我们将会实现这样的效果）。
+虽然理论上只有* main process *才能和原生 GUI 产生交互，但其实我们可以通过一些手段让* renderer process *与原生 GUI 交互（在后文中你将学习到如何实现）。
 
 The main process can access the native GUI through a series of modules available directly in Electron. Your desktop application can access all Node modules like the excellent node-notifier to show system notifications, request to make HTTP calls, etc.
 
-主线程可以通过 Electron 中的一系列模块直接和原生 GUI 交互。你的桌面应用可以使用任意的 Node 模块，比如用 node-notifier 显示系统通知，用 request 发出 HTTP 请求……
+*main process *可以通过 Electron 中的[一些模块](https://github.com/atom/electron/tree/master/docs/api)直接和原生 GUI 交互。你的桌面应用可以使用任意的 Node 模块，比如用 [node-notifier](https://github.com/mikaelbr/node-notifier) 显示系统通知，用 [request](https://www.npmjs.com/package/request) 发出 HTTP 请求……
 
 ### Hello, world!
 ### Hello, world!
 
 Let’s get started with a traditional greeting and install all the necessary prerequisites.
 
-安装好必要的东西，让我们从传统的问好开始吧！
+做好前期准备，现在让我们从 Hello World 开始吧！
 
 #### Accompanying repository
 #### 使用的 repo
@@ -811,12 +816,16 @@ git checkout 06-shortcuts-configurable
 ```
 
 Another important concept in desktop applications are menus. There’s the always useful context menu (AKA right-click menu), tray menu (bound to a tray icon), application menu (on OS X), etc.
+另一个在桌面应用中的重要概念就是“菜单”，比如右键菜单（点击右键出现的菜单）、托盘菜单（通常会有一个托盘 icon）和应用菜单（在 OS X 中）等等。
 
 In this guide we’ll add a tray icon with a menu. We’ll also use this opportunity to explore an other way of inter-process communication — the remote module.
+在这一节中，我们将会添加一个托盘菜单。我们也将会借此机会尝试在 remote 模块中使用别的进程间的通信方式。
 
 The remote module makes RPC style calls from the renderer process to the main process. You require modules and work with them in the renderer process but they’re being instantiated in the main process and methods that you call on them are being executed in the main process. In practice, it means that you remotely request native GUI modules in index.js and call methods on them but they get executed in main.js. In that way, you could require the BrowserWindow module from index.js and instantiate a new browser window. Behind the scenes, that’s still a synchronous call to the main process which actually creates that new browser window.
+remote 模块让 RPC 类型的调用从渲染器进程到主进程。将模块引入的时候，这个模块是在主进程中被实例化的，所以它们的方法也会在主进程中被执行。实际开发中，这个行为是在远程地请求 index.js 中的原生 GUI 模块，然后又在 main.js 中调用 GUI 的方法。这么做的话，你需要在 index.js 中将 BrowserWindow 模块引入，然后实例化一个新的浏览器窗口。这背后的原理是，在主进程中有一个同步的调用，实际上是它创建那个新的浏览器窗口。
 
 Let’s see how we’d create a menu and bind it to a tray icon while doing it in a renderer process. Add the following to index.js:
+现在让我们来看看要怎么样创建一个菜单，并在渲染器进程中将它绑定到一个托盘图标上。将下面这段代码加入 index.js 中：
 
 ```javascript
 var remote = require('remote');
@@ -856,12 +865,16 @@ trayIcon.setContextMenu(trayMenu);
 ```
 
 The native GUI modules (menu and tray) were required remotely and that way it’s safe to use them here.
+原生的 GUI 模块（菜单和托盘）通过 remote 模块包含进来的方法比较安全。
 
 A tray icon is defined through its icon. OS X supports image templates (by convention, an image is considered a template image if its filename ends with “Template”) which makes it easy to work with the dark and light themes. Other OSes get a regular icon.
+OS X 支持图片模板（将图片文件名以 ‘Template’ 结尾，就会被定义成为图片模板），托盘图标可以通过模板来定义，这样我们的图标就会有“暗黑”和“光明”两个主题了。其他的操作系统用正常的图标就行。
 
 There are multiple ways of building a menu in Electron. This way creates a menu template (a simple array with menu items) and builds a menu from that template. At the end, the new menu is attached to the tray icon.
+在 Electron 中有很多绑定菜单的方法。这里介绍的方法只是创建了一个菜单模板（将菜单项用数组的方式存储），然后通过这个模板创建菜单，托盘 icon 再绑定上这个菜单，就实现了我们的菜单功能。
 
 ### Packaging your application
+### 应用打包
 
 ```bash
 Follow along with the tag 07-ready-for-packaging:
@@ -869,38 +882,51 @@ git checkout 07-ready-for-packaging
 ```
 
 What’s the use of an application which you can’t let people download and use?
+如果你做了一个应用结果人们连下载都下载不了，怎么会有人用呢？
 
 Packaging your application for all platforms is easy using electron-packager. In a nutshell, electron-packager abstracts away all work going into wrapping your app with Electron and generates all platforms for which you’re going to publish.
+通过 electron-packager 你可以将应用打包到全平台。这一步骤在 shell 中就可以完成，将应用打包好以后就能发布了。
 
 It can be used as a CLI application or as part of a build process. Building a more complicated build scenario is not in the scope of this article, but we’ll leverage the power of npm scripts to make packaging easier. Using electron-packager is trivial, the general form when packaging an application is:
+它可以作为一个命令行应用或者作为开发应用过程中的一步，构建一个更复杂的开发场景不是这篇文章要谈的内容，不过我们将通过 npm 脚本让应用打包更简单一点。用 electron-packager 打包是这样的：
 
 ```
 electron-packager <location of project> <name of project> <platform> <architecture> <electron version> <optional options>
 ```
 
 where:
+以上命令：
 
 + location of project points to the folder where your project is,
++ 将目录切换到项目所在路径，
 + name of project defines the name of your project, platform decides for which platforms to build (all to build for Windows, Mac and Linux),
++ 参数 ‘name of project’ 是你的项目名，参数 ‘plateform’ 确定了你要构建哪个平台的应用（Windows、Mac 还是 Linux）,
 + architecture decides for which architectures to build (x86 or x64, all for both) and
++ 参数 ‘architecture’ 决定了使用 x86 还是 x64 还是两个架构都用，
 + electron version lets you choose which Electron version to use.
++ ‘<electron version>’ 决定了使用的 Electron 版本。
 + The first package is going to take a while because all the binaries for all platforms have to be downloaded. Subsequent packages are much faster.
++ 第一次打包应用需要比较久的时间，因为所有平台的二进制文件都需要下载，之后打包应用会比较快了。
 
 I package the sound machine typically like this (on a Mac):
+在 Mac 上我是这么做的：
 
 ```bash
 electron-packager ~/Projects/sound-machine SoundMachine --all --version=0.30.2 --out=~/Desktop --overwrite --icon=~/Projects/sound-machine/app/img/app-icon.icns
 ```
 
 The new options included in the command are self-explanatory. To get a nice icon, you’ll first have to convert it to .icns (for Mac) and/or .ico (for Windows). Just search for a tool to convert your PNG file to these formats like this one (be sure to download the file with the .icns extension and not .hqx). If packaging for Windows from a non-Windows OS, you’ll need wine on your path (Mac users can use brew, while Linux users can use apt-get).
+首先你要将图标的格式转换成 .icns（在 Mac 上）或者 .ico（在 Windows 上），网上有很多工具可以把 PNG 做这样的转换（确保下载的图片的扩展名是 .icns 而不是 .hqx）。如果从非 Windows 的系统上打包了 Windows 的应用，你应该需要处理一下路径（Mac 用户可以用 brew，Linux 用户可以用 apt-get）。
 
 It doesn’t make sense to run that big command every time. We can add another script to our package.json. First of all, install electron-packager as a development dependency:
+每次都要执行这么长的一句命令一点都不合理。我们需要在我们的 package.json 中添加另一个脚本。首先，将 electron-packager 作为 development dependency 安装：
 
 ```bash
 npm install --save-dev electron-packager
 ```
 
 Now we can add a new script to our package.json file:
+现在我们需要在 package.json 中添加以下脚本：
 
 ```json
 "scripts": {
@@ -910,51 +936,77 @@ Now we can add a new script to our package.json file:
 ```
 
 And then run the following in CLI:
+然后执行：
 
 ```bash
 npm run-script package
 ```
 
 The package command starts the electron-packager, looks in the current directory and build to Desktop. The script should be changed if you are using Windows, but that is trivial.
+打包命令启动了 electron-packager，在当前目录中查看项目，在 Desktop 目录中构建。如果你使用的是 Windows，脚本内容需要一些细微的更新。
 
 The sound machine in its current state ends up weighing a whopping 100 MB. Don’t worry, once you archive it (zip or an archive type of your choice), it’ll lose more than half its size.
+声音机器目前是 100MB 大小，不要担心，当你压缩它之后，所占空间会减半。
 
 If you really want to go to town, take a look at electron-builder which takes the packages produced by electron-packager and creates automated installers.
+如果你对此还有更大的计划，可以看看 electron-builder，它是根据 electron-packager 构建出的应用打包再做自动安装的处理。
 
 ### Additional features to add
+### 还可以添加其他的特性
 
 With the application packaged and ready to go, you can now start developing your own features.
+现在应用已经打包好了，你可以开始开发别的特性了。
 
 Here are some ideas:
+这里有一些方案，可以启发你的灵感：
 
 + a help screen with info about the app, its shortcuts and author,
++ 应用的使用手册，说明了有那些快捷键和应用作者，
 + adding an icon and a menu entry to open the info screen,
++ 在应用中给使用手册添加一个图标和菜单入口，
 + build a nice packaging script for faster builds and distribution,
++ 构建一个打包脚本，用于快速构建和分发，
 + add notifications using node-notifier to let users know which sound they’re playing,
++ 使用 node-notifier 添加一个提示系统，告诉用户正在播放哪一个声音，
 + use lodash to a greater extent for a cleaner code base (like iterating through arrays),
++ 使用 lodash 让你的代码更加干净、具有更好的扩展性，
 + minify all your CSS and JavaScript with a build tool before packaging,
++ 在打包之前不要忘了压缩你的 CSS 和 JavaScript，
 + combine the aforementioned node-notifier with a server call to check for new versions of your app and notify users…
++ 结合上文提到的 node-notifier 和一个服务器端的调用，通知用户是否需要更新版本……
 
 For a nice challenge — try extracting your Sound machine browser windows logic and using something like browserify to create a web page with the same sound machine you’ve just created. One code base — two products (desktop application and web application). Nifty!
+还有一个值得一试的东西 -- 将代码中关于浏览器窗口的逻辑抽离出来，通过类似 browserify 的工具创建一个和声音机器一样的网页。一份代码，两个产品（桌面端和 Web 引用）。酷毙了！
 
 ### Diving deeper into Electron
+### 更深入研究 Electron
 
 We’ve only scratched the surface of what Electron brings to the table. It’s pretty easy to do things like watching for power events on the host machine or getting various information on the screen (like cursor position).
+我们只是尝试了 Electron 的冰山一角，想要监控主机的电源情况、获取当前窗口的信息（比如光标的位置）等，Eletron 都能帮你做到。
 
 For all of those built-in utilities (and generally while developing applications with Electron), check out the Electron API docs.
+对于所有的内置工具（通常在开发 Electron 应用时使用），查看 Electron API 文档。
 
 These Electron API docs are a part of the docs folder at the Electron GitHub repository and that folder is well worth checking out.
+这些文档在 Electron 的 github 仓库中都能找到。
 
 Sindre Sorhus maintans an awesome list of Electron resources on which you can find really cool projects and information like an excellent overview of a typical Electron application architecture which can serve as a refresher on the code we’ve been developing up until now.
+Sindre Sorhus 正在维护一份 Electron 资源清单，在那个上面你可以看到很多非常酷的项目，还能了解到一些系统架构做的很好的 Electron 应用，这些都能给你的开发带来灵感。
 
 In the end, Electron is based on io.js (which is going to be merged back into Node.js) and most of Node.js modules are compatible and can be used to extend your application. Just browse npmjs.com and grab what you need.
+Electron 是基于 io.js 的，大部分 Node.js 模块都可以兼容，可以使用它们扩展你的应用。去 npmjs.com 上看看有没有合适的。
 
 ### Is that all?
+### 这样就够了吗？
 
 Not by a long shot.
+当然不。
 
 Now, it’s time to build a bigger application. I’ve mostly skipped on using extra libraries or build tools in this guide to concentrate on important issues but you can easily write your app in ES6 or Typescript, use Angular or React and simplify your build with gulp or Grunt.
+现在，可以来构建一个更大型的应用了。在这篇文章中，我几乎没有说到如何使用外部的库或者构建工具来构建一个应用，不过用 ES6 和 Typescript 的语法结合 Angular 和 React 来构建 Electron 应用也很简单，还可以用 gulp 或 grunt 构建流程。
 
 With your favorite language, framework and build tool, why not build a Flickr sync desktop application using the Flickr API and node-flickrapi or a GMail client using Google’s officiall Node.js client library?
+干嘛不用你最喜欢的语言，框架和工具，来试试构建一个 Filckr 同步工具（借助 Filckr API 和 node-filckrapi）或者一个 Gmail 客户端（使用 Google 的官方 Node.JS 客户端库？）
 
 Pick an idea that’s going to motivate you, init a repository and just do it.
+选一个自己感兴趣的项目，开工吧！
