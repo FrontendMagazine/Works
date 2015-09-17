@@ -1,5 +1,7 @@
 # Architecture of ECMAScript 6 Modules
 
+## ECMAScript 6 模块架构
+
 ## Terminology
 
 ## 技术背景
@@ -593,19 +595,29 @@ For this use-case, you can return (from link) a list of dependencies and a callb
 
 Returning the imports and a callback from link allows the link hook to participate in the same two-phase loading process of ES6 modules, but using the AMD definition to separate the phases instead of ES6 syntax.
 
-
+从 link  hook 中返回 `imports` 和一个 `callback`，让它参与到 ES 模块两步加载的过程之中，只不过使用 AMD 规范将这两个阶段分开了。
 
 ![](http://cl.ly/image/2x3X2p1E222X/Pasted_Image_3_10_13_5_41_PM.png)
 
 ## Importing a Node Module By Processing requires
 
+## 解析 require 来 improt Node 模块
+
 Because node modules use a dynamic expression for imports, there is no perfectly reliable way to ensure that all dependencies are loaded before evaluating the module.
+
+因为 Node 模块使用一个动态的表达式来做 import，所以没有明确的方式来确保所有依赖加载完成之后才执行模块。
 
 The approach used by Browserify is to statically analyze the file first for require statements and use them as the dependencies. The AMD CommonJS wrapper uses a similar approach.
 
+Browserify 也使用这种方式来分析第一次出现在 require 表达式中的模块，把它们当做被分析模块的依赖。AMD 的 CommonJS  Wrapper 也是使用类似的一个方案。
+
 The link hook could be used to analyze Node-style packages for require lines, and return them as imports.
 
+我们可以在 link hook 中分析 Node 式的包，获取 require 代码行，把它们当做 imports 返回。
+
 By the time the execute callback was called, all modules would be synchronously available, and aliasing require to System.get would continue to work.
+
+直到 `execute` 回调被执行，所有依赖的模块都已异步加载完成，可以同步得到，然后继续利用把 `require` 函数代理到 `System.get`。
 
     import { processImports } from "browserify";
 
@@ -621,18 +633,31 @@ By the time the execute callback was called, all modules would be synchronously 
 
 Of course, this means only works as long as no requires are used with dynamic expressions, in a conditional, or in a try/catch, but those are already limitations of systems like Browserify.
 
-<img src="http://cl.ly/image/3Q38113B2I22/Pasted_Image_3_10_13_5_41_PM.png">
+当然，这种方式只对部分 require 语句有效，对于动态表达式、条件语句或者 try/catch  就不起作用。这些也都是像 Browserify 这类系统的缺点。
+
+![](http://cl.ly/image/3Q38113B2I22/Pasted_Image_3_10_13_5_41_PM.png)
 
 ## Interoperability in General
 
+## 互通性
+
 Let's review the overall strategy used for assimilating non-ES6 module definitions:
+
+让我们一起总结一下针对非 ES6 模块定义的策略：
 
 	•	Non-ES6 modules can be loaded through the Loader by overriding the resolve and link hooks.
 	•	Non-ES6 modules can asynchronously load other modules by return imports from link and synchronously through System.get.
 
+- 非 ES6 模块可以使用 Loader 通过复写 resolve 和 link hook 来加载；
+- 非 ES6 模块可以异步地加载其他依赖的模块，只要在 link 返回这些 import 即可。执行通过`System.get` 来同步获取。
+
 This means that all module systems can freely interoperate, using the Loader as an intermediary.
 
+也就是说所有的模块系统都可以把 Loader 作为中间件，互相连接到一起。
+
 For example, if an AMD module (say, 'app'), depended on a Node-style module (say, 'string-utils'):
+
+例如，一个 AMD 模块（比如 `app`），依赖一个 Node 风格的模块（`string-utils`）：
 
 	1	When loading app, the link hook would return { imports: ['string-utils'], execute: execute }.
 	2	This would cause the Loader to attempt to load 'string-utils', before it would call back the provided execute callback.
@@ -640,19 +665,39 @@ For example, if an AMD module (say, 'app'), depended on a Node-style module (say
 	4	Once this is done, the provided execute callback would run, receiving the string-utils Module as a parameter.
 	5	The execute callback would then return a Module.
 
+当下载 `app` 时，link hook 将返回 `{ imports: ['string-utils'], execute: execute }`；
+Loader 继续加载 `string-utils`，直到加载好了才会执行 `execute` 回调；
+Loader 将下载 `string-utils`，应用 Node 式的 link hook；
+`string-utils` 一旦加载完成，之前返回的 `execute` 回调就会被执行，`string-utils` 模块被当做了一个参数；
+`execute` 回调将返回一个模块
+
 This is just an illustrative example; any combination of module systems could freely interoperate through the Loader.
+
+这仅仅是一个示例；任何两个模块系统都可以通过 Loader 联通到一起。
 
 ## A Note on "Single Export" Interoperability
 
+## 注意“单个 export” 的互通性
+
 Many of the existing module systems support mechanisms for exporting a single value instead of a number of named values from a module.
+
+很多已有的模块系统不但支持 export 多个具名的值，也支持单值。
 
 At the current time, ES6 modules do not provide explicit support for this feature, but it can be emulated using the Loader. One specific strategy would be to export the single value as a well-known name (for example, exports).
 
+就目前来看，ES6 模块规范并没有完全支持这种特性，但是可以通过 Loader 来模拟。一种可行的策略就是 export 一个名称约定的值（例如，exports）。
+
 Let's take a look at how a Loader could support a Node-style module using require to import the "single export" of another Node-style module.
+
+我们这就看看 Loader 是如何支持 Node 风格的模块 import 另外一个“单个 export” 模块的。
 
 This same approach would support interoperability between module systems that support importing and exporting of single values.
 
+同样的方式也可以用来支持联通两个支持 import 或者 export 单个值的模块系统。
+
 We'll need to enhance the previous solution we provided for this scenario:
+
+我们需要对之前的方案进行增强以适应这种场景：
 
     var isSingle = new Symbol();
 
@@ -681,7 +726,11 @@ We'll need to enhance the previous solution we provided for this scenario:
 
 Here, we create a new unique Symbol that we will use to tag a module as containing a single export. This will avoid conflicts with Node-style modules that export the name exports explicitly.
 
+首先，我们创建了一个唯一的 Symbol 来标记一个包含单一 export 的模块。这将避免与那些 export `exports` 的 Node 风格模块搞混。
+
 Next, we will need to enhance the code that we have been using for Node-style require. Until now, we have simply aliased it to System.get. Now, we will check for the isSingle symbol and give it special treatment in that case.
+
+接下来，我们需要增强提供给 Node 式 `require` 的代码。之前只是简单的将其代理到 `System.get` 上。现在则判断 `isSingle` 标记，进行特殊处理。
 
     // this assumes that the `isSingle` Symbol is in scope
     var require = function(name) {
@@ -695,7 +744,11 @@ Next, we will need to enhance the code that we have been using for Node-style re
 
 This same approach, using a shared isSingle symbol, could be used to support interoperability between AMD and Node single exports.
 
+同样地，通过一个共享的 `isSingle` 标记，可以实现 AMD 和 Node 单一 exports 的互通。
+
 As described earlier, ES6 modules would use import { exports: underscore } from 'string-utils/underscore'.
+
+就如之前描述的，ES5 模块将使用 `import {exports: underscore}` 来使用 `string-utils/underscore` 模块。
 
 ## Configuration of Existing Loaders
 
@@ -703,7 +756,11 @@ As described earlier, ES6 modules would use import { exports: underscore } from 
 
 The requirejs loader has a number of useful configuration options that its users can use to control the loader.
 
+RequireJS Loader 包含了一系列有用的配置，用户可以用来自定义 Loader。
+
 This section covers a sampling of those options and how they map onto the semantics of the ES6 Loader. In general, the compilation pipeline provides hooks that can be used to implement these configuration options.
+
+本小节会讲给出一些这些配置的小例子，并展示在 ES Loader 中如何体现这些配置的。通常说来，编译流程提供的 hook 就可以实现这些配置。
 
 ### Base URL
 
@@ -711,11 +768,19 @@ This section covers a sampling of those options and how they map onto the semant
 
 The requirejs loader allows the user to configure a base URL for resolving relative paths.
 
+在 RequireJS 中，可以指定一个 base URL，解析模块时，根据这个路径来做 resolve。
+
 In the default browser loader, the base URL will default to the page's base URL. The default System.resolve will prefix that base URL and append .js to the end of the module name (if not already present).
+
+在 Browser Loader 中，默认的 base URL 即页面的 base URL。`System.resolve` 在默认情况下会在模块名前加上 base URL，在后面上加上 `.js`。 
 
 The browser's default Loader (window.System) will also include a baseURL configuration option that controls the base URL for its implementation of resolve.
 
+浏览器默认的 Loader（`window.System`）同样也包含了一个 `baseURL` 配置，来设置 base URL，控制 resolve 的实现。
+
 JavaScript code could also configure the Loader's resolve hook to provide any policy they like:
+
+还有一种方式，可以通过 JavaScript 代码，重写 Loader 的 `resolve` hook 策略。
 
     var resolve = System.resolve;
 
@@ -732,6 +797,8 @@ JavaScript code could also configure the Loader's resolve hook to provide any po
 
 Similarly, the requirejs loader allows the specification of additional URL arguments. This could also be handled by overriding the resolve hook.
 
+和 RequireJS 一样，可以复写 resolve hook 来指定额外的 URL 参数。
+
     var resolve = System.resolve;
 
     System.resolve = function(...args) {
@@ -744,7 +811,11 @@ Similarly, the requirejs loader allows the specification of additional URL argum
 
 The requirejs loader allows the specification of a timeout before rejecting the request.
 
+在 RequireJS Loader 中，可以设置一个超时时间，超时了就当做请求失败处理。
+
 With the ES6 Loader, the fetch hook can be overridden to reject the fetch after some time has passed.
+
+在 ES6 Loader 中，可以复写 fetch hook 的逻辑，在确定时间之后出发 fetch 失败。
 
     var fetch = System.fetch;
 
@@ -762,6 +833,8 @@ With the ES6 Loader, the fetch hook can be overridden to reject the fetch after 
 
 The requirejs loader provides a mechanism for declaring how a legacy module should be interpreted:
 
+RequireJS 提供了一种机制，来指定如何处理无规格的模块：
+
     requirejs.config({
       shim: {
         backbone: {
@@ -773,7 +846,11 @@ The requirejs loader provides a mechanism for declaring how a legacy module shou
 
 The example above under Using Existing Libraries as Modules shows one approach to this problem. That approach should work generically, without having to list a specific export name.
 
+上面的例子展示了方法之一，把现成的类库当做模块来使用。这种方案无需列出特定 export  名，运行起来没有太大的差别。
+
 The link hook provides a way to define dependencies for legacy modules.
+
+link hook 同样可以提供定义无规格模块依赖的方式。
 
     var config = {
       backbone: {
@@ -819,6 +896,8 @@ In Ember.js, Angular.js, and other contemporary frameworks, JavaScript objects a
 
 Here, the app is asking Ember.js to render some HTML defined in an App.FancyButton constructor. Note that Ember encourages the use of a global namespace for coordination between JavaScript and HTML templates.
 
+`app` 请求 Ember.js 把 `App.FancyButton` 构造函数定义的 HTML 渲染出来。注意 Ember 鼓励使用一个全局命名空间来在 JavaScript 和 HTML 间协调。
+
     <!-- angular -->
     <button fancy-button>
       <p>Fancy Button Contents</p>
@@ -826,12 +905,18 @@ Here, the app is asking Ember.js to render some HTML defined in an App.FancyButt
 
 Here, the app is asking Angular.js to replace the <button> with some content defined in a globally registered fancy-button directive.
 
+`app` 请求 Angular.js 将 `<button>` 替换成其他内容，这些内容定义在一个注册在全局的 `fancy-button` 指令中。
+
 Both Angular and Ember both use globally registered names to define controller objects to attach to parts of the HTML controlled by the framework.
+
+Angular 和 Ember 都是使用一个全局注册的名称，来定义一个 Controller 对象，将由框架控制的 HTML 加入到文档中。
 
     <!-- ember -->
     {{control "fancy-button"}}
 
 Here, the app is asking Ember.js to render some HTML defined in an App.FancyButtonView and use an instance of the App.FancyButtonController as its controller. Again, Ember is relying on a globally rooted namespace for coordination.
+
+在上面的代码中，让 Ember.js 渲染一些 HTML，由一个 `App.FancyButtonView` 定义，并使用 `App.FancyButtonController` 的实例作为它的 controller。Ember 依赖一个全局的根命名空间来协调这些关系。
 
     <!-- angular -->
     <div ng-controller="TodoCtrl">
@@ -840,13 +925,21 @@ Here, the app is asking Ember.js to render some HTML defined in an App.FancyButt
 
 Here, the app is asking Angular to use a globally rooted object called TodoCtrl as the controller for this part of the HTML. In Angular, this controller is used to control the scope for data-bound content nested inside of its element.
 
+应用让 Angular 使用一个名为 `TodoCtrl` 全局对象作为这部分 HTML 代码的 controller。在 Angular 中，controller 被用来控制与内部嵌套内容做数据绑定的 scope。
+
 To handle the kind of situation where a module is referenced by a String and needs to be looked up dynamically, ES6 modules provide an API for looking up a module at runtime.
+
+为了处理上面这种情况，使用一个 String 来引用模块，切需要动态地查询，ES6 模块提供了一个 API 在运行时查询这些模块。
 
     System.get('controllers/fancy-button');
 
 Systems like Ember or Angular could use this API to allow their users to reference a module's exports in HTML.
 
+像 Ember 或者 Angular 这样的框架可以使用这个 API 让用户在 THML 中引用模块的 `exports`。
+
 In the first Ember example, instead of referencing a globally rooted constructor, the HTML would reference a module name:
+
+在第一个 Ember 例子中，HTML 可以通过名字来引用模块，而不是通过一个全局的构造函数。
 
     <!-- ember.js -->
     {{#view views/fancy-button}}
@@ -854,6 +947,8 @@ In the first Ember example, instead of referencing a globally rooted constructor
     {{/view}}
 
 And the module would look like:
+
+模块看起来约摸时这样的：
 
     // views/fancy-button.js
     import { View } from "ember";
@@ -864,12 +959,16 @@ And the module would look like:
 
 The second Angular example could be rewritten as:
 
+第二个 Angular 的例子可以改成这样：
+
     <!-- angular -->
     <div ng-controller="controllers/todo">
       <span>{{remaining()}} of {{todos.length}} remaining</span>
     </div>
 
 And the JavaScript:
+
+JavaScript：
 
     // controllers/todo.js
 
@@ -878,6 +977,8 @@ And the JavaScript:
     }
 
 The general pattern is to switch from globally rooted namespaces to named, registered modules. System.get provides a way to dynamically look up already loaded modules.
+
+上面的模式都是从全局命名空间切换到具名注册的模块。`System.get` 提供了一种方式来动态地查询已经加载好了的模块。
 
 ## Creating Modules from HTML
 
