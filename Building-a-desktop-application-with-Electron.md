@@ -1,12 +1,12 @@
 原文链接：[Building a desktop application with Electron](https://medium.com/developers-writing/building-a-desktop-application-with-electron-204203eeb658)
 。
-> 译者注：译者预计在本周末使用**新Mac**实践本教程，所以周末之前如果各位发现教程有任何问题，译者也是不知道要如何修正的QAQ。但是等译者实践之后，可能会些许更改此译文。
+> 译者注：译者尚未实践本教程，预计将在本周末使用**新Mac**实践。若在此之前有朋友踩坑，请通知译者，译者将在实践后更改之。
 
 # Building a desktop application with Electron
 # 使用 Electron 构建桌面应用
 
 ## A detailed guide on building your very own sound machine using JavaScript, Node.js and Electron
-## 使用 JavaScript、Node.js 和 Electron 创造专属于你的声音机器
+## 使用 JavaScript、Node.js 和 Electron 创造专属于你的声效器
 
 ### The how and what of JavaScript desktop applications
 ### JavaScript 桌面应用是什么
@@ -73,43 +73,38 @@ Let’s get started with a traditional greeting and install all the necessary pr
 This guide is accompanied by the sound-machine-tutorial repository.
 Use the repository to follow along or continue at certain points. Clone the repository to get started:
 
-这篇教程使用了一个声音机器教程 repo，请使用下面的命令将它克隆到本地：
+这篇教程是基于一个声效器教程的 [github 仓库](https://github.com/bojzi/sound-machine-electron-guide)，请使用下面的命令将它克隆到本地：
 
 ```bash
 git clone https://github.com/bojzi/sound-machine-electron-guide.git
 ```
 
 and then you can jump to a git tag in the sound-machine-tutorial folder with:
-
-接着，你可以看看这个 repo 中有哪些 tag：
+然后查看一下，你可以看看这个仓库中有哪些 tag：
 
 ```bash
 git checkout <tag-name>
 ```
 
 I’ll let you know when a tag is available with a code block:
-
-我将会告诉你在什么时候使用哪个 tag：
+我们将跟随这些 tag 将声效器一步步构建出来：
 
 ```bash
-Follow along:
 git checkout 00-blank-repository
 ```
 
 Once you clone/checkout your desired tag, run:
-当你 checkout 了想要的 tag，执行：
+拉取（checkout）目标 tag 之后，执行：
 
 ```bash
 npm install
 ```
 
 so that you aren’t missing any Node modules.
-
-这样你就不会错过任何 Node 模块了：
+这么做能保证项目所依赖的 Node 模块都会被拉取。
 
 If you can’t switch to another tag, it would be easiest to just reset your repository state and then do the checkout:
-
-如果你无法切换到某一个 tag，最简单的解决方式就是重置你的 repo 的状态，然后再 checkout：
+如果你无法切换到某一个 tag，最简单的解决方式就是重置仓库，然后再 checkout：
 
 ```bash
 git add -A
@@ -119,14 +114,15 @@ git reset --hard
 #### Set up shop
 #### 开工
 
-```bash
 Follow along with the tag 00-blank-repository:
+*先把 tag 为 ‘00-blank-repository’ 拉取下拉：*
+
+```bash
 git checkout 00-blank-repository
 ```
 
 In the project folder create a new package.json file in it with the following contents:
-
-在项目文件夹中创建有以下内容 package.json 文件：
+在项目文件夹中创建一个 *package.json* 文件，并在文件中加入以下内容：
 
 ```json
 {
@@ -139,45 +135,40 @@ In the project folder create a new package.json file in it with the following co
 }
 ```
 This barebones package.json:
-
-这个 package.json 的作用是：
+这个* package.json *的作用是：
 
 + sets up the name and version of the application,
 + 确定应用的名字和版本号，
 + lets Electron know which script the main process is going to run (main.js) and
-+ 告诉 Electron 哪个脚本是主线程的入口，
++ 告诉 Electron *main.js* 是* main process *的入口，
 + sets up a useful shortcut — an npm script to run the application easily by running “npm start” in your CLI (terminal or command prompt).
-+ 准备一个好用的快捷键 - 在 CLI （终端或者命令行）中执行 ```npm start``` 即可完成依赖安装。
++ 定义启动口令 - 在 CLI （终端或者命令行）中执行 ```npm start``` 即可完成依赖安装。
 
 It’s time to get Electron. The easiest way of accomplishing that is by installing a prebuilt binary for your operating system through npm and save it as a development dependency in your package.json (that happens automatically with --save-dev). Run the following in your CLI (in the project folder):
-
-好啦，说完这些东西之后，让我们快把 Electron 安装起来吧。最简单的安装方式应该是通过 npm 安装预编好的二进制文件，然后把它作为 development dependency 放在你的 package.json 中（安装时带上 ```--save-dev``` 参数即可自动写入依赖）。在 CLI 中进入项目目录，执行下面的命令：
+现在快把* Electron *安装上吧。最简单的安装方式应该是通过* npm *安装预构建好的二进制文件，然后把它作为开发依赖（development dependency）写入 package.json 中（安装时带上 ```--save-dev``` 参数即可自动写入依赖）。在 CLI 中进入项目目录，执行下面的命令：
 
 ```bash
 npm install --save-dev electron-prebuilt
 ```
 
 The prebuilt binary is tailored to the operating system it’s being installed on and allows the running of “npm start”. We’re installing it as a development dependency because we will only need it during development.
-
-预编的二进制文件是根据操作系统不同而不同的，允许执行 ```npm start```。我们之所以以 ```development dependency``` 的方式使用它是因为在项目构建中只有在开发阶段才会使用到 Electron。
+预构建的二进制文件会根据操作系统不同而不同的，通过执行 ```npm start``` 安装。我们以开发依赖的方式使用它，是因为在项目构建中只有在开发阶段才会使用到 Electron。
 
 That’s, more or less, everything you need to start developing with Electron.
-
-以上，就是本次 Electron 教程所需要的全部东西了。
+以上，就是本次* Electron *教程所需要的全部东西了。
 
 #### Greeting the world
-#### 向世界问好
+#### 对世界说 Hi
 
 Create an app folder and an index.html file in that folder with the following contents:
-创建一个 app 目录，在目录中新建 index.html 文件：
+创建一个** app **文件夹，在文件夹中新建* index.html *文件，并写入以下内容：
 
 ```html
 <h1>Hello, world!</h1>
 ```
 
 In the root of the project create a main.js file. That’s the file that Electron’s main process is going to spin up and allow the creation of our “Hello, world!” web page. Create the file with the following contents:
-
-在根目录创建 main.js 文件。Electron 主线程的入口是这个 JS 文件，然后 “Hello world!” 页面也通过它显示出来：
+在项目的根目录创建* main.js *文件。Electron 主线程的入口是这个 JS 文件，然后 “Hello world!” 页面也通过它显示出来：
 
 ```javascript
 'use strict';
@@ -198,95 +189,91 @@ app.on('ready', function() {
 ```
 
 Nothing scary, right?
-
-看起来也不难，对吧？
+看起来并不难吧？
 
 The app module controls your application lifecycle (for example — reacting to the ready state of your application).
-
-```app``` 模块控制着应用的生命周期（比如，当应用进入 ready 状态的时候要采取什么行动）
+```app``` 模块控制着应用的生命周期（比如，当应用进入准备状态（ready status）的时候要采取什么行动）。
 
 The BrowserWindow module allows window creation.
 ```BrowserWindow``` 模块控制窗口的创建。
 
 The mainWindow object is going to be your main application window and is declared as null because the window would otherwise be closed once JavaScripts garbage collection kicks in.
-```mainWindow``` 对象就是你的应用窗口的主界面，它被定义成 null 因为当 JavaScript 垃圾回收机制被触发时窗口会被关闭。
+```mainWindow``` 对象就是你的应用窗口的主界面，当 JavaScript 垃圾回收机制被触发时窗口就会被关闭，此时该对象的值是``` null ```。
 
 Once app gets the ready event, we create a new 800 pixels wide and 600 pixels high window using BrowserWindow.
-
-当 ```app``` 获取到 ```ready``` 事件，我们可以通过 BrowserWindow 创建一个新的 800x600 窗口。
+当 ```app``` 获取到 ```ready``` 事件后，我们通过``` BrowserWindow ```创建一个 800x600 窗口。
 
 That window’s renderer process is going to render our index.html file.
-
 这个 window 的渲染器线程将会渲染 index.html 文件。
 
 Run our “Hello, World!” application by running the following in your CLI:
-
-执行下面这行代码，看看我们的 “Hello, World!” 应用是什么样的：
+执行下面这行代码，看看我们的应用是什么样的：
 
 ```bash
 npm start
 ```
 
 and bask in the glory that is your app.
-
 现在沐浴在这个 app 的圣光中吧。
+![](images/Electron/hello-world.png)
 
 ### Developing a real application
 ### 开发一个真正的应用
 
 #### A glorious sound machine
-#### 华丽丽的声音机器
+#### 华丽丽的声效器
 
 First things first — what’s a sound machine?
-首先要问一个问题：什么是声音机器？
+开始之前，我要问个问题：什么是声效器？
 
 A sound machine is a little device that makes sounds when you press various buttons, mostly cartoon or reaction sounds. It’s a funny little tool to lighten up the mood in an office and a great use case to develop a desktop application as we’re going to explore quite a few concepts while developing it (and get a nifty sound machine to boot).
+声效器是一个小设备，当你按下不同按键的时候，它会发出不同声音，比如卡通音或者效果音。在办公室里听到这样有趣的声音，好像整个人都明亮起来了呢。用这个例子作为探索如何使用 Electron 是个很棒的主意。
 
-声音机器就是一个小设备，当你按下不同按键的时候，它会发出不同声音，通常都是卡通音或者反应声。在办公室里听到这样有趣的声音，好像一整天都明亮起来了呢。它作为我们探索如何使用 Electron 是个很棒的例子。
+![](images/Electron/sound-machine.png)
 
 The features we’re going to build and concepts we’re going to explore are:
-
-具体来说，我们将会实现以下功能并涉及到以下知识：
+具体来说，我们将会实现以下功能，并涉及到以下知识：
 
 + basic sound machine (basic browser window instantiation),
-+ 声音机器的基础（实例化浏览器窗口），
++ 声效器的基础（实例化浏览器窗口），
 + closing the sound machine (remote messages between main and renderer process),
-+ 关闭声音机器（主线程和渲染器线程之间的通信），
++ 关闭声效器（主进程和渲染器进程之间的通信），
 + playing sounds without having the application in focus (global keyboard shortcuts),
 + 随时播放声音（全局快捷键），
 + creating a settings screen for shortcut modifier keys (Shift, Ctrl and Alt) (storing user settings in home folder),
-+ 创建一个快捷键设置页面（Shift、Ctrl 和 Alt）（并将用户设置保存在 ```home``` 目录下），
++ 创建一个快捷修饰键（修饰键，modifier keys， 指的是 Shift、Ctrl 和 Alt 键）设置页面（并将用户设置保存在主目录下），
 + adding a tray icon (remotely creating native GUI elements and getting to know menus and tray icon) and
-+ 添加一个汉堡包导航图标（创建原生 GUI 元素、了解菜单的使用以及汉堡图标）,
++ 添加一个托盘图标（创建原生 GUI 元素、了解菜单和托盘图标的使用）,
 + packaging your application (packaging your application for Mac, Windows and Linux).
-+ 应用打包（打包到Mac、Windows 和 Linux 平台）。
++ 将应用打包到 Mac、Windows 和 Linux 平台。
 
 ### Building the basic feature of a sound machine
-### 实现声音机器的基本功能
+### 实现声效器的基本功能
 
 #### Starting point and application organisation
-#### 起点和应用结构
+#### 开始构建以及应用的结构
 
 With a working “Hello, world!” application under your belt, it’s high time to start building a sound machine.
-现在你已经开发了一个 "Hello World!"，现在该开始做我们的声音机器了。
+在开发过 "Hello World" 应用之后，现在可以着手制做我们的声效器了。
 
 A typical sound machine features several rows of buttons which respond to presses by making sounds. The sounds are mostly cartoonish and/or reaction based (laughter, clapping, glass breaking, etc.).
-一个典型的声音机器的特点是它有很多按钮，你需要按下它们才能让这个机器发出声音。它发出的声音通常是拟声词（比如笑声、掌声、打碎玻璃的声音等等）。
+一个典型的声效器会有很多的按钮，你需要按下那些按钮才能让机器发声，通常会是拟声词（比如笑声、掌声、打碎玻璃的声音等等）。
 
 That’s also the very first feature we’ll build — a basic sound machine that responds to clicks.
-响应点击 -- 这也是我们要做的第一件事情。
+响应点击 -- 这是我们要做的第一件事情。
 
 Our application structure is going to be very straightforward.
 我们的应用结构非常简单直白。
+![](images/Electron/proj-archtecture.png)
 
 In the root of the application we’ll keep the package.json file, the main.js file and any other application-wide files we need.
-在应用的根目录中，要有一个 package.json、main.js 和其他全局所需的应用文件。
+在应用的**根目录**中，要有一个* package.json*、*main.js *和其他全局所需的应用文件。
 
 The app folder will house our HTML files of various types within folders like css, js, wav and img.
-app/ 目录中要包含 HTML 文件、CSS、JS、wav 还有图片。
+**app/ **目录中要包含 HTML 文件、**CSS **目录、**JS **目录、**wav **目录还有图片目录。
 
 To make things easier, all the files needed for web page design have already been included in the initial state of the repository. Please check the tag 01-start-project out. If you followed along and created the “Hello, world!” application, you’ll have to reset your repository and then do the checkout:
-为了让事情简单一点，所有和网页设计相关的文件都已经在一开始就放在仓库中了。请在命令行中输入 ```git checkout 01-start-project```，教程看到现在，你可以输入以下命令，它会重置你的仓库：
+出于简化这个教程的目的，所有和网页设计相关的文件都已经在一开始就放在仓库中了。请在命令行中输入 ```git checkout 01-start-project``` 获取。现在，请你可以输入以下命令，重置你的仓库并拉取新的 tag：
 
 ```bash
 If you followed along with the "Hello, world!" example:
@@ -297,14 +284,13 @@ git checkout 01-start-project
 ```
 
 To keep things simple, we’re going to have only two sounds but extending it to the full 16 sounds is simply a matter of finding extra sounds, extra icons and modifying index.html.
-
-出于简单易懂的初衷，我们只会使用两种声效，然后将它们扩展成16种效果，要达到这个目的只要更改 index.html 然后找一些别的音效和别的图标就可以。
+在本教程中，我们只使用两种声效，后面再找一些别的音效和图标，修改* index.js *就将它们扩展成有16种音效的声效器。
 
 #### Defining the rest of the main process
-#### 定义主进程的其他部分
+#### main process 的其他内容
 
 Let’s revisit main.js to define the look of the sound machine. Replace the contents of the file with:
-让我们找到 main.js 中定义声音机器外形的部分，用下面这段替换：
+首先找到* main.js *中定义声效器外形的部分，用下面这段替换掉：
 
 ```javascript
 'use strict';
@@ -327,14 +313,13 @@ app.on('ready', function() {
 ```
 
 We’re customising the window we’re creating by giving it a dimension, making it non-resizable and frameless. It’s going to look like a real sound machine hovering on your desktop.
-当我们给窗口赋上维度的时候，我们就是在自定义这个窗口，使得它不可拉伸没有框架，让它看起来就像一个真正的声音机器浮在桌面上。
+当窗口被定义了大小，我们也就是在自定义这个窗口，使得它不可拉伸没有框架，让它看起来就像一个真正的声效器浮在桌面上。
 
 The question now is — how to move a frameless window (with no title bar) and close it?
 现在问题来了 -- 要如何移动或者关闭一个没有标题栏的窗口。
 
 I’ll talk about custom window (and application) closing very soon (and introduce a way of communicating between the main process and a renderer process), but the dragging part is easy. If you look at the index.css file (in app/css), you’ll see the following:
-很快我就会说到自定义窗口（和应用）的关闭，还会谈到如何在主进程和渲染器进程中通信
-
+很快我就会说到自定义窗口（和应用）的关闭动作，还会谈到如何在主进程和渲染器进程中通信。不过现在让我们先把目光聚焦到“拖拽效果”上。你可以在** app/css **目录下找到* index.css *文件：
 
 ```css
 html,
@@ -346,7 +331,7 @@ body {
 ```
 
 -webkit-app-region: drag; allows the whole html to be a draggable object. There is a problem now, though — you can’t click buttons on a draggable object. The other piece of the puzzle is -webkit-app-region: no-drag; which allows you to define undraggable (and thus clickable elements). Consider the following excerpt from index.css:
-``` -webkit-app-region: drag; ``` 把整个 html 变成了一个可拖拽的对象。现在就来了一个问题，在可拖拽的对象上你怎么点击啊？！还有一个迷就是如果设置``` -webkit-app-region: no-drag; ```，那就允许 html 定义成不可拖拽（当然也可以点击了）。让我们想想下面这段 index.css 片段：
+``` -webkit-app-region: drag; ```把整个 html 都变成了一个可拖拽的对象。现在问题来了，在可拖拽的对象上你怎么点击啊？！好的，可能你会想到把 html 中某个部分的这个属性值设置为``` no-drag; ```，那就允许该元素不可拖拽（但可以点击了）。让我们想想下面这段 index.css 片段：
 
 ```css
 .button-sound {
@@ -356,13 +341,13 @@ body {
 ```
 
 #### Displaying the sound machine in its own window
-#### 展示声音机器
+#### 展示声效器
 
 The main.js file can now make a new window and display the sound machine. And really, if you start your application with npm start, you’ll see the sound machine come alive. It’s not a surprise that nothing’s happening right now because we just have a static web page.
-main.js 文件现在可以创建一个新窗口，并在窗口中显示出声音机器的界面。如果你是通过``` npm start ```开始你的应用，你将会看到一个可以动的声音机器。因为我们就是从一个静态页面开始，所以现在你看到的也是不会动的页面：
+现在通过* main.js *文件可以创建一个新窗口，并在窗口中显示出声效器的界面。如果通过``` npm start ```启动应用，你将会看到一个有动态效果的声效器。因为我们就是从一个静态页面开始，所以现在你看到的也是不会动的页面：
 
 Put the following in the index.js file (located in app/js) to get the interactivity going:
-将下面这段代码保存为 index.js 文件（位置在 app/js 目录下），运行后，声音机器就能动了：
+将下面这段代码保存到* index.js *文件中（位置在 app/js 目录下），运行后应用后，你会发现可以与声效器交互了：
 
 ```javascript
 'use strict';
@@ -388,7 +373,7 @@ function prepareButton(buttonEl, soundName) {
 ```
 
 This code is pretty simple. We:
-以上代码看起来很简单：
+通过上面这段代码，我们：
 
 + query for the sound buttons,
 + 获取声音按钮，
@@ -397,36 +382,42 @@ This code is pretty simple. We:
 + add a background image to each button
 + 给每个按钮加上背景图，
 + and add a click event to each button that plays audio (using the HTMLAudioElement interface)
-+ 通过 HTMLAudioElement 接口给每个按钮都添加一个点击事件，播放音频，
-+ Test your application by running the following in your CLI:
-+ 通过下面这行命令运行你的应用吧：
++ 通过 [HTMLAudioElement 接口](https://developer.mozilla.org/en/docs/Web/API/HTMLAudioElement)给每个按钮都添加一个点击事件，使之可以播放音频，
+
+Test your application by running the following in your CLI:
+通过下面这行命令运行你的应用吧：
 
 ```bash
 npm start
 ```
+![](images/Electron/working-sound-machined.png)
 
 ### Closing the application from a browser window via remote events
 ### 通过远程事件从浏览窗口中关闭应用
 
-```bash
 Follow along with the tag 02-basic-sound-machine:
+接着拉取``` 02-basic-sound-machine ```的内容：
+
+```bash
 git checkout 02-basic-sound-machine
 ```
 
 To recap — application windows (more exactly their renderer process) shouldn’t be interacting with the GUI (and that’s what closing a window is). The official Electron quick start guide says:
-简单来说 - 应用窗口（渲染器进程）不应该和 GUI 发生交互（也就是不应该和“关闭窗口”有关联），Electron 的官方教程上说了：
+简单来说 - 应用窗口（渲染器进程）不应该和 GUI 发生交互（也就是不应该和“关闭窗口”有关联），[Electron 的官方教程](https://github.com/atom/electron/blob/master/docs/tutorial/quick-start.md)上说了：
 
 > In web pages, it is not allowed to call native GUI related APIs because managing native GUI resources in web pages is very dangerous and it is easy to leak resources. If you want to perform GUI operations in a web page, the renderer process of the web page must communicate with the main process to request the main process perform those operations.
-> 考虑到在网页中直接调用原生的 GUI 是一件很危险的事情，容易造成资源溢出，所以不允许这么使用。如果开发者想要在网页上执行 GUI 操作，必须要通过渲染器进程和主进程的通信实现。
+> 考虑到在网页中直接调用原生的 GUI 容易造成资源溢出，这很危险，开发者不能这么使用。如果开发者想要在网页上执行 GUI 操作，必须要通过渲染器进程和主进程的通信实现。
 
 Electron provides the ipc (inter-process communication) module for that type of communication. ipc allows subscribing to messages on a channel and sending messages to subscribers of a channel. A channel is used to differentiate between receivers of messages and is represented by a string (for example “channel-1”, “channel-2”…). The message can also contain data. Upon receiving a message, the subscriber can react by doing some work and can even answer. The biggest benefit of messaging is separation of concerns — the main process doesn’t have to know which renderer processes there are or which one sent a message.
-Electron 为以上场景提供了 ipc （跨进程通信）模块，ipc 模块允许接受和发送通信频道的信息。频道由字符串表示（比如“channel-1”，“channel-2”这样）可以用于区分不同的信息接收者。传递的信息中也可以包含数据。根据接收到的信息，订阅者可以做出响应。信息传递的最大好处就是做到分离责任 -- 主进程不需要知道是那些渲染器进程发送了信息。
+Electron 为主进程和渲染器进程提供了 ipc （跨进程通信）模块，ipc 模块允许接收和发送通信频道的信息。频道由字符串表示（比如“channel-1”，“channel-2”这样），可以用于区分不同的信息接收者。传递的信息中也可以包含数据。根据接收到的信息，订阅者可以做出响应。信息传递的最大好处就是做到分离任务 -- 主进程不需要知道是哪些渲染器进程发送了信息。
+
+![](images/Electron/ipc.png)
 
 That’s exactly what we’ll do here — subscribe the main process (main.js) to the “close-main-window” channel and send a message on that channel from the renderer process (index.js) when someone clicks the close button.
-这正是我们想要做的 -- 将主进程（main.js）订阅到“关闭主窗口”频道中，当用户点击关闭按钮试，从渲染器进程（index.js）向该频道发送信息。
+这正是我们想要做的 -- 将主进程（*main.js*）订阅到“关闭主窗口”频道中，当用户点击关闭按钮时，从渲染器进程（index.js）向该频道发送信息。
 
 Add the following to main.js to subscribe to a channel:
-将下面的代码添加到 main.js 中：
+将下面的代码实现了频道订阅，将它添加到* main.js *中：
 
 ```javascript
 var ipc = require('ipc');
@@ -437,10 +428,10 @@ ipc.on('close-main-window', function () {
 ```
 
 After requiring the module, subscribing to messages on a channel is very easy and involves using the on() method with the channel name and a callback function.
-把 ipc 模块包含进来之后，从频道中订阅信息就非常简单了，通过 ```on()``` 方法和频道名称，再加上一个回调函数就行了。
+把 ipc 模块包含进来之后，从频道中订阅信息就非常简单了：过 ```on()``` 方法和频道名称，再加上一个回调函数就行了。
 
 To send a message on that channel, add the following to index.js:
-要像该频道发送信息，就要把下面的代码加入 index.js 中:
+要向该频道发送信息，就要把下面的代码加入* index.js *中:
 
 ```javascript
 var ipc = require('ipc');
@@ -452,10 +443,10 @@ closeEl.addEventListener('click', function () {
 ```
 
 Again, we require the ipc module and bind a click event to the element with the close button. On clicking the close button we send a message via the “close-main-window” channel with the send() method.
-我们依然需要把 ipc 模块引入到文件中，给关闭按钮绑定点击时间。当点击了关闭按钮时，通过 ```send()``` 方法，我们会发送一条信息到“关闭主窗口”频道。
+我们依然需要把* ipc *模块引入到文件中，给关闭按钮绑定点击事件。当点击了关闭按钮时，通过 ```send()``` 方法发送一条信息到“关闭主窗口”频道。
 
 There’s one more detail that could bite you and we’ve talked about it already — the clickability of draggable areas. index.css has to define the close button as non-draggable.
-还有一个点搞不好会击中你，我们刚刚也说到了 -- 可拖拽区域的点击事件。需要在 ```index.css``` 中设置关闭按钮是不可拖拽的（non-draggable）。
+不要忘记在在 *index.css* 中将关闭按钮设置为不可拖拽：
 
 ```css
 .settings {
@@ -465,36 +456,39 @@ There’s one more detail that could bite you and we’ve talked about it alread
 ```
 
 That’s all, our application can now be closed via the close button. Communicating via ipc can get complicated by examining the event or passing arguments and we’ll see an example of passing arguments later.
-就这样，我们的应用现在可以通过关闭按钮关掉了。ipc 的通信可以通过事件和参数的传递变得很复杂，在后文中会有传递参数的例子。
+就这样，我们的应用现在可以通过按钮关掉了。* ipc *的通信可以通过事件和参数的传递变得很复杂，在后文中会有传递参数的例子。
 
 ### Playing sounds via global keyboard shortcuts
 ### 通过全局快捷键播放声音
 
-```bash
 Follow along with the tag 03-closable-sound-machine:
+拉取``` 03-closable-sound-machine ```：
+
+```bash
 git checkout 03-closable-sound-machine
 ```
 
 Our basic sound machine is working great. But we do have a usability issue — what use is a sound machine that has to sit in front of all your windows the whole time and be clicked repeatedly?
-声音机器的地基已经打的不错了。但是我们还面临着使用性的问题 -- 这个应用要始终保持在桌面最前方，且可以被重复点击。
+声效器的地基已经打的不错。但是我们还面临着使用性的问题 -- 这个应用要始终保持在桌面最前方，且可以被重复点击。
 
 This is where global keyboard shortcuts come in. Electron provides a global shortcut module which allows you to listen to custom keyboard combinations and react. The keyboard combinations are known as Accelerators and are string representations of a combination of keypresses (for example “Ctrl+Shift+1”).
-这就是全局快捷键要介入的地方。Electron 提供了全局快捷模块（global shortcut module）允许开发者捕获组合键并做出相应的反应。组合键可以提高使用效率，组合键以字符串的形式被记录下（比如 “Ctrl+Shift+1”）。
+这就是全局快捷键要介入的地方。Electron 提供了[全局快捷模块](https://github.com/atom/electron/blob/master/docs/api/global-shortcut.md)（global shortcut module）允许开发者捕获组合键并做出相应的反应。在 Eelctron 中组合键被称为[加速器](https://github.com/atom/electron/blob/master/docs/api/accelerator.md)，它以字符串的形式被记录下（比如 “Ctrl+Shift+1”）。
 
 Since we want to catch a native GUI event (global keyboard shortcut) and do an application window event (play a sound), we’ll use our trusted ipc module to send a message from the main process to the renderer process.
-因为我们想要捕获到原生的 GUI 事件（全局快捷键），并执行应用窗口时间（播放声音），我们将使用 ipc 模块从主进程发送信息到渲染器进程。
+因为我们想要捕获到原生的 GUI 事件（全局快捷键），并执行应用窗口事件（播放声音），我们将使用 ipc 模块从主进程发送信息到渲染器进程。
+![](images/Electron/shortcut.png)
 
 Before diving into the code, there are two things to consider:
 在看代码之前，还有两件事情要我们考虑：
 
 1. global shortcuts have to be registered after the app “ready” event (the code should be in that block) and
-1. 全局快捷键会在 app 的 'ready' 事件后被注册（相关代码片段要被包含在 'ready' 中）
+1. 全局快捷键会在* app *的``` ready ```事件被触发后注册（相关代码片段要被包含在 'ready' 中）
 2. when sending messages via ipc from the main process to a renderer process you have to use the reference to that window (something like “createdWindow.
 webContents.send(‘channel’))
-2. 通过 ipc 模块，你不得不使用 window 的引用（类似于 ```createdWindow.webContents.send(‘channel’)```）。
+2. 通过* ipc *模块从主进程向渲染器进程发送信息，你必须使用窗口对象的引用（类似于 ``` createdWindow.webContents.send(‘channel’) ```）。
 
 With that in mind, let’s alter our main.js and add the following code:
-记住上面的两点了吗？现在让我们来改写 main.js 吧：
+记住上面的两点了吗？现在让我们来改写* main.js *吧：
 
 ```javascript
 var globalShortcut = require('global-shortcut');
@@ -512,7 +506,7 @@ app.on('ready', function() {
 ```
 
 First, we require the global-shortcut module. Then, once our application is ready, we register two shortcuts — one that will respond to pressing Ctrl, Shift and 1 together and the other that will respond to pressing Ctrl, Shift and 2 together. Each of those will send a message on the “global-shortcut” channel with an argument. We’ll use that argument to play the correct sound. Add the following to index.js:
-首先，要先引入 ```global-shortcut``` 模块，当应用进入``` ready ```状态之时，我们将会注册两个快捷键 -- 'Ctrl+Shift+1' 和 'Ctrl+Shift+2'。这两个快捷键可以通过不同的参数向“全局快捷键”频道（ “global-shortcut” channel）发送信息。我们将会用那个参数播放正确的声音，将下面的代码加入 index.js 中：
+首先，要先引入 ```global-shortcut``` 模块，当应用进入``` ready ```状态之时，我们将会注册两个快捷键 -- 'Ctrl+Shift+1' 和 'Ctrl+Shift+2'。这两个快捷键可以通过不同的参数向“全局快捷键”频道（ *“global-shortcut”* channel）发送信息。通过参数匹配到到底要播放哪种声音，将下面的代码加入 index.js 中：
 
 ```javascript
 ipc.on('global-shortcut', function (arg) {
@@ -522,19 +516,21 @@ ipc.on('global-shortcut', function (arg) {
 ```
 
 To keep thing simple, we’re going to simulate a button click and use the soundButtons selector that we’ve created while binding buttons to playing sounds. Once a message comes with an argument of 1, we’ll take the soundButtons[1] element and trigger a mouse click on it (note: in a production application, you’d want to encapsulate the sound playing code and execute that).
-为了保证整个架构足够简单，我们将会用``` soundButtons ```选择器模拟按钮的点击播放声音。当发送的信息是“1”时，我们将会获取``` soundButtons[1] ```元素，触发鼠标点击事件（注意：在生成环境中的应用，你需要封装好播放声音的代码，然后执行它）。
+为了保证整个架构足够简单，我们将会用``` soundButtons ```选择器模拟按钮的点击播放声音。当发送的信息是“1”时，我们将会获取``` soundButtons[1] ```元素，触发鼠标点击事件（注意：在生产环境中的应用，你需要封装好播放声音的代码，然后执行它）。
 
 
 ### Configuring modifier keys via user settings in a new window
 ### 在新窗口中通过用户设置配置 modifier keys
 
-```bash
 Follow along with the tag 04-global-shortcuts-bound:
+下面请拉取``` 04-global-shortcuts-bound ```：
+
+```bash
 git checkout 04-global-shortcuts-bound
 ```
 
 With so many applications running at the same time, it could very well be that the shortcuts we’ve envisioned are already taken. That’s why we’re going to introduce a settings screen and store which modifiers (Ctrl, Alt and/or Shift) we’re going to use.
-通常我们都会同时运行好多个应用，我们设置的快捷键很可能已经被占用了。这正是我们要引入设置界面，允许用户更改快捷键的原因（Ctrl、Alt 和 Shift）。
+通常我们会同时运行好多个应用，声效器中设置的快捷键很可能已经被占用了。所以现在要引入一个设置界面，允许用户更改修饰键（modifier keys）的原因（Ctrl、Alt 和 Shift）。
 
 To accomplish all of that, we’ll need the following:
 要完成这一个功能，我们需要做下面这些事情：
@@ -542,11 +538,11 @@ To accomplish all of that, we’ll need the following:
 + a settings button in our main window,
 + 在主界面上添加设置按钮，
 + a settings window (with accompanying HTML, CSS and JavaScript files),
-+ 设置窗口（设置页面上有对应的HTML、CSS 和 JS）
++ 实现一个设置窗口（设置页面上有对应的HTML、CSS 和 JS），
 + ipc messages to open and close the settings window and update our global shortcuts and
-+ 开启和关闭设置窗口，以及更新全局快界面的 ipc 信息，
++ 开启和关闭设置窗口，以及更新全局快捷键的* ipc *信息，
 + storing/reading of a settings JSON file from the user system.
-+ 从用户的系统中读写存储设置的 JSON 文件。
++ 从用户的系统中读写存储设置信息的 JSON 文件。
 
 Phew, that’s quite a list.
 piu~ 以上就是我们要做的。
@@ -555,8 +551,7 @@ piu~ 以上就是我们要做的。
 #### 设置按钮和设置窗口
 
 Similar to closing the main window, we’re going to send messages on a channel from index.js when the settings button gets clicked. Add the following to index.js:
-和关闭主窗口类似，我们将会在 index.js 中加入发送给频道的信息：
-
+和关闭主窗口类似，我们将会把事件绑定到设置按钮上，（```settings button```），在* index.js *中加入发送给频道的信息：
 
 ```javascript
 var settingsEl = document.querySelector('.settings');
@@ -566,7 +561,7 @@ settingsEl.addEventListener('click', function () {
 ```
 
 After clicking the settings button, a message on the channel “open-settings-window” gets sent. main.js can now react to that event and open up the new window. Add the following to main.js:
-当点击了设置按钮，将会有一条信息向“打开设置窗口”这个频道发送。main.js 可以响应这个事件并打开一个新窗口，将以下代码加入 main.js中：
+当点击了设置按钮，将会有一条信息向“打开设置窗口”这个频道发送。* main.js *可以响应这个事件，并打开一个新窗口，将以下代码加入* main.js *中：
 
 ```javascript
 var settingsWindow = null;
@@ -592,10 +587,10 @@ ipc.on('open-settings-window', function () {
 ```
 
 Nothing new to see here, we’re opening up a new window just like we did with the main window. The only difference is that we’re checking if the settings window is already open so that we don’t open up two instances.
-这一步里并没有什么新鲜事，和刚刚在主窗口中一样，在这里我们将会打开一个新的窗口。唯一的不同点就是，为了防止实例化两个一样的对象，我们将会检查设置窗口是否已经被打开了。
+这一步和之前的类似，我们将会打开一个新的窗口。唯一的不同点就是，为了防止实例化两个一样的对象，我们将会检查设置窗口是否已经被打开了。
 
 Once that works, we need a way of closing that settings window. Again, we’ll send a message on a channel, but this time from settings.js (as that is where the settings close button is located). Create (or replace the contents of) settings.js with the following:
-当上述代码成功执行之后，我们需要再添加一个关闭设置窗口的动作。类似的，我们需要向频道中发送一条信息，但是这次是从 settings.js 中发送了（关闭按钮的事件是在 settings.js 中）。新建 settings.js 文件，并添加以下代码（如果已经有了 settings.js，就直接在原文件中添加）：
+当上述代码成功执行之后，我们需要再添加一个关闭设置窗口的动作。类似的，我们需要向频道中发送一条信息，但这次是从* settings.js *中发送（关闭按钮的事件是在* settings.js *中）。新建* settings.js *文件，并添加以下代码（如果已经有该文件，就直接在原文件中添加）：
 
 ```javascript
 'use strict';
@@ -619,12 +614,15 @@ ipc.on('close-settings-window', function () {
 ```
 
 Our settings window is now ready to implement its own logic.
-现在我们的设置窗口已经可以实现我们的逻辑了。
+现在，设置窗口已经可以实现我们的逻辑了。
 
 #### Storing and reading user settings
+#### 读写用户设置
+
+Follow along with the tag 05-settings-window-working:
+执行``` 05-settings-window-working ```：
 
 ```bash
-Follow along with the tag 05-settings-window-working:
 git checkout 05-settings-window-working
 ```
 
@@ -946,7 +944,7 @@ The package command starts the electron-packager, looks in the current directory
 打包命令启动了 electron-packager，在当前目录中查看项目，在 Desktop 目录中构建。如果你使用的是 Windows，脚本内容需要一些细微的更新。
 
 The sound machine in its current state ends up weighing a whopping 100 MB. Don’t worry, once you archive it (zip or an archive type of your choice), it’ll lose more than half its size.
-声音机器目前是 100MB 大小，不要担心，当你压缩它之后，所占空间会减半。
+声效器目前是 100MB 大小，不要担心，当你压缩它之后，所占空间会减半。
 
 If you really want to go to town, take a look at electron-builder which takes the packages produced by electron-packager and creates automated installers.
 如果你对此还有更大的计划，可以看看 electron-builder，它是根据 electron-packager 构建出的应用打包再做自动安装的处理。
@@ -976,7 +974,7 @@ Here are some ideas:
 + 结合上文提到的 node-notifier 和一个服务器端的调用，通知用户是否需要更新版本……
 
 For a nice challenge — try extracting your Sound machine browser windows logic and using something like browserify to create a web page with the same sound machine you’ve just created. One code base — two products (desktop application and web application). Nifty!
-还有一个值得一试的东西 -- 将代码中关于浏览器窗口的逻辑抽离出来，通过类似 browserify 的工具创建一个和声音机器一样的网页。一份代码，两个产品（桌面端和 Web 引用）。酷毙了！
+还有一个值得一试的东西 -- 将代码中关于浏览器窗口的逻辑抽离出来，通过类似 browserify 的工具创建一个和声效器一样的网页。一份代码，两个产品（桌面端和 Web 引用）。酷毙了！
 
 ### Diving deeper into Electron
 ### 更深入研究 Electron
