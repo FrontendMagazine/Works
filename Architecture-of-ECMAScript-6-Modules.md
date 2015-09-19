@@ -16,11 +16,11 @@ For those unfamiliar with the current ES6 module proposal, here is some terminol
 4	module instance object: an instance of the Module constructor that represents a module. Its property names and values come from the module's exports.
 5	Loader: an object that defines how modules are fetched, translated, and compiled into a module instance object. Each JavaScript environment (the browser, node.js) defines a default Loader that defines the semantics for that environment.
 
-1. module：一个代码单元，有若干的 import 和 export
-2. export：一个 module 可以通过具名的方式输出一个值
-3. imports：一个 module 可以通过名字导入一个由其他模块输入的值
-4. module 实例对象：一个 Module 构造器的实例化对象，作为模块的代表。这个对象的属性名来自于 module 的 exports
-5. Loader：也是一个对象，定义该如何获取 module，将其转换、编译成一个 module 实例对象。每个 JavaScript 环境（浏览器、Node.js）都设计了一个默认的 Loader，为各自的环境定义 module 的语义。
+1. *module*：一个代码单元，有若干的 *import* 和 *export*
+2. *export*：一个 module 可以通过具名的方式 `export` 一个值
+3. *imports*：一个 module 可以通过名字 `import` 一个由其他模块输入的值
+4. *module 实例对象*：一个 `Module` 构造器的实例化对象，作为模块的代表。这个对象的属性名来自于 module 的 exports
+5. *Loader*：也是一个对象，定义该如何获取 module，将其转换、编译成一个 *module 实例对象*。每个 JavaScript 环境（浏览器、Node.js）都设计了一个默认的 Loader，为各自的环境定义 module 的语义。
 
 ## Imports and Exports
 
@@ -69,7 +69,7 @@ When working with a module with a large number of exports, you may want to avoid
 
 For example, consider an API like Node.js fs module. This module has a large number of exports, like rename, chown, chmod, stat and others. With the ES6 module API, it is possible to bring in the module as a single top-level name that contains all of the module's exports.
 
-例如，比如像 Node.js `fs` 这样的模块，有很多的 export，比如 `rename`、`chown`、`chmod` 和 `stat` 等等。通过 ES6 module 的 API，也可以把这个模块所有的 export 包含到一个顶级的具名变量中。
+例如，比如像 [Node.js `fs` 这样的模块](http://nodejs.org/api/fs.html)，有很多的 export，比如 `rename`、`chown`、`chmod` 和 `stat` 等等。通过 ES6 module 的 API，也可以把这个模块所有的 export 包含到一个顶级的具名变量中。
 
     import "fs" as fs;
 
@@ -163,7 +163,7 @@ Here is a high-level overview of the process.
 
 The dotted line between fetch and translate reflects the fact that process of retrieving the source is asynchronous.
 
-在 `fetch` 和 `translate` 之间的虚线箭头，表示通过异步的过程获取源码。
+在 **fetch** 和 **translate** 之间的虚线箭头，表示通过异步的过程获取源码。
 
 ## Stricter Mode (Linting)
 
@@ -210,7 +210,7 @@ If the linter returns errors, the translate hook raises a SyntaxError and the Lo
 Increasingly, modules are written using languages that compile to JavaScript.
 The translate hook provides a way to translate source code to JavaScript before it is loaded as a module.
 
-现在越来越多的模块使用编译为 JavaScript 的语言编写。利用 translate hook 可以在模块被加载之前将源代码编译为 JavaScript。
+现在越来越多的模块使用编译为 JavaScript 的语言编写。利用 `translate` hook 可以在模块被加载之前将源代码编译为 JavaScript。
 
     System.translate = function(source, options) {
       if (!options.path.match(/\.coffee$/)) { return; }
@@ -230,7 +230,7 @@ In this example, any modules ending in .coffee will be translated from CoffeeScr
 
 Some other compilers, like TypeScript and restrict mode perform both compile-time verification and source translation.
 
-还有其它一些编译器，比如 TypeScript 和 Restrict Mode 即包含编译时验证和源码转译。
+还有其它一些编译器，比如 [**TypeScript**](http://typescript.codeplex.com/) 和 [Restrict Mode](http://restrictmode.org/) 即包含编译时验证和源码转译。
 
 The above techniques could be combined to produce seamless in-browser support for such libraries.
 
@@ -242,7 +242,7 @@ The above techniques could be combined to produce seamless in-browser support fo
 
 The existing jQuery library is distributed as a library that "exports" the jQuery name onto the global object.
 
-现存的一些类库，比如 jQuery，将 `jQuery` 变量输出到全局对象上。
+现存的一些类库，比如 jQuery，将 `jQuery` 变量 export 到全局对象上。
 
 It should be possible to import existing libraries without having to modify the original source, like this:
 
@@ -256,11 +256,11 @@ It should be possible to import existing libraries without having to modify the 
 
 The final hook in the process, link can be used to manually process a source file into a Module object.
 
-编译流程中的最后一步，`link` 可以手动地把源码文件处理成一个 Module 对象。
+编译流程中的最后一步，**link** 可以手动地把源码文件处理成一个 Module 对象。
 
 In this case, we could configure the Loader to extract all properties written to window.
 
-在这样的场景中，我门可以配置 Loader，把本来要写入到 window 上到属性都提取出来。
+在这样的场景中，我门可以配置 Loader，把本来要写入到 `window` 上到属性都提取出来。
 
     function extractExports(loader, original) {
       source =
@@ -284,7 +284,7 @@ In this case, we could configure the Loader to extract all properties written to
 
 In order to make it easy for the link hook to decide whether it should use custom linking logic, the resolve hook can provide metadata for the module that will be passed to the following hooks.
 
-为了让 `link` 决定是否适用自定义的 link 逻辑，`resolve` hook 应当为后面的 hook 提供模块的元信息（metadata）。
+为了让 **link** 决定是否适用自定义的 link 逻辑，`resolve` hook 应当为后面的 hook 提供模块的元信息（metadata）。
 
 In this case, you can keep a list of which modules are "legacy" and populate the metadata with that information in resolve:
 
@@ -433,11 +433,11 @@ The approach to importing node modules from ES6 modules is similar. Consider a n
 
 To import from all three of these external module systems together, you would write a resolve hook that would store off the type of module in the context, and then use that information to evaluate the source appropriately in the link hook.
 
-为了兼容不同的模块系统，我们需要编写 resolove hook，在执行过程中获取模块的类型，然后在 link hook 中利用这些信息来处理模块源码。
+为了兼容不同的模块系统，我们需要编写 resolove hook，在执行过程中获取模块的类型，然后在 `link` hook 中利用这些信息来处理模块源码。
 
 To make this process easier, a JavaScript library like require.js, built for the ES6 loader, could provide conveniences for registering the type of external modules and assimilation code for link.
 
-为了简化这个过程，需要一个像 require.js 这样的 JavaScript 类库，为 ES6 Loader 而生，可以提供注册其他类型模块的便利，并在 link 阶段对代码进行融合。
+为了简化这个过程，需要一个像 `require.js` 这样的 JavaScript 类库，为 ES6 Loader 而生，可以提供注册其他类型模块的便利，并在 `link` 阶段对代码进行融合。
 
 ## Import a "Single Export" From a Non-ES6 Module
 
@@ -524,7 +524,7 @@ One major benefit of the above approaches to importing non-ES6 modules is that i
 
 This means that it's easy to support require in a node module: just alias it to System.get.
 
-也就是说其实我们可以很容易的支持在 node 模块中的 require，只需要给 `System.get` 起一个别名即可：
+也就是说其实我们可以很容易的支持在 node 模块中的 `require `，只需要给 `System.get` 起一个别名即可：
 
     function extractNodeExports(loader, source) {
       var loader = new Loader();
@@ -550,11 +550,11 @@ This means that it's easy to support require in a node module: just alias it to 
 In the above examples, we assumed that all dependencies in external modules are available synchronously, so we could use System.get in the link hook.
 AMD modules can have asynchronous dependencies that can be determined without having to execute the module.
 
-在上面的例子中，我们其实做了这样的假设，其他模块的所有以来都是可以同步获取的，因此我们可以在 link hook 中使用 `Sysem.get`。然而 AMD 模块可以拥有异步的依赖，不过这些依赖可以在不执行模块的前提下获取。
+在上面的例子中，我们其实做了这样的假设，其他模块的所有以来都是可以同步获取的，因此我们可以在 `link` hook 中使用 `Sysem.get`。然而 AMD 模块可以拥有异步的依赖，不过这些依赖可以在不执行模块的前提下获取。
 
 For this use-case, you can return (from link) a list of dependencies and a callback to call once the Loader has loaded the dependencies. The callback will receive the list of dependencies as parameters and must return a Module instance.
 
-针对这种情况，你可以在 link 函数中返回一列依赖以及一个回调函数，在依赖加载好之后 Loader 会执行这个回调函数，将依赖作为参数传入，接受一个 Module 实例作为返回值。
+针对这种情况，你可以在 `link` 函数中返回一列依赖以及一个回调函数，在依赖加载好之后 Loader 会执行这个回调函数，将依赖作为参数传入，接受一个 `Module` 实例作为返回值。
 
     var amd = ['string-utils'];
 
@@ -595,13 +595,13 @@ For this use-case, you can return (from link) a list of dependencies and a callb
 
 Returning the imports and a callback from link allows the link hook to participate in the same two-phase loading process of ES6 modules, but using the AMD definition to separate the phases instead of ES6 syntax.
 
-从 link  hook 中返回 `imports` 和一个 `callback`，让它参与到 ES 模块两步加载的过程之中，只不过使用 AMD 规范将这两个阶段分开了。
+从 `link`  hook 中返回 `imports` 和一个 `callback`，让它参与到 ES 模块两步加载的过程之中，只不过使用 AMD 规范将这两个阶段分开了。
 
 ![](http://cl.ly/image/2x3X2p1E222X/Pasted_Image_3_10_13_5_41_PM.png)
 
 ## Importing a Node Module By Processing requires
 
-## 解析 require 来 improt Node 模块
+## 解析 `require` 来 improt Node 模块
 
 Because node modules use a dynamic expression for imports, there is no perfectly reliable way to ensure that all dependencies are loaded before evaluating the module.
 
@@ -609,11 +609,11 @@ Because node modules use a dynamic expression for imports, there is no perfectly
 
 The approach used by Browserify is to statically analyze the file first for require statements and use them as the dependencies. The AMD CommonJS wrapper uses a similar approach.
 
-Browserify 也使用这种方式来分析第一次出现在 require 表达式中的模块，把它们当做被分析模块的依赖。AMD 的 CommonJS  Wrapper 也是使用类似的一个方案。
+*Browserify* 也使用这种方式来分析第一次出现在 `require` 表达式中的模块，把它们当做被分析模块的依赖。*AMD 的 CommonJS  Wrapper* 也是使用类似的一个方案。
 
 The link hook could be used to analyze Node-style packages for require lines, and return them as imports.
 
-我们可以在 link hook 中分析 Node 式的包，获取 require 代码行，把它们当做 imports 返回。
+我们可以在 link hook 中分析 Node 式的包，获取 `require` 代码行，把它们当做 `imports` 返回。
 
 By the time the execute callback was called, all modules would be synchronously available, and aliasing require to System.get would continue to work.
 
@@ -633,7 +633,7 @@ By the time the execute callback was called, all modules would be synchronously 
 
 Of course, this means only works as long as no requires are used with dynamic expressions, in a conditional, or in a try/catch, but those are already limitations of systems like Browserify.
 
-当然，这种方式只对部分 require 语句有效，对于动态表达式、条件语句或者 try/catch  就不起作用。这些也都是像 Browserify 这类系统的缺点。
+当然，这种方式只对部分 `require` 语句有效，对于动态表达式、条件语句或者 `try/catch` 就不起作用。这些也都是像 Browserify 这类系统的缺点。
 
 ![](http://cl.ly/image/3Q38113B2I22/Pasted_Image_3_10_13_5_41_PM.png)
 
@@ -648,8 +648,8 @@ Let's review the overall strategy used for assimilating non-ES6 module definitio
 	•	Non-ES6 modules can be loaded through the Loader by overriding the resolve and link hooks.
 	•	Non-ES6 modules can asynchronously load other modules by return imports from link and synchronously through System.get.
 
-- 非 ES6 模块可以使用 Loader 通过复写 resolve 和 link hook 来加载；
-- 非 ES6 模块可以异步地加载其他依赖的模块，只要在 link 返回这些 import 即可。执行通过`System.get` 来同步获取。
+- 非 ES6 模块可以使用 Loader 通过复写 `resolve` 和 `link` hook 来加载；
+- 非 ES6 模块可以异步地加载其他依赖的模块，只要在 `link` 返回这些 `import` 即可。执行通过`System.get` 来同步获取。
 
 This means that all module systems can freely interoperate, using the Loader as an intermediary.
 
@@ -685,7 +685,7 @@ Many of the existing module systems support mechanisms for exporting a single va
 
 At the current time, ES6 modules do not provide explicit support for this feature, but it can be emulated using the Loader. One specific strategy would be to export the single value as a well-known name (for example, exports).
 
-就目前来看，ES6 模块规范并没有完全支持这种特性，但是可以通过 Loader 来模拟。一种可行的策略就是 export 一个名称约定的值（例如，exports）。
+就目前来看，ES6 模块规范并没有完全支持这种特性，但是可以通过 Loader 来模拟。一种可行的策略就是 export 一个名称约定的值（例如，`exports`）。
 
 Let's take a look at how a Loader could support a Node-style module using require to import the "single export" of another Node-style module.
 
@@ -1041,14 +1041,16 @@ Related links:
 
 相关链接：
 
-	•	ECMAScript 6 modules: the future is now
-	•	ECMAScript 6 modules in future browsers
-	•	Traceur Compiler
-	•	grunt-traceur
-	•	ES6 Compatibility Table
-	•	ES6 Code Samples in my upcoming JavaScript Application Design book
+	•	[ECMAScript 6 modules: the future is now](http://restrictmode.org/)
+	•	[ECMAScript 6 modules in future browsers](http://www.2ality.com/2013/11/es6-modules-browsers.html)
+	•	[Traceur Compiler](https://github.com/google/traceur-compiler)
+	•	[grunt-traceur](https://github.com/aaronfrost/grunt-traceur)
+	•	[ES6 Compatibility Table](http://kangax.github.io/es5-compat-table/es6/)
+	•	[ES6 Code Samples in my upcoming JavaScript Application Design book](https://github.com/bevacqua/buildfirst/tree/latest/ch05/17_harmony-traceur)
 
 If you want to toy around with the syntax, ModuleLoader/es6-module-loader is the most up-to-date polyfill I could find. Believe me, I looked.
 
-如果我你再找一个支持这些语法的玩具，我所知道的 ModuleLoader/es6-module-loader 是最跟的上规范的 polyfill。相信我，我看过了。
+如果我你再找一个支持这些语法的玩具，我所知道的 [ModuleLoader/es6-module-loader ](http://typescript.codeplex.com/)是最跟的上规范的 polyfill。相信我，我看过了。
+
+原文：[http://ponyfoo.com/articles/architecture-of-ecmascript-6-modules](http://ponyfoo.com/articles/architecture-of-ecmascript-6-modules)
 
