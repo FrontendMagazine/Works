@@ -1,4 +1,4 @@
-原文链接：[Introducing RAIL: A User-Centric Model For Performance](http://www.smashingmagazine.com/2015/10/rail-user-centric-model-performance/#a-note-on-measurement)
+原文链接：[Introducing RAIL: A User-Centric Model For Performance](http://www.smashingmagazine.com/2015/10/rail-user-centric-model-performance/)
 
 > 译者注：本篇将使用视频资源，需要大家采用正确的姿势阅读哦。
 
@@ -206,12 +206,125 @@ To animate properly, each frame of animation should be completed in less than 16
 
 Creating apps that respond and animate well often requires deferment of work. The Optimistic UI patterns leverage this technique to great effect. All sorts of work that must be completed likely does not need to happen within a critical time window in the same way as “response” or “load”: Bootstrapping the comments functionality, initializing components, searching and sorting data, and beaconing back analytics data are all non-essential items that we can do when the browser is idle.
 
-要制作响应迅速动画精良的应用通常需要比较长的工时。[Optimistic UI](http://info.meteor.com/blog/optimistic-ui-with-meteor-latency-compensation)模式利用这个技术达到了很好的效果。所有
+要制作响应迅速动画精良的应用通常需要比较长的工时。[Optimistic UI](http://info.meteor.com/blog/optimistic-ui-with-meteor-latency-compensation)模式利用这个技术达到了很好的效果。并非所有工作都要在 response 阶段或者 load 阶段完成：评论引导、组件初始化、数据检索和排序和分析数据的送都不是需要立刻传达给用户的，所以可以在浏览器空闲的时候再处理这些任务。
 
 To use idle time wisely, the work is grouped into blocks of about 50 milliseconds. Why? Should a user begin interacting, we’ll want to respond to them within the 100-millisecond response window, and not be stuck in the middle of a 2-second template rendering.
+
+要想合理地应用浏览器空闲时间，最好把时间以 50 毫秒为单位分组。为什么要这么做呢？在上文里也提到的，用户做出动作后，应用应该在 100 毫秒内给出响应，在 2 秒的模板渲染中不应该出现卡顿（译者注：原文为 not be stuck in the middle of a 2-second template rendering）。
 
 4. **LOAD**
 
 Page-loading time is a well-trodden area of performance. We’re most interested in getting the user to the first meaningful paint quickly. Once that’s delivered, the app must remain responsive; the user mustn’t encounter trouble when scrolling, tapping or watching animations. This can be super-challenging, especially when much of the work for a page shares a single thread.
 
+页面加载时间是最常见的性能话题。对用户来说最先看到的内容应该是最有意义、最先被加载出来的。接着页面要持续响应用户，绝对不允许出现在滚动页面、轻触或者看动画的时候卡顿。特别是当多个页面使用同一个线程的时候，要实现这样的目标真的很困难。
+
 To load pages quickly, we aim to deliver the first meaningful paint in under 1 second. Beyond this, the user’s attention starts to wander and the perception of dealing with the task at hand is broken. Reaching this goal requires prioritizing the critical rendering path and often deferring subsequent non-essential loads to periods of idle time (or lazy-loading them on demand).
+
+想要尽快将页面加载出来，我们需要把最需要传达的内容在 1 秒内渲染出来。超过 1 秒钟，用户的注意力就会被分散，当前执行的任务将有中断感。要达到在 1 秒内渲染完毕的目标，我们要优先考虑关键渲染路径，将所有不需要在加载时处理的任务延迟到浏览器空闲时再处理（或根据需求拦加载）。
+
+## Performance Goals
+## 性能目标
+
+Performance is essentially the art of avoiding work. And when it’s unavoidable, make any work you do as efficient and well timed as possible.
+
+性能本质上来说是逃避工作的艺术，但是当它变得不可逃避的时候，保证你做的工作是高效的、花在处理问题上的时间是值得的。
+
+With the stages of RAIL interaction laid out, let’s summarize the goals:
+
+既然现在我们有了 RAIL 模型，让我们来总结一个性能目标吧
+
+![](images/rail/table.png)
+
+### A NOTE ON MEASUREMENT
+### 如何实践
+
+Here are a few handy tips on measuring your project’s performance profile:
+
+这里有几条好用的提升性能的方法：
+
+Measuring these on a MacBook Pro or comparable machine (which many of us designers and developers have) won’t give a representative idea of your mobile users. Common phones can be over ten times slower than a desktop!
+
+将用户的使用场景设定成 MacBook Pro 或者类似配置的机器是不合理的，大多数用户使用的设备都比开发测试时用的设备性能落后个 10 倍！
+
++ A Nexus 4 is a good middle-of-the-road device to use.
++ **Nexus 4 ** 配置中端，是很不错测试设备。
+
++ “Regular 3G” is recommended for network throttling.
++ 在 **3G** 环境下测试。
+
++ Also, look at your analytics to see what your users are on. You can then mimic the 90th percentile’s experience for testing.
++ 仔细分析你的数据，看看你的用户用的都是什么设备。然后你就能在测试阶段感受到 90% 的用户的体验效果啦。
+
+### WHAT ABOUT BATTERY AND MEMORY? 
+### 电源和内存
+
+Delivering on all of the goals above but leaving the user with 10% battery and 0% available memory isn’t putting the user first.
+
+如果达到了上述的性能目标，但把用户的设备搞的内存一点儿不剩还只剩下 10% 的电量，那用户也会很不高兴的。
+
+We’re not yet sure how to quantify being a responsible citizen of the shared resources, but RAIL may some day get a B (for battery) and an M (for memory), turning into BLAIMR, PRIMAL or something else equally fun and memorable.
+
+现在我们还不能确定如何处理共享资源，不过可以确定在之后我们会想出解决方案，到时候就改名为 BLAIMR 或者 PRIMAL 了（B 代表电池，M 代表内存）。
+
+## Business Impact Of RAIL
+## 商业前景
+
+Many of us do what we do because we love building awesome things. We don’t work in a vacuum, though, and sometimes we have to make the business case to managers, stakeholders and clients to be able to prioritize performance as part of the user experience.
+
+通常我们都是为了兴趣而工作，因为我们超爱做一些很酷的东西。我们当然不能凭空想工作，我们需要把商业计划交给经理、持股人还有客户，性能会影响到用户体验的问题，自然也指的关注。
+
+Luckily, many large companies have shared numbers that help us make our case:
+幸运的是，很多大公司都愿意同我们共享数据，来完善这个模型，以下是一些案例：
+
++ Google: [2% slower = 2% less searching per user](http://assets.en.oreilly.com/1/event/29/Keynote%20Presentation%202.pdf)
++ Yahoo: [400 milliseconds faster = 9% more traffic](http://www.slideshare.net/stoyan/dont-make-me-wait-or-building-highperformance-web-applications#btnNext)
++ AOL: [Faster pages = more page views](http://assets.en.oreilly.com/1/event/29/The%20Secret%20Weapons%20of%20the%20AOL%20Optimization%20Team%20Presentation.pdf)
++ Amazon: [100 milliseconds faster = 1% more revenue](http://radar.oreilly.com/2008/08/radar-theme-web-ops.html)
++ Shopzilla: [5 seconds faster = 25% more page views, 7 to 12% more revenue](http://zh.scribd.com/doc/16877317/Shopzilla-s-Site-Redo-You-Get-What-You-Measure)
++ Aberdeen Group: [1 second slower = 11% fewer page views, 7% less conversion](http://www.gomez.com/wp-content/downloads/Aberdeen_WebApps.pdf)
++ [Google uses website speed](http://googlewebmastercentral.blogspot.com/2010/04/using-site-speed-in-web-search-ranking.html) in search ranking.
+
+## Summary
+## 总结
+
+The RAIL model is a lens to look at a user’s experience with a website or app as a journey comprising individual interactions. Once you know each interaction’s area, you will know what the user will perceive and, therefore, what your goals are.
+
+RAIL 模型通过将用户的交互行为划分为不同区块，来检验一个产品的用户体验。当你了解了每个交互模块，你将会知道用户期望得到的是什么，换言之，你的目标是什么。
+
+Sometimes it takes extra effort, but if you’re kind to the user, they’ll be good to you.
+
+摸索目标的过程很辛苦，但是以诚心对待用户，用户也会如此对待你的（产品）。
+
+## Resources
+## 资源
+
+If you want more information on RAIL and how to optimize your websites and apps, take a look at these.
+
+如果你想要了解更多关于 RAIL 的资料，可以看看下面的链接：
+
+*PRESENTATIONS ON RAIL*
+*演示*
+
++ [“Performance RAIL’s: The Art and Science of optimizing for Silicon and Wetware”](https://docs.google.com/presentation/d/13AJe2Ip4etqA8qylrva7bEgu1_hAvsq_VQiVOAxwdcI/edit#slide=id.p19) (slides), Ilya Grigorik, Google, May 2015
++ [“How Users Perceive the Speed of The Web”](https://docs.google.com/presentation/d/1AwT2vVHzzlsIxEUS-z769awGa-hiHTwR0iWrkeX49Fk/edit#slide=id.g6f0232e78_056) (slides), Paul Irish, FluentConf, April 2015
++ [“Performance on RAILs”](https://www.youtube.com/watch?v=uJMA2n4RL6s) (视频), Paul Lewis, Nordic.js, September 2015
+
+*GUIDANCE AND DOCUMENTATION *
+*各种文档*
+
++ [“Optimizing Performance,”](https://developers.google.com/web/fundamentals/performance/index) Web Fundamentals, Google Developers
++ [“Browser Rendering Optimization”](https://developers.google.com/web/tools/profile-performance/evaluate-performance/rail?hl=en) (course), Udacity
++ [“Profile”](https://www.udacity.com/course/ud860) (performance), Google Web Tools, Google Developers
++ [“The RAIL Performance Model,”](https://developers.google.com/web/tools/profile-performance/index) Web Fundamentals, Google Developers
+
+*PERFORMANCE AUDITS*
+*性能调查*
+
++ [Performance Audit of theverge.com”](https://docs.google.com/document/d/1Xv3qNROxPOOtau7V3UbHHJyA-5AmGC4s-hZKBe0Lx6U/edit#bookmark=id.uy1m8rhjr41h) (July 2015) ([complementary slides](https://docs.google.com/presentation/d/1sDqUT6HwH21h_w8c9anmYT-YnaspXxtazVu6buoWORI/edit#slide=id.g5c2ea521d_0_457))
++ [Performance Audit of imore.com”](https://docs.google.com/document/d/1-Kdmub-7WfA45gSyG2GYQOyEkkjmG1gKq0zJwhrWbPA/edit) (July 2015)
++ [Performance Audit of m.reddit.com”](https://github.com/reddit/reddit-mobile/issues/247) (July 2015)
++ [Performance Audit of m.espn.com”](https://docs.google.com/document/d/1yJoMEdFME04maB_hlGhARTeys-DdeHRqU7zn-z4CFcA/edit#heading=h.v23t53p6nkzl) (April 2015)
++ [Performance Audit of squarespace.com”](https://docs.google.com/document/d/15VSNoBP3OK64l5Jc_w63sgW88RUn3ve2qV7Jrrfc5A8/edit#heading=h.v23t53p6nkzl) (April 2015)
++ [Performance Audit of cafepress.com”](https://docs.google.com/document/d/1tsOXooeJhSwGmCRGisr98o1KBhqTvO9i49X_OSn7LXc/edit) (April 2015)
++ [Performance Audit of CNET, Wikipedia and Time.com”](https://docs.google.com/document/d/1K-mKOqiUiSjgZTEscBLjtjd6E67oiK8H2ztOiq5tigk/edit?pli=1#) (February 2015) ([complementary slides](https://docs.google.com/presentation/d/1B8R4koplWE0W-C_O0th4bfNynEvMSMvlJW8l_RdWGpk/edit#slide=id.g63b8fa541_00))
++ [Performance Audit of Wikipedia Rich Editor”](https://docs.google.com/document/d/1K-mKOqiUiSjgZTEscBLjtjd6E67oiK8H2ztOiq5tigk/edit?pli=1#) (February 2015)
