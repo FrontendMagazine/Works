@@ -23,7 +23,7 @@ Chrome 团队已经考虑过这个问题，并提出了 **RAIL** 模型。用户
 
 If you want the TL;DR on RAIL to share with your team, here you go!
 
-如果你迫不及待想要把 **RAIL** 分享给你的团队，那可以说说这些：
+如果你迫不及待想要把 **RAIL** 的精髓分享给你的团队，那可以说说这些：
 
 + RAIL is a model for breaking down a user’s experience into key actions (for example, tap, drag, scroll, load).
 + [RAIL](http://www.smashingmagazine.com/2015/10/rail-user-centric-model-performance/#rail-perf-model) 将用户体验根据关键动作（比如，轻触、拖拽、滚动、加载）分割到了不同的模块中。
@@ -53,7 +53,7 @@ While it’s true that different operations take different amounts of time to co
 
 Asking **“What does slow mean?,”** then, is really the wrong question. Instead, we need to ask “What does the user feel when they’re interacting with the things we build?”
 
-不要再问“‘慢’意为着什么”了，而应该问“在使用产品时，用户的感受是怎样的”。
+不要再问**“‘慢’意为着什么？”**了，而应该问“在使用产品时，用户的感受是怎样的”。
 
 ## Putting The User In The Center Of Performance
 ## 以用户为核心，考虑性能
