@@ -7,16 +7,15 @@
 
 There’s no shortage of **performance advice**, is there? The elephant in the room is the fact that it’s **challenging to interpret**: Everything comes with caveats and disclaimers, and sometimes one piece of advice can seem to actively contradict another. Phrases like “The DOM is slow” or “Always use CSS animations” make for great headlines, but the truth is often far more nuanced.
 
-难道**对性能提建议**还能有不好吗？但其实我们都在**回避这个问题的答案**：每条优化建议的后面都跟着警告和免责声明，有时候这些建议还是相互矛盾的。像“ DOM 太慢了”或者“尽可能地使用 CSS 动画”这样的大标题之下，掩盖着的实际场景要复杂的多。
+难道**对性能提建议**还能有不好的吗？其实我们都在**回避这个问题的答案**：每条优化建议的后面都跟着警告和免责声明，有时候这些建议还是相互矛盾的。像“ DOM 太慢了”或者“尽可能地使用 CSS 动画”这样的大标题之下，掩盖着的实际场景要复杂的多。
 
 Take something like loading time, the most common performance topic by far. The problem with loading time is that some people measure Speed Index, others go after first paint, and still others use body.onload, DOMContentLoaded or perhaps some other event. It’s rarely consistent. When it comes to other ways to measure performance, you’ve probably seen enough JavaScript benchmarks to last a lifetime. You may have also heard that 60 FPS matters. But when? All the time? Seems unrealistic.
 
-现在最常见的性能话题大概就是“加载时间”吧，就拿它来举例。有人用 [Speed Index](https://sites.google.com/a/webpagetest.org/docs/using-webpagetest/metrics/speed-index) 作为衡量的标准；有人以页面首次绘制时间为准；仍有人使用 ```body.onload``` 或者 ```DOMContentLoaded``` 或者别的事件为准。衡量的标准并不统一。还有其他方法可以衡量性能，比如你已经看腻了用 JavaScript 基准（JavaScript benchmark）延续页面的生命周期。你可能也听过60 FPS。但是这些标准适用在什么场合？任何时间点吗？听起来有点不现实啊。
+现在最常见的性能话题大概就是“加载时间”吧，就拿它来举例。有人用 [Speed Index](https://sites.google.com/a/webpagetest.org/docs/using-webpagetest/metrics/speed-index) 作为衡量的标准；有人以页面首次绘制时间为准；仍有人使用 ```body.onload``` 或 ```DOMContentLoaded``` 又或者别的事件为准。衡量的标准并不统一。还有其他方法可以衡量性能，比如你已经看腻了用 JavaScript 基准（JavaScript benchmark）延续页面的生命周期。你可能也听过60 FPS。但是这些标准适用在什么场合？任何时间点都适用吗？听起来有点不现实啊。
 
 Very few of us have unlimited time to throw at optimization work, far from it, and we need criteria that help us decide what’s important to optimize (and what’s not!). When all is said is done, we want and need clear guidance on what “performant” means to our users, because that’s who we’re building for.
 
 我们当中几乎没有人可以把时间完全投入在优化上，所以我们需要一个标准来告诉我们现在要去优化什么东西（或者什么东西暂时不需要优化了）。该说的都说了，现在我们需要一个明确的指引告诉开发者，**在用户的眼里**“性能”意味着什么，毕竟用户才是我们最终服务的对象。
-
 
 On the Chrome team, we’ve been thinking about this, and we’ve come up with a model to put the user right back in the middle of the performance story. We call it the RAIL model.
 
@@ -33,18 +32,18 @@ If you want the TL;DR on RAIL to share with your team, here you go!
 + RAIL 给这些动作制定了[性能目标](http://www.smashingmagazine.com/2015/10/rail-user-centric-model-performance/#rail-perf-goals)（比如，轻触后的绘制要在100毫秒之内完成）。
 
 + RAIL provides a structure for thinking about performance, so that designers and developers can reliably target the highest-impact work.
-+ RAIL 提供了一个思考性能问题的结构，所以当设计师和开发者想要处理对用户影响最大的问题的时候有法可依。
++ RAIL 提供了一个思考性能问题的方法论，所以当设计师和开发者想要处理对用户影响最大的问题的时候有法可依。
 
 Before diving into what RAIL involves and how it could be helpful in your project, let’s step back and look at where it comes from. Let’s start with every performance-minded person’s least favorite word in the whole wide world: “slow.”
 
-在讲如何运用 RAIL 以及如何使用它辅助你的项目时，让我们先看看这个模型是怎么来的。就从大家都很讨厌的词“慢”，开始吧。
+在讲如何运用 RAIL 以及如何使用它辅助你的项目前，让我们先看看这个模型是怎么来的。就从大家都很讨厌的词“慢”，开始吧。
 
 ## “Slow”
 ## “慢”
 
 Is changing the DOM slow? What about loading a ```<script>``` in the ```<head>```? JavaScript animations are slower than CSS ones, right? Also, does a 20-millisecond operation take too long? What about 0.5 seconds? 10 seconds?
 
-改变 DOM 结构会拖慢性能？如果在 ```<head>``` 标签中添加 ```<script>```，让脚本一开始就被加载呢？JavaScript 动画比 CSS 动画要慢。一个操作要用20毫秒会不会太慢了？0.5秒呢？10秒呢？
+改变 DOM 结构会拖慢性能？如果在 ```<head>``` 标签中添加 ```<script>```，让脚本一开始就被加载呢？JavaScript 动画比 CSS 动画要慢。一个操作要用 20 毫秒会不会太慢了？0.5 秒呢？10 秒呢？
 
 ![](images/rail/rail-slow-cloud.png)
 
@@ -54,23 +53,23 @@ While it’s true that different operations take different amounts of time to co
 
 Asking **“What does slow mean?,”** then, is really the wrong question. Instead, we need to ask “What does the user feel when they’re interacting with the things we build?”
 
-不要再问“‘慢’意为着什么”了，而应该问“当用户与产品交互时，用户的感受是怎样的”。
+不要再问“‘慢’意为着什么”了，而应该问“在使用产品时，用户的感受是怎样的”。
 
 ## Putting The User In The Center Of Performance
 ## 以用户为核心，考虑性能
 
 Luckily for us, there’s long-standing academic HCI research on this topic, and you may have seen it before in Jakob Nielsen’s work on response time limits. Based on those thresholds, and adding an extra one for animations (because it’s 2015 and we all love a bit of showbiz), we get the following:
 
-在人机交互领域（HCI）有一个长期的研究项目就是针对这个问题的，你可以从 [Jakob Nielsen 的研究成果](http://www.nngroup.com/articles/response-times-3-important-limits/)中得到一些结论。基于研究成果中的临界值，再加上现在最受欢迎的动画效果，我们得到以下结论：
+在人机交互领域（HCI）有一个长期的研究项目就是针对这个问题的，你可以从 [Jakob Nielsen 的研究成果](http://www.nngroup.com/articles/response-times-3-important-limits/)中得到一些结论。基于研究成果，和现在最受欢迎的动画效果，我们得到以下阀值：
 
 + **100 milliseconds**：Respond to a user action within this time window and they will feel like the result is immediate. Any longer and that connection between action and reaction breaks.
-+ **100 毫秒**：用户采取操作后，要在100毫秒内收到反馈，才不会有延迟感。
++ **100 毫秒**：用户采取操作后，要在 100 毫秒内收到响应，才不会有延迟感。
 
 + **1 second**: Within this window, things feel part of a natural and continuous progression of tasks. Beyond it, the user will lose focus on the task they were performing. For most users on the web, loading a page or changing views represents a task.
-+ **1 秒**：在当前时窗中，物体要显得自然又有整体性。超过了1秒，用户对当前任务的会失去耐心。对于 web 中的大部分用户而言，加载页面或者改变视图就需要在1秒内完成。
++ **1 秒**：在当前时窗中，物体要显得自然又有整体性。超过了 1 秒，用户就对当前任务的会失去耐心。对于 web 中的大部分用户而言，加载页面或者改变视图就需要在 1 秒内完成。
 
 + **16 milliseconds**：Given a screen that is updating 60 times per second, this window represents the time to get a single frame to the screen (Professor Math says 1000 ÷ 60 = ~16). People are exceptionally good at tracking motion, and they dislike it when their expectation of motion isn’t met, either through variable frame rates or periodic halting.
-+ **16 毫秒**：屏幕一秒钟渲染60次，所以每一帧渲染到屏幕上至多16毫秒（1000毫秒/60 ~= 16）。人们本能地会跟随运动，当动画帧出现中断或者卡顿，我们常常会觉得不爽。
++ **16 毫秒**：屏幕一秒钟渲染 60 次，所以每一帧渲染到屏幕上至多 16 毫秒（1000毫秒/60 ~= 16）。人们本能地会跟随运动，当动画帧出现中断或者卡顿，我们常常会觉得不爽。
 
 These perception thresholds are great because they give us the building blocks we need. What we need to do next is map them to reality. Let’s consider a typical interaction that our users have:
 
@@ -80,10 +79,10 @@ These perception thresholds are great because they give us the building blocks w
 
 In that brief session were a number of distinct interactions:
 
-以上场景里，用户做了这些事情：
+在上面的视频中，用户做了这些事情：
 
 + waiting for the page to load,
-+等待页面加载完成，
++ 等待页面加载完成，
 
 + watching an animation,
 + 观看酷炫的动画，
