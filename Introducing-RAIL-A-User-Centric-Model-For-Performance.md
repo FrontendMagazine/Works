@@ -11,7 +11,7 @@ There’s no shortage of **performance advice**, is there? The elephant in the r
 
 Take something like loading time, the most common performance topic by far. The problem with loading time is that some people measure Speed Index, others go after first paint, and still others use body.onload, DOMContentLoaded or perhaps some other event. It’s rarely consistent. When it comes to other ways to measure performance, you’ve probably seen enough JavaScript benchmarks to last a lifetime. You may have also heard that 60 FPS matters. But when? All the time? Seems unrealistic.
 
-现在最常见的性能话题大概就是“加载时间”吧，就拿它来举例。有人用 [Speed Index](https://sites.google.com/a/webpagetest.org/docs/using-webpagetest/metrics/speed-index) 作为衡量的标准；有人以页面首次绘制时间为准；仍有人使用 ```body.onload``` 或 ```DOMContentLoaded``` 又或者别的事件为准。衡量的标准并不统一。还有其他方法可以衡量性能，比如你已经看腻了用 JavaScript 基准（JavaScript benchmark）延续页面的生命周期。你可能也听过60 FPS。但是这些标准适用在什么场合？任何时间点都适用吗？听起来有点不现实啊。
+现在最常见的性能话题大概就是“加载时间”吧，就拿它来举例。有人用 [Speed Index](https://sites.google.com/a/webpagetest.org/docs/using-webpagetest/metrics/speed-index) 作为衡量的标准；有人以页面首次绘制时间为准；仍有人使用 ```body.onload``` 或 ```DOMContentLoaded``` 又或者别的事件为准。衡量的标准并不统一。还有其他衡量性能的方法，比如用 JavaScript 基准（JavaScript benchmark）；比如60 FPS。但是这些标准适用在什么场合？任何时间点都适用吗？听起来有点不现实啊。
 
 Very few of us have unlimited time to throw at optimization work, far from it, and we need criteria that help us decide what’s important to optimize (and what’s not!). When all is said is done, we want and need clear guidance on what “performant” means to our users, because that’s who we’re building for.
 
@@ -209,7 +209,7 @@ Creating apps that respond and animate well often requires deferment of work. Th
 
 To use idle time wisely, the work is grouped into blocks of about 50 milliseconds. Why? Should a user begin interacting, we’ll want to respond to them within the 100-millisecond response window, and not be stuck in the middle of a 2-second template rendering.
 
-要想合理地应用浏览器空闲时间，最好把时间以 50 毫秒为单位分组。为什么要这么做呢？在上文里也提到的，用户做出动作后，应用应该在 100 毫秒内给出响应，在 2 秒的模板渲染中不应该出现卡顿（译者注：原文为 not be stuck in the middle of a 2-second template rendering）。
+要想合理地应用浏览器空闲时间，最好把时间以 50 毫秒为单位分组。为什么要这么做呢？在上文里也提到的，用户做出动作后，应用应该在 100 毫秒内给出响应，不应该出现一个模板渲染 2 秒之久。
 
 4. **LOAD**
 
