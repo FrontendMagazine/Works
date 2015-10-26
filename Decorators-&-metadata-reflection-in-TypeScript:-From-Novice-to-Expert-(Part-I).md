@@ -358,7 +358,7 @@ It has been a journey right? I hope you have enjoyed as much as I have. We are j
 
 Method decorators can be used for many interesting features. For example, If you have ever worked with spies in testing frameworks like SinonJS you will probably get excited when you realize that decorators are going to allow us to do things like create spies by just adding a @spy decorator.
 
-方法注解可以用在很多有意思的特性之中。例如，如果你曾今使用过[测试框架框架中（例如 SinonJS）的 spy 组件](http://sinonjs.org/docs/#spies)，一定会兴奋不已。因为注解允许我们通过 `@spy` 这样的注解来创建 `spy`。
+方法注解可以用在很多有意思的特性之中。例如，如果你曾经使用过[测试框架框架中（例如 SinonJS）的 spy 组件](http://sinonjs.org/docs/#spies)，一定会兴奋不已。因为注解允许我们通过 `@spy` 这样的注解来创建 `spy`。
 
 In the next chapter of this series we will learn how to work with Property decorators. Don’t forget to subscribe if you don’t want to miss it out!
 
