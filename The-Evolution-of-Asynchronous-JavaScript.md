@@ -7,11 +7,11 @@
 
 The async functions are just around the corner - but the journey to here was quite long. Not too long ago we just wrote [callbacks](https://blog.risingstack.com/node-js-best-practices/), then the Promise/A+ specification emerged followed by [generator functions](https://blog.risingstack.com/hapi-on-steroids-using-generator-functions-with-hapi/) and now the async functions.
 
-`async` 函数很快就要来了，但是通往这里的历程却非常长。不久前我们都在写[回调函数](https://blog.risingstack.com/node-js-best-practices/)，后来出现了 Promise/A+ 规范，紧接着是 [generator](https://blog.risingstack.com/hapi-on-steroids-using-generator-functions-with-hapi/) 函数，到现在是异步函数(async)声明。
+`async` 函数很快就要来了，但到达这一步却经历了万水千山。不久前我们都在写[回调函数](https://blog.risingstack.com/node-js-best-practices/)，后来出现了 Promise/A+ 规范，紧接着是 [generator](https://blog.risingstack.com/hapi-on-steroids-using-generator-functions-with-hapi/) 函数，到现在是异步函数 (async) 声明。
 
 Let's take a look back and see how asynchronous JavaScript evolved over the years.
 
-让我们回顾一下，这些年异步 JavaScript 是如何进化演变的。
+让我们回顾一下，这些年异步 JavaScript 是如何进化的。
 
 ## Callbacks
 
@@ -19,7 +19,7 @@ Let's take a look back and see how asynchronous JavaScript evolved over the year
 
 It all started with the [callbacks](https://blog.risingstack.com/node-js-best-practices/).
 
-一切从[回调函数](https://blog.risingstack.com/node-js-best-practices/)说起。
+一切要从[回调函数](https://blog.risingstack.com/node-js-best-practices/)说起。
 
 ### Asynchronous JavaScript
 
@@ -27,7 +27,7 @@ It all started with the [callbacks](https://blog.risingstack.com/node-js-best-pr
 
 Asynchronous programming, as we know now in JavaScript, can only be achieved with functions being first-class citizens of the language: they can be passed around like any other variable to other functions. This is how callbacks were born: if you pass a function to another function _(a.k.a. **higher order function**)_ as a parameter, within the function you can call it when you are finished with your job. No return values, only calling another function with the values.
 
-异步编程，如众所周知的 JavaScript，只能在函数作为第一公民的语言里实现，它们可以像其他变量一样传递给其他函数。回调函数就是这样产生的，如果你将一个函数作为参数传递给另外一个函数 _(又名，**高阶函数**)_，在完成自己的工作后，在另一个函数中可以调用它。没有返回值，只会传递值来调用另一个函数。
+异步编程，如众所周知的 JavaScript，只能在函数作为第一公民的语言里实现：它们可以像其他变量一样传递给其他函数。回调函数就是这样产生的，如果你将一个函数作为参数传递给另外一个函数 _(又名，**高阶函数**)_，在完成当前任务后，该函数可以调用它。没有返回值，只会传递值来调用另一个函数。
 
 ```javascript
 Something.save(function(err) {  
@@ -41,7 +41,7 @@ Something.save(function(err) {
 
 These so called **error-first callbacks** are in the heart of Node.js itself - the core modules are using it as well as most of the modules found on NPM.
 
-这些所谓的**错误优先(error-first)回调函数**在 Node.js 里占据重要地位，核心模块以及大多数在 NPM 上的模块都在使用它。
+这些所谓的**错误优先 (error-first) 回调函数**在 Node.js 里占据重要地位 -- 核心模块以及大多数在 NPM 的包都在使用它。
 
 The challenges with callbacks:
 
@@ -51,9 +51,9 @@ The challenges with callbacks:
 
 回调函数面临的挑战：
 
-- 如果使用不当，很容易写出大量回调(callback hells)和混乱的代码(spaghetti code)
+- 如果使用不当，很容易写出大量回调 (callback hells) 和混乱的代码 (spaghetti code)
 - 容易忽略错误处理
-- 使用 `return` 语句不能返回值，也不能使用 `throw` 关键字
+- `return` 语句却不能返回值，也不能使用 `throw` 关键字
 
 Mostly because of these points the JavaScript world started to look for solutions that can make asynchronous JavaScript development easier.
 
@@ -61,7 +61,7 @@ Mostly because of these points the JavaScript world started to look for solution
 
 One of the answers was the [async](https://www.npmjs.com/package/async) module. If you worked a lot with callbacks, you know how complicated it can get to run things in parallel, sequentially or even mapping arrays using asynchronous functions. Then the async module was born thanks to [Caolan McMahon](https://twitter.com/caolan).
 
-其中一个答案是使用 [async](https://www.npmjs.com/package/async) 模块，如果你有很多回调函数，你就会明白并行，按顺序运行，甚至使用异步函数映射数组会有多复杂。所以感谢[Caolan McMahon](https://twitter.com/caolan)，编写了异步模块。
+其中一个方案，是使用 [async](https://www.npmjs.com/package/async) 模块，如果你有很多回调函数，你就会明白并行，按顺序运行，甚至使用异步函数映射数组会有多复杂。所以感谢 [Caolan McMahon](https://twitter.com/caolan)，编写了异步模块。
 
 With async, you can easily do things like:
 
@@ -75,7 +75,7 @@ async.map([1, 2, 3], AsyncSquaringLibrary.square,
 ```
 Still, it is not that easy to read nor to write - so comes the Promises.
 
-但仍然不易读，也不容易写，因此出现了 Promises。
+但这种方法对代码的阅读和编写都不够友好，因此出现了 Promises。
 
 ## Promises
 
@@ -116,7 +116,7 @@ saveSomething()
 
 When using Promises you may have to use polyfills in runtimes that don't have it yet. A popular choice in these cases is to use [bluebird](https://github.com/petkaantonov/bluebird). These libraries may provide a lot more functionality than the native one - even in these cases **limit yourself to the features provided by Promises/A+ specifications**.
 
-当使用 Promises 时，在运行时没有提供时，你可能需要做一下兼容。这种情况通俗的方法是使用 [bluebird](https://github.com/petkaantonov/bluebird)，这些库可能提供了比原生对象更多的功能，即使是这样，也应该**限制使用 Promises/A+提供的特性**；
+Promises 的兼容不够好，在运行时你需要使用到 polyfill。现在常见的方法之一是使用像 [bluebird](https://github.com/petkaantonov/bluebird) 这样的兼容库，这些库可能提供了比原生对象更多的功能，即使是这样，也应该**限制使用 Promises/A+ 提供的特性**；
 
 But why shouldn't you use the sugar methods? Read [Promises: The Extension Problem](http://blog.getify.com/promises-part-4/). For more information on Promises, refer to the [Promises/A+ specification](https://promisesaplus.com/).
 
@@ -128,7 +128,7 @@ _你可能会问，当大多数库只暴露一个回调接口的时候该如何�
 
 Well, it is pretty easy - the only thing that you have to do is wrapping the callback the original function call with a Promise, like this:
 
-这也很容易，你要做的唯一的事情就是使用 Promise 包装一个回调函数，在里面调用原来的函数，像这样
+这也很容易，你唯一要做的事就是使用 Promise 包装一个回调函数，在里面调用原来的函数，像这样
 
 ```javascript
 function saveToTheDb(value) {  
@@ -160,7 +160,7 @@ function foo(cb) {
 
 Or even simpler, you can choose to start with a Promise-only interface and provide backward compatibility with tools like [callbackify](https://www.npmjs.com/package/callbackify). Callbackify basically does the same thing that the previous code snippet shows, but in a more general way.
 
-或者可以更简单，你可以选择仅提供 Promises 接口，然后用向后兼容工具，比如 [callbackify](https://www.npmjs.com/package/callbackify)。Callbackify 基本上和上面的代码做了同样的事情，但用更一般的方法。
+或者更简单，你可以选择仅提供 Promises 接口，然后用像 [callbackify](https://www.npmjs.com/package/callbackify) 这样的向后兼容工具。Callbackify 基本上和上面的代码做了同样的事情，但用更通用的方法。
 
 ## Generators / yield
 
@@ -172,7 +172,7 @@ Or even simpler, you can choose to start with a Promise-only interface and provi
 
 > _Wouldn't it be nice, that when you execute your function, you could pause it at any point, calculate something else, do other things, and then return to it, even with some value and continue?_
 
-> _不是很好吗，当函数执行时，你可以在任何地方暂停，计算点别的，做其他的事情，然后再返回出去，甚至带有一些值还能继续？_
+> _当函数执行时，你可以在任何地方暂停，做点别的计算，或者其他事情，然后再返回出去，甚至带有一些值还能继续，没有比这更好的方案了_
 
 This is exactly what generator functions do for you. When we call a generator function it doesn't start running, we will have to iterate through it manually.
 
@@ -216,7 +216,7 @@ co(function* (){
 
 You may ask: what about operations running in parallel? The answer is simpler than you may think _(under the hoods it is just a `Promise.all`)_:
 
-你或许会问，如果是并行操作会怎么样？答案会比你想象的要简单 _(内部仅仅是一个 `Promise.all`)_：
+你或许会问，如果是并行操作会怎么样？答案很简单 _(内部仅仅是一个 `Promise.all`)_：
 
 ```javascript
 yield [Something.save(), Otherthing.save()];  
@@ -228,7 +228,7 @@ yield [Something.save(), Otherthing.save()];
 
 Async functions were introduced in ES7 - and currently only available using a transpiler like [babel](http://babeljs.io/). _(disclaimer: now we are talking about the async keyword, not the async package)_
 
-ES7 中引入了异步函数，当前只能使用通过转译(如 [babel](http://babeljs.io/))工具来使用。_(声明：现在讨论的是 `async` 关键字，而不是 async 模块包)_
+ES7 中引入了异步函数，当前只能使用通过转译(如 [babel](http://babeljs.io/)) 工具来使用。_(声明：现在讨论的是 `async` 关键字，而不是 async 模块包)_
 
 In short, with the async keyword we can do what we are doing with the combination of co and generators - except the hacking.
 
@@ -237,6 +237,7 @@ In short, with the async keyword we can do what we are doing with the combinatio
 ![async-hack](https://risingstack-blog.s3-eu-west-1.amazonaws.com/2015/08/denicola-yield-await-asynchronous-javascript.JPG)
 
 Under the hood `async` functions using Promises - this is why the async function will return with a `Promise`.
+
 在其内部， `async` 关键字使用了 Promises，这也是异步函数会返回一个 `Promise` 对象的原因。
 
 So if we want to do the same thing as in the previous examples, we may have to rewrite our snippet to the following:
