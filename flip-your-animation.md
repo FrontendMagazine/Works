@@ -51,7 +51,6 @@ Why yes I do. Here’s that same breakdown in code:
 
 来看看下面的代码：
 
-
 ```
   // 获取到元素的初始状态。
   var first = el.getBoundingClientRect();
@@ -83,11 +82,60 @@ Why yes I do. Here’s that same breakdown in code:
   el.addEventListener('transitionend', tidyUpAnimations);
 ```
 
+However, you can also do this with the upcoming Web Animations API, which can make things even easier:
+不过，你也可以使用最新的 [Web Animations API](http://w3c.github.io/web-animations/)，代码将会更简洁易懂一些：
 
+```
+  // Get the first position.
+  // 获取初始状态。
+  var first = el.getBoundingClientRect();
 
+  // Move it to the end.
+  // 改变到结束状态
+  el.classList.add('totes-at-the-end');
 
+  // Get the last position.
+  // 获取结束状态
+  var last = el.getBoundingClientRect();
 
+  // Invert.
+  // 翻转
+  var invert = first.top - last.top;
 
+  // Go from the inverted position to last.
+  // 从翻转的位置到结束位置
+  var player = el.animate([
+    { transform: 'translateY(' + invert + 'px)' },
+    { transform: 'translateY(0)' }
+  ], {
+    duration: 300,
+    easing: 'cubic-bezier(0,0,0.32,1)',
+  });
 
+  // Do any tidy up at the end of the animation.
+  // 在动画结束时做点整理
+  player.addEventListener('finish', tidyUpAnimations);
+```
 
+Right now you’ll need the Web Animations API polyfill to use the code above, though, but it’s pretty lightweight and does make life a lot easier!
+不过现在如果你要使用 Web Animations API 的话，还需要结合 [polyfill](https://github.com/web-animations/web-animations-js) 使用，让自己的人生轻松一定！
 
+If you want a more “in-production” context for FLIP check out the source for cards on the Chrome Dev Summit site.
+如果你想要一个更“像生产环境”的 FLIP 代码，可以看看 [Chrome Dev Summit 上的代码](https://github.com/GoogleChrome/devsummit/blob/master/src/static/scripts/components/card.js#L263-296)。
+
+## What is it good for?
+## 这有什么好处？
+
+It’s absolutely superb for times where you are responding to user input and then animating something in response. So, for example, in the case of Chrome Dev Summit, I was expanding cards that the user tapped on. Often the start and end locations and dimensions of the elements aren’t known, because – say – the site is responsive and things move around. This will help you because it’s explicitly measuring elements and giving you the correct values at runtime.
+
+如果你能够用动画来响应用户输入那自然是极好的。比如在 Chrome Dev Summit 的网站上，当用户点击了卡片，卡片将会展开。通常元素的起始和终止状态的尺寸是未知的。因为站点是响应式的，页面上的元素都是环绕在一块。用 FLIP 这个方法，可以显式地处理元素，在运行时元素的当前值可以被计算出来。
+
+The reason you can afford to do this relatively expensive precalculation is because there is a window of 100ms after someone interacts with your site where you’re able to do work without them noticing. If you’re inside that window users will feel like the site responded instantly! It’s only when things are moving that you need to maintain 60fps.
+
+你之所以能做这样相对昂贵的预计算，是因为当用户与站点发生交互的时候，存在一个 100ms 的时窗，用户是不会察觉到在这 100ms 之内完成的动作的，只要在 100ms 之内，用户都会认为你的站点是很快的！只有当元素在移动的时候，你要保证帧率达到 60fps。
+
+![](images/flip/window.jpg)
+
+We can use that window of time to do all that getBoundingClientRect work (or getComputedStyle if that’s your poison) in JavaScript, and from there we make sure that we’re reducing the animation down to nice-and-fast, compositor-friendly, look-ma-no-paints transform and opacity changes. (Why just those? Check out my Pixels are Expensive post.)
+
+我们可以利用这段时窗完成``` getBoundingClientRect ```（或者是``` getComputedStyle  ```），接着我们就能又快又好地执行动画，
