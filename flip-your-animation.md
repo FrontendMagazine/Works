@@ -170,7 +170,7 @@ There are a couple of things to bear in mind if you FLIP:
 3. **元素可能发生形变。**当你在使用 scale 之类的属性时，元素可能会被扭曲。我的经验就是，要调整 html 结构。不过为了 FLIP 而调整结构，这一点其实还颇有争议。
 
 ## FLIP on, as it were…
-## Flip On
+## 结束，大家开始使用 FLIP吧！
 
 I’ve come to love FLIP as a way of thinking about animations, because it’s a good match of JavaScript and CSS. Calculate in JavaScript, but let CSS handle the animations for you. You don’t have to use CSS to do the animations, though, you could just as easily use the Web Animations API or JavaScript itself, whatever’s easiest. The main point is that you’re reducing the per-frame complexity and cost (which normally means transform and opacity) to try and give the user the best possible experience.
 
@@ -181,3 +181,4 @@ I have more to tell you about FLIP and a broader, unified model of performance, 
 关于 FLIP 的话题，还有对性能的探讨，我还有很多想说，不过还是留到下篇博文见了！
 
 So, uhh, FLIP on.
+所以，快开启你们的 FLIP 之路吧。
