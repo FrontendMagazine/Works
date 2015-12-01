@@ -138,4 +138,46 @@ The reason you can afford to do this relatively expensive precalculation is beca
 
 We can use that window of time to do all that getBoundingClientRect work (or getComputedStyle if that’s your poison) in JavaScript, and from there we make sure that we’re reducing the animation down to nice-and-fast, compositor-friendly, look-ma-no-paints transform and opacity changes. (Why just those? Check out my Pixels are Expensive post.)
 
-我们可以利用这段时窗完成``` getBoundingClientRect ```（或者是``` getComputedStyle  ```），接着我们就能又快又好地执行动画，
+我们可以利用这段时窗完成``` getBoundingClientRect ```（或者是``` getComputedStyle  ```），接着我们就能又快又好地执行动画，这么做对浏览器排版友好，也减少了 ```transform``` 和 ```opacity``` 引起的重绘（想知道为什么只有这两个？请阅读[这篇](https://aerotwist.com/blog/pixels-are-expensive/)）。
+
+Animations that can be remapped to transform and opacity changes are the perfect fit. If you’re already limiting to those properties in your JS or CSS animations then you’re probably good to go; this technique works best when you’re changing layout properties (like width and height, left and top) and you want to remap them to cheaper properties.
+
+只要动画可以映射到 transform 和 opacity 上，那就完美了。如果已经这么做了，那就说明你已经准备好了；这项技术在你想要改变布局属性的时候最好用，它可以把本来很昂贵的操作映射到对性能相对友好的属性上。
+
+Sometimes you will need to rethink your animations to fit this model, and on many occasions I’ve separated and animated elements individually just so that I can animate them without distortion, and FLIP as much as possible. You may feel like that’s overkill, but to me it’s not, and for two reasons:
+
+有时，你需要反复思考你的动画是否能套用到这个模型上。很多时候，我都先将动画分解，然后一个个地作用到元素上，防止出现形变，并且尽可能地触发 FLIP。你可能觉得这么做太过了，但我认为并非如此：
+
+1. People want this. My colleague and friend Paul Kinlan recently ran a survey on what people want from a news app. The most popular answer (which was a surprise to him, at least) wasn’t offline support, sync, notifications, or anything like that. It was smooth navigation. Smooth, like no jank, no stutter, no judder. (/me mutters something about #perfmatters.)
+1. **这是用户想要看到的。** Paul Kinlan 最近做了一个[调查](http://paul.kinlan.me/what-news-readers-want/)，想知道当人们使用一个新闻客户端时，他们在想些什么。**流畅**，既不是离线支持，也不是同步，更不是通知，而是**流畅**（在我看来，这就是**性能**问题）。
+
+2. Native app devs do this. Of course this is a sliding scale and subjective, but I’ve heard many times of native developers spending days on end getting the transitions in their apps just right. Those “little touches” are a differentiator and, as we get faster loading sites through Service Worker, we’re going to be in the same boat. People will judge our sites based on how well they feel when they’re running.
+2. **原生应用就是这么开发的。**好吧，这么说是有点夸大还带点主观色彩，但是我确实听过原生应用的开发者抱怨过一百遍关于调整动画的事。那些“小触碰”就是区分器，当我们借助 Service Worker 让站点加载地更快之后，我们也将面临这个问题。人们将会根据操作时的感受，来判定我们的站点。
+
+## Some caveats
+## 警告
+
+There are a couple of things to bear in mind if you FLIP:
+当在使用 FLIP 的时候，你要注意：
+
+1. Don’t exceed the 100ms window. It’s important to remember that you shouldn’t exceed that window, because your app will appear non-responsive if you do. Keep an eye on it through DevTools to know if you’re busting that budget.
+1. **不要忘了 100ms 的限制。**千万不要超过这个时窗，不然用户会以为应用失去响应了。开发的时候，盯紧 DevTools 中的时间线。
+
+2. Orchestrate your animations carefully. Imagine, if you will, that you’re running one of these animations all transformy and opacity-y and then you decide to do another, which requires a bunch of precalculation. That’s going to interrupt the animation that’s in flight, which is bad. The key here is to make sure your precalculation work is done in idle or the “response window” I talked about, and that two animations don’t stomp over each other.
+2. **控制好动画的时间线。**假设，当前有一个 y 轴上的动画正在执行，此时你想要执行另一个动画了，那么浏览器就会进行大量的预计算，这样就会打断正在执行的 y 轴上的动画，这样做很不好。要避免这个问题，就要保证预计算是在理想状况下进行的，或者在上文中我所说的 100ms 时窗中完成了。两个独立的动画不应该相互影响。
+
+3. Content can get distorted. When you’re working in a scale and transform world some elements can get distorted. As I said above I’ve been known to restructure my markup a little to allow me to FLIP without distortion, but it can end up being quite the wrangle.
+3. **元素可能发生形变。**当你在使用 scale 之类的属性时，元素可能会被扭曲。我的经验就是，要调整 html 结构。不过为了 FLIP 而调整结构，这一点其实还颇有争议。
+
+## FLIP on, as it were…
+## Flip On
+
+I’ve come to love FLIP as a way of thinking about animations, because it’s a good match of JavaScript and CSS. Calculate in JavaScript, but let CSS handle the animations for you. You don’t have to use CSS to do the animations, though, you could just as easily use the Web Animations API or JavaScript itself, whatever’s easiest. The main point is that you’re reducing the per-frame complexity and cost (which normally means transform and opacity) to try and give the user the best possible experience.
+
+现在我都是用 FLIP 的思维来思考动画这件事情的，我认为这是一个 JS 和 CSS 完美结合的例子。用 JS 完成计算，让 CSS 处理动画。你不再仅仅依靠 CSS 来执行动画，使用 Web Animations API 或者 JavaScript 会把事情变得简单。关键是，你减少了每一帧的复杂程度和计算成本（指的是 ```transform``` 和 ```opacity``` 的计算），用户体验更好了。
+
+I have more to tell you about FLIP and a broader, unified model of performance, but that’s going to be the next blog post or so I’d say!
+
+关于 FLIP 的话题，还有对性能的探讨，我还有很多想说，不过还是留到下篇博文见了！
+
+So, uhh, FLIP on.
