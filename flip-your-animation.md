@@ -5,20 +5,20 @@
 
 Animations in your web app should run at 60fps. Not always easy to achieve that, and it really depends on what you're trying to do, but I'm here to help. With FLIP.
 
-网页上的动画应该要达到 60fps 的帧率，这个目标并不是那么容易实现，你需要运用各种技巧才能完成这个目标，今天我将介绍 **FLIP** 来帮助你。
+网页上的动画应该要达到 60fps 的帧率，这个目标并不是那么容易实现，你需要运用各种技巧才能完成这个目标，今天我介绍的 **FLIP** 可以帮助到你。
 
 Recently I’ve had the pleasure of being part of the team that built building the Google I/O 2015 website, and last year I built the Chrome Dev Summit site. On both sites we used FLIP, which is essentially a principle, and not a framework or a library. It is a way of thinking about animations, and attempting to keep them as cheap as possible for the browser which, all being well, should translate over to 60fps animations.
 
-最近我有幸参与到 [2015 Google I/0 的官方站点](https://events.google.com/io2015/)项目中，而且去年我也参与构建了 [Chrome Dev Summit 站点](https://developer.chrome.com/devsummit/)。这两个项目中我们都使用了 **FLIP**。FLIP 不是一个框架也不是库。而是一种思考动画的方式，通过这个方式，我们希望在正常情况下，浏览器对动画的渲染都可以达到 60fps。
+最近我有幸参与到 [2015 Google I/0 的官方站点](https://events.google.com/io2015/)项目中，而且去年我也参与构建了 [Chrome Dev Summit 站点](https://developer.chrome.com/devsummit/)。在这两个项目中我们都使用了 **FLIP**。FLIP 不是一个框架也不是库。而是一种思考动画的方式，我们希望通过这个方式，在正常情况下，浏览器对动画的渲染都可以达到 60fps。
 
 If you prefer watching to reading, this is my talk from Chrome Dev Summit, where I explain FLIP (without naming it explicitly) in lots of detail:
 
 下面是我在 Chrome Dev Summit 上关于 FLIP （当时还没有给它一个正式的名字）的视频，视频中我详细解释了这个原则，你也可以通过视频了解 FLIP（观看该视频需要特别的姿势）。
 
-![](https://youtu.be/RCFQu0hK6bU)
+<iframe width="560" height="315" src="https://www.youtube.com/embed/RCFQu0hK6bU" frameborder="0" allowfullscreen></iframe>
 
 ## The general approach
-## 通用方法
+## 一个通用的方案
 
 What we’re trying and do is to turn animations on their head (flip, see? Gosh darnit, I’m so funneh) and, instead of animating “straight ahead” and potentially doing expensive calculations on every single frame we precalculate the animation dynamically and let it play out cheaply.
 
@@ -29,7 +29,7 @@ FLIP stands for First, Last, Invert, Play.
 FLIP 指的是 **F**irst（起始）、**L**ast（终止）、**I**nvert（翻转）还有 **P**lay（播放）。
 
 Let’s break it down:
- 
+
 现在让我们一个个来看：
 
 + **First**: the initial state of the element(s) involved in the transition.
@@ -39,15 +39,15 @@ Let’s break it down:
 + **结束**: 元素的结束状态。
 
 + **Invert**: here’s the fun bit. You figure out from the first and last how the element has changed, so – say – its width, height, opacity. Next you apply transforms and opacity changes to reverse, or invert, them. If the element has moved 90px down between First and Last, you would apply a transform of -90px in Y. This makes the elements appear as though they’re still in the First position but, crucially, they’re not.
-＋ **翻转**: 有趣的来了，现在你已经知道了元素要如何从初始状态转变到结束状态，比如它的宽、高或者透明度要如何变化。下一步你将 ```transform``` 和 ```opacity``` 运用到反转元素上。举个例子，如果现在元素处在初始状态向结束状态的动画过程中的向下移动的 90px，那你需要在 Y 轴平移 -90px 才能在视觉上让元素看起来还是在起始位置。但事实是，它们的真实位置其实并不在那。
++ **翻转**: 有趣的来了，现在你已经知道了元素要如何从初始状态转变到结束状态，比如它的宽、高或者透明度要如何变化。下一步你将 ```transform``` 和 ```opacity``` 运用到反转元素上。举个例子，如果现在元素处在初始状态向结束状态的动画过程中的向下移动的 90px，那你需要在 Y 轴平移 -90px 才能在视觉上让元素看起来还是在起始位置。但事实是，它们的真实位置其实并不在那。
 
 + **Play**: switch on transitions for any of the properties you changed, and then remove the inversion changes. Because the element or elements are in their final position removing the transforms and opacities will ease them from their faux First position, out to the Last position.
-＋ **播放**: 在你改变了的属性上开启过渡（```transition```），然后移除反转。因为元素（们）在结束状态时的 ```opacity``` 和 ```transform``` 都会被改变（从假的初始状态到结束状态）。
++ **播放**: 在你改变了的属性上开启过渡（```transition```），然后移除反转。因为元素（们）在结束状态时的 ```opacity``` 和 ```transform``` 都会被改变（从假的初始状态到结束状态）。
 
 Ta daaaaa!
 
 ## Got Code?
-## 代码要怎么写？
+## 使用代码如何实现？
 
 Why yes I do. Here’s that same breakdown in code:
 
@@ -85,6 +85,7 @@ Why yes I do. Here’s that same breakdown in code:
 ```
 
 However, you can also do this with the upcoming Web Animations API, which can make things even easier:
+
 不过，你也可以使用最新的 [Web Animations API](http://w3c.github.io/web-animations/)，代码将会更简洁易懂一些：
 
 ```
@@ -120,9 +121,11 @@ However, you can also do this with the upcoming Web Animations API, which can ma
 ```
 
 Right now you’ll need the Web Animations API polyfill to use the code above, though, but it’s pretty lightweight and does make life a lot easier!
+
 不过现在如果你要使用 Web Animations API 的话，还需要结合 [polyfill](https://github.com/web-animations/web-animations-js) 使用，让自己的人生轻松一点！
 
 If you want a more “in-production” context for FLIP check out the source for cards on the Chrome Dev Summit site.
+
 如果你想要一个更“像生产环境”的 FLIP 代码，可以看看 [Chrome Dev Summit 上的代码](https://github.com/GoogleChrome/devsummit/blob/master/src/static/scripts/components/card.js#L263-296)。
 
 ## What is it good for?
@@ -157,12 +160,14 @@ Sometimes you will need to rethink your animations to fit this model, and on man
 2. **原生应用就是这么开发的。**好吧，这么说是有点夸大还带点主观色彩，但是我确实听过原生应用的开发者抱怨过一百遍关于调整动画的事。那些“小触碰”就是区分器，当我们借助 Service Worker 让站点加载地更快之后，我们也将面临这个问题。人们将会根据操作时的感受，来判定我们的站点。
 
 ## Some caveats
-## 警告
+## 几点忠告
 
 There are a couple of things to bear in mind if you FLIP:
+
 当在使用 FLIP 的时候，你要注意：
 
 1. Don’t exceed the 100ms window. It’s important to remember that you shouldn’t exceed that window, because your app will appear non-responsive if you do. Keep an eye on it through DevTools to know if you’re busting that budget.
+
 1. **不要忘了 100ms 的限制。**千万不要超过这个时窗，不然用户会以为应用失去响应了。开发的时候，盯紧 DevTools 中的时间线。
 
 2. Orchestrate your animations carefully. Imagine, if you will, that you’re running one of these animations all transformy and opacity-y and then you decide to do another, which requires a bunch of precalculation. That’s going to interrupt the animation that’s in flight, which is bad. The key here is to make sure your precalculation work is done in idle or the “response window” I talked about, and that two animations don’t stomp over each other.
@@ -172,7 +177,7 @@ There are a couple of things to bear in mind if you FLIP:
 3. **元素可能发生形变。**当你在使用 scale 之类的属性时，元素可能会被扭曲。我的经验就是，要调整 html 结构。不过为了 FLIP 而调整结构，这一点其实还颇有争议。
 
 ## FLIP on, as it were…
-## 结束，大家开始使用 FLIP吧！
+## 结束，大家开始使用 FLIP 吧！
 
 I’ve come to love FLIP as a way of thinking about animations, because it’s a good match of JavaScript and CSS. Calculate in JavaScript, but let CSS handle the animations for you. You don’t have to use CSS to do the animations, though, you could just as easily use the Web Animations API or JavaScript itself, whatever’s easiest. The main point is that you’re reducing the per-frame complexity and cost (which normally means transform and opacity) to try and give the user the best possible experience.
 
@@ -183,4 +188,5 @@ I have more to tell you about FLIP and a broader, unified model of performance, 
 关于 FLIP 的话题，还有对性能的探讨，我还有很多想说，不过还是留到下篇博文见了！
 
 So, uhh, FLIP on.
+
 所以，快开启你们的 FLIP 之路吧。
