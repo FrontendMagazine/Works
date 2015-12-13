@@ -3,6 +3,7 @@
 
 > Posted on October 29, 2015 by Safari Books Online & filed under Content - Highlights and Reviews, javascript, programming, Programming & Development, Tech, Web Development.
 > by Richard Feldman
+
 > 于 2015 年 10 月 29 日 发表在 Safari 在线书店的 [Content - Highlights and Reviews](https://www.safaribooksonline.com/blog/category/content-highlights-and-reviews/)[、[javascript](https://www.safaribooksonline.com/blog/category/programming/javascript-programming/)、[programming](https://www.safaribooksonline.com/blog/category/programming/)、[Programming & Development](https://www.safaribooksonline.com/blog/category/programming-development/)、[Tech](https://www.safaribooksonline.com/blog/category/tech/)、[Web Development](https://www.safaribooksonline.com/blog/category/programming-development/web-development-2/) 类目下。
 > 撰稿人 Richard Feldman
 
@@ -20,11 +21,11 @@ Now that more and more JavaScript libraries are abandoning local component state
 
 Perhaps most importantly: now that we have a strong ecosystem that can support a single state atom, has local component state gone from a best practice to an alluring trap?
 
-或许最重要的：既然已经有足够健康的生态来支撑单一状态应用，是否局部组件状态真的从一个最佳实践沦落为一个诱人的陷阱呢？
+或许最重要的是：既然已经有足够健康的生态来支撑单一状态应用，是否局部组件状态真的从一个最佳实践沦落为一个诱人的陷阱了呢？
 
 ## Sources of Truth
 
-## 真实的来源
+## 单一数据源
 
 How many databases does a typical Web App use to store its application state? Almost always the answer is “exactly one.” Many employ special-purpose databases for queuing and caching (e.g. Redis, Memcache), but relatively few Web Apps grow to the point where it becomes appealing to divide application state across multiple databases.
 
@@ -206,4 +207,3 @@ Considering we can use delegation and function passing to build reusable statele
 So here’s to the next evolution of front-end development, where we avoid the trap of local component state and start reaping the benefits back-end programmers have enjoyed for years.
 
 所以，这就是前端开发界的下一次革命，我们避免了局部组建状态的陷阱并且尝到了后端开发者一直在享受的甜头。
-
