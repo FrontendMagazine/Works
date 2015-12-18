@@ -65,3 +65,46 @@ Then I applied the color and overflow:hidden
 接着再使用 ```color``` 和 ```overflow:hidden```：
 
 ![](images/twitter-heart/pieces-color.png)
+
+### Ring
+### 环形
+
+The second part was the Ring.
+
+接下来，我们要看看如何实现环形的动画。
+
+This one is a simple rounded element with different border-size values and width / height values.
+
+通过设置不同的 ```border-size```、```width``` 和 ```height``` 就能画出各种各样的环形了。
+
+![](images/twitter-heart/ring.png)
+
+
+### Circles
+### 圆形
+
+The third part was the Circles.
+第三步，圆形。
+
+I built this one using a transparent rounded element in the middle and adding shadow boxes on it.
+
+将一个透明的圆形元素居中，然后给它加上阴影（```shadow-box```）。
+
+![](images/twitter-heart/circles01.png)
+
+A shadow-box value for each circle, comma separated. The position x / y is computed based on the angle with sin / cos using Compass
+
+圆形的阴影值，用逗号分隔。坐标值可以通过圆规和三角函数算出来：
+
+![](images/twitter-heart/circles02.png)
+
+## Animation
+## 动画
+
+### Heart
+### 爱心
+
+Nothing too complex.
+爱心上的动画很简单。
+
+Increasing / decreasing the width / height of the main element (and setting the position left / top accordingly). The only thing is to make sure everything inside is relative to this element to adjust.
