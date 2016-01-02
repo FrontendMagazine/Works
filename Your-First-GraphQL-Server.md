@@ -76,7 +76,7 @@ We’ve chosen to use an endpoint at /graphql, accessible via HTTP POST, but the
 
 Now that we have a server we can talk to, it’s time to “add some GraphQL”. What does that actually mean?
 
-服务器已经好了，这个时候就可以添加一些 GraphQL 了。那该如何做的？
+服务器已经好了，这个时候就可以“添加一些 GraphQL”了。怎么理解这句话？
 
 Let’s remind ourselves what a GraphQL request looks like:
 
@@ -96,7 +96,7 @@ They can do a few more things, but lets move on.
 
 Our GraphQL server needs to be configured to respond to requests like these — it does this using a schema.
 
-我们需要配置我们的 GraphQL 服务器来响应这样的请求——如何配置？使用 Schema。
+我们需要配置 GraphQL 服务器来响应这样的请求——如何配置？使用 Schema。
 
 Constructing a schema is analogous to constructing a RESTful route tree. Our schema will describe what fields the server can respond to and what types of objects the responses will contain. Type information is very important to GraphQL, and the client can safely assume that the server will return consistent types of objects for the same field (or an error if that invariant is broken).
 
@@ -116,7 +116,7 @@ Back to running commands:
 
 This looks promising, right? The GraphQL module contains the GraphQL technical preview, which allows us to compose our server schema and process GraphQL requests against it. Body-parser is a simple Express middleware that we use to grab the GraphQL request being sent.
 
-这很容易理解对吧？GraphQL 模块包含了 GraphQL 『预览』技术，我们可以用来构建服务器上的 Schema，在 Schema 上进行 GraphQL 查询。Body-parser 是一个简单的 Express 中间件，用来获取 GraphQL 请求中的信息。
+这很容易理解对吧？GraphQL 模块包含了 GraphQL 『预览』技术，我们可以用来构建服务器上的 Schema，在 Schema 上进行 GraphQL 查询。body-parser 是一个简单的 Express 中间件，用来获取 GraphQL 请求中的信息。
 
 Time to write our schema:
 
@@ -149,7 +149,7 @@ Time to write our schema:
 
 What we’re doing here is creating an instance of `GraphQLSchema`, which takes a big configuration blob. Eventually another part of the GraphQL library will consume this schema object, but it’s a reasonable practice to isolate its construction in a separate file.
 
-上面的代码就是创建了一个 `GraphQLSchema` 实例，这个构造函数接受一个巨大的配置对象。事实上 GraphQL 类库的其他部分回来消费这个 Schema 对象，但把这个消费这个过程放在其他的文件里更加合适。
+上面的代码就是创建了一个 `GraphQLSchema` 实例，这个构造函数接受一个巨大的配置对象。事实上 GraphQL 类库的其他部分会来消费这个 Schema 对象，但把这个消费这个过程放在其他的文件里更加合适。
 
 In plain english, we’re configuring the schema to say:
 
@@ -161,11 +161,11 @@ My top-level query object returns a `RootQueryType` object, which has a `count` 
 
 You can imagine there are more scalar types besides integers (strings, lists, etc.), and that you can nest custom non-scalar types quite deeply.
 
-可想而知，还支持其他的基础类型（字符串、列表等等），而且你还可以深度嵌套子自定义的类型。
+可想而知，GraphQL 还支持其他的基础类型（字符串、列表等等），而且你可以深度嵌套自定义的复杂类型。
 
 ## Connect the Schema
 
-## 链接 Schema
+## 连接 Schema
 
 Our fancy schema wouldn’t be any good unless we could execute queries against it. Let’s hook up the schema to our HTTP server:
 
@@ -217,7 +217,7 @@ Restart your server and give it a go:
 
 Neat! GraphQL also allows us to omit the `query RootQueryType` prefix, but I wanted to show as little ‘magic’ as possible. Thus, this will also work:
 
-正确！GraphQL 还允许省略掉 `query RootQueryType` 前缀，不过我想尽量展示一些 『魔法』，比如像下面这样是可行的：
+正确！GraphQL 还允许省略掉 `query RootQueryType` 前缀，不过我想尽量少展示一些 『魔法』，比如像下面这样是可行的：
 
     $ curl -XPOST -H 'Content-Type:application/graphql'  -d '{ count }' http://localhost:3000/graphql
     {
@@ -281,7 +281,7 @@ Basically, each GraphQL root field automatically has a `__schema` field, which h
 
 More interestingly, you can attach useful human-level metadata like `description`, `isDeprecated`, and `deprecationReason` to fields. Facebook says their tooling uses this metadata to build better developer experiences (i.e. when you use a deprecated field, you see a red squiggly).
 
-更有趣的是，你还可以添加更多的供人阅读的元信息，比如可以为字段添加  `description`、`isDeprecated` 和 `deprecationReason`。Facebook 表示它们的工具可以使用这些元数据为开发者提供更好的开发体验（例如，如果你使用的字段已经废弃，会有一条红色的波浪线在它下面）。
+更有趣的是，你还可以添加更多的供人阅读的元信息，比如为字段添加  `description`、`isDeprecated` 和 `deprecationReason`。Facebook 表示它们的工具可以使用这些元数据为开发者提供更好的开发体验（例如，如果你使用的字段已经废弃，会有一条红色的波浪线在它下面）。
 
 To make this perfectly clear, here’s how we add a `description` to our current schema:
 
@@ -334,7 +334,7 @@ We’re almost done with our whirlwind tour of GraphQL — for my last trick
 
 If you want read-only access to a bunch of data, then you probably don’t need to read any further. But for most applications, we’re going to have to change our data. GraphQL calls these operations mutations.
 
-这一节是给那些不是只读读数据的人装备的。对于大部分程序来说，我们需要修改数据。GraphQL 把这些操作称为  Mutation。
+这一节是给那些不是只读读数据的人准备的。对于大部分程序来说，我们需要修改数据。GraphQL 把这些操作称为 Mutation。
 
 Mutations are just fields that are intended to have side-effects, so most of the syntax is identical. Like normal query fields, mutation fields must also return a typed value — the intent is that if you mutate something, you should also return whatever it mutated.
 
@@ -355,7 +355,7 @@ Besides going in a different location, how are mutations different? We could hav
 
 The meaningful difference between a mutation and a query is that mutations are processed serially, but queries make no such guarantee (in fact, GraphQL encourages servers to exploit the inherent parallelism of independent queries). The GraphQL spec gives this example of a set of mutation queries that must be processed by the server in order:
 
-Mutation 与 Query 不同地方就在于 GraphQL 对对前者的操作更为严格，而对于 Query 并没有这种保证（实际上，GraphQL 鼓励服务器利用内在的独立的并行查询）。下面的例子来自 GraphQL 规范，一系列 Mutation 查询在服务器上必须串行执行。
+Mutation 与 Query 不同地方就在于 GraphQL 对前者的操作更为严格，而对于 Query 并没有这种保证（实际上，GraphQL 鼓励服务器利用内在的独立的并行查询）。下面的例子来自 GraphQL 规范，一系列 Mutation 查询在服务器上必须串行执行。
 
     {
       first: changeTheNumber(newNumber: 1) {
@@ -419,7 +419,7 @@ You can do it as many times as you like — mutable state is entertaining.
 
 In a proper GraphQL implementation, we would probably wrap our counter in a semantic value (like `CountValue`), which would be more meaningfully returned from both the query and the mutation.
 
-从 GraphQL 来讲，我们还可以编写更好实现，可以把计数器封装成一个语义化的类型（比如 `CountValue`），Query 和 Mutation 的时候都返回这个类型，这样更有意义。
+从 GraphQL 来讲，我们还可以编写更好的实现，可以把计数器封装成一个语义化的类型（比如 `CountValue`），Query 和 Mutation 的时候都返回这个类型，这样更有意义。
 
 ## Wrapping Up
 
@@ -427,9 +427,11 @@ In a proper GraphQL implementation, we would probably wrap our counter in a sema
 
 That’s a whirlwind tour of how you can use GraphQL today using Facebook’s JavaScript implementation. I didn’t cover some more powerful topics — fields with arguments, resolving promises, fragments, directives…there’s lots of cool things in the GraphQL spec. There’s also room for new implementations and schema APIs on the server side. You can imagine a GraphQL server written in a typed language like Java might look quite different than how it looks in JavaScript.
 
-这是一篇快速入门的文章，介绍如何借助于 Facebook GraphQL 的 JavaScript 实现进行 GraphQL 开发。并没有涉及更多强大的特性——带参数的字段、Promise、Fragment和指令等等，在 GraphQL 规范里包含了很多有趣的东西。我们的服务器还可以使用更多 Schema 的 API，还可以实现更多东西。你可以试着想象，一个使用像 Java 这样的强类型语言编写的 GraphQL 服务器，很可能看起来和 JavaScript 写的完全不一样。
+这是一篇快速入门的文章，介绍如何借助于 Facebook GraphQL 的 JavaScript 实现进行 GraphQL 开发。并没有涉及更多强大的特性——带参数的字段、Promise、Fragment 和指令等等，在 GraphQL 规范里包含了很多有趣的东西。我们的服务器还可以使用更多 Schema 的 API，还可以实现更多东西。你可以试着想象，一个使用像 Java 这样的强类型语言编写的 GraphQL 服务器，很可能看起来和 JavaScript 写的完全不一样。
 
 This is also based on my 48-hour experience with GraphQL — if there’s anything missing or wrong, don’t hesitate to let me know. You can view the source (each commit is a new step) here:https://github.com/clayallsopp/graphql-intro
 Thanks to the RisingStack folks for their excellent post and example on GraphQL.
 
-本文出自我 48 小时的 GraphQL 使用经验——如果那里说得不对，希望你可以不吝啬的向我指出来。源代码可以在这里 https://github.com/clayallsopp/graphql-intro 看到（每一个提交都是一个小的进步）。还要感谢 RisingStack 的同志们，他们关于 GraphQL 的文章和例子都很棒。
+本文出自我 48 小时的 GraphQL 使用经验——如果哪里说得不对，希望你可以不吝指出。源代码可以在这里 https://github.com/clayallsopp/graphql-intro 看到（每一个提交都是一个小的进步）。还要感谢 RisingStack 的伙计们，他们关于 GraphQL 的文章和例子都很棒。
+
+
