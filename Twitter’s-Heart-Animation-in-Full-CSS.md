@@ -1,6 +1,37 @@
-原文地址：[Twitter’s Heart Animation in Full CSS](https://medium.com/@OxyDesign/twitter-s-heart-animation-in-full-css-b1c00ca5b774#.pndd8brke)
+原文地址：[Twitter’s Heart Animation in Full CSS](https://medium.com/@OxyDesign/twitter-s-heart-animation-in-full-css-b1c00ca5b774#.pndd8brke) 和 [How Did They Do That? The Twitter “Like” Animation.](https://medium.com/@chrismabry/how-did-they-do-that-the-twitter-like-animation-2a473b658e43#.amz1n79v0)
+
+> 译者的话：这篇文章我们的一种新的尝试，是译文+译者对原文的思考结合的产物，希望可以引起各位的讨论。
+
+
+
+# How Did They Do That? The Twitter “Like” Animation.
+
+# Twitter “喜欢” 动画教程
+
+Or, *An Introduction to CSS Sprite Sheet Animation.*
+
+这篇文章其实是，CSS 雪碧图动画教程。
+
+By now, you’ve probably [seen](https://blog.twitter.com/2015/hearts-on-twitter) or [heard](http://www.wired.com/2015/11/twitter-reacts-to-hearts-replacing-stars/) — the Twitter star has been replaced with a little heart, and the “favorite” has been re-dubbed the “like.”
+
+现在，你大概已经[见过](https://blog.twitter.com/2015/hearts-on-twitter)或者[听说](http://www.wired.com/2015/11/twitter-reacts-to-hearts-replacing-stars/)了 Twitter 把星星换成了小爱心，“收藏”也变成了“喜欢”。
+
+
+
+Regardless of whether you love or hate the change, the new like animation is a great example of how CSS sprite sheets can be used to bring really awesome animation to the web.
+
+不管你喜不喜欢 Twitter 的这个改变，“喜欢”可是个 CSS 雪碧图动画很好的模仿例子。
+
+
+
+
+
+
+
+
 
 # Twitter’s Heart Animation in Full CSS
+
 # CSS 实现Twitter 的“爱心动画”
 
 A few weeks ago, as everybody, I saw the Twitter Star turned into a Heart. The favorite into a like.
@@ -10,6 +41,7 @@ A few weeks ago, as everybody, I saw the Twitter Star turned into a Heart. The f
 twitter 官方也[发推](https://blog.twitter.com/2015/hearts-on-twitter)说了这事儿
 
 > You can say a lot with a heart. Introducing a new way to show how you feel on Twitter: https://blog.twitter.com/2015/hearts-on-twitter ... pic.twitter.com/G4ZGe0rDTP
+
   爱心，一种新的表达你对一条 twitter 的方式：
 
 That was a huge source for debates for sure … but the only thing that I had in mind was … is it possible to make it with only CSS (not a single picture or SVG) ?
@@ -35,20 +67,23 @@ First I divided it in 3 layers : the Heart (.heart), the Ring (.ring) and the Ci
 首先，我把这个效果分成了三个层级：爱心（```.heart```）、环形（```.ring```）以及圆形（```.circles```），接着将它们三个都放进 ```.heart-wrapper``` 这个容器中。然后分别绘制每个层级，接着实现对应的动画，最后把所有动画整合到一起。
 
 ## Drawing
+
 ## 绘制
 
 ### Heart
+
 ### 爱心
 
 First part was the Heart.
+
 首先我们要搞定的是爱心。
 
 I separated the full area in 4 rectangles :
+
 我把整个形状分成了四块矩形区域：
 
 + Top / Left and Top / Right : 25% high / 50% wide
 + 左上和右上区域都是占总高度的 25%，总宽度的 50%
-
 + Bottom / Left and Bottom / Right : 75% high / 50% wide
 + 左下和右下区域是占总高度的 75%，总宽度的 50%
 
@@ -67,6 +102,7 @@ Then I applied the color and overflow:hidden
 ![](images/twitter-heart/pieces-color.png)
 
 ### Ring
+
 ### 环形
 
 The second part was the Ring.
@@ -80,10 +116,13 @@ This one is a simple rounded element with different border-size values and width
 ![](images/twitter-heart/ring.png)
 
 
+
 ### Circles
+
 ### 圆形
 
 The third part was the Circles.
+
 第三步，圆形。
 
 I built this one using a transparent rounded element in the middle and adding shadow boxes on it.
@@ -99,12 +138,15 @@ A shadow-box value for each circle, comma separated. The position x / y is compu
 ![](images/twitter-heart/circles02.png)
 
 ## Animation
+
 ## 动画
 
 ### Heart
+
 ### 爱心
 
 Nothing too complex.
+
 爱心上的动画很简单。
 
 Increasing / decreasing the width / height of the main element (and setting the position left / top accordingly). The only thing is to make sure everything inside is relative to this element to adjust.
@@ -114,6 +156,7 @@ Increasing / decreasing the width / height of the main element (and setting the 
 ![](images/twitter-heart/heart-ani.png)
 
 ### Ring
+
 ### 环形
 
 Adjusting the size of the border and the circle inside and the position accordingly as well as the color.
@@ -123,7 +166,9 @@ Adjusting the size of the border and the circle inside and the position accordin
 ![](images/twitter-heart/ring-ani.png)
 
 
+
 ### Circles
+
 ### 圆形
 
 This one is a bit more tricky because all the border-shadow values have to be udpated all at the same time (position x / y, size, color) as it’s only one property with several comma separated values.
@@ -134,7 +179,7 @@ For instance :
 
 比如：
 
-```scss
+``` scss
   51.85185% {
     box-shadow:
       -8.48528em -8.48528em 0 -0.83333em #a068ce,
@@ -162,10 +207,10 @@ To make it easier to read and adjust, I created a SASS function to handle this :
 
 为了方便阅读和更改，我写了一个 SASS 函数来处理它：
 
-```scss
+``` scss
   @function setBoxShadow($distance1, $distance2, $size1, $size2, $shiftAngle, $colorRatio) {
     $boxS: ();
-    
+
     @for $i from 1 through length($circles) {
       $circle: nth($circles, $i);
       $order: $i - 1;
@@ -179,7 +224,7 @@ To make it easier to read and adjust, I created a SASS function to handle this :
       $secondCircle: map-get($circle, second);
       $secondCircleStart: map-get($secondCircle, start);
       $secondCircleEnd: map-get($secondCircle, end);
-      
+
       $boxS: append($boxS,
         cos($angle1) * $distanceRatio1
         sin($angle1) * $distanceRatio1
@@ -196,7 +241,7 @@ To make it easier to read and adjust, I created a SASS function to handle this :
         mix($secondCircleStart, $secondCircleEnd, $colorRatio)
       );
     }
-    
+
     @return join($boxS, (), "comma");
   }
 ```
@@ -206,6 +251,7 @@ This function loops through all the Circles (stored in a SASS Map) and set 2 by 
 这个方法循环读取了所有的储存在 **SASS Map** 中的圆形，然后根据元素间的距离、尺寸、偏移角度以及颜色的变化程度，两个两个地（一大小两个圆）更新 ```box-shadow``` 的值，这些值都会以**变量**的形式传入。
 
 ### Completion
+
 ### 完工
 
 Then I adjusted the timings / percentages of the animations according to what is explained in this post https://medium.com/@chrismabry/how-did-they-do-that-the-twitter-like-animation-2a473b658e43 by @chrismabry
@@ -216,35 +262,39 @@ Therefore I separated in 28 steps
 
 将动画分隔为28个步骤。
 
-```scss
+``` scss
   $animStep: 100% / 27;
 ```
 
 that run in 0.8s
+
 要在 800ms 内完成
 
-```scss
+``` scss
   $animDuration: 0.8s;
 ```
 
 using a function to generate the percentages of the various steps :
+
 类似的，我也构建了一个函数生成这些步骤：
 
-```scsss
+``` scsss
   @function setStep($n) { @return ($n — 1) * $animStep }
 ```
 
 For instance :
+
 当向这个方法传入 6 的时候：
 
-```scss
+``` scss
   #{setStep(6)}
 ```
 
 will output :
+
 将输出：
 
-```
+``` 
   18.51852%
 ```
 
@@ -253,6 +303,7 @@ And make the three layers superimpose with the good timing.
 这样我们的三层结构就能在正确的时间重叠在一起啦。
 
 A picture will be better than a long explanation :
+
 一图胜千言：
 
 ![](images/twitter-heart/spirit.png)
@@ -262,14 +313,17 @@ The animation will be active / inactive just by adding / removing the class (.ac
 通过在容器（```.heart-wrapper```）上添加 ```active``` 这个class来控制动画。在我的代码中，通过点击可以切换效果。
 
 ## Conclusion
+
 ## 结论
 
 I achieved my goal but as you can imagine for me it was more a question of winning this personal challenge, nothing more.
 
 
+
 Browser support is the same as the current version (IE10+) because the most advanced requirement is CSS3 Animation (http://caniuse.com/#feat=css-animation).
 
 This is what it looks like :
+
 
 
 I tried to keep the code as clean and structured as possible, and I used SASS variables for settings at the top to let people easily make some tests and changes. Feel free to let me know what you think and if you find something that can be improved (by setting the debug to true in the JS you’ll be able to see the animation step by step, with 1 click for each step).
