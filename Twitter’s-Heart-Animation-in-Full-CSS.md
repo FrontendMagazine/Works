@@ -24,6 +24,171 @@ Regardless of whether you love or hate the change, the new like animation is a g
 
 
 
+I won’t go into detail on the actual process of designing the animation in this post, because I don’t know the process they used— you can go ask [Brian Waddington](https://medium.com/u/5910242ec8f2) if you’d like to know.
+
+这篇文章不会涉及到对 Twitter 新动画的细节分析，毕竟我并不了解实际的实现过程，如果读者对这方面有疑问，可以直接问问 [Brian Waddington](https://medium.com/u/5910242ec8f2)。
+
+
+
+Getting it into the browser is a different story.
+
+在浏览器里面的实现是另一回事儿了。
+
+
+
+In order to get this animation to display fast and fluidly on the web, the Twitter team utilized a technique made famous in video games of old known as sprite sheet animation.
+
+为了让动画尽可能快速且流畅，Twitter 运用了一个在游戏领域很经典的方法 -- 雪碧图动画（定个动画）。
+
+
+
+This process involves exporting each frame of the animation side-by-side into a single image, so that instead of loading 29 different assets to play a simple animation, you just have to load one.
+
+首先要把一帧一帧紧贴地排列在一张大图中，减少请求数。
+
+
+
+Why is this so important? Trips to and from the server are expensive from a speed and resource standpoint, and when you have 320 million active users on your site, small savings result in huge performance gains. Making one trip instead of 29 is one great way to optimize.
+
+为什么减少请求数很重要？服务器端和客户端之间的传输成本很高，如果你的产品有320万活跃用户，即使只是减少几个请求数，性能也能得到非常大的优化。“喜欢”动画被我们分成了29帧，用雪碧图的方式可以将请求数从29减少到1。
+
+
+
+![anim-sprit](./images/twitter-heart/anim-spirit.png)
+
+
+
+Once the animation has been compiled into one image as seen above, we can “flip” through the frames using CSS, emulating animation techniques made famous by [Flipbooks](https://en.wikipedia.org/wiki/Flipbook) and the [Zoetrope](https://en.wikipedia.org/wiki/Zoetrope).
+
+雪碧图（如上图）做好了之后，我们可以通过 CSS 一帧帧地展现这张图片，原理和[走马灯](https://en.wikipedia.org/wiki/Zoetrope)类似。
+
+
+
+So, how do we animate it?
+
+那么，到底要怎么执行这个动画呢？
+
+
+
+### The Code
+
+### 代码
+
+In order to replicate what the folks at Twitter did, we’ll need three things:
+
+为了模拟出 Twitter 的爱心动画，我们需要做三件事情：
+
+1. A div for our heart, with the sprite sheet as its background image.  
+   
+   1. 有一个 ```div``` 放爱心，这个 ```div``` 的背景图就是上面那张雪碧图。
+   
+2. A CSS keyframe animation that moves the background position from left to right.
+   
+   1. 构建一个 ```keyframe```  执行 ```background-position``` 动画，让背景图的位置从左移动到右。
+   
+3. A way to trigger the animation to play when the user clicks it.
+   
+   1. 当用户点击的时候，触发这个动画。
+      
+      ​
+
+First, we’ll make a pretty straight-forward div:
+
+首先，让我们先来个 ```div```:
+
+
+
+#### HTML
+
+``` html
+<div class=”heart”></div>
+```
+
+
+
+#### CSS
+
+``` css
+.heart {
+ cursor: pointer;
+ height: 50px;
+ width: 50px;
+ background-image:url('https://abs.twimg.com/a/1446542199/img/t1/web_heart_animation.png');
+ background-position: left;
+ background-repeat:no-repeat;
+ background-size:2900%;
+}
+```
+
+
+
+If you know CSS, you should understand what’s going on here. We give the div a set width and height, make it’s background image the sprite-sheet, position that background image all the way to the left (which will be the first frame of the animation), and then set it’s background size to be 2900% so that it will properly fill the div. We also set the cursor to a pointer so the user knows it’s clickable.
+
+上面的 CSS 做了什么事情呢？我们给一个 ```div```  定了宽高；并将它的背景图设置为上面那张很长的雪碧图；然后将它的 ```background-position```  固定到雪碧图的最左边（动画的起始帧；```background-size```  设定为 2900%，这样可以保证雪碧图可以完全占满这个 ```div``` 。不要忘了 ```cursor``` 设置成可点击的。
+
+
+
+Here’s what we have so far:
+
+现在可以看到这个了：
+
+![first-frame](images/twitter-heart/anim-f-frame.png)
+
+
+
+Next, the fun part — animating it! Alright, so it’s not *that* fun, but it is very straightforward.
+
+接下来是最激动人心的时刻 -- 让爱心动起来！讲真，是没有那么激动啦，但是够直白：
+
+
+
+#### CSS
+
+``` css
+@keyframes heart-burst {
+ from {background-position:left;}
+ to { background-position:right;}
+}
+```
+
+
+
+What we’ve done here is define a custom CSS keyframe animation. We’re telling CSS to animate the background position from the left to the right, and we’re naming it *heart-burst*.
+
+这个关键帧的名字叫做 heart-burst，它要执行的动画，就是将 ```background-position```  从 ```left``` 变成 ```right``` 。
+
+
+
+*Note: We’ve left it out, but you’ll need to use proper vendor prefixes for cross-browser support. More info [here](https://css-tricks.com/snippets/css/keyframe-animation-syntax/).*
+
+*注意：动画需要添加浏览器前缀，保证兼容性，详情请看[这里](https://css-tricks.com/snippets/css/keyframe-animation-syntax/)*
+
+
+
+Now that we’ve defined the animation, we can play it by adding this to our heart div:
+
+现在动画已经定义好了，我们可以把它加到爱心的 ```div```  上了：
+
+![zoetrope](./images/twitter-heart/zoetrope.gif)
+
+
+
+Obviously not what we were going for, but close!
+
+很明显，这不是我们想要的效果，不过已经很接近了！
+
+
+
+To make it display properly, we’ll need to utilize *steps()*. This will allow us to break up the animation into individual segments, so instead of smoothly animating from left to right, we’ll do it in a number of chunks that syncs up with our number of frames.
+
+
+
+
+
+While we’re at it, we’re also going to break out the animation into a separate class, so that the animation will only play when that class is applied to the div. This way, we can trigger it whenever we want.
+
+
+
 
 
 
