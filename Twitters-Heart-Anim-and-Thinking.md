@@ -8,7 +8,7 @@
 
 原文2地址：[How Did They Do That? The Twitter “Like” Animation.](https://medium.com/@chrismabry/how-did-they-do-that-the-twitter-like-animation-2a473b658e43#.amz1n79v0)
 
-> 译者的话：Twitter 的 'like' 效果相信不少人已经发现了，Medium 上有两位开发者模拟了这个效果。今天这篇文章是那两位开发者文章的译文综合，文末有译者对实现方式的思考，请轻拍。
+> 译者的话：Twitter 的 '赞' 效果相信不少人已经发现了，Medium 上有两位开发者模拟了这个效果。今天这篇文章是那两位开发者文章的译文综合，文中间或夹杂译者对实现方式的思考，请轻拍。
 
 
 
@@ -30,13 +30,13 @@
 
 
 
-所以我们要先合成出一张长长的雪碧图。
+所以我们要先合成出一张长长长的雪碧图。
 
 ![anim-sprit](./images/twitter-heart/anim-spirit.png)
 
 
 
-来，现在做个“赞”三步走，来实现这个效果吧：
+现在来个三步走，就能实现这个效果了：
 
 1. 有一个 ```div``` 放爱心，这个 ```div``` 的背景图就是上面那张雪碧图。
 2. 构建一个 ```keyframe```  执行 ```background-position``` 动画，让背景图的位置从左移动到右。
@@ -44,7 +44,7 @@
 
 
 
-首先，让我们先来个 ```div```:
+首先，要有一个 ```div```:
 
 ``` html
 <div class=”heart”></div>
@@ -52,17 +52,17 @@
 
 
 
-再加上对应的样式
+还要有对应的样式
 
 ``` css
 .heart {
- cursor: pointer;
- height: 50px;
- width: 50px;
- background-image:url('https://abs.twimg.com/a/1446542199/img/t1/web_heart_animation.png');
- background-position: left;
- background-repeat:no-repeat;
- background-size:2900%;
+   cursor: pointer;
+   height: 50px;
+   width: 50px;
+   background-image:url('https://abs.twimg.com/a/1446542199/img/t1/web_heart_animation.png');
+   background-position: left;
+   background-repeat:no-repeat;
+   background-size:2900%;
 }
 ```
 
@@ -95,7 +95,7 @@
 
 
 
-*注意：动画需要添加浏览器前缀，保证兼容性，详情请看[这里](https://css-tricks.com/snippets/css/keyframe-animation-syntax/)*
+*注意：动画需要添加浏览器前缀，保证兼容性，兼容情况请看[这里](https://css-tricks.com/snippets/css/keyframe-animation-syntax/)*
 
 
 
@@ -105,7 +105,7 @@
 
 
 
-现在的动画看起来很奇怪，因为浏览器在执行序列帧动画，还记得爱心的 ```div```  背景图是一张很长的雪碧图吧，每一次我们都只能看到这个雪碧图的一部分。就好像从一个窗口往一个世界看，只能看到世界的一部分。序列帧动画就像窗口不懂，背后的世界在很流畅地流动。所以你会看到流动的整个过程。
+我知道现在的动画看着很奇怪，因为浏览器在执行序列帧动画，还记得爱心的 ```div```  背景图是一张很长的雪碧图吧，每一次我们都只能看到这个雪碧图的一部分。就好像从一个窗口往一个世界看，只能看到世界的一部分。序列帧动画就像窗口不动，背后的世界在很流畅地流动。所以你会看到流动的整个过程。
 
 
 
@@ -119,13 +119,13 @@
 
 
 
-现在我们的设定是一个28帧的定格动画，执行800毫秒：
+雪碧图上有29帧，所以要切换28次，也就是 ```steps(28)```，动画耗时800毫秒：
 
 ![](images/twitter-heart/effect01.gif)
 
 
 
-好的，动画已经做好了。现在要做的是事件绑定，就交给 jQuery 了：
+别忘了在用户点击爱心的时候，才会看到动画效果，所以我们还要绑定事件，这就交给 jQuery 了：
 
 ``` javascript
 $(“.heart”).on(‘click’, function(){
@@ -138,7 +138,7 @@ $(“.heart”).on(‘animationend’, function(){
 
 
 
-用户点击爱心之后，通过切换 ```is_animating```  class，来触发动画。
+用户点击爱心之后，通过切换 ```is_animating``` class，来切换动画。
 
 
 
@@ -146,7 +146,7 @@ $(“.heart”).on(‘animationend’, function(){
 
 
 
-最后的最后，要保证体验的完整，不要忘了加上 ```hover``` 态时的样式哦：
+最后的最后，要保证体验的完整，不要忘了加上 ```hover``` 态时的样式：
 
 ``` css
 .heart:hover {
@@ -170,7 +170,7 @@ Done！
 
 
 
-现在让我们来看看 [Nicolas Escoffier](https://medium.com/@OxyDesign) 的实现方法，这个方法…emm，很巧妙。用 Sass 模拟出了这颗爱心的动画。译者觉得 Escoffier 的文章里分析动画的那部分很有意义，希望可以分享到”如何去分析一个动画“。
+现在让我们来看看 [Nicolas Escoffier](https://medium.com/@OxyDesign) 的实现方法，这个方法很巧妙。他用 Sass 画出了这颗爱心，Escoffier 分析出这个动画分成了：爱心、环形和圆形，三个部分，在动画执行的过程中，这三个部分要不断发生变形，也就是不断计算。Escoffier 编写了一些 Sass 函数保证自动化的计算。
 
 
 
@@ -197,13 +197,15 @@ Done！
 
 
 
-接着再使用 ```color``` 和 ```overflow:hidden```：
+更改 ```color``` ，并将 ```overflow``` 设置为 ```hidden```：
+
+![](images/twitter-heart/pieces-color.png)
 
 
 
 #### 环形
 
-接下来，我们要看看如何实现环形的动画。通过设置不同的 ```border-size```、```width``` 和 ```height``` 就能画出各种各样的环形了。
+通过设置不同的 ```border-size```、```width``` 和 ```height``` 就能画出各种各样的环形了。
 
 ![](file:///images/twitter-heart/ring.png?lastModify=1452255169)
 
@@ -211,7 +213,7 @@ Done！
 
 #### 圆形
 
-第三步，圆形。将一个透明的圆形元素居中，然后给它加上阴影（```shadow-box```）。
+将一个透明的圆形元素居中，然后给它加上阴影（```shadow-box```）。
 
 ![](file:///images/twitter-heart/circles01.png?lastModify=1452255169)
 
@@ -225,7 +227,7 @@ Done！
 
 ### 爱心动画
 
-通过增减“爱心”元素的宽高比，并相应调整元素的 ```left``` 和 ```top``` 值，要保证其他和“爱心”元素有相对位置关系的元素的位置也校正好了。
+通过增减“爱心”元素的宽高比，并相应调整元素的 ```left``` 和 ```top``` 值，同时，不要忘了校正其他和“爱心”元素又相对位置关系的元素位置。
 
 ![](images/twitter-heart/heart-ani.png)
 
@@ -233,7 +235,7 @@ Done！
 
 #### 环形动画
 
-调整```边界```的大小以及其中的圆形的尺寸，并相应调整它们的位置和颜色。
+调整 ```border``` 的大小以及其中的圆形的尺寸，并相应调整它们的位置和颜色。
 
 ![](images/twitter-heart/ring-ani.png)
 
@@ -271,52 +273,73 @@ Done！
 
 
 
-为了方便阅读和更改，我写了一个 SASS 函数来处理它：
+为了方便阅读和更改，我写了一个 Sass 函数来处理它：
 
 ``` scss
-  @function setBoxShadow($distance1, $distance2, $size1, $size2, $shiftAngle, $colorRatio) {
-    $boxS: ();
+@function setBoxShadow($distance1, $distance2, $size1, $size2, $shiftAngle, $colorRatio) {
+  $boxS: ();
+  
+  @for $i from 1 through length($circles) {
+    $circle: nth($circles, $i);
+    $order: $i - 1;
+    $angle1: ($order * $angleBetweenCircles) + $shiftAngleBeginning;
+    $angle2: $angle1 + $shiftAngle;
+    $distanceRatio1: $size * $distance1;
+    $distanceRatio2: $size * $distance2;
+    $firstCircle: map-get($circle, first);
+    $firstCircleStart: map-get($firstCircle, start);
+    $firstCircleEnd: map-get($firstCircle, end);
+    $secondCircle: map-get($circle, second);
+    $secondCircleStart: map-get($secondCircle, start);
+    $secondCircleEnd: map-get($secondCircle, end);
+    
+    $boxS: append($boxS,
+      cos($angle1) * $distanceRatio1
+      sin($angle1) * $distanceRatio1
+      0
+      $circleSize * $size1
+      mix($firstCircleStart, $firstCircleEnd, $colorRatio)
+    );
 
-    @for $i from 1 through length($circles) {
-      $circle: nth($circles, $i);
-      $order: $i - 1;
-      $angle1: ($order * $angleBetweenCircles) + $shiftAngleBeginning;
-      $angle2: $angle1 + $shiftAngle;
-      $distanceRatio1: $size * $distance1;
-      $distanceRatio2: $size * $distance2;
-      $firstCircle: map-get($circle, first);
-      $firstCircleStart: map-get($firstCircle, start);
-      $firstCircleEnd: map-get($firstCircle, end);
-      $secondCircle: map-get($circle, second);
-      $secondCircleStart: map-get($secondCircle, start);
-      $secondCircleEnd: map-get($secondCircle, end);
-
-      $boxS: append($boxS,
-        cos($angle1) * $distanceRatio1
-        sin($angle1) * $distanceRatio1
-        0
-        $circleSize * $size1
-        mix($firstCircleStart, $firstCircleEnd, $colorRatio)
-      );
-
-      $boxS: append($boxS,
-        cos($angle2) * $distanceRatio2
-        sin($angle2) * $distanceRatio2
-        0
-        $circleSize * $size2
-        mix($secondCircleStart, $secondCircleEnd, $colorRatio)
-      );
-    }
-
-    @return join($boxS, (), "comma");
+    $boxS: append($boxS,
+      cos($angle2) * $distanceRatio2
+      sin($angle2) * $distanceRatio2
+      0
+      $circleSize * $size2
+      mix($secondCircleStart, $secondCircleEnd, $colorRatio)
+    );
   }
+  
+  @return join($boxS, (), "comma");
+}
 ```
 
 
 
-这个方法循环读取了所有的储存在 **SASS Map** 中的圆形，然后根据元素间的距离、尺寸、偏移角度以及颜色的变化程度，两个两个地（一大小两个圆）更新 ```box-shadow``` 的值，这些值都会以**变量**的形式传入。
+这个方法循环读取了所有的储存在 **Sass Map** 中的圆形，然后根据元素间的距离、尺寸、偏移角度以及颜色的变化程度，两个两个地（一大小两个圆）更新 ```box-shadow``` 的值，这些值都会以**变量**的形式传入。
 
 
 
-后面的动画和上文中的雪碧图动画大同小异，就不在这里提了，如果想要看 SASS 版的完整代码，请看[这里](http://codepen.io/OxyDesign/pen/avXVbo)。
+后面的动画和上文中的雪碧图动画大同小异，就不在这里提了，如果想要看 Sass 版的完整代码，请看[这里](http://codepen.io/OxyDesign/pen/avXVbo)。
 
+
+
+
+
+----------------------------------- 大写的不知道怎么转场的译者 -------------------------------
+
+在实际项目中，译者比较多用 ```background-position``` 的雪碧图动画做法，但是更改 ```background-position``` 将会引起重绘：
+
+![](images/twitter-heart/bgpos.png)
+
+
+
+看了一下 Twitter 的做法：将爱心这一层用 ```position:absolute``` 的方式，脱离了文档流，保证在执行爱心动画的时候，重绘不会影响到下文。
+
+
+
+Sass 的写法，会不断更改 ```border-radius``` 和 ```box-sizing```，虽然这个属性貌似和 ```background-position```  一样，只会引起重绘，但在实际项目中，译者发现这个属性很容易引起性能问题（特别是安卓上）。在 Escoffier 的原文评论里，也有人建议使用 ```transform: scale(x)``` 的方式。不过 ```left``` 和 ```top``` 也会被一直改变……总之性能上看，这个方法完全不可取T T。
+
+
+
+但是 Sass 的写法还是有意思的。
