@@ -1,4 +1,4 @@
-# Angular 2 vs React: 血腥对决
+# Angular 2 vs React: 冰与火之歌
 
 [Angular 2 has reached Beta](https://angular.io/) and appears poised to become the hot new framework of 2016. It’s time for a showdown. Let’s see how it stacks up against 2015’s darling: [React](https://facebook.github.io/react/).
 
@@ -48,11 +48,11 @@ Let’s start by considering Angular 2’s advantages over React.
 
 Since Angular is a framework, it provides significantly more opinions and functionality out of the box. With React, you typically pull a number of other libraries off the shelf to build a real app. You’ll likely want libraries for routing, enforcing unidirectional flows, web API calls, testing, dependency management, and so on. The number of decisions is pretty overwhelming. This is why React has so many starter kits (I’ve [published](https://github.com/coryhouse/react-flux-starter-kit) [two](https://github.com/coryhouse/react-slingshot)).
 
-Angular 是一个完整的框架，本身就提供了比 React 多得多的建议和功能。而要用 React，开发者通常还需要借助别的类库来打造一个真正的应用。比如你可能需要额外的库来处理路由、强制单向流、进行 API 调用、做测试以及管理依赖等等，等等。要做的选择和决定太多了，让人很有压力。这也是为什么 React 有那么多的入门套件（我自己就[写](https://github.com/coryhouse/react-flux-starter-kit)了[两个](https://github.com/coryhouse/react-slingshot)）。
+Angular 是一个完整的框架，本身就提供了比 React 多得多的建议和功能。而要用 React，开发者通常还需要借助别的类库来打造一个真正的应用。比如你可能需要额外的库来处理路由、强制单向数据流、进行 API 调用、做测试以及管理依赖等等。要做的选择和决定太多了，让人很有压力。这也是为什么 React 有那么多的入门套件的原因（我自己就写了两个：[1](https://github.com/coryhouse/react-flux-starter-kit)、[2](https://github.com/coryhouse/react-slingshot)）。
 
 Angular offers more opinions out of the box, which helps you get started more quickly without feeling intimidated by decisions. This enforced consistency also helps new hires feel at home more quickly and makes switching developers between teams more practical.
 
-Angular 提供了更多的建议，所以能够帮助你更快入门，不至于因为要做很多决定而无所适从。这种强制的一致性也能帮助新人更快适应其开发模式，并使得开发者在不同团队间切换更具可行性。
+Angular 自带了不少主张，所以能够帮助你更快开始，不至于因为要做很多决定而无所适从。这种强制的一致性也能帮助新人更快适应其开发模式，并使得开发者在不同团队间切换更具可行性。
 
 I admire how the Angular core team has embraced TypeScript, which leads to the next advantage…
 
@@ -64,7 +64,7 @@ Angular 核心团队让我非常欣赏的一点是，他们拥抱了 TypeScript�
 
 Sure, TypeScript isn’t loved by all, but Angular 2’s opinionated take on which flavor of JavaScript to use is a big win. React examples across the web are frustratingly inconsistent — it’s presented in ES5 and ES6 in roughly equal numbers, and it currently offers [three different ways to declare components](http://jamesknelson.com/should-i-use-react-createclass-es6-classes-or-stateless-functional-components/). This creates confusion for newcomers. (Angular also embraces decorators instead of extends — many would consider this a plus as well).
 
-没错，并非所有人都喜欢 TypeScript，但是 Angular 2 毅然决然地选择它确实高出 React 一大截。反观 React，网上的各种示例应用令人咋舌地不一致——ES5 和 ES6 的项目基本上各占一半，而且目前存在[三种不同的组件声明方式](http://jamesknelson.com/should-i-use-react-createclass-es6-classes-or-stateless-functional-components/)。这无疑给初学者造成了困惑。（Angular 还拥抱了装饰器（decorator）而不是继承（extends）——很多人认为这也是个加分项）。
+没错，并非所有人都喜欢 TypeScript，但是 Angular 2 毅然决然地选择了它确实是个巨大的优势。反观 React，网上的各种示例应用令人沮丧地不一致——ES5 和 ES6 的项目基本上各占一半，而且目前存在[三种不同的组件声明方式](http://jamesknelson.com/should-i-use-react-createclass-es6-classes-or-stateless-functional-components/)。这无疑给初学者造成了困惑。（Angular 还拥抱了装饰器（decorator）而不是继承（extends）——很多人认为这也是个加分项）。
 
 While Angular 2 doesn’t require TypeScript, the Angular core team certainly embraces it and defaults to using TypeScript in documentation. This means related examples and open source projects are more likely to feel familiar and consistent. Angular already provides [clear examples that show how to utilize the TypeScript compiler](https://angular.io/docs/ts/latest/quickstart.html). (though admittedly, [not everyone is embracing TypeScript](http://angularjs.blogspot.com/2015/09/angular-2-survey-results.html) yet, but I suspect shortly after launch it’ll become the de facto standard). This consistency should help avoid the confusion and decision overload that comes with getting started with React.
 
