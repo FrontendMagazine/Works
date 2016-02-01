@@ -32,7 +32,7 @@ Sigh. Yes, Angular is a framework, React is a library. Some say this difference 
 
 This post considers the merits of these two approaches. I compare React’s syntax and component model to Angular’s syntax and component model. This is like comparing an off-the-shelf computer’s CPU to a raw CPU. Apples to apples.
 
-两者的优缺点本文都会提及，我会拿 React 语法和组件模型跟 Angular 的组件模型做对比。这就像是拿成品电脑的 CPU 跟零售的 CPU 做对比，没有任何不妥。
+两者的优缺点本文都会提及，我会拿 React 语法和组件模型跟 Angular 的语法和组件模型做对比。这就像是拿成品电脑的 CPU 跟零售的 CPU 做对比，没有任何不妥。
 
 ## Angular 2 Advantages
 
@@ -117,7 +117,7 @@ Alright, let’s consider what sets React apart.
 
 JSX is an HTML-like syntax that compiles down to JavaScript. Markup and code are composed in the same file. This means code completion gives you a hand as you type references to your component’s functions and variables. In contrast, Angular’s string-based templates come with the usual downsides: No code coloring in many editors, limited code completion support, and run-time failures. You’d normally expect poor error messaging as well, but the Angular team [created their own HTML parser to fix that](https://github.com/angular/angular/issues/4417). (Bravo!)
 
-JSX 是一种类似 HTML 的语法，但它实际上会被编译成 JavaScript。将标签与代码混写在同一个文件中意味着输入一个组件的函数或者变量时你将享受到自动补全的福利。而 Angular 基于字符串的模版就相形见绌了：很多编辑器都不会高亮它们（只会显示单色）、只有有限的代码补全支持，并且一直到运行时才会报错。并且，你能期待的错误提示也只有很可怜的一丁点。不过，Angular 的团队[造了一个自己的 HTML 解析器来解决这个问题](https://github.com/angular/angular/issues/4417)。（叼叼叼！）
+JSX 是一种类似 HTML 的语法，但它实际上会被编译成 JavaScript。将标签与代码混写在同一个文件中意味着输入一个组件的函数或者变量时你将享受到自动补全的福利。而 Angular 基于字符串的模版就相形见绌了：很多编辑器都不会高亮它们（只会显示单色）、只有有限的代码补全支持，并且一直到运行时才会报错。并且，通常你也只能得到很有限的错误提示。不过，Angular 的团队[造了一个自己的 HTML 解析器来解决这个问题](https://github.com/angular/angular/issues/4417)。（叼叼叼！）
 
 If you don’t like Angular string-based templates, you can move the templates to a separate file, but then you’re back to what I call “the old days:” wiring the two files together in your head, with no code completion support or compile-time checking to assist. That doesn’t seem like a big deal until you’ve enjoyed life in React. Composing components in a single ***compile-time checked*** file is one of the big reasons JSX is so special.
 
@@ -129,7 +129,7 @@ If you don’t like Angular string-based templates, you can move the templates t
 
 Contrasting how Angular 2 and React handle a missing closing tag
 
-对比 Angular 2 与 React 在标签忘记闭合时是如何表现得。
+对比 Angular 2 与 React 在标签忘记闭合时是如何表现的。
 
 For more on why JSX is such a big win, see [JSX: The Other Side of the Coin](https://medium.com/@housecor/react-s-jsx-the-other-side-of-the-coin-2ace7ab62b98#.5007n49wq).
 
@@ -166,7 +166,7 @@ Here’s why…
 
 这种分歧带来的影响真是再怎么强调也不为过。它们从根本上影响着开发体验。Angular 以 HTML 为中心的设计留下了巨大的缺陷。正如我在 [JSX：硬币的另一面](https://medium.com/@housecor/react-s-jsx-the-other-side-of-the-coin-2ace7ab62b98#.jqh5kkxlk) 中所说的，JavaScript 远比 HTML 要强大。因此，**增强 JavaScript 让其支持标签要比增强 HTML 让其支持逻辑要合理得多**。无论如何，HTML 与 JavaScript 都需要某种方式以粘合在一起。React 以 JavaScript 为中心的思路从根本上优于 Angular、Ember、Knockout 这些以 HTML 为中心的思路。
 
-让我们来看看为什么
+让我们来看看为什么。
 
 #### React’s JavaScript-centric design = simplicity
 
@@ -184,7 +184,7 @@ Angular 2 延续了 Angular 1 试图让 HTML 更加强大的老路子。所以�
 
 In React, binding markup doesn’t change based on this decision (it’s handled elsewhere, as I’d argue it should be). In either case, it looks like this:
 
-在 React 中，对标签进行数据绑定的方式是一如既往的（这个语法还在其它各种场合通用，不得不说我觉得理应如此）。无论你想做什么，都是这样的：
+在 React 中，数据绑定语法不取决于数据流的单双向（数据绑定的单双向是在其他地方处理的，不得不说我觉得理应如此）。不管是单向还是双向数据流，绑定语法都是这样的：
 
     {myVar}
 
@@ -256,7 +256,7 @@ React 因为语法和概念的简约而与众不同。我们不妨品味下当�
 
 All except React use framework specific replacements for something that is native and trivial in JavaScript: **a loop**. That’s the beauty of React. It embraces the power of JavaScript to handle markup, so no odd new syntax is required.
 
-除了 React，所有其它框架都用自己的专有语法重新发明了一个我们在 JavaScript 常见的不能再常见的东西：**循环**。这大概就是 React 的美妙之处，利用 JavaScript 的力量来处理标签，而不是什么奇怪的新语法。
+除了 React，所有其它框架都用自己的专有语法重新发明了一个我们在 JavaScript 常见得不能再常见的东西：**循环**。这大概就是 React 的美妙之处，利用 JavaScript 的力量来处理标签，而不是什么奇怪的新语法。
 
 
 Angular 2’s syntactic oddities continue with click binding:
@@ -304,7 +304,7 @@ Here’s the sizes of some popular frameworks and libraries, minified ([source](
 
 **Edit**: Sorry, I had incorrect numbers earlier that were for simple ToDoMVC apps instead of the raw frameworks. Also, the Angular 2 number is expected to drop for the final release. The sizes listed are for the framework, minified, in the browser (no gzip is factored in here).
 
-列出的都是框架级的、用于浏览器且压缩后的大小（但并未 gzip）。需要补充的是，Angular 2 的尺寸在最终版本发布时应该会有下降。
+列出的都是框架级的、用于浏览器且压缩后的大小（但并未 gzip）。需要补充的是，Angular 2 的尺寸在最终版本发布时应该会有所减小。
 
 To make a real comparison, I built Angular 2’s Tour of Heroes app in both Angular 2 and React (I used the new [React Slingshot](https://github.com/coryhouse/react-slingshot) starter kit). The result?
 
@@ -317,7 +317,7 @@ To make a real comparison, I built Angular 2’s Tour of Heroes app in both Angu
 
 So **Angular 2 is currently over four times the size of a React + Redux app of comparable simplicity**. (Again, Angular 2 is expected to lose some weight before the final release).
 
-可以看到，**做一个差不多的东西，Angular 2 目前的尺寸是 React + Redux 的四倍还多**（译者：这不是五倍还多吗……）。重要的事情再说一遍，Angular 2 的尺寸在最终版本发布时应该会有下降。
+可以看到，**做一个差不多的东西，Angular 2 目前的尺寸是 React + Redux 的五倍还多**。重要的事情再说一遍，Angular 2 的最终版本应该会减重。
 
 
 Now that said, I admit that concerns about the size of frameworks may be overblown:
@@ -337,7 +337,7 @@ Now that said, I admit that concerns about the size of frameworks may be overblo
 
 Tom is right. Frameworks like Angular and Ember are bigger because they offer many more features out of the box.
 
-Tom 的观点是对的。像 Angular、Ember 这样的框架之所以更大是因为它们自带了更多的功能
+Tom 的观点是对的。像 Angular、Ember 这样的框架之所以更大是因为它们自带了更多的功能。
 
 However, my concern is this: many apps don’t need everything these large frameworks put in the box. In a world that’s increasingly embracing microservices, microapps, and [single-responsibility packages](http://www.npmjs.com), **React gives you the power to “right-size” your application by carefully selecting only what is necessary**. In a world with [over 200,000 npm modules](http://www.modulecounts.com), that’s a powerful place to be.
 
@@ -349,7 +349,7 @@ However, my concern is this: many apps don’t need everything these large frame
 
 React is a library. It’s precisely the opposite philosophy of large, comprehensive frameworks like Angular and Ember. So when you select React, you’re free to choose modern best-of-breed libraries that solve your problem best. JavaScript moves fast, and React allows you to swap out small pieces of your application for better libraries instead of waiting around and hoping your framework will innovate.
 
-React 是一个类库。它的哲学与 Angular、Ember 这些大而全的框架恰恰相反。你可以根据场景挑选各种时髦的类库，搭配出你的最佳组合。JavaScript 世界在飞速发展，React 允许你不断用更好的类库去迭代你应用中的每个小部分，而不是傻等着你选择的框架自己升级
+React 是一个类库。它的哲学与 Angular、Ember 这些大而全的框架恰恰相反。你可以根据场景挑选各种时髦的类库，搭配出你的最佳组合。JavaScript 世界在飞速发展，React 允许你不断用更好的类库去迭代你应用中的每个小部分，而不是傻等着你选择的框架自己升级。
 
 
 Unix has stood the test of time. Here’s why:
@@ -358,7 +358,7 @@ Unix 久经沙场屹立不倒，原因就是：
 
 > The philosophy of small, composable, single-purpose tools never goes out of style.
 
-> 小而美、可组合、目的单一，这种哲学永远不会过时
+> 小而美、可组合、目的单一，这种哲学永远不会过时。
 
 
 React is a focused, composable, single-purpose tool used by [many of the largest websites in the world](https://github.com/facebook/react/wiki/Sites-Using-React). That bodes well for its future (That said, Angular is [used by many big names](https://www.madewithangular.com/#/) too).
@@ -371,8 +371,9 @@ React 作为一个专注、可组合并且目的单一的工具，已经被[全�
 
 Angular 2 is a huge improvement over version 1. The new component model is simpler to grasp than v1’s directives, it supports isomorphic/universal rendering, and it uses a virtual DOM offering 3–10x improvements in performance. These changes make Angular 2 very competitive with React. There’s no denying that its full-featured, opinionated nature offers some clear benefits by reducing “JavaScript fatigue”.
 
-Angular 2 相比第一代有着长足的进步。新的组件模型比第一代的指令（directives）容易掌握许多；新增了对于同构／服务器端渲染的支持；使用虚拟 DOM 提供了 3-10 倍的性能提升。这些改进使得 Angular 2 与 React 旗鼓相当。不可否认，它的功能齐全、观点鲜明对于减少 “JavaScript 疲劳” 来说真的很杰出。
+Angular 2 相比第一代有着长足的进步。新的组件模型比第一代的指令（directives）容易掌握许多；新增了对于同构／服务器端渲染的支持；使用虚拟 DOM 提供了 3-10 倍的性能提升。这些改进使得 Angular 2 与 React 旗鼓相当。不可否认，它功能齐全、观点鲜明，能够显著减少 “JavaScript 疲劳” 。
 
 However, Angular 2’s size and syntax give me pause. Angular’s commitment to HTML-centric design makes it complex compared to React’s simpler JavaScript-centric model. In React, you don’t learn framework-specific HTML shims like ngWhatever. You spend your time writing plain ‘ol JavaScript. That’s the future I believe in.
 
 不过，Angular 2 的大小和语法都让我望而却步。Angular 致力的 HTML 中心设计比 React 的 JavaScript 中心模型要复杂太多。在 React 中，你并不需要学习 `ng-什么什么` 这种框架特有的 HTML 补丁（shim），你只要写 JavaScript 就好了。这才是我相信的未来。
+
