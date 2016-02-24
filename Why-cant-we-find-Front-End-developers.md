@@ -2,11 +2,11 @@
 
 # 为什么整个互联网行业都缺前端工程师？
 
-> 本文来自 100offer 团队原创投稿，转载需授权。封面图片出自：www.adhamdannaway.com  部分内容译自：http://jjperezaguinaga.com/
+> 本文来自 100offer 团队原创投稿，转载需授权。部分内容译自：[Why can't we find Front End developers?](https://jjperezaguinaga.com/articles/2014/03/19/why-cant-we-find-front-end-developers/)。
 
 前端工程师的缺乏问题几乎蔓延到整个互联网行业，从刚起步的创业公司，到上市公司乃至巨头，这个问题都存在着。没错，优秀的前端工程师简直比大熊猫还稀少。
 
-每天，100offer 的 HR 群都有人在吐槽招不到靠谱的前端工程师。实话说对这些需求， 我们 100offer 也无能为力：在供不应求的前端招聘市场上，优秀的前端工程师才是有话语权的那一方。
+每天，100offer 的 HR 群都有人在吐槽招不到靠谱的前端工程师。实话说对这些需求，100offer 也无能为力：在供不应求的前端招聘市场上，优秀的前端工程师才是有话语权的那一方。
 
 在国外，前端工程师一样是需求旺盛、供不应求的香饽饽。
 
@@ -34,20 +34,13 @@ HTML5 可以说是最热门的前端岗位了，在 2010 年和 2014 年底有�
 
 ![](images/css.png)
 
-
-
 很显然，要处理大量的 Web 应用程序需求，技术任务就要进行分类，以便于多人同时处理网站请求。事实上现在已经不可能一个人快速地解决所有的技术细节了。
-
-
 
 现在还有一类人是独自处理一个 Web 应用程序的所有问题，即「全栈工程师」，但是优秀的全栈工程师同样如大熊猫一般数量稀少。
 
 ![](images/in-a-web-product.png)
 
-
-
 现在，一个创业公司想要成功，几乎要覆盖一个 Web 应用程序的诸多技术方面：前端、后台、DBA、运营等。虽然已经有一些服务可以让企业购买登陆页面的前端模块和组件；但是如果你想要创造一些真正的 Web 应用程序，除了求助前端工程师，别无他法，就像你要创立一个品牌你也绕不开请一位设计师一样。
-
 
 
 ## 原因二：对前端，普遍存在巨大的误解，其实前端一点也不简单
@@ -82,44 +75,37 @@ HTML5 可以说是最热门的前端岗位了，在 2010 年和 2014 年底有�
 
 糟糕的前端工程师：
 
-1、滥用 JS 库，因为他们实际上并不了 JS 的内部（e.g. 一切都用 jQuery）；
+1. JavaScript 类库乱用，对 JavaScript 本身并不了解，什么地方都用 jQuery；
+2. 滥用 JavaScript 插件，看都不看看就把别人的代码拿过来用，比如说；
+3. 不看需求，不做任何的比较和测试，就把CSS 框架加到项目中，但只用了其中 5% 的功能；
+4. 认为添加个 CSS Framework，网站就可以变成“响应式的”，或者响应式就像是一些小作料，随便就可以加入到一个网页应用中；
+5. 嘴上喊着“响应式的 Web 设计”，但服务端技术一点都不懂；
+6. 编写的 CSS 没有任何规范标准，不使用任何预处理器，也没有最佳实践。CSS 代码中充满了过度使用的选择器、ID、神奇的数字以及 `!important`；
+7. 不关心代码的性能和内存泄露（什么是_真正_的内存泄露也不清楚）,不会对代码进行性能测试；
+8. 对产品没有任何的衡量指标，或者把“在我的电脑/浏览器/移动设备上可以工作”为指标；
+9. 忽视30年的软件工程实践，毫无章法的开发软件。
 
-2、滥用 JS 插件，抄别人的代码哪怕自己根本读不懂（e.g. jQuery.doParallaxPls.js）；
+要知道，入门容易精通难，计算机和软件的基础对你用 JS 或浏览器编程都非常重要。web 可能是最有影响力的平台和环境之一，在那里执行的程序必须被小心对待。**一位优秀的前端工程师不仅要考虑 web 技术和语言，并且还要了解所有不同的组件、系统和概念**。
 
-3、给 Web 应用程序添加 CSS 框架，却只用到 CSS/JS 的5%，没有看到任何的需求、设计或者比较和评价；
+顶级前端工程师需要具备的经验和最佳实践（**这才是市场急需的前端**）：
 
-4、认为只要添加了CSS 框架，网站就可以「有求必应」；
-
-5、一边在说着「响应式 web 设计」，却对服务器端技术一无所知；
-
-6、用 CSS 编程时不管预处理器、命名规范等，却用不合适的 selector/ids/magic numbers 等；
-
-7、忽视表现、内存泄露（并不理解内存泄露的真正含义），不会检测代码；
-
-8、不会用指标衡量一个产品，或者这种指标旨在自己的电脑、浏览器、设备有效；
-
-9、忽视软件技术。
-
-要知道，入门容易精通难，计算机和软件的基础对你用JS或浏览器编程都非常重要。web 可能是最有影响力的平台和环境之一，在那里执行的程序必须被小心对待。**一位优秀的前端工程师不仅要考虑 web 技术和语言，并且还要了解所有不同的组件、系统和概念**。
-
-以下是优秀的前端工程师在即时面对普通的任务也会做的事情（**这才是市场急需的前端**）：
-
-1. DNS 解析、使用 CDN 和关于 multiple Hostnames as part of resources request.
-2. HTTP Headers (Expires, Cache-Control, If-Modified-Since)
-3. Steve Souders 的所有规则(High Performance Websites)
-4. 如何解决 PageSpeed, YSlow, Chrome Dev Tools Audit, Chrome Dev Tools Timeline 显示的所有问题；
-5. 何时把任务传到服务器和客户端；
-6. 缓存，预取和负荷技术的使用；
-7. Native JS，知道何时从头开始做，何时查找别人的代码，同时可以评估这样做的优缺点；
-8. modern MVC Javascript libraries (e.g. AngularJS, EmberJS, ReactJS), graphic libraries (e.g. D3, SnapSVG), DOM manipulation libraries (e.g. jQuery, Zepto), lazy loading or package management libraries (e.g. RequireJS, CommonJS), task managers (e.g. Grunt, Gulp), package managers (e.g. Bower, Componentjs) and testing (e.g. Protractor, Selenium) 的相关知识和用法；
-9. CSS 标准、modern conventions、 strategies (e.g. BEM, SMACSS, OOCSS) 的知识和用法；
-10. JS 的电脑知识（内存管理，单线程的性质，垃圾收集算法，超时，范围，提升，模式）
+1. 了解 DNS 解析，充分利用 CDN，使用多个域名来完成资源的请求以缩短加载时间；
+2. 设置 HTTP Headers（Expires, Cache-Control, If-Modified-Since）；
+3. 遵循 Steve Souders 给出的全部规则（High Performance Websites）
+4. 知道如何解决 PageSpeed、YSlow、Chrome Dev Tools Audit、Chrome Dev Tools Timeline 显示的所有问题；
+5. 知道什么任务该放在服务端，什么任务该放在客户端；
+6. 知道使用缓存，DNS 预取和资源预加载技巧；
+7. 精通 JavaScript，知道何时自己写何时借组别人的框架或代码，优劣明辨；
+8. 熟练使用现代 MVC JavaScript 框架（例如 AngularJS EmberJS React 等），图形库（D3、SnapSVG 等），DOM 操作类库（jQuery、Zepto 等），惰性加载或者模块管理类库（例如 RequireJS、CommonJS 等），任务调用工具（例如 Grunt Gulp 等），包管理工具（Bower Componentjs）以及测试工具（Protractor、Selenium 等）；
+9. 掌握图片的格式，每种格式的优点，适用的场景；知道图片优化技巧以及加载策略（雪碧图、懒加载、缓存刷新以及 PNG 交错）；
+10. 熟悉 CSS 标准、最新的转换工具积极策略规范（比如 EDM、SMACSS、OOCSS 等）；
+11. JavaScript 的计算机科学（内存管理、单进程特性、垃圾回收算法、定时器、作用域、提升以及设计模式）。
 
 换句话说，如果说精通 HTML+CSS+JS，了解后端知识，只是60分的合格前端；那么要想成为受追捧、拿高薪的80分优秀前端，要对业务需求和、架构设计有真正的运用；**而100分的顶级前端，则必须要能够兼顾技术和设计，更接近「以前端开发为主的全栈工程师」了**。
 
-## 100offer 说：市场不是缺少前端，而是缺少优秀的前端工程师
+## 市场不是缺少前端，而是缺少优秀的前端工程师
 
-现在，前端工程师终于前所未有的在 web 中占有了一席之地。随着多设备、浏览器和Web标准的演变革命，**前端正在成为兼顾逻辑、性能、交互、体验的综合性岗位**。
+现在，前端工程师终于在 web 中占有了一席之地。随着多设备、浏览器和Web标准的演变革命，**前端正在成为兼顾逻辑、性能、交互、体验的综合性岗位**。
 
 虽然现在互联网行业普遍缺少前端工程师，但是我们相信越来越多的人将会加入前端的大军。不仅是因为大多数前端工作提供的优渥薪水和办公环境，也是因为web中的前端编程变得越来越有挑战和意义。
 
