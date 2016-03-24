@@ -1,4 +1,6 @@
-# 前端外刊评论协作翻译项目
+# 前端外刊评论协作翻译项目【已废弃】
+
+> 该项目已经废弃，已迁移至 [FrontendMagazine.github.io](https://github.com/FrontendMagazine/FrontendMagazine.github.io)，请将原创或者译作提交到 `FrontendMagazine.github.io` 项目的 `src/_posts/_doing` 目录。
 
 ## 原则
 
